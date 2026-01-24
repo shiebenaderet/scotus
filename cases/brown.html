@@ -19,7 +19,6 @@
         <div class="container">
             <ul>
                 <li><a href="#background">Background</a></li>
-                <li><a href="#arguments">Arguments</a></li>
                 <li><a href="#activity">Argument Activity</a></li>
                 <li><a href="#resources">Resources</a></li>
                 <li><a href="../index.html">← Back to Home</a></li>
@@ -135,75 +134,6 @@
             </div>
         </section>
 
-        <!-- Arguments Section -->
-        <section id="arguments" class="case-section">
-            <div class="container">
-                <div class="section-header">
-                    <h2>The Arguments</h2>
-                    <p class="section-subtitle">Legal reasoning from both sides</p>
-                </div>
-
-                <div class="arguments-grid">
-                    <div class="argument-side">
-                        <h3 class="side-title side-petitioner">Brown Family's Arguments</h3>
-
-                        <!-- Standard -->
-                        <div class="content-block standard active">
-                            <ul class="argument-list">
-                                <li>The Fourteenth Amendment's Equal Protection Clause requires that all people be treated equally under the law【8】</li>
-                                <li>Segregation inherently implies that one race is inferior to another, making "separate but equal" impossible【9】</li>
-                                <li>Research shows that segregation causes psychological harm to Black children【10】</li>
-                                <li>Education is too important to allow racial discrimination in public schools【11】</li>
-                                <li>Even when facilities appear equal, segregated schools are inferior in intangible ways</li>
-                                <li>Government cannot classify and separate people based on their race</li>
-                            </ul>
-                        </div>
-
-                        <!-- Simplified -->
-                        <div class="content-block simplified hidden">
-                            <ul class="argument-list">
-                                <li>Keeping kids apart because of skin color is wrong</li>
-                                <li>It makes Black kids feel bad about themselves</li>
-                                <li>"Separate but equal" is not really equal</li>
-                                <li>Black kids' schools are not as good as white kids' schools</li>
-                                <li>All kids should go to school together</li>
-                                <li>The Constitution says all people should be treated the same</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="argument-side">
-                        <h3 class="side-title side-respondent">Board of Education's Arguments</h3>
-
-                        <!-- Standard -->
-                        <div class="content-block standard active">
-                            <ul class="argument-list">
-                                <li>The "separate but equal" rule has been the law since 1896 and has worked for many years【12】</li>
-                                <li>Both Black and white schools have similar buildings, teachers, and educational materials</li>
-                                <li>Forcing integration could cause social problems and conflicts in communities</li>
-                                <li>States should have the right to organize their school systems based on local customs and traditions</li>
-                                <li>The Fourteenth Amendment was not originally intended to require integrated schools</li>
-                                <li>"Separate but equal" has worked effectively for nearly 60 years without major problems</li>
-                                <li>The Constitution requires equal treatment, not necessarily identical treatment</li>
-                            </ul>
-                        </div>
-
-                        <!-- Simplified -->
-                        <div class="content-block simplified hidden">
-                            <ul class="argument-list">
-                                <li>The law says "separate but equal" is okay</li>
-                                <li>Both schools have buildings and teachers</li>
-                                <li>This is how things have always been done</li>
-                                <li>Changing now would cause problems</li>
-                                <li>Parents might get upset if kids go to school together</li>
-                                <li>The schools are equal, so there is no problem</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <!-- Argument Activity -->
         <section id="activity" class="case-section">
             <div class="container">
@@ -213,13 +143,7 @@
                 </div>
 
                 <div class="activity-instructions">
-                    <p><strong>Instructions:</strong> Read each argument below and decide which side it helps:</p>
-                    <ul>
-                        <li><strong>B</strong> = Helps Brown Family</li>
-                        <li><strong>S</strong> = Helps School Board</li>
-                        <li><strong>b</strong> = Helps Both</li>
-                        <li><strong>x</strong> = Helps Neither</li>
-                    </ul>
+                    <p><strong>Instructions:</strong> Read each argument below and select which side it helps from the dropdown menu. When you're finished, click "Check Answers" to see your results.</p>
                 </div>
 
                 <div class="argument-sorting-table">
@@ -231,53 +155,137 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr data-correct-answer="B" data-explanation="This directly supports the Brown family's argument that segregation violates equal protection under the law.">
                                 <td>The Fourteenth Amendment requires that all people be treated equally under the law.</td>
-                                <td class="answer-cell">B</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="B">Helps Brown Family</option>
+                                        <option value="S">Helps School Board</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="S" data-explanation="This supports the School Board's position that the existing legal precedent should be maintained.">
                                 <td>The "separate but equal" rule has been the law since 1896 and has worked for many years.</td>
-                                <td class="answer-cell">S</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="B">Helps Brown Family</option>
+                                        <option value="S">Helps School Board</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="B" data-explanation="This supports the Brown family's argument that segregation inherently creates inequality and stigma.">
                                 <td>Separating people by race automatically suggests that one race is inferior to another.</td>
-                                <td class="answer-cell">B</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="B">Helps Brown Family</option>
+                                        <option value="S">Helps School Board</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="S" data-explanation="This supports the School Board's argument that the schools are equal in quality, meeting the 'separate but equal' standard.">
                                 <td>Both Black and white schools have similar buildings, teachers, and educational materials.</td>
-                                <td class="answer-cell">S</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="B">Helps Brown Family</option>
+                                        <option value="S">Helps School Board</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="B" data-explanation="This supports the Brown family's argument that segregation causes real harm, even when facilities appear equal.">
                                 <td>Research shows that segregation causes psychological harm to Black children.</td>
-                                <td class="answer-cell">B</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="B">Helps Brown Family</option>
+                                        <option value="S">Helps School Board</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="S" data-explanation="This supports the School Board's argument that integration would create practical problems and disruption.">
                                 <td>Forcing integration could cause social problems and conflicts in communities.</td>
-                                <td class="answer-cell">S</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="B">Helps Brown Family</option>
+                                        <option value="S">Helps School Board</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="B" data-explanation="This supports the Brown family's argument that education is fundamental and must be free from discrimination.">
                                 <td>Education is too important to allow racial discrimination in public schools.</td>
-                                <td class="answer-cell">B</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="B">Helps Brown Family</option>
+                                        <option value="S">Helps School Board</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="S" data-explanation="This supports the School Board's argument for states' rights and local control over education.">
                                 <td>States should have the right to organize their school systems based on local traditions.</td>
-                                <td class="answer-cell">S</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="B">Helps Brown Family</option>
+                                        <option value="S">Helps School Board</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="B" data-explanation="This supports the Brown family's argument that segregation creates intangible inequalities beyond physical facilities.">
                                 <td>Even when facilities look equal, segregated schools are inferior in reputation and opportunities.</td>
-                                <td class="answer-cell">B</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="B">Helps Brown Family</option>
+                                        <option value="S">Helps School Board</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="S" data-explanation="This supports the School Board's argument based on the original intent of the Fourteenth Amendment.">
                                 <td>The Fourteenth Amendment was not originally intended to require integrated schools.</td>
-                                <td class="answer-cell">S</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="B">Helps Brown Family</option>
+                                        <option value="S">Helps School Board</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="B" data-explanation="This supports the Brown family's argument that racial classification by government is unconstitutional.">
                                 <td>Government cannot classify and separate people based on their race.</td>
-                                <td class="answer-cell">B</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="B">Helps Brown Family</option>
+                                        <option value="S">Helps School Board</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="S" data-explanation="This supports the School Board's argument that the existing system has functioned well and should continue.">
                                 <td>"Separate but equal" has worked effectively for nearly 60 years without major problems.</td>
-                                <td class="answer-cell">S</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="B">Helps Brown Family</option>
+                                        <option value="S">Helps School Board</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
                         </tbody>
                     </table>

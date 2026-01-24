@@ -19,7 +19,6 @@
         <div class="container">
             <ul>
                 <li><a href="#background">Background</a></li>
-                <li><a href="#arguments">Arguments</a></li>
                 <li><a href="#activity">Argument Activity</a></li>
                 <li><a href="#resources">Resources</a></li>
                 <li><a href="../index.html">← Back to Home</a></li>
@@ -118,66 +117,6 @@
             </div>
         </section>
 
-        <!-- Arguments Section -->
-        <section id="arguments" class="case-section">
-            <div class="container">
-                <div class="section-header">
-                    <h2>The Arguments</h2>
-                    <p class="section-subtitle">Legal reasoning from both sides</p>
-                </div>
-
-                <div class="arguments-grid">
-                    <div class="argument-side">
-                        <h3 class="side-title side-petitioner">Payton's Arguments</h3>
-
-                        <!-- Standard -->
-                        <div class="content-block standard active">
-                            <ul class="argument-list">
-                                <li>The Fourth Amendment protects people's homes from unreasonable searches and seizures</li>
-                                <li>The Supreme Court has always required warrants before police can search inside homes</li>
-                                <li>If police can arrest people in homes without warrants, it would make the warrant requirement meaningless</li>
-                                <li>A person's home deserves the strongest protection under the Fourth Amendment</li>
-                                <li>Getting a warrant would not create a big burden - police already need probable cause</li>
-                            </ul>
-                        </div>
-
-                        <!-- Simplified -->
-                        <div class="content-block simplified hidden">
-                            <ul class="argument-list">
-                                <li>The Constitution says homes are special places</li>
-                                <li>Police should get permission before going into someone's house</li>
-                                <li>Without permission, people's homes are not safe</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="argument-side">
-                        <h3 class="side-title side-respondent">New York's Arguments</h3>
-
-                        <!-- Standard -->
-                        <div class="content-block standard active">
-                            <ul class="argument-list">
-                                <li>Police have historically been allowed to arrest suspects in public places with probable cause</li>
-                                <li>Criminals might destroy evidence or escape if police have to wait for a warrant</li>
-                                <li>Prior to this case, many states allowed warrantless home arrests</li>
-                                <li>Common law historically allowed arrests in homes without warrants</li>
-                                <li>The exigent circumstances exception allows warrantless entry in emergencies</li>
-                            </ul>
-                        </div>
-
-                        <!-- Simplified -->
-                        <div class="content-block simplified hidden">
-                            <ul class="argument-list">
-                                <li>Police need to catch bad guys quickly</li>
-                                <li>Waiting for permission takes too long</li>
-                                <li>Bad guys might run away or hide things</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <!-- Argument Activity -->
         <section id="activity" class="case-section">
             <div class="container">
@@ -187,13 +126,7 @@
                 </div>
 
                 <div class="activity-instructions">
-                    <p><strong>Instructions:</strong> Read each argument below and decide which side it helps:</p>
-                    <ul>
-                        <li><strong>P</strong> = Helps Payton</li>
-                        <li><strong>N</strong> = Helps New York</li>
-                        <li><strong>B</strong> = Helps Both</li>
-                        <li><strong>X</strong> = Helps Neither</li>
-                    </ul>
+                    <p><strong>Instructions:</strong> Read each argument below and select which side it helps from the dropdown menu. When you're finished, click "Check Answers" to see your results.</p>
                 </div>
 
                 <div class="argument-sorting-table">
@@ -205,53 +138,137 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr data-correct-answer="P" data-explanation="This directly supports Payton's position that homes deserve constitutional protection from government intrusion.">
                                 <td>The Fourth Amendment protects people's homes from unreasonable government searches.</td>
-                                <td class="answer-cell">P</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="P">Helps Payton</option>
+                                        <option value="N">Helps New York</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="N" data-explanation="This supports New York's position that police had good reasons to arrest Payton, even without a warrant.">
                                 <td>Police had strong evidence that Payton committed murder based on witness statements.</td>
-                                <td class="answer-cell">N</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="P">Helps Payton</option>
+                                        <option value="N">Helps New York</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="P" data-explanation="This precedent supports Payton's argument that warrants are required for home entries.">
                                 <td>The Supreme Court has consistently required warrants for searches of homes.</td>
-                                <td class="answer-cell">P</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="P">Helps Payton</option>
+                                        <option value="N">Helps New York</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="P" data-explanation="This supports Payton's argument that allowing warrantless home arrests would undermine Fourth Amendment protections.">
                                 <td>Allowing warrantless arrests in homes would effectively eliminate the warrant requirement.</td>
-                                <td class="answer-cell">P</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="P">Helps Payton</option>
+                                        <option value="N">Helps New York</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="N" data-explanation="This supports New York's argument that warrantless arrests are acceptable, though the location matters.">
                                 <td>Police have traditionally had the power to arrest suspects without warrants in public places.</td>
-                                <td class="answer-cell">N</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="P">Helps Payton</option>
+                                        <option value="N">Helps New York</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="N" data-explanation="This supports New York's argument that requiring warrants could allow suspects to escape or destroy evidence.">
                                 <td>The suspect could destroy evidence or flee if police had to wait for a warrant.</td>
-                                <td class="answer-cell">N</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="P">Helps Payton</option>
+                                        <option value="N">Helps New York</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="N" data-explanation="This supports New York's position that arrests are different from searches and may not require warrants.">
                                 <td>There is an important difference between searching a home and entering to arrest someone.</td>
-                                <td class="answer-cell">N</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="P">Helps Payton</option>
+                                        <option value="N">Helps New York</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="P" data-explanation="This supports Payton's position that requiring warrants for home entries is the widely accepted practice.">
                                 <td>Most states believe that arrest warrants should be required for home entries.</td>
-                                <td class="answer-cell">P</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="P">Helps Payton</option>
+                                        <option value="N">Helps New York</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="N" data-explanation="This supports New York's argument that exceptions exist for warrantless entries, which could apply here.">
                                 <td>Police can enter homes without warrants in true emergencies.</td>
-                                <td class="answer-cell">N</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="P">Helps Payton</option>
+                                        <option value="N">Helps New York</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="N" data-explanation="This supports New York's argument that warrantless home arrests have historical precedent.">
                                 <td>Throughout American history, police have made home arrests without warrants.</td>
-                                <td class="answer-cell">N</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="P">Helps Payton</option>
+                                        <option value="N">Helps New York</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="P" data-explanation="This supports Payton's argument that requiring warrants is not an unreasonable burden on police.">
                                 <td>Getting a warrant is not difficult for police to obtain.</td>
-                                <td class="answer-cell">P</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="P">Helps Payton</option>
+                                        <option value="N">Helps New York</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="P" data-explanation="This directly supports Payton's core argument that homes deserve maximum constitutional protection.">
                                 <td>A person's home deserves the strongest Fourth Amendment protection.</td>
-                                <td class="answer-cell">P</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="P">Helps Payton</option>
+                                        <option value="N">Helps New York</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -269,19 +286,19 @@
 
                 <div class="resources-preview">
                     <div class="resource-item">
-                        <span class="resource-tag">📺 Video</span>
-                        <h3>Street Cop Training - Payton v. New York Explained</h3>
-                        <a href="#" class="resource-link">Watch Now →</a>
-                    </div>
-                    <div class="resource-item">
                         <span class="resource-tag">🎧 Audio</span>
-                        <h3>Fourth Amendment Cases Podcast</h3>
-                        <a href="#" class="resource-link">Listen Now →</a>
+                        <h3>Oyez Case Summary and Audio</h3>
+                        <a href="https://www.oyez.org/cases/1979/78-5420" target="_blank" rel="noopener" class="resource-link">Listen Now →</a>
                     </div>
                     <div class="resource-item">
                         <span class="resource-tag">📄 Document</span>
-                        <h3>Full Supreme Court Opinion</h3>
-                        <a href="#" class="resource-link">Read Now →</a>
+                        <h3>Justia Full Opinion</h3>
+                        <a href="https://supreme.justia.com/cases/federal/us/445/573/" target="_blank" rel="noopener" class="resource-link">Read Now →</a>
+                    </div>
+                    <div class="resource-item">
+                        <span class="resource-tag">📄 Document</span>
+                        <h3>Cornell Law School Case Summary</h3>
+                        <a href="https://www.law.cornell.edu/supremecourt/text/445/573" target="_blank" rel="noopener" class="resource-link">Read Now →</a>
                     </div>
                 </div>
             </div>

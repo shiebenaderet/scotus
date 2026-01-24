@@ -19,7 +19,6 @@
         <div class="container">
             <ul>
                 <li><a href="#background">Background</a></li>
-                <li><a href="#arguments">Arguments</a></li>
                 <li><a href="#activity">Argument Activity</a></li>
                 <li><a href="#resources">Resources</a></li>
                 <li><a href="../index.html">← Back to Home</a></li>
@@ -121,75 +120,6 @@
             </div>
         </section>
 
-        <!-- Arguments Section -->
-        <section id="arguments" class="case-section">
-            <div class="container">
-                <div class="section-header">
-                    <h2>The Arguments</h2>
-                    <p class="section-subtitle">Legal reasoning from both sides</p>
-                </div>
-
-                <div class="arguments-grid">
-                    <div class="argument-side">
-                        <h3 class="side-title side-petitioner">Arizona's Arguments</h3>
-
-                        <!-- Standard -->
-                        <div class="content-block standard active">
-                            <ul class="argument-list">
-                                <li>States have always had the authority to enforce federal laws within their borders【0】</li>
-                                <li>Arizona's law only copies existing federal requirements and doesn't create new crimes</li>
-                                <li>The federal government doesn't have enough resources to enforce immigration law everywhere</li>
-                                <li>Arizona faces special burdens from illegal immigration due to its location on the Mexican border</li>
-                                <li>States have a sovereign right to protect their borders and citizens from harm</li>
-                                <li>Arizona taxpayers pay high costs for illegal immigration in schools, hospitals, and police services</li>
-                            </ul>
-                        </div>
-
-                        <!-- Simplified -->
-                        <div class="content-block simplified hidden">
-                            <ul class="argument-list">
-                                <li>States have always helped enforce laws</li>
-                                <li>Our law just copies what the federal government says</li>
-                                <li>The federal government can't be everywhere at once</li>
-                                <li>Arizona is right next to Mexico - we have a big problem</li>
-                                <li>States should be able to protect their borders</li>
-                                <li>Arizona's taxpayers pay a lot of money for this problem</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="argument-side">
-                        <h3 class="side-title side-respondent">United States' Arguments</h3>
-
-                        <!-- Standard -->
-                        <div class="content-block standard active">
-                            <ul class="argument-list">
-                                <li>The Constitution gives Congress exclusive power to regulate immigration and naturalization【1】</li>
-                                <li>Federal immigration law is so complete that it leaves no room for state laws【2】</li>
-                                <li>State immigration enforcement could interfere with America's relationships with other countries【3】</li>
-                                <li>Different state immigration laws would create a patchwork of confusing rules</li>
-                                <li>The Supremacy Clause makes federal law supreme over conflicting state laws【4】</li>
-                                <li>State enforcement of immigration law could lead to racial profiling and discrimination</li>
-                                <li>Federal immigration priorities focus on dangerous criminals, not all undocumented immigrants</li>
-                            </ul>
-                        </div>
-
-                        <!-- Simplified -->
-                        <div class="content-block simplified hidden">
-                            <ul class="argument-list">
-                                <li>The Constitution says immigration is the federal government's job only</li>
-                                <li>Federal law covers everything - no room for state laws</li>
-                                <li>States could interfere with America's friendships with other countries</li>
-                                <li>Different states would have different rules - confusing!</li>
-                                <li>Federal law is more important than state law</li>
-                                <li>State laws might be unfair to people based on how they look</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <!-- Argument Activity -->
         <section id="activity" class="case-section">
             <div class="container">
@@ -199,13 +129,7 @@
                 </div>
 
                 <div class="activity-instructions">
-                    <p><strong>Instructions:</strong> Read each argument below and decide which side it helps:</p>
-                    <ul>
-                        <li><strong>A</strong> = Helps Arizona</li>
-                        <li><strong>U</strong> = Helps United States</li>
-                        <li><strong>B</strong> = Helps Both</li>
-                        <li><strong>x</strong> = Helps Neither</li>
-                    </ul>
+                    <p><strong>Instructions:</strong> Read each argument below and select which side it helps from the dropdown menu. When you're finished, click "Check Answers" to see your results.</p>
                 </div>
 
                 <div class="argument-sorting-table">
@@ -217,57 +141,148 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr data-correct-answer="U" data-explanation="This supports the United States' argument that immigration is exclusively a federal power under the Constitution.">
                                 <td>The Constitution gives Congress the exclusive power to make immigration laws.</td>
-                                <td class="answer-cell">U</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="A">Helps Arizona</option>
+                                        <option value="U">Helps United States</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="A" data-explanation="This supports Arizona's argument that states have a legitimate role in helping enforce federal laws.">
                                 <td>States have always helped enforce federal laws within their borders.</td>
-                                <td class="answer-cell">A</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="A">Helps Arizona</option>
+                                        <option value="U">Helps United States</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="U" data-explanation="This supports the United States' preemption argument that federal law fully covers immigration, leaving no room for state laws.">
                                 <td>Federal immigration law is so complete that it leaves no room for state laws.</td>
-                                <td class="answer-cell">U</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="A">Helps Arizona</option>
+                                        <option value="U">Helps United States</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="A" data-explanation="This supports Arizona's argument that its law doesn't conflict with federal law, it merely enforces existing federal requirements.">
                                 <td>Arizona's law only copies existing federal requirements and doesn't create new crimes.</td>
-                                <td class="answer-cell">A</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="A">Helps Arizona</option>
+                                        <option value="U">Helps United States</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="A" data-explanation="This supports Arizona's argument that states need to help because the federal government cannot enforce immigration laws everywhere.">
                                 <td>The federal government doesn't have enough resources to enforce immigration law everywhere.</td>
-                                <td class="answer-cell">A</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="A">Helps Arizona</option>
+                                        <option value="U">Helps United States</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="U" data-explanation="This supports the United States' argument that state immigration laws could harm foreign relations, which is a federal concern.">
                                 <td>State immigration enforcement could interfere with America's relationships with other countries.</td>
-                                <td class="answer-cell">U</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="A">Helps Arizona</option>
+                                        <option value="U">Helps United States</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="A" data-explanation="This supports Arizona's argument that it has unique circumstances requiring state-level action due to its border location.">
                                 <td>Arizona faces special problems from illegal immigration because it borders Mexico.</td>
-                                <td class="answer-cell">A</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="A">Helps Arizona</option>
+                                        <option value="U">Helps United States</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="U" data-explanation="This supports the United States' argument that uniform federal immigration law is necessary to avoid a confusing patchwork of state laws.">
                                 <td>Different state immigration laws would create confusing and conflicting rules across the country.</td>
-                                <td class="answer-cell">U</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="A">Helps Arizona</option>
+                                        <option value="U">Helps United States</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="U" data-explanation="This supports the United States' argument that the Supremacy Clause invalidates any state laws that conflict with federal immigration law.">
                                 <td>The Supremacy Clause makes federal law more important than conflicting state laws.</td>
-                                <td class="answer-cell">U</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="A">Helps Arizona</option>
+                                        <option value="U">Helps United States</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="A" data-explanation="This supports Arizona's argument that states have sovereign authority to protect their citizens and borders.">
                                 <td>States have the right to protect their borders and citizens from harm.</td>
-                                <td class="answer-cell">A</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="A">Helps Arizona</option>
+                                        <option value="U">Helps United States</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="U" data-explanation="This supports the United States' argument that state enforcement could result in unconstitutional discrimination and civil rights violations.">
                                 <td>State enforcement of immigration law could lead to racial profiling and discrimination.</td>
-                                <td class="answer-cell">U</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="A">Helps Arizona</option>
+                                        <option value="U">Helps United States</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="U" data-explanation="This supports the United States' argument that state laws interfere with federal priorities and enforcement strategies.">
                                 <td>Federal immigration priorities focus on dangerous criminals, not all undocumented immigrants.</td>
-                                <td class="answer-cell">U</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="A">Helps Arizona</option>
+                                        <option value="U">Helps United States</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="A" data-explanation="This supports Arizona's argument that the state bears significant financial burdens from illegal immigration, justifying state action.">
                                 <td>Arizona taxpayers pay high costs for illegal immigration in schools, hospitals, and police services.</td>
-                                <td class="answer-cell">A</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="A">Helps Arizona</option>
+                                        <option value="U">Helps United States</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
                         </tbody>
                     </table>

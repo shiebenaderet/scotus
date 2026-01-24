@@ -19,7 +19,6 @@
         <div class="container">
             <ul>
                 <li><a href="#background">Background</a></li>
-                <li><a href="#arguments">Arguments</a></li>
                 <li><a href="#activity">Argument Activity</a></li>
                 <li><a href="#resources">Resources</a></li>
                 <li><a href="../index.html">← Back to Home</a></li>
@@ -161,76 +160,6 @@
             </div>
         </section>
 
-        <!-- Arguments Section -->
-        <section id="arguments" class="case-section">
-            <div class="container">
-                <div class="section-header">
-                    <h2>The Arguments</h2>
-                    <p class="section-subtitle">Legal reasoning from both sides</p>
-                </div>
-
-                <div class="arguments-grid">
-                    <div class="argument-side">
-                        <h3 class="side-title side-petitioner">New Jersey's Arguments</h3>
-
-                        <!-- Standard -->
-                        <div class="content-block standard active">
-                            <ul class="argument-list">
-                                <li>Schools have special responsibilities for student safety and supervision that require flexibility【26】.</li>
-                                <li>The "in loco parentis" principle gives schools authority to act like parents in supervising students【27】.</li>
-                                <li>T.L.O. was caught violating a school rule and then lied about her smoking habits.</li>
-                                <li>The search immediately revealed cigarettes, proving that T.L.O. had lied about not smoking【28】.</li>
-                                <li>Finding rolling papers gave reasonable suspicion that T.L.O. might possess drugs【29】.</li>
-                                <li>Students are minors who need more supervision and guidance than adults.</li>
-                                <li>School officials need to be able to investigate rule violations quickly to maintain order【30】.</li>
-                            </ul>
-                        </div>
-
-                        <!-- Simplified -->
-                        <div class="content-block simplified hidden">
-                            <ul class="argument-list">
-                                <li>T.L.O. was caught breaking a rule</li>
-                                <li>She lied and said she did not smoke</li>
-                                <li>Mr. Choplick needed to see if she was telling the truth</li>
-                                <li>Schools watch over kids and keep them safe</li>
-                                <li>Kids are young and need more supervision than adults</li>
-                                <li>The search found dangerous drugs that could hurt other kids</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="argument-side">
-                        <h3 class="side-title side-respondent">T.L.O.'s Arguments</h3>
-
-                        <!-- Standard -->
-                        <div class="content-block standard active">
-                            <ul class="argument-list">
-                                <li>The Fourth Amendment protects all people, including students, from unreasonable searches【31】.</li>
-                                <li>School officials are government employees and should need warrants just like police officers.</li>
-                                <li>Students should not lose their constitutional rights when they enter school.</li>
-                                <li>The search went beyond what was necessary to investigate the original smoking violation.</li>
-                                <li>Allowing warrantless searches gives school officials too much power over students.</li>
-                                <li>Evidence obtained through illegal searches should not be allowed in court.</li>
-                                <li>T.L.O.'s purse was her private property and should have been protected from search.</li>
-                            </ul>
-                        </div>
-
-                        <!-- Simplified -->
-                        <div class="content-block simplified hidden">
-                            <ul class="argument-list">
-                                <li>Mr. Choplick did not have permission from a judge</li>
-                                <li>He did not have a strong reason to look in her purse</li>
-                                <li>Having cigarettes was not even against school rules</li>
-                                <li>Students have rights just like adults</li>
-                                <li>Schools cannot search kids without good reasons</li>
-                                <li>Her purse was private</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <!-- Argument Activity -->
         <section id="activity" class="case-section">
             <div class="container">
@@ -240,13 +169,7 @@
                 </div>
 
                 <div class="activity-instructions">
-                    <p><strong>Instructions:</strong> Read each argument below and decide which side it helps:</p>
-                    <ul>
-                        <li><strong>N</strong> = Helps New Jersey</li>
-                        <li><strong>T</strong> = Helps T.L.O.</li>
-                        <li><strong>t</strong> = Helps Both</li>
-                        <li><strong>x</strong> = Helps Neither</li>
-                    </ul>
+                    <p><strong>Instructions:</strong> Read each argument below and select which side it helps from the dropdown menu. When you're finished, click "Check Answers" to see your results.</p>
                 </div>
 
                 <div class="argument-sorting-table">
@@ -258,61 +181,159 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr data-correct-answer="N" data-explanation="This supports New Jersey's argument that schools need flexibility to maintain safety and order, which justifies less strict search requirements.">
                                 <td>Schools have special responsibilities for student safety that require flexibility.</td>
-                                <td class="answer-cell">N</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="N">Helps New Jersey</option>
+                                        <option value="T">Helps T.L.O.</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="T" data-explanation="This supports T.L.O.'s argument that students retain their Fourth Amendment rights and should be protected from unreasonable searches.">
                                 <td>The Fourth Amendment protects all people, including students, from unreasonable searches.</td>
-                                <td class="answer-cell">T</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="N">Helps New Jersey</option>
+                                        <option value="T">Helps T.L.O.</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="N" data-explanation="This supports New Jersey's argument that schools have parental-like authority to supervise and discipline students.">
                                 <td>The "in loco parentis" principle gives schools authority to act like parents in supervising students.</td>
-                                <td class="answer-cell">N</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="N">Helps New Jersey</option>
+                                        <option value="T">Helps T.L.O.</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="T" data-explanation="This supports T.L.O.'s argument that school officials are government actors and should be held to the same constitutional standards as police.">
                                 <td>School officials are government employees and should need warrants just like police officers.</td>
-                                <td class="answer-cell">T</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="N">Helps New Jersey</option>
+                                        <option value="T">Helps T.L.O.</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="N" data-explanation="This supports New Jersey's argument that T.L.O.'s rule violation and dishonesty gave reasonable grounds for the search.">
                                 <td>T.L.O. was caught violating a school rule and then lied about her smoking habits.</td>
-                                <td class="answer-cell">N</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="N">Helps New Jersey</option>
+                                        <option value="T">Helps T.L.O.</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="T" data-explanation="This supports T.L.O.'s argument that students maintain their constitutional rights and should not be subject to warrantless searches.">
                                 <td>Students should not lose their constitutional rights when they enter school.</td>
-                                <td class="answer-cell">T</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="N">Helps New Jersey</option>
+                                        <option value="T">Helps T.L.O.</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="N" data-explanation="This supports New Jersey's argument that the search was justified because it quickly confirmed T.L.O.'s dishonesty.">
                                 <td>The search immediately revealed cigarettes, proving that T.L.O. had lied about not smoking.</td>
-                                <td class="answer-cell">N</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="N">Helps New Jersey</option>
+                                        <option value="T">Helps T.L.O.</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="T" data-explanation="This supports T.L.O.'s argument that the extensive search of her purse exceeded what was reasonable for investigating a smoking violation.">
                                 <td>The search went beyond what was necessary to investigate the original smoking violation.</td>
-                                <td class="answer-cell">T</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="N">Helps New Jersey</option>
+                                        <option value="T">Helps T.L.O.</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="N" data-explanation="This supports New Jersey's argument that discovering rolling papers provided reasonable suspicion to continue searching for drugs.">
                                 <td>Finding rolling papers gave reasonable suspicion that T.L.O. might possess drugs.</td>
-                                <td class="answer-cell">N</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="N">Helps New Jersey</option>
+                                        <option value="T">Helps T.L.O.</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="T" data-explanation="This supports T.L.O.'s argument that allowing warrantless searches creates an imbalance of power and potential for abuse.">
                                 <td>Allowing warrantless searches gives school officials too much power over students.</td>
-                                <td class="answer-cell">T</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="N">Helps New Jersey</option>
+                                        <option value="T">Helps T.L.O.</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="N" data-explanation="This supports New Jersey's argument that students' status as minors justifies greater supervision and less strict search requirements.">
                                 <td>Students are minors who need more supervision and guidance than adults.</td>
-                                <td class="answer-cell">N</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="N">Helps New Jersey</option>
+                                        <option value="T">Helps T.L.O.</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="T" data-explanation="This supports T.L.O.'s argument that if the search was unconstitutional, the evidence should be excluded from court.">
                                 <td>Evidence obtained through illegal searches should not be allowed in court.</td>
-                                <td class="answer-cell">T</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="N">Helps New Jersey</option>
+                                        <option value="T">Helps T.L.O.</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="N">
                                 <td>School officials need to be able to investigate rule violations quickly to maintain order.</td>
-                                <td class="answer-cell">N</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="N">Helps New Jersey</option>
+                                        <option value="T">Helps T.L.O.</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
-                            <tr>
+                            <tr data-correct-answer="T" data-explanation="This supports T.L.O.'s argument that her personal property deserves privacy protection under the Fourth Amendment.">
                                 <td>T.L.O.'s purse was her private property and should have been protected from search.</td>
-                                <td class="answer-cell">T</td>
+                                <td>
+                                    <select>
+                                        <option value="">Choose...</option>
+                                        <option value="N">Helps New Jersey</option>
+                                        <option value="T">Helps T.L.O.</option>
+                                    </select>
+                                    <span class="answer-cell"></span>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
