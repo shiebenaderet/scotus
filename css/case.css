@@ -306,6 +306,58 @@ padding: 0.75rem 1.5rem;
     margin-left: 1.25rem;
 }
 
+/* TWO SIDES SUMMARY */
+.two-sides-summary {
+    margin-top: 1rem;
+}
+
+.two-sides-summary h4 {
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+    text-align: center;
+    opacity: 0.9;
+}
+
+.two-sides-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+}
+
+@media (max-width: 600px) {
+    .two-sides-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.side-box {
+    background-color: rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.side-box.petitioner {
+    border-left: 4px solid var(--text-light);
+}
+
+.side-box.respondent {
+    border-left: 4px solid var(--accent);
+}
+
+.side-box h5 {
+    font-size: 0.95rem;
+    margin-bottom: 0.35rem;
+    font-weight: 700;
+}
+
+.side-box p {
+    font-size: 0.85rem;
+    line-height: 1.45;
+    margin-bottom: 0;
+    opacity: 0.95;
+}
+
 /* ARGUMENT SORTING TABLE */
 .argument-sorting-table {
     overflow-x: auto;
