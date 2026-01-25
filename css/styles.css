@@ -81,6 +81,18 @@ body {
     top: 0;
 }
 
+/* ACCESSIBILITY - Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
 /* ACCESSIBILITY - Focus states */
 *:focus {
     outline: 3px solid var(--accent);
@@ -98,6 +110,21 @@ input:focus {
 /* Improve text readability */
 p, li {
     max-width: 75ch;
+}
+
+/* Headers in headers should be full width and centered */
+header h1,
+header p {
+    max-width: 100%;
+}
+
+/* Section headers should be centered */
+.section-header h2,
+.cases-section h2,
+.learning-path h2,
+.reading-levels h2 {
+    max-width: 100%;
+    text-align: center;
 }
 
 h1, h2, h3, h4 {
@@ -131,11 +158,16 @@ header {
 header h1 {
     font-size: 1.75rem;
     margin-bottom: 0.25rem;
+    text-align: center;
+    max-width: 100%;
 }
 
 header p {
     font-size: 0.95rem;
     opacity: 0.9;
+    text-align: center;
+    max-width: 100%;
+    margin: 0 auto;
 }
 
 /* NAVIGATION */
@@ -202,13 +234,15 @@ header p {
     min-height: var(--touch-target-min);
     background-color: var(--accent);
     color: var(--text-light);
-    padding: 0.75rem 1.75rem;
+padding: 0.75rem 2rem;
+    min-width: 160px;
     text-decoration: none;
     border-radius: 6px;
     font-weight: 600;
     font-size: 1rem;
     transition: background-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
     border: 2px solid var(--accent);
+    text-align: center;
 }
 
 .cta-button:hover {
