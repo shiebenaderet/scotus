@@ -802,3 +802,45 @@ a:hover {
     display: block;
     margin-bottom: 5px;
 }
+
+/* CONSTITUTIONAL TEXT BLOCKQUOTE */
+.constitutional-text {
+    background: linear-gradient(135deg, rgba(22, 33, 62, 0.05) 0%, rgba(47, 72, 88, 0.08) 100%);
+    border-left: 4px solid var(--primary-dark);
+    padding: var(--spacing-md) var(--spacing-lg);
+    margin: var(--spacing-md) 0;
+    font-style: italic;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--text-dark);
+    border-radius: 0 8px 8px 0;
+}
+
+/* KEY TERMS FOR ARGUMENTS */
+.key-terms-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.key-term-item {
+    background: var(--bg-white);
+    border: 1px solid #e0e0e0;
+    border-left: 4px solid var(--primary-light);
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: 0 8px 8px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.key-term-item strong {
+    display: block;
+    color: var(--primary-dark);
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-xs);
+}
+
+.key-term-item p {
+    margin: 0;
+    color: var(--text-dark);
+    line-height: 1.6;
+}
