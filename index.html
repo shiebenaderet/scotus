@@ -28,7 +28,7 @@
                 <div class="guiding-question-box">
                     <span class="guiding-question-label">The Driving Question</span>
                     <p class="guiding-question-text">When, if ever, should the government be allowed to limit a person's constitutional rights in order to protect the community?</p>
-                    <button class="learn-more-btn" aria-expanded="false" aria-controls="question-details">
+                    <button class="learn-more-btn" aria-expanded="false" aria-controls="question-details" onclick="toggleQuestionDetails(this)">
                         What does this mean? <span class="arrow">▼</span>
                     </button>
                     <div id="question-details" class="guiding-question-details">
@@ -38,6 +38,18 @@
                 </div>
             </div>
         </section>
+
+        <script>
+        function toggleQuestionDetails(btn) {
+            var details = document.getElementById('question-details');
+            var isExpanded = btn.getAttribute('aria-expanded') === 'true';
+            btn.setAttribute('aria-expanded', !isExpanded);
+            btn.classList.toggle('expanded');
+            details.classList.toggle('expanded');
+            var arrow = btn.querySelector('.arrow');
+            if (arrow) arrow.textContent = isExpanded ? '▼' : '▲';
+        }
+        </script>
 
         <!-- Learning Path -->
         <section class="learning-path">
