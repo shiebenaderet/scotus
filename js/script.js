@@ -45,21 +45,22 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Add scroll effect to navigation
-    let lastScroll = 0;
+    // Add scroll effect to navigation (if present)
     const nav = document.querySelector('.main-nav');
+    if (nav) {
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
 
-    window.addEventListener('scroll', () => {
-        const currentScroll = window.pageYOffset;
+            if (currentScroll <= 0) {
+                nav.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.1)';
+            } else if (currentScroll > lastScroll) {
+                nav.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.15)';
+            }
 
-        if (currentScroll <= 0) {
-            nav.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.1)';
-        } else if (currentScroll > lastScroll) {
-            nav.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.15)';
-        }
-
-        lastScroll = currentScroll;
-    });
+            lastScroll = currentScroll;
+        });
+    }
 
     // Guiding Question Expand/Collapse
     const learnMoreBtn = document.querySelector('.learn-more-btn');
