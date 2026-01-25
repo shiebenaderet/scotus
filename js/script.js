@@ -61,6 +61,27 @@ document.addEventListener('DOMContentLoaded', function() {
         lastScroll = currentScroll;
     });
 
+    // Guiding Question Expand/Collapse
+    const learnMoreBtn = document.querySelector('.learn-more-btn');
+    const questionDetails = document.querySelector('.guiding-question-details');
+
+    if (learnMoreBtn && questionDetails) {
+        learnMoreBtn.addEventListener('click', function() {
+            const isExpanded = this.getAttribute('aria-expanded') === 'true';
+
+            // Toggle state
+            this.setAttribute('aria-expanded', !isExpanded);
+            this.classList.toggle('expanded');
+            questionDetails.classList.toggle('expanded');
+
+            // Update button text
+            const arrow = this.querySelector('.arrow');
+            if (arrow) {
+                arrow.textContent = isExpanded ? '▼' : '▲';
+            }
+        });
+    }
+
     // Argument Sorting Activity
     const sortingTable = document.querySelector('.argument-sorting-table');
     if (sortingTable) {

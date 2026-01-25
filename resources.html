@@ -11,8 +11,8 @@
     <a href="#main-content" class="skip-link">Skip to main content</a>
     <header role="banner">
         <div class="container">
-            <h1>⚖️ SCOTUS Debate Project</h1>
-            <p>Additional Resources for Learning About Supreme Court Cases</p>
+            <h1>SCOTUS Debate Project</h1>
+            <p>Learning About the Supreme Court and How It Works</p>
         </div>
     </header>
 
@@ -26,59 +26,179 @@
     </nav>
 
     <main id="main-content" role="main">
-        <section class="case-section">
+        <!-- Reading Level Toggle -->
+        <section class="reading-toggle-section">
             <div class="container">
-                <div class="section-header">
-                    <h2>General Resources</h2>
-                    <p class="section-subtitle">Helpful websites and tools for studying Supreme Court cases</p>
-                </div>
-
-                <div class="resources-preview">
-                    <div class="resource-item">
-                        <span class="resource-tag">🌐 Website</span>
-                        <h3>Oyez</h3>
-                        <p>Comprehensive database of Supreme Court cases with audio recordings, summaries, and case information.</p>
-                        <a href="https://www.oyez.org" target="_blank" rel="noopener" class="resource-link">Visit Oyez →</a>
-                    </div>
-
-                    <div class="resource-item">
-                        <span class="resource-tag">🌐 Website</span>
-                        <h3>Justia Supreme Court</h3>
-                        <p>Full text of Supreme Court opinions and case summaries.</p>
-                        <a href="https://supreme.justia.com" target="_blank" rel="noopener" class="resource-link">Visit Justia →</a>
-                    </div>
-
-                    <div class="resource-item">
-                        <span class="resource-tag">🌐 Website</span>
-                        <h3>Cornell Law School - LII</h3>
-                        <p>Legal Information Institute with Supreme Court case summaries and full opinions.</p>
-                        <a href="https://www.law.cornell.edu/supct" target="_blank" rel="noopener" class="resource-link">Visit LII →</a>
-                    </div>
-
-                    <div class="resource-item">
-                        <span class="resource-tag">🎮 Interactive</span>
-                        <h3>iCivics</h3>
-                        <p>Educational games and activities about civics, including Supreme Court simulations.</p>
-                        <a href="https://www.icivics.org" target="_blank" rel="noopener" class="resource-link">Visit iCivics →</a>
-                    </div>
-
-                    <div class="resource-item">
-                        <span class="resource-tag">📚 Educational</span>
-                        <h3>U.S. Courts Educational Resources</h3>
-                        <p>Educational materials, videos, and activities from the federal court system.</p>
-                        <a href="https://www.uscourts.gov/about-federal-courts/educational-resources" target="_blank" rel="noopener" class="resource-link">Visit U.S. Courts →</a>
-                    </div>
-
-                    <div class="resource-item">
-                        <span class="resource-tag">📚 Educational</span>
-                        <h3>Street Law</h3>
-                        <p>Practical law education resources including Supreme Court case studies and moot court materials.</p>
-                        <a href="https://www.streetlaw.org" target="_blank" rel="noopener" class="resource-link">Visit Street Law →</a>
-                    </div>
+                <div class="reading-toggle">
+                    <span class="toggle-label">Reading Level:</span>
+                    <button class="toggle-btn active" data-level="standard">Standard</button>
+                    <button class="toggle-btn" data-level="simplified">Simplified</button>
                 </div>
             </div>
         </section>
 
+        <!-- Section 1: What is the Supreme Court? -->
+        <section class="case-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>What is the Supreme Court?</h2>
+                    <p class="section-subtitle">The highest court in the United States</p>
+                </div>
+
+                <div class="content-block standard active">
+                    <p>The Supreme Court is the highest court in the United States and the only court specifically created by the Constitution. Article III of the Constitution established the judicial branch as one of three co-equal branches of government, alongside the executive branch (the President) and the legislative branch (Congress).</p>
+
+                    <figure class="court-image">
+                        <img src="images/supreme-court-justices.jpg" alt="The nine justices of the Supreme Court of the United States in their formal group portrait, seated and standing in front of red curtains">
+                        <figcaption>The current Supreme Court of the United States. <a href="https://www.supremecourt.gov/about/justices.aspx" target="_blank" rel="noopener">Learn about each Justice</a></figcaption>
+                    </figure>
+
+                    <h3>Nine Justices</h3>
+                    <p>The Supreme Court has nine justices, including one Chief Justice and eight Associate Justices. Justices are nominated by the President and must be confirmed by the Senate. Once confirmed, justices serve for life or until they choose to retire. This lifetime appointment helps justices make decisions based on the law rather than political pressure.</p>
+
+                    <h3>Why the Supreme Court Matters</h3>
+                    <p>The Supreme Court has the final say on what the Constitution means. When lower courts disagree about how to interpret a law, or when someone believes a law violates the Constitution, the Supreme Court can step in and make a ruling that applies to the entire country. These decisions shape American law and affect the daily lives of all Americans.</p>
+
+                    <h3>Judicial Review</h3>
+                    <p>One of the Supreme Court's most important powers is judicial review - the ability to strike down laws that violate the Constitution. This power was established in the 1803 case <em>Marbury v. Madison</em>. Judicial review makes the Supreme Court a powerful check on the other branches of government.</p>
+                </div>
+
+                <div class="content-block simplified hidden">
+                    <p>The Supreme Court is the most important court in America. The Constitution created three parts of government that share power equally: the President, Congress, and the Courts. The Supreme Court leads all the courts.</p>
+
+                    <figure class="court-image">
+                        <img src="images/supreme-court-justices.jpg" alt="The nine justices of the Supreme Court of the United States in their formal group portrait, seated and standing in front of red curtains">
+                        <figcaption>The current Supreme Court of the United States. <a href="https://www.supremecourt.gov/about/justices.aspx" target="_blank" rel="noopener">Learn about each Justice</a></figcaption>
+                    </figure>
+
+                    <h3>Nine Justices</h3>
+                    <p>Nine judges called "justices" work on the Supreme Court. The President picks them, and the Senate must agree. Once someone becomes a justice, they can keep the job for their whole life. This helps them make fair choices without worrying about what politicians want.</p>
+
+                    <h3>Why the Supreme Court Matters</h3>
+                    <p>The Supreme Court decides what the Constitution really means. When people disagree about whether a law is fair or allowed, the Supreme Court makes the final decision. Whatever they decide becomes the rule for the whole country.</p>
+
+                    <h3>Checking Laws</h3>
+                    <p>The Supreme Court can cancel laws that break the rules in the Constitution. This is called "judicial review." It helps make sure that no one - not even the President or Congress - can ignore the Constitution.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Checks and Balances -->
+        <section class="case-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Checks and Balances</h2>
+                    <p class="section-subtitle">How the judicial branch keeps government power in check</p>
+                </div>
+
+                <div class="content-block standard active">
+                    <p>The Founders of the United States worried about any one person or group having too much power. They designed a system of "checks and balances" where each branch of government can limit the power of the others. The judicial branch plays a crucial role in this system.</p>
+
+                    <h3>How the Supreme Court Checks the Other Branches</h3>
+                    <ul>
+                        <li><strong>Checking Congress:</strong> The Court can declare laws passed by Congress unconstitutional, making them invalid</li>
+                        <li><strong>Checking the President:</strong> The Court can rule that presidential actions or executive orders violate the Constitution</li>
+                        <li><strong>Interpreting Laws:</strong> When laws are unclear, the Court decides what they mean and how they should be applied</li>
+                    </ul>
+
+                    <h3>How Other Branches Check the Courts</h3>
+                    <ul>
+                        <li><strong>The President</strong> nominates all federal judges, including Supreme Court justices</li>
+                        <li><strong>The Senate</strong> must confirm judicial nominees before they can serve</li>
+                        <li><strong>Congress</strong> can propose constitutional amendments to override Court decisions</li>
+                        <li><strong>Congress</strong> controls the federal court system's budget and structure</li>
+                    </ul>
+
+                    <h3>Why This System Works</h3>
+                    <p>No branch can act alone. The President can't make laws without Congress. Congress can't enforce laws without the President. And both must follow the Constitution as interpreted by the Supreme Court. This balance of power protects the rights of citizens and prevents tyranny.</p>
+                </div>
+
+                <div class="content-block simplified hidden">
+                    <p>The people who created America were afraid of giving anyone too much power. So they made three parts of government that watch over each other. The courts are one of these parts, and they have an important job.</p>
+
+                    <h3>How the Supreme Court Watches the Other Parts</h3>
+                    <ul>
+                        <li><strong>Watching Congress:</strong> If Congress makes a bad law that goes against the Constitution, the Court can stop it</li>
+                        <li><strong>Watching the President:</strong> If the President does something the Constitution doesn't allow, the Court can say "no"</li>
+                        <li><strong>Explaining Laws:</strong> When people argue about what a law means, the Court decides</li>
+                    </ul>
+
+                    <h3>How Others Watch the Courts</h3>
+                    <ul>
+                        <li><strong>The President</strong> picks who gets to be a judge</li>
+                        <li><strong>The Senate</strong> has to agree with the President's choice</li>
+                        <li><strong>Congress</strong> can change the Constitution if they really disagree with the Court (but this is very hard to do)</li>
+                    </ul>
+
+                    <h3>Why This Works</h3>
+                    <p>None of the three parts can do whatever they want. They have to work together and follow the rules. This keeps Americans safe from leaders who might try to take too much power.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: How Cases Reach the Supreme Court -->
+        <section class="case-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>How Cases Reach the Supreme Court</h2>
+                    <p class="section-subtitle">The journey from local courts to the nation's highest court</p>
+                </div>
+
+                <div class="content-block standard active">
+                    <h3>The Court System Ladder</h3>
+                    <p>Most legal cases start in lower courts - either state courts or federal district courts. If someone loses their case and believes the court made a legal error, they can appeal to a higher court. Cases can move up through several levels of appeals courts before potentially reaching the Supreme Court.</p>
+
+                    <h3>Asking the Supreme Court to Hear Your Case</h3>
+                    <p>To get the Supreme Court to hear a case, a party must file a "petition for certiorari" (often called "cert"). This document explains why the case is important enough for the Supreme Court to review. The Court receives about 7,000-8,000 petitions each year but only agrees to hear 100-150 cases.</p>
+
+                    <h3>Why Cases Get Accepted</h3>
+                    <p>The Supreme Court typically agrees to hear cases that:</p>
+                    <ul>
+                        <li>Involve important constitutional questions</li>
+                        <li>Address conflicts where different appeals courts have ruled differently on the same legal issue</li>
+                        <li>Have significant impact on the nation</li>
+                    </ul>
+                    <p>Four of the nine justices must vote to hear a case for it to be accepted (called the "Rule of Four").</p>
+
+                    <h3>Reading a Case Name</h3>
+                    <p>Supreme Court cases are named <strong>Petitioner v. Respondent</strong>. The petitioner is the party asking the Court to review the case. The respondent is the other party. For example, in "Brown v. Board of Education," the Brown family was challenging the school board's segregation policy.</p>
+
+                    <h3>After the Decision</h3>
+                    <p>The Court's written decision includes:</p>
+                    <ul>
+                        <li><strong>Majority Opinion:</strong> The official decision, usually written by one justice, explaining the Court's reasoning</li>
+                        <li><strong>Concurring Opinion:</strong> A justice who agrees with the result but wants to add their own reasons</li>
+                        <li><strong>Dissenting Opinion:</strong> A justice who disagrees with the decision and explains why</li>
+                    </ul>
+                    <p>Supreme Court decisions become <strong>precedent</strong> - legal rules that lower courts must follow in future similar cases.</p>
+                </div>
+
+                <div class="content-block simplified hidden">
+                    <h3>Starting at the Bottom</h3>
+                    <p>Most cases start in regular courts near where you live. If someone thinks the judge made a mistake about the law, they can ask a higher court to look at their case. Cases can keep moving up to higher and higher courts.</p>
+
+                    <h3>Asking the Supreme Court</h3>
+                    <p>People have to ask the Supreme Court to hear their case. Every year, thousands of people ask, but the Court only says yes to about 100-150 cases. They pick the most important ones.</p>
+
+                    <h3>Why the Court Says Yes</h3>
+                    <p>The Supreme Court usually picks cases that:</p>
+                    <ul>
+                        <li>Are about what the Constitution means</li>
+                        <li>Need to be settled because different courts said different things</li>
+                        <li>Will affect lots of people across the country</li>
+                    </ul>
+                    <p>Four of the nine justices have to agree to hear a case.</p>
+
+                    <h3>Understanding Case Names</h3>
+                    <p>Cases have two names with "v." (which means "versus" or "against") in the middle. The first name is the person asking the Supreme Court for help. The second name is the other side. In "Brown v. Board of Education," the Brown family was fighting against their school district.</p>
+
+                    <h3>After the Court Decides</h3>
+                    <p>The justices write down their decision and explain their thinking. Sometimes justices disagree with each other, and they write down why. Whatever the Court decides becomes the rule that all other courts have to follow.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Debate Preparation -->
         <section class="case-section">
             <div class="container">
                 <div class="section-header">
@@ -86,49 +206,92 @@
                     <p class="section-subtitle">How to prepare for your classroom debate</p>
                 </div>
 
-                <div class="content-block">
+                <div class="content-block standard active">
                     <h3>1. Understand Both Sides</h3>
-                    <p>After completing the argument sorting activity, make sure you understand why each argument supports its side. Review the answer key explanations to deepen your understanding.</p>
+                    <p>After completing the argument sorting activity, make sure you understand why each argument supports its side. Review the answer key explanations to deepen your understanding. Good debaters know the other side's arguments as well as their own.</p>
 
                     <h3>2. Rank Your Arguments</h3>
-                    <p>Identify the strongest arguments for your assigned side. Consider which arguments are most persuasive and which address the core constitutional questions.</p>
+                    <p>Identify the strongest arguments for your assigned side. Consider which arguments are most persuasive and which address the core constitutional questions. Lead with your best points.</p>
 
                     <h3>3. Anticipate Counterarguments</h3>
-                    <p>Think about what the other side will say. Prepare responses to their strongest arguments. Understanding both sides makes you a better debater.</p>
+                    <p>Think about what the other side will say. Prepare responses to their strongest arguments. If you can address their points before they make them, you'll seem more prepared and convincing.</p>
 
                     <h3>4. Use Evidence</h3>
-                    <p>Reference specific facts from the case background. Use vocabulary terms correctly. Cite the constitutional amendments or clauses that are relevant.</p>
+                    <p>Reference specific facts from the case background. Use vocabulary terms correctly. Cite the constitutional amendments or clauses that support your position. Evidence makes your arguments stronger.</p>
 
                     <h3>5. Practice Your Delivery</h3>
-                    <p>Speak clearly and confidently. Make eye contact with your audience. Stay respectful even when disagreeing with the other side.</p>
+                    <p>Speak clearly and confidently. Make eye contact with your audience. Stay respectful even when disagreeing - attacking the other side's ideas is fine, but attacking them personally is not.</p>
+                </div>
+
+                <div class="content-block simplified hidden">
+                    <h3>1. Know Both Sides</h3>
+                    <p>Learn why each argument helps each side. The best debaters understand what the other side thinks, not just their own team.</p>
+
+                    <h3>2. Pick Your Best Points</h3>
+                    <p>Figure out which arguments are the strongest for your side. Start with your best ones.</p>
+
+                    <h3>3. Guess What They'll Say</h3>
+                    <p>Think about what the other team will argue. Plan what you'll say back to them. This helps you be ready for anything.</p>
+
+                    <h3>4. Use Facts</h3>
+                    <p>Talk about real things from the case. Use the vocabulary words. Mention which part of the Constitution helps your side. Facts make you more believable.</p>
+
+                    <h3>5. Speak Well</h3>
+                    <p>Talk clearly so everyone can hear you. Look at the people you're talking to. Be nice even when you disagree - say why their ideas are wrong, but don't be mean to them.</p>
                 </div>
             </div>
         </section>
 
+        <!-- Section 5: General Resources -->
         <section class="case-section">
             <div class="container">
                 <div class="section-header">
-                    <h2>Understanding the Supreme Court</h2>
-                    <p class="section-subtitle">Key concepts for studying cases</p>
+                    <h2>General Resources</h2>
+                    <p class="section-subtitle">Helpful websites and tools for learning more</p>
                 </div>
 
-                <div class="content-block">
-                    <h3>How Cases Reach the Supreme Court</h3>
-                    <p>Most cases start in lower courts and work their way up through appeals. The Supreme Court chooses which cases to hear (called "granting certiorari"). They typically hear cases that involve important constitutional questions or conflicts between lower courts.</p>
+                <div class="resources-preview">
+                    <div class="resource-item">
+                        <span class="resource-tag">Official</span>
+                        <h3>Supreme Court of the United States</h3>
+                        <p>The official website with information about the justices, how the Court works, and recent decisions.</p>
+                        <a href="https://www.supremecourt.gov" target="_blank" rel="noopener" class="resource-link">Visit supremecourt.gov</a>
+                    </div>
 
-                    <h3>Reading a Case Name</h3>
-                    <p>Case names follow the format: <strong>Petitioner v. Respondent</strong>. The petitioner is the party asking the Court to review the case. The respondent is the party responding to the petition. For example, in "Brown v. Board of Education," Brown was the petitioner challenging school segregation.</p>
+                    <div class="resource-item">
+                        <span class="resource-tag">Website</span>
+                        <h3>Oyez</h3>
+                        <p>Listen to actual Supreme Court oral arguments and read case summaries written in plain language.</p>
+                        <a href="https://www.oyez.org" target="_blank" rel="noopener" class="resource-link">Visit Oyez</a>
+                    </div>
 
-                    <h3>Understanding the Decision</h3>
-                    <p>The Court's decision includes:</p>
-                    <ul>
-                        <li><strong>Majority Opinion</strong>: The official decision of the Court, written by one justice</li>
-                        <li><strong>Concurring Opinion</strong>: A justice who agrees with the result but for different reasons</li>
-                        <li><strong>Dissenting Opinion</strong>: A justice who disagrees with the majority's decision</li>
-                    </ul>
+                    <div class="resource-item">
+                        <span class="resource-tag">Interactive</span>
+                        <h3>iCivics</h3>
+                        <p>Play games and complete activities about how government works, including Supreme Court simulations.</p>
+                        <a href="https://www.icivics.org" target="_blank" rel="noopener" class="resource-link">Visit iCivics</a>
+                    </div>
 
-                    <h3>Precedent</h3>
-                    <p>Supreme Court decisions become precedent - legal principles that guide future cases. Lower courts must follow Supreme Court precedent. The Court can overturn its own precedent, but this is rare.</p>
+                    <div class="resource-item">
+                        <span class="resource-tag">Educational</span>
+                        <h3>U.S. Courts Educational Resources</h3>
+                        <p>Videos, activities, and lesson plans from the federal court system designed for students.</p>
+                        <a href="https://www.uscourts.gov/about-federal-courts/educational-resources" target="_blank" rel="noopener" class="resource-link">Visit U.S. Courts</a>
+                    </div>
+
+                    <div class="resource-item">
+                        <span class="resource-tag">Website</span>
+                        <h3>Constitution Center</h3>
+                        <p>Interactive Constitution with explanations of each amendment and how the Supreme Court has interpreted them.</p>
+                        <a href="https://constitutioncenter.org/interactive-constitution" target="_blank" rel="noopener" class="resource-link">Visit Constitution Center</a>
+                    </div>
+
+                    <div class="resource-item">
+                        <span class="resource-tag">Educational</span>
+                        <h3>Street Law</h3>
+                        <p>Resources for understanding law and government, including Supreme Court case studies and moot court guides.</p>
+                        <a href="https://www.streetlaw.org" target="_blank" rel="noopener" class="resource-link">Visit Street Law</a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -136,8 +299,8 @@
 
     <footer role="contentinfo">
         <div class="container">
-            <p><a href="index.html">← Back to Home</a></p>
-            <p>&copy; 2024 SCOTUS Debate Project | Educational Resource</p>
+            <p><a href="index.html">Back to Home</a></p>
+            <p>&copy; 2026 SCOTUS Debate Project | Educational Resource</p>
         </div>
     </footer>
 
