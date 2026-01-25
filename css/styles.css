@@ -154,22 +154,86 @@ header .container h1,
     padding: 0 var(--spacing-lg);
 }
 
-/* HEADER */
-header {
+/* COMPACT HEADER WITH NAV */
+.site-header {
+    background-color: var(--primary-dark);
+    color: var(--text-light);
+    padding: 0.75rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.site-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-light);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    min-height: var(--touch-target-min);
+}
+
+.site-logo:hover {
+    opacity: 0.9;
+}
+
+.logo-icon {
+    font-size: 1.5rem;
+}
+
+.logo-text {
+    font-family: var(--font-heading);
+}
+
+.header-nav {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.header-nav a {
+    color: var(--text-light);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    min-height: var(--touch-target-min);
+    display: inline-flex;
+    align-items: center;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color var(--transition-fast), background-color var(--transition-fast);
+    border-radius: 4px;
+}
+
+.header-nav a:hover {
+    color: var(--accent);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Legacy header/nav styles for other pages */
+header:not(.site-header) {
     background-color: var(--primary-dark);
     color: var(--text-light);
     padding: 1rem 0;
     text-align: center;
 }
 
-header h1 {
+header:not(.site-header) h1 {
     font-size: 1.75rem;
     margin-bottom: 0.25rem;
     text-align: center;
     max-width: 100%;
 }
 
-header p {
+header:not(.site-header) p {
     font-size: 0.95rem;
     opacity: 0.9;
     text-align: center;
@@ -177,7 +241,7 @@ header p {
     margin: 0 auto;
 }
 
-/* NAVIGATION */
+/* NAVIGATION for other pages */
 .main-nav {
     background-color: var(--primary-light);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -574,11 +638,34 @@ footer a {
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
-    header h1 {
-        font-size: 1.5rem;
+    .site-header {
+        padding: 0.5rem 0;
     }
 
-    .hero h2 {
+    .header-inner {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    .site-logo {
+        font-size: 1rem;
+    }
+
+    .logo-icon {
+        font-size: 1.25rem;
+    }
+
+    .header-nav {
+        gap: 0;
+    }
+
+    .header-nav a {
+        padding: 0.4rem 0.75rem;
+        font-size: 0.9rem;
+    }
+
+    header:not(.site-header) h1 {
         font-size: 1.5rem;
     }
 
