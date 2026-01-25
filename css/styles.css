@@ -131,12 +131,11 @@ h1, h2, h3, h4 {
     max-width: 65ch;
 }
 
-/* Center text elements in centered containers */
-.container p,
-.container h1,
-.container h2,
-.container h3,
-.container h4 {
+/* Center text elements only in header and hero sections */
+header .container p,
+header .container h1,
+.hero .container p,
+.hero .container h2 {
     margin-left: auto;
     margin-right: auto;
 }
