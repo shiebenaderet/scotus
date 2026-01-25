@@ -78,6 +78,16 @@ h1, h2, h3, h4 {
     max-width: 65ch;
 }
 
+/* Center text elements in centered containers */
+.container p,
+.container h1,
+.container h2,
+.container h3,
+.container h4 {
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -139,19 +149,19 @@ header p {
     background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-light) 100%);
     color: var(--text-light);
     text-align: center;
-    padding: var(--spacing-xl) 0;
+    padding: 1.5rem 0;
 }
 
 .hero h2 {
-    font-size: 3rem;
-    margin-bottom: var(--spacing-md);
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
     font-family: var(--font-heading);
 }
 
 .hero p {
-    font-size: 1.2rem;
+    font-size: 1rem;
     max-width: 600px;
-    margin: 0 auto var(--spacing-lg);
+    margin: 0 auto 1rem;
     opacity: 0.9;
 }
 
@@ -159,11 +169,11 @@ header p {
     display: inline-block;
     background-color: var(--accent);
     color: var(--text-light);
-    padding: var(--spacing-md) var(--spacing-xl);
+    padding: 0.6rem 1.5rem;
     text-decoration: none;
     border-radius: 5px;
     font-weight: 600;
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     transition: all 0.3s ease;
     border: 2px solid var(--accent);
 }
@@ -176,7 +186,7 @@ header p {
 
 /* GUIDING QUESTION */
 .guiding-question {
-    padding: var(--spacing-xl) 0;
+    padding: 1.5rem 0;
     background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary-dark) 100%);
     color: var(--text-light);
 }
@@ -185,123 +195,130 @@ header p {
     max-width: 900px;
     margin: 0 auto;
     text-align: center;
-    padding: var(--spacing-xl);
+    padding: 1.25rem 1.5rem;
     background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
+    border-radius: 10px;
     border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 .guiding-question-box h2 {
-    font-size: 2rem;
-    margin-bottom: var(--spacing-lg);
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
     font-family: var(--font-heading);
 }
 
 .guiding-question-text {
-    font-size: 1.5rem;
+    font-size: 1.15rem;
     font-weight: 600;
-    line-height: 1.6;
-    margin-bottom: var(--spacing-sm);
+    line-height: 1.5;
+    margin-bottom: 0.5rem;
     font-style: italic;
 }
 
 .guiding-question-simple {
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 500;
-    line-height: 1.6;
-    margin-bottom: var(--spacing-md);
-    padding: var(--spacing-sm) var(--spacing-md);
+    line-height: 1.5;
+    margin-bottom: 0.5rem;
+    padding: 0.4rem 0.75rem;
     background-color: rgba(255, 255, 255, 0.15);
-    border-radius: 8px;
+    border-radius: 6px;
     border-left: 3px solid rgba(255, 255, 255, 0.5);
 }
 
 .guiding-question-subtitle {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     opacity: 0.9;
-    line-height: 1.6;
+    line-height: 1.5;
 }
 
 /* LEARNING PATH */
 .learning-path {
-    padding: var(--spacing-xl) 0;
+    padding: 1.25rem 0;
     background-color: var(--bg-white);
 }
 
 .learning-path h2 {
     text-align: center;
-    margin-bottom: var(--spacing-xl);
+    margin-bottom: 1rem;
     color: var(--primary-dark);
+    font-size: 1.5rem;
 }
 
 .path-steps {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: var(--spacing-lg);
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
 }
 
 .step {
     text-align: center;
-    padding: var(--spacing-lg);
+    padding: 1rem;
     background-color: var(--bg-light);
-    border-radius: 10px;
+    border-radius: 8px;
     border-left: 4px solid var(--accent);
     transition: transform 0.3s ease;
 }
 
 .step:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
 }
 
 .step-number {
-    width: 60px;
-    height: 60px;
+    width: 40px;
+    height: 40px;
     background-color: var(--accent);
     color: var(--text-light);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     font-weight: bold;
-    margin: 0 auto var(--spacing-md);
+    margin: 0 auto 0.5rem;
 }
 
 .step h3 {
-    margin-bottom: var(--spacing-sm);
+    margin-bottom: 0.25rem;
     color: var(--primary-dark);
+    font-size: 1rem;
+}
+
+.step p {
+    font-size: 0.9rem;
 }
 
 /* CASES SECTION */
 .cases-section {
-    padding: var(--spacing-xl) 0;
+    padding: 1.5rem 0;
 }
 
 .cases-section h2 {
     text-align: center;
-    margin-bottom: var(--spacing-xl);
+    margin-bottom: 1rem;
     color: var(--primary-dark);
+    font-size: 1.5rem;
 }
 
 .case-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: var(--spacing-lg);
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
 }
 
 .case-card {
     background-color: var(--bg-white);
-    padding: var(--spacing-lg);
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     border: 2px solid transparent;
 }
 
 .case-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     border-color: var(--accent);
 }
 
@@ -309,21 +326,23 @@ header p {
     display: inline-block;
     background-color: var(--primary-light);
     color: var(--text-light);
-    padding: var(--spacing-sm) var(--spacing-md);
-    border-radius: 20px;
-    font-size: 0.9rem;
-    margin-bottom: var(--spacing-md);
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
 }
 
 .case-card h3 {
-    margin-bottom: var(--spacing-md);
+    margin-bottom: 0.5rem;
     color: var(--primary-dark);
+    font-size: 1.1rem;
 }
 
 .case-card p {
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: 0.75rem;
     color: var(--text-dark);
     opacity: 0.8;
+    font-size: 0.9rem;
 }
 
 .case-link {
@@ -340,39 +359,45 @@ header p {
 
 /* READING LEVELS */
 .reading-levels {
-    padding: var(--spacing-xl) 0;
+    padding: 1.25rem 0;
     background-color: var(--primary-light);
     color: var(--text-light);
 }
 
 .reading-levels h2 {
     text-align: center;
-    margin-bottom: var(--spacing-xl);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
 }
 
 .level-indicators {
     display: flex;
     justify-content: center;
-    gap: var(--spacing-lg);
+    gap: 1rem;
     flex-wrap: wrap;
 }
 
 .level-badge {
     background-color: rgba(255, 255, 255, 0.1);
-    padding: var(--spacing-lg);
-    border-radius: 10px;
+    padding: 1rem;
+    border-radius: 8px;
     text-align: center;
-    min-width: 200px;
+    min-width: 180px;
 }
 
 .level-badge span {
-    font-size: 2rem;
+    font-size: 1.5rem;
     display: block;
-    margin-bottom: var(--spacing-sm);
+    margin-bottom: 0.25rem;
 }
 
 .level-badge h3 {
-    margin-bottom: var(--spacing-sm);
+    margin-bottom: 0.25rem;
+    font-size: 1rem;
+}
+
+.level-badge p {
+    font-size: 0.9rem;
 }
 
 /* FOOTER */
@@ -391,11 +416,11 @@ footer a {
 /* RESPONSIVE */
 @media (max-width: 768px) {
     header h1 {
-        font-size: 2rem;
+        font-size: 1.5rem;
     }
 
     .hero h2 {
-        font-size: 2rem;
+        font-size: 1.5rem;
     }
 
     .path-steps {
@@ -404,5 +429,9 @@ footer a {
 
     .case-grid {
         grid-template-columns: 1fr;
+    }
+
+    .guiding-question-text {
+        font-size: 1rem;
     }
 }
