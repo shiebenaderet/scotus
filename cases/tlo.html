@@ -9,14 +9,14 @@
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
-    <header>
+    <header role="banner">
         <div class="container">
             <h1>New Jersey v. T.L.O. (1985)</h1>
             <p>Student Search and Seizure Rights in Schools</p>
         </div>
     </header>
 
-    <nav class="main-nav">
+    <nav class="main-nav" role="navigation" aria-label="Case navigation">
         <div class="container">
             <ul>
                 <li><a href="#background">Background</a></li>
@@ -32,9 +32,9 @@
         <!-- Reading Level Toggle -->
         <section class="level-toggle">
             <div class="container">
-                <div class="level-buttons">
-                    <button class="level-btn active" data-level="standard">Standard</button>
-                    <button class="level-btn" data-level="simplified">Simplified</button>
+                <div class="level-buttons" role="group" aria-label="Reading level selection">
+                    <button class="level-btn active" data-level="standard" aria-label="Standard reading level - grade-appropriate, detailed content" aria-pressed="true">Standard</button>
+                    <button class="level-btn" data-level="simplified" aria-label="Simplified reading level - simplified language, easy navigation" aria-pressed="false">Simplified</button>
                 </div>
             </div>
         </section>
@@ -438,7 +438,7 @@
         </section>
     </main>
 
-    <footer>
+    <footer role="contentinfo">
         <div class="container">
             <p><a href="../index.html">← Back to All Cases</a></p>
             <p>&copy; 2024 SCOTUS Debate Project</p>

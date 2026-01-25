@@ -5,11 +5,15 @@ document.addEventListener('DOMContentLoaded', function() {
     if (levelButtons.length > 0) {
         levelButtons.forEach(button => {
             button.addEventListener('click', function() {
-                // Remove active class from all buttons
-                levelButtons.forEach(btn => btn.classList.remove('active'));
+                // Remove active class and aria-pressed from all buttons
+                levelButtons.forEach(btn => {
+                    btn.classList.remove('active');
+                    btn.setAttribute('aria-pressed', 'false');
+                });
 
-                // Add active class to clicked button
+                // Add active class and aria-pressed to clicked button
                 this.classList.add('active');
+                this.setAttribute('aria-pressed', 'true');
 
                 // Get selected level
                 const selectedLevel = this.getAttribute('data-level');
@@ -60,22 +64,40 @@ document.addEventListener('DOMContentLoaded', function() {
     // Argument Sorting Activity
     const sortingTable = document.querySelector('.argument-sorting-table');
     if (sortingTable) {
+        // Add ARIA labels to all select dropdowns
+        const selectDropdowns = sortingTable.querySelectorAll('select');
+        selectDropdowns.forEach((select, index) => {
+            const row = select.closest('tr');
+            const argumentText = row ? row.querySelector('td:first-child').textContent : '';
+            const shortText = argumentText.length > 50 ? argumentText.substring(0, 47) + '...' : argumentText;
+            select.setAttribute('aria-label', `Select which side this argument helps: ${shortText}`);
+            
+            // Add aria-live region for answer feedback
+            const answerCell = row ? row.querySelector('.answer-cell') : null;
+            if (answerCell && !answerCell.hasAttribute('aria-live')) {
+                answerCell.setAttribute('aria-live', 'polite');
+                answerCell.setAttribute('aria-atomic', 'true');
+            }
+        });
         const checkAnswersBtn = document.createElement('button');
         checkAnswersBtn.textContent = 'Check Answers';
         checkAnswersBtn.className = 'check-answers-btn';
         checkAnswersBtn.type = 'button';
+        checkAnswersBtn.setAttribute('aria-label', 'Check your answers and see your score');
         
         const showAnswersBtn = document.createElement('button');
         showAnswersBtn.textContent = 'Show Answer Key';
         showAnswersBtn.className = 'show-answers-btn';
         showAnswersBtn.type = 'button';
         showAnswersBtn.style.display = 'none';
+        showAnswersBtn.setAttribute('aria-label', 'Show the complete answer key with explanations');
         
         const resetBtn = document.createElement('button');
         resetBtn.textContent = 'Reset';
         resetBtn.className = 'reset-answers-btn';
         resetBtn.type = 'button';
         resetBtn.style.display = 'none';
+        resetBtn.setAttribute('aria-label', 'Reset all answers and start over');
         
         const buttonContainer = document.createElement('div');
         buttonContainer.className = 'activity-buttons';

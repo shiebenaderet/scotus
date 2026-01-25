@@ -9,14 +9,14 @@
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
-    <header>
+    <header role="banner">
         <div class="container">
             <h1>Payton v. New York (1980)</h1>
             <p>Fourth Amendment: Warrant Requirements for Home Arrests</p>
         </div>
     </header>
 
-    <nav class="main-nav">
+    <nav class="main-nav" role="navigation" aria-label="Case navigation">
         <div class="container">
             <ul>
                 <li><a href="#background">Background</a></li>
@@ -32,9 +32,9 @@
         <!-- Reading Level Toggle -->
         <section class="level-toggle">
             <div class="container">
-                <div class="level-buttons">
-                    <button class="level-btn active" data-level="standard">Standard Level</button>
-                    <button class="level-btn" data-level="simplified">Simplified Level</button>
+                <div class="level-buttons" role="group" aria-label="Reading level selection">
+                    <button class="level-btn active" data-level="standard" aria-label="Standard reading level - grade-appropriate, detailed content" aria-pressed="true">Standard Level</button>
+                    <button class="level-btn" data-level="simplified" aria-label="Simplified reading level - simplified language, easy navigation" aria-pressed="false">Simplified Level</button>
                 </div>
             </div>
         </section>
@@ -169,12 +169,12 @@
                             <tr data-correct-answer="P" data-explanation="This directly supports Payton's position that homes deserve constitutional protection from government intrusion.">
                                 <td>The Fourth Amendment protects people's homes from unreasonable government searches.</td>
                                 <td>
-                                    <select>
+                                    <select aria-label="Select which side this argument helps: Payton or New York">
                                         <option value="">Choose...</option>
                                         <option value="P">Helps Payton</option>
                                         <option value="N">Helps New York</option>
                                     </select>
-                                    <span class="answer-cell"></span>
+                                    <span class="answer-cell" aria-live="polite" aria-atomic="true"></span>
                                 </td>
                             </tr>
                             <tr data-correct-answer="N" data-explanation="This supports New York's position that police had good reasons to arrest Payton, even without a warrant.">
@@ -361,7 +361,7 @@
         </section>
     </main>
 
-    <footer>
+    <footer role="contentinfo">
         <div class="container">
             <p><a href="../index.html">← Back to All Cases</a></p>
             <p>&copy; 2024 SCOTUS Debate Project</p>
