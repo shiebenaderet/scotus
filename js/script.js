@@ -63,14 +63,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Guiding Question Expand/Collapse
     const learnMoreBtn = document.querySelector('.learn-more-btn');
-    const questionDetails = document.querySelector('.guiding-question-details');
+    const questionDetails = document.getElementById('question-details');
 
     if (learnMoreBtn && questionDetails) {
-        learnMoreBtn.addEventListener('click', function() {
+        learnMoreBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
             const isExpanded = this.getAttribute('aria-expanded') === 'true';
 
             // Toggle state
-            this.setAttribute('aria-expanded', !isExpanded);
+            this.setAttribute('aria-expanded', String(!isExpanded));
             this.classList.toggle('expanded');
             questionDetails.classList.toggle('expanded');
 
