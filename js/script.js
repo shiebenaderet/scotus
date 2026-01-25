@@ -105,8 +105,14 @@ document.addEventListener('DOMContentLoaded', function() {
         buttonContainer.appendChild(showAnswersBtn);
         buttonContainer.appendChild(resetBtn);
         
-        sortingTable.insertBefore(buttonContainer, sortingTable.firstChild);
-        
+        // Find the table inside sortingTable and insert buttons AFTER it
+        const table = sortingTable.querySelector('table');
+        if (table) {
+            table.insertAdjacentElement('afterend', buttonContainer);
+        } else {
+            sortingTable.appendChild(buttonContainer);
+        }
+
         const answerKeySection = document.createElement('div');
         answerKeySection.className = 'answer-key-section';
         answerKeySection.style.display = 'none';
