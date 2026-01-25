@@ -38,6 +38,46 @@ body {
     background-color: var(--bg-light);
 }
 
+/* ACCESSIBILITY - Skip to main content */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--accent);
+    color: var(--text-light);
+    padding: var(--spacing-sm) var(--spacing-md);
+    text-decoration: none;
+    z-index: 1000;
+    border-radius: 0 0 5px 0;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* ACCESSIBILITY - Focus states */
+*:focus {
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
+}
+
+button:focus,
+a:focus,
+select:focus,
+input:focus {
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
+}
+
+/* Improve text readability */
+p, li {
+    max-width: 75ch;
+}
+
+h1, h2, h3, h4 {
+    max-width: 65ch;
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -129,6 +169,54 @@ header p {
     background-color: var(--accent-hover);
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(233, 69, 96, 0.3);
+}
+
+/* GUIDING QUESTION */
+.guiding-question {
+    padding: var(--spacing-xl) 0;
+    background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary-dark) 100%);
+    color: var(--text-light);
+}
+
+.guiding-question-box {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+    padding: var(--spacing-xl);
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.guiding-question-box h2 {
+    font-size: 2rem;
+    margin-bottom: var(--spacing-lg);
+    font-family: var(--font-heading);
+}
+
+.guiding-question-text {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.6;
+    margin-bottom: var(--spacing-sm);
+    font-style: italic;
+}
+
+.guiding-question-simple {
+    font-size: 1.2rem;
+    font-weight: 500;
+    line-height: 1.6;
+    margin-bottom: var(--spacing-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    border-left: 3px solid rgba(255, 255, 255, 0.5);
+}
+
+.guiding-question-subtitle {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    line-height: 1.6;
 }
 
 /* LEARNING PATH */
