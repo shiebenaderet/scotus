@@ -18,14 +18,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Get selected level
                 const selectedLevel = this.getAttribute('data-level');
 
-                // Hide all content blocks
-                document.querySelectorAll('.content-block').forEach(block => {
+                // Hide all content blocks and two-sides summaries
+                document.querySelectorAll('.content-block, .two-sides-summary').forEach(block => {
                     block.classList.add('hidden');
+                    block.classList.remove('active');
                 });
 
                 // Show selected level content
-                document.querySelectorAll(`.${selectedLevel}`).forEach(block => {
+                document.querySelectorAll(`.content-block.${selectedLevel}, .two-sides-summary.${selectedLevel}`).forEach(block => {
                     block.classList.remove('hidden');
+                    block.classList.add('active');
                 });
             });
         });
