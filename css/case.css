@@ -53,6 +53,77 @@ padding: 0.75rem 1.5rem;
     outline-offset: 2px;
 }
 
+/* CASE HEADER */
+.case-header {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-light) 100%);
+    color: var(--text-light);
+    padding: 1.5rem 0;
+    text-align: center;
+}
+
+.case-header h1 {
+    font-size: 1.75rem;
+    margin-bottom: 0.25rem;
+    font-weight: 700;
+}
+
+.case-header .case-year {
+    font-weight: 400;
+    opacity: 0.9;
+}
+
+.case-header .case-subtitle {
+    font-size: 1rem;
+    opacity: 0.9;
+    margin-bottom: 1rem;
+}
+
+/* Case Section Navigation */
+.case-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.case-nav a {
+    color: var(--text-light);
+    text-decoration: none;
+    padding: 0.4rem 0.75rem;
+    font-size: 0.85rem;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+    opacity: 0.9;
+}
+
+.case-nav a:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    opacity: 1;
+}
+
+/* Inline Reading Toggle */
+.reading-toggle-inline {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.reading-toggle-inline .toggle-label {
+    font-size: 0.85rem;
+    opacity: 0.9;
+}
+
+.reading-toggle-inline .level-btn {
+    padding: 0.4rem 1rem;
+    min-height: 36px;
+    min-width: auto;
+    font-size: 0.85rem;
+    border-radius: 20px;
+}
+
 /* CASE SECTIONS */
 .case-section {
     padding: 1.5rem 0;

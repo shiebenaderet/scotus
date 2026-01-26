@@ -9,29 +9,29 @@
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
-    <header role="banner">
-        <div class="container">
-            <h1>SCOTUS Debate Project</h1>
-            <p>Learning About the Supreme Court and How It Works</p>
+    <header class="site-header" role="banner">
+        <div class="container header-inner">
+            <a href="index.html" class="site-logo">
+                <span class="logo-icon">⚖️</span>
+                <span class="logo-text">SCOTUS Debate Project</span>
+            </a>
+            <nav class="header-nav" role="navigation" aria-label="Main navigation">
+                <a href="index.html#cases">Cases</a>
+                <a href="index.html">Home</a>
+            </nav>
         </div>
     </header>
 
-    <nav class="main-nav" role="navigation" aria-label="Main navigation">
-        <div class="container">
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="index.html#cases">Cases</a></li>
-            </ul>
-        </div>
-    </nav>
-
     <main id="main-content" role="main">
-        <!-- Reading Level Toggle -->
-        <section class="level-toggle">
+        <!-- Page Header -->
+        <section class="case-header">
             <div class="container">
-                <div class="level-buttons" role="group" aria-label="Reading level selection">
-                    <button class="level-btn active" data-level="standard" aria-label="Standard reading level" aria-pressed="true">Standard Level</button>
-                    <button class="level-btn" data-level="simplified" aria-label="Simplified reading level" aria-pressed="false">Simplified Level</button>
+                <h1>Resources</h1>
+                <p class="case-subtitle">Learning About the Supreme Court and How It Works</p>
+                <div class="reading-toggle-inline">
+                    <span class="toggle-label">Reading Level:</span>
+                    <button class="level-btn active" data-level="standard" aria-pressed="true">Standard</button>
+                    <button class="level-btn" data-level="simplified" aria-pressed="false">Simplified</button>
                 </div>
             </div>
         </section>
