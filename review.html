@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review | SCOTUS Debate Project</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #1a2332 0%, #2d3a4a 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1a2332 0%, #2d3a4a 100%);
+            color: white;
+            padding: 25px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 1.5em;
+        }
+
+        header a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 0.95em;
+            transition: color 0.2s;
+        }
+
+        header a:hover { color: #e8646a; }
+
+        .content { padding: 30px; }
+
+        /* NAVIGATION BUTTONS */
+        .nav-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .nav-btn {
+            padding: 20px;
+            background: linear-gradient(135deg, #1a2332 0%, #2d3a4a 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-weight: 600;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(26, 35, 50, 0.4);
+        }
+
+        .nav-btn.secondary {
+            background: linear-gradient(135deg, #e8646a 0%, #c94f54 100%);
+        }
+
+        .nav-btn.success {
+            background: linear-gradient(135deg, #4facfe 0%, #00c6fb 100%);
+        }
+
+        /* SECTIONS */
+        .section { display: none; }
+        .section.active { display: block; }
+
+        /* PROGRESS BAR */
+        .progress-bar {
+            background: #e0e0e0;
+            height: 30px;
+            border-radius: 15px;
+            overflow: visible;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #4facfe 0%, #00c6fb 100%);
+            height: 100%;
+            transition: width 0.5s ease;
+            border-radius: 15px;
+        }
+
+        .progress-bar .progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: bold;
+            z-index: 1;
+        }
+
+        /* STATS GRID */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #1a2332 0%, #2d3a4a 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-card .number {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-card .label {
+            font-weight: 700;
+            font-size: 0.95em;
+        }
+
+        /* QUESTION CARD */
+        .question-card {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 5px solid #1a2332;
+        }
+
+        .question-card h3 {
+            color: #1a2332;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .question-card .question-topic {
+            display: inline-block;
+            background: #e0e7ff;
+            color: #1a2332;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        /* MULTIPLE CHOICE OPTIONS */
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .option {
+            padding: 15px 20px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 1em;
+        }
+
+        .option:hover {
+            border-color: #1a2332;
+            background: #f0f4ff;
+        }
+
+        .option.selected {
+            border-color: #1a2332;
+            background: #e0e7ff;
+        }
+
+        .option.correct {
+            border-color: #10b981;
+            background: #d1fae5;
+        }
+
+        .option.incorrect {
+            border-color: #ef4444;
+            background: #fee2e2;
+        }
+
+        /* FEEDBACK */
+        .feedback {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .feedback.show { display: block; }
+
+        .feedback.correct {
+            background: #d1fae5;
+            border-left: 5px solid #10b981;
+        }
+
+        .feedback.incorrect {
+            background: #fee2e2;
+            border-left: 5px solid #ef4444;
+        }
+
+        .feedback h4 { margin-bottom: 10px; }
+
+        /* SHORT ANSWER */
+        .short-answer-area {
+            width: 100%;
+            min-height: 120px;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1em;
+            font-family: inherit;
+            resize: vertical;
+            margin: 15px 0;
+        }
+
+        .short-answer-area:focus {
+            outline: none;
+            border-color: #1a2332;
+        }
+
+        .exemplar {
+            background: #f0f4ff;
+            border-left: 4px solid #1a2332;
+            padding: 15px 20px;
+            border-radius: 0 10px 10px 0;
+            margin: 15px 0;
+            display: none;
+        }
+
+        .exemplar.show { display: block; }
+
+        .exemplar h4 {
+            color: #1a2332;
+            margin-bottom: 8px;
+        }
+
+        .rubric-checklist {
+            margin: 15px 0;
+            display: none;
+        }
+
+        .rubric-checklist.show { display: block; }
+
+        .rubric-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+        }
+
+        .rubric-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        /* SORTING ACTIVITY */
+        .sort-container {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+            max-height: 600px;
+        }
+
+        .sort-items {
+            flex: 1;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .sort-items h3 {
+            position: sticky;
+            top: 0;
+            background: #f8f9fa;
+            padding: 10px 0;
+            margin: -10px 0 10px 0;
+            z-index: 10;
+        }
+
+        .sort-zones {
+            flex: 1.2;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .sort-item {
+            background: white;
+            border: 3px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 12px;
+            cursor: move;
+            transition: all 0.3s;
+            user-select: none;
+        }
+
+        .sort-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border-color: #1a2332;
+        }
+
+        .sort-item.dragging { opacity: 0.5; }
+
+        .sort-item.placed {
+            cursor: default;
+            background: #f0f4ff;
+        }
+
+        .sort-item.correct {
+            border-color: #10b981;
+            background: #d1fae5;
+        }
+
+        .sort-item.incorrect {
+            border-color: #ef4444;
+            background: #fee2e2;
+        }
+
+        .sort-item .item-title {
+            font-weight: bold;
+            color: #1a2332;
+            font-size: 1em;
+            margin-bottom: 4px;
+        }
+
+        .sort-item .item-description {
+            color: #666;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+
+        .drop-zone {
+            background: white;
+            border: 3px dashed #ccc;
+            border-radius: 12px;
+            padding: 15px;
+            min-height: 150px;
+            transition: all 0.3s;
+        }
+
+        .drop-zone.drag-over {
+            background: #e0e7ff;
+            border-color: #1a2332;
+            border-style: solid;
+        }
+
+        .drop-zone h4 {
+            text-align: center;
+            padding-bottom: 10px;
+            border-bottom: 2px solid currentColor;
+            margin-bottom: 15px;
+            color: #1a2332;
+        }
+
+        .drop-zone .empty-message {
+            text-align: center;
+            padding: 30px 20px;
+            color: #999;
+            font-style: italic;
+        }
+
+        .drop-zone .sort-item { margin-bottom: 8px; }
+
+        /* BUTTONS */
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+            margin: 5px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #1a2332 0%, #2d3a4a 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 35, 50, 0.4);
+        }
+
+        .btn-secondary {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .btn-secondary:hover { background: #d0d0d0; }
+
+        .btn-danger {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .btn-danger:hover { background: #fecaca; }
+
+        /* ALERTS */
+        .alert {
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .alert.info {
+            background: #dbeafe;
+            border-left: 5px solid #3b82f6;
+            color: #1e40af;
+        }
+
+        .alert.success {
+            background: #d1fae5;
+            border-left: 5px solid #10b981;
+            color: #065f46;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .sort-container { flex-direction: column; }
+        }
+
+        @media (max-width: 600px) {
+            .content { padding: 15px; }
+            header h1 { font-size: 1.2em; }
+            .nav-buttons { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>SCOTUS Review</h1>
+            <a href="index.html">Back to Home</a>
+        </header>
+
+        <div class="content">
+            <!-- HOME / DASHBOARD -->
+            <div id="home" class="section active">
+                <h2>Review Dashboard</h2>
+                <p style="margin: 10px 0 20px; color: #666;">Review what you've learned about Supreme Court cases and the Bill of Rights.</p>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="number" id="mc-score">0%</div>
+                        <div class="label">Multiple Choice</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number" id="sa-score">0/5</div>
+                        <div class="label">Short Answer</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number" id="sort-score">0%</div>
+                        <div class="label">Amendments Sort</div>
+                    </div>
+                </div>
+
+                <div class="nav-buttons">
+                    <button class="nav-btn" onclick="showSection('practice')">Multiple Choice</button>
+                    <button class="nav-btn secondary" onclick="showSection('shortanswer')">Short Answer</button>
+                    <button class="nav-btn success" onclick="showSection('sort')">Amendments Sort</button>
+                </div>
+
+                <div class="alert info">
+                    <span>This review covers key concepts from the SCOTUS cases and the Bill of Rights. Complete each section to track your progress.</span>
+                </div>
+            </div>
+
+            <!-- MULTIPLE CHOICE -->
+            <div id="practice" class="section">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2>Multiple Choice</h2>
+                    <button class="btn btn-secondary" onclick="showSection('home')">Back</button>
+                </div>
+
+                <div class="progress-bar">
+                    <div class="progress-fill" id="mc-progress" style="width: 0%"></div>
+                    <span class="progress-text" id="mc-progress-text">Question 1 of 10</span>
+                </div>
+
+                <div id="mc-question-area">
+                    <!-- Questions will be rendered here by JavaScript -->
+                    <div class="alert info">
+                        <span>Questions will be added here. Click "Start" when ready.</span>
+                    </div>
+                    <button class="btn btn-primary" onclick="startMultipleChoice()">Start</button>
+                </div>
+            </div>
+
+            <!-- SHORT ANSWER -->
+            <div id="shortanswer" class="section">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2>Short Answer</h2>
+                    <button class="btn btn-secondary" onclick="showSection('home')">Back</button>
+                </div>
+
+                <div class="progress-bar">
+                    <div class="progress-fill" id="sa-progress" style="width: 0%"></div>
+                    <span class="progress-text" id="sa-progress-text">Question 1 of 5</span>
+                </div>
+
+                <div id="sa-question-area">
+                    <!-- Short answer questions will be rendered here -->
+                    <div class="alert info">
+                        <span>Short answer questions will be added here. Click "Start" when ready.</span>
+                    </div>
+                    <button class="btn btn-primary" onclick="startShortAnswer()">Start</button>
+                </div>
+            </div>
+
+            <!-- AMENDMENTS SORT -->
+            <div id="sort" class="section">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2>Bill of Rights Sort</h2>
+                    <button class="btn btn-secondary" onclick="showSection('home')">Back</button>
+                </div>
+
+                <div class="alert info">
+                    <span>Drag each right or protection to the correct amendment. The first ten amendments to the Constitution make up the Bill of Rights.</span>
+                </div>
+
+                <div class="sort-container">
+                    <div class="sort-items" id="sort-items-panel">
+                        <h3>Rights & Protections</h3>
+                        <div id="sort-items-list">
+                            <!-- Sort items rendered by JS -->
+                        </div>
+                    </div>
+
+                    <div class="sort-zones" id="sort-zones-panel">
+                        <!-- Amendment drop zones rendered by JS -->
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 20px;">
+                    <button class="btn btn-primary" onclick="checkSort()">Check Answers</button>
+                    <button class="btn btn-secondary" onclick="resetSort()">Reset</button>
+                </div>
+
+                <div id="sort-feedback"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // ==========================================
+    // SECTION NAVIGATION
+    // ==========================================
+    function showSection(id) {
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        window.scrollTo(0, 0);
+    }
+
+    // ==========================================
+    // MULTIPLE CHOICE DATA (placeholder - content to be added)
+    // ==========================================
+    const multipleChoiceQuestions = [
+        // Example structure:
+        // {
+        //     topic: "Fourth Amendment",
+        //     question: "In Payton v. New York, what did the Court rule about warrantless home arrests?",
+        //     options: [
+        //         "Police can enter homes without warrants if they have probable cause",
+        //         "Police need a warrant to enter a home to make an arrest",
+        //         "Police only need a warrant for felony arrests",
+        //         "Warrants are never required for arrests"
+        //     ],
+        //     correct: 1,
+        //     explanation: "The Court ruled that the Fourth Amendment requires police to obtain a warrant before entering a person's home to make an arrest."
+        // }
+    ];
+
+    let currentMCQuestion = 0;
+    let mcAnswers = {};
+    let mcShuffled = [];
+
+    function startMultipleChoice() {
+        if (multipleChoiceQuestions.length === 0) {
+            document.getElementById('mc-question-area').innerHTML =
+                '<div class="alert info"><span>No questions have been added yet. Check back soon!</span></div>' +
+                '<button class="btn btn-secondary" onclick="showSection(\'home\')">Back to Dashboard</button>';
+            return;
+        }
+        mcShuffled = [...multipleChoiceQuestions].sort(() => Math.random() - 0.5).slice(0, 10);
+        currentMCQuestion = 0;
+        mcAnswers = {};
+        renderMCQuestion();
+    }
+
+    function renderMCQuestion() {
+        if (currentMCQuestion >= mcShuffled.length) {
+            showMCResults();
+            return;
+        }
+        const q = mcShuffled[currentMCQuestion];
+        const progress = ((currentMCQuestion) / mcShuffled.length) * 100;
+        document.getElementById('mc-progress').style.width = progress + '%';
+        document.getElementById('mc-progress-text').textContent =
+            `Question ${currentMCQuestion + 1} of ${mcShuffled.length}`;
+
+        let html = `<div class="question-card">`;
+        if (q.topic) html += `<span class="question-topic">${q.topic}</span>`;
+        html += `<h3>${q.question}</h3><div class="options">`;
+        q.options.forEach((opt, i) => {
+            html += `<div class="option" onclick="selectMCOption(${i})" id="mc-opt-${i}">${opt}</div>`;
+        });
+        html += `</div></div>`;
+        html += `<div id="mc-feedback" class="feedback"></div>`;
+        html += `<div style="text-align:center; margin-top:15px;">`;
+        html += `<button class="btn btn-primary" id="mc-check-btn" onclick="checkMCAnswer()" disabled>Check Answer</button>`;
+        html += `</div>`;
+
+        document.getElementById('mc-question-area').innerHTML = html;
+    }
+
+    let mcSelected = null;
+
+    function selectMCOption(index) {
+        mcSelected = index;
+        document.querySelectorAll('#mc-question-area .option').forEach((el, i) => {
+            el.classList.toggle('selected', i === index);
+        });
+        document.getElementById('mc-check-btn').disabled = false;
+    }
+
+    function checkMCAnswer() {
+        const q = mcShuffled[currentMCQuestion];
+        const isCorrect = mcSelected === q.correct;
+        mcAnswers[currentMCQuestion] = isCorrect;
+
+        document.querySelectorAll('#mc-question-area .option').forEach((el, i) => {
+            el.style.pointerEvents = 'none';
+            if (i === q.correct) el.classList.add('correct');
+            if (i === mcSelected && !isCorrect) el.classList.add('incorrect');
+        });
+
+        const fb = document.getElementById('mc-feedback');
+        fb.className = 'feedback show ' + (isCorrect ? 'correct' : 'incorrect');
+        fb.innerHTML = `<h4>${isCorrect ? 'Correct!' : 'Not quite.'}</h4><p>${q.explanation || ''}</p>`;
+
+        document.getElementById('mc-check-btn').style.display = 'none';
+        const nextBtn = document.createElement('button');
+        nextBtn.className = 'btn btn-primary';
+        nextBtn.textContent = currentMCQuestion < mcShuffled.length - 1 ? 'Next Question' : 'See Results';
+        nextBtn.onclick = function() {
+            currentMCQuestion++;
+            mcSelected = null;
+            renderMCQuestion();
+        };
+        document.getElementById('mc-check-btn').parentNode.appendChild(nextBtn);
+    }
+
+    function showMCResults() {
+        const correct = Object.values(mcAnswers).filter(v => v).length;
+        const total = mcShuffled.length;
+        const pct = Math.round((correct / total) * 100);
+
+        document.getElementById('mc-progress').style.width = '100%';
+        document.getElementById('mc-progress-text').textContent = 'Complete!';
+        document.getElementById('mc-score').textContent = pct + '%';
+
+        let html = `<div class="stats-grid">
+            <div class="stat-card"><div class="number">${correct}/${total}</div><div class="label">Correct</div></div>
+            <div class="stat-card"><div class="number">${pct}%</div><div class="label">Score</div></div>
+        </div>`;
+        html += `<div style="text-align:center; margin-top:20px;">`;
+        html += `<button class="btn btn-primary" onclick="startMultipleChoice()">Try Again</button> `;
+        html += `<button class="btn btn-secondary" onclick="showSection('home')">Back to Dashboard</button>`;
+        html += `</div>`;
+
+        document.getElementById('mc-question-area').innerHTML = html;
+        localStorage.setItem('scotus-mc-score', pct);
+    }
+
+    // ==========================================
+    // SHORT ANSWER DATA (placeholder - content to be added)
+    // ==========================================
+    const shortAnswerQuestions = [
+        // Example structure:
+        // {
+        //     topic: "Judicial Review",
+        //     question: "Explain why judicial review is important for the system of checks and balances.",
+        //     exemplar: "Judicial review allows the Supreme Court to strike down laws that violate the Constitution. This is important because it prevents Congress or the President from passing laws that take away people's rights. Without judicial review, there would be no check on the legislative and executive branches.",
+        //     rubric: [
+        //         "Defines judicial review",
+        //         "Explains connection to checks and balances",
+        //         "Gives a specific reason why it matters"
+        //     ]
+        // }
+    ];
+
+    let currentSAQuestion = 0;
+
+    function startShortAnswer() {
+        if (shortAnswerQuestions.length === 0) {
+            document.getElementById('sa-question-area').innerHTML =
+                '<div class="alert info"><span>No questions have been added yet. Check back soon!</span></div>' +
+                '<button class="btn btn-secondary" onclick="showSection(\'home\')">Back to Dashboard</button>';
+            return;
+        }
+        currentSAQuestion = 0;
+        renderSAQuestion();
+    }
+
+    function renderSAQuestion() {
+        if (currentSAQuestion >= shortAnswerQuestions.length) {
+            showSAResults();
+            return;
+        }
+        const q = shortAnswerQuestions[currentSAQuestion];
+        const progress = ((currentSAQuestion) / shortAnswerQuestions.length) * 100;
+        document.getElementById('sa-progress').style.width = progress + '%';
+        document.getElementById('sa-progress-text').textContent =
+            `Question ${currentSAQuestion + 1} of ${shortAnswerQuestions.length}`;
+
+        let html = `<div class="question-card">`;
+        if (q.topic) html += `<span class="question-topic">${q.topic}</span>`;
+        html += `<h3>${q.question}</h3>`;
+        html += `<textarea class="short-answer-area" id="sa-response" placeholder="Type your answer here..."></textarea>`;
+        html += `</div>`;
+        html += `<div style="text-align:center; margin-top:15px;">`;
+        html += `<button class="btn btn-primary" onclick="showExemplar()">Show Model Answer</button>`;
+        html += `</div>`;
+        html += `<div class="exemplar" id="sa-exemplar">`;
+        html += `<h4>Model Answer:</h4><p>${q.exemplar || ''}</p>`;
+        if (q.rubric && q.rubric.length > 0) {
+            html += `<h4 style="margin-top:15px;">Rate your answer:</h4>`;
+            html += `<div class="rubric-checklist show">`;
+            q.rubric.forEach((item, i) => {
+                html += `<div class="rubric-item"><input type="checkbox" id="rubric-${i}"><label for="rubric-${i}">${item}</label></div>`;
+            });
+            html += `</div>`;
+        }
+        html += `<div style="text-align:center; margin-top:15px;">`;
+        html += `<button class="btn btn-primary" onclick="nextSAQuestion()">`;
+        html += currentSAQuestion < shortAnswerQuestions.length - 1 ? 'Next Question' : 'Finish';
+        html += `</button></div></div>`;
+
+        document.getElementById('sa-question-area').innerHTML = html;
+    }
+
+    function showExemplar() {
+        document.getElementById('sa-exemplar').classList.add('show');
+    }
+
+    function nextSAQuestion() {
+        currentSAQuestion++;
+        renderSAQuestion();
+    }
+
+    function showSAResults() {
+        document.getElementById('sa-progress').style.width = '100%';
+        document.getElementById('sa-progress-text').textContent = 'Complete!';
+        document.getElementById('sa-score').textContent = shortAnswerQuestions.length + '/' + shortAnswerQuestions.length;
+
+        let html = `<div class="alert success"><span>You've completed all short answer questions. Great work!</span></div>`;
+        html += `<div style="text-align:center;">`;
+        html += `<button class="btn btn-primary" onclick="startShortAnswer()">Try Again</button> `;
+        html += `<button class="btn btn-secondary" onclick="showSection('home')">Back to Dashboard</button>`;
+        html += `</div>`;
+
+        document.getElementById('sa-question-area').innerHTML = html;
+    }
+
+    // ==========================================
+    // AMENDMENTS SORT DATA
+    // ==========================================
+    const amendments = [
+        { id: 'amend1', name: 'First Amendment', description: 'Freedom of religion, speech, press, assembly, and petition' },
+        { id: 'amend2', name: 'Second Amendment', description: 'Right to bear arms' },
+        { id: 'amend3', name: 'Third Amendment', description: 'No quartering of soldiers' },
+        { id: 'amend4', name: 'Fourth Amendment', description: 'Protection from unreasonable searches and seizures' },
+        { id: 'amend5', name: 'Fifth Amendment', description: 'Rights in criminal cases (due process, double jeopardy, self-incrimination)' },
+        { id: 'amend6', name: 'Sixth Amendment', description: 'Right to a fair and speedy trial' },
+        { id: 'amend7', name: 'Seventh Amendment', description: 'Right to jury trial in civil cases' },
+        { id: 'amend8', name: 'Eighth Amendment', description: 'No excessive bail or cruel and unusual punishment' },
+        { id: 'amend9', name: 'Ninth Amendment', description: 'Rights retained by the people' },
+        { id: 'amend10', name: 'Tenth Amendment', description: 'Powers reserved to states and the people' }
+    ];
+
+    const sortItems = [
+        { id: 's1', text: 'Freedom of speech', correctAmendment: 'amend1' },
+        { id: 's2', text: 'Right to bear arms', correctAmendment: 'amend2' },
+        { id: 's3', text: 'No soldiers housed in your home without consent', correctAmendment: 'amend3' },
+        { id: 's4', text: 'Police need a warrant to search your home', correctAmendment: 'amend4' },
+        { id: 's5', text: 'Cannot be tried twice for the same crime', correctAmendment: 'amend5' },
+        { id: 's6', text: 'Right to a speedy trial', correctAmendment: 'amend6' },
+        { id: 's7', text: 'Right to a jury in civil cases over $20', correctAmendment: 'amend7' },
+        { id: 's8', text: 'No cruel and unusual punishment', correctAmendment: 'amend8' },
+        { id: 's9', text: 'People have rights not listed in the Constitution', correctAmendment: 'amend9' },
+        { id: 's10', text: 'Powers not given to the federal government belong to states', correctAmendment: 'amend10' },
+        { id: 's11', text: 'Freedom of religion', correctAmendment: 'amend1' },
+        { id: 's12', text: 'Right to petition the government', correctAmendment: 'amend1' },
+        { id: 's13', text: 'Right to remain silent (self-incrimination)', correctAmendment: 'amend5' },
+        { id: 's14', text: 'Freedom of the press', correctAmendment: 'amend1' },
+        { id: 's15', text: 'No excessive bail', correctAmendment: 'amend8' },
+    ];
+
+    let sortPlaced = {};
+
+    function initSort() {
+        // Shuffle items
+        const shuffled = [...sortItems].sort(() => Math.random() - 0.5);
+
+        // Render draggable items
+        const itemsList = document.getElementById('sort-items-list');
+        itemsList.innerHTML = '';
+        shuffled.forEach(item => {
+            const el = document.createElement('div');
+            el.className = 'sort-item';
+            el.draggable = true;
+            el.id = 'sort-' + item.id;
+            el.dataset.itemId = item.id;
+            el.innerHTML = `<div class="item-title">${item.text}</div>`;
+            el.addEventListener('dragstart', handleDragStart);
+            el.addEventListener('dragend', handleDragEnd);
+            itemsList.appendChild(el);
+        });
+
+        // Render drop zones
+        const zonesPanel = document.getElementById('sort-zones-panel');
+        zonesPanel.innerHTML = '';
+        amendments.forEach(a => {
+            const zone = document.createElement('div');
+            zone.className = 'drop-zone';
+            zone.id = 'zone-' + a.id;
+            zone.dataset.amendmentId = a.id;
+            zone.innerHTML = `<h4>${a.name}</h4><p class="empty-message">${a.description}<br><em>Drop items here</em></p>`;
+            zone.addEventListener('dragover', handleDragOver);
+            zone.addEventListener('dragleave', handleDragLeave);
+            zone.addEventListener('drop', handleDrop);
+            zonesPanel.appendChild(zone);
+        });
+
+        sortPlaced = {};
+        document.getElementById('sort-feedback').innerHTML = '';
+    }
+
+    let draggedItem = null;
+
+    function handleDragStart(e) {
+        draggedItem = e.target.closest('.sort-item');
+        draggedItem.classList.add('dragging');
+        e.dataTransfer.effectAllowed = 'move';
+    }
+
+    function handleDragEnd(e) {
+        if (draggedItem) draggedItem.classList.remove('dragging');
+        draggedItem = null;
+        document.querySelectorAll('.drop-zone').forEach(z => z.classList.remove('drag-over'));
+    }
+
+    function handleDragOver(e) {
+        e.preventDefault();
+        e.currentTarget.classList.add('drag-over');
+    }
+
+    function handleDragLeave(e) {
+        e.currentTarget.classList.remove('drag-over');
+    }
+
+    function handleDrop(e) {
+        e.preventDefault();
+        const zone = e.currentTarget;
+        zone.classList.remove('drag-over');
+
+        if (!draggedItem) return;
+
+        const itemId = draggedItem.dataset.itemId;
+        const amendmentId = zone.dataset.amendmentId;
+
+        // Remove empty message
+        const emptyMsg = zone.querySelector('.empty-message');
+        if (emptyMsg) emptyMsg.style.display = 'none';
+
+        // Move item to zone
+        draggedItem.classList.add('placed');
+        draggedItem.draggable = false;
+        zone.appendChild(draggedItem);
+
+        // Track placement
+        if (!sortPlaced[amendmentId]) sortPlaced[amendmentId] = [];
+        sortPlaced[amendmentId].push(itemId);
+    }
+
+    function checkSort() {
+        let correct = 0;
+        let total = sortItems.length;
+
+        // Check each placed item
+        document.querySelectorAll('.sort-item.placed').forEach(el => {
+            const itemId = el.dataset.itemId;
+            const zone = el.closest('.drop-zone');
+            if (!zone) return;
+            const amendmentId = zone.dataset.amendmentId;
+            const item = sortItems.find(s => s.id === itemId);
+            if (item && item.correctAmendment === amendmentId) {
+                el.classList.add('correct');
+                el.classList.remove('incorrect');
+                correct++;
+            } else {
+                el.classList.add('incorrect');
+                el.classList.remove('correct');
+            }
+        });
+
+        // Count unplaced
+        const placed = document.querySelectorAll('.sort-item.placed').length;
+        const unplaced = total - placed;
+
+        const pct = Math.round((correct / total) * 100);
+        document.getElementById('sort-score').textContent = pct + '%';
+        localStorage.setItem('scotus-sort-score', pct);
+
+        let fbHtml = `<div class="stats-grid" style="margin-top:20px;">
+            <div class="stat-card"><div class="number">${correct}/${total}</div><div class="label">Correct</div></div>
+            <div class="stat-card"><div class="number">${pct}%</div><div class="label">Score</div></div>
+        </div>`;
+        if (unplaced > 0) {
+            fbHtml += `<div class="alert info" style="margin-top:15px;"><span>${unplaced} item(s) not yet placed. Drag them to an amendment to complete the activity.</span></div>`;
+        }
+        document.getElementById('sort-feedback').innerHTML = fbHtml;
+    }
+
+    function resetSort() {
+        initSort();
+    }
+
+    // ==========================================
+    // INITIALIZATION
+    // ==========================================
+    document.addEventListener('DOMContentLoaded', function() {
+        initSort();
+
+        // Restore saved scores
+        const savedMC = localStorage.getItem('scotus-mc-score');
+        const savedSort = localStorage.getItem('scotus-sort-score');
+        if (savedMC) document.getElementById('mc-score').textContent = savedMC + '%';
+        if (savedSort) document.getElementById('sort-score').textContent = savedSort + '%';
+    });
+    </script>
+</body>
+</html>
