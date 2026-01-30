@@ -450,15 +450,153 @@
             color: #065f46;
         }
 
+        /* FLASHCARDS */
+        .flashcard-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .flashcard-controls .btn {
+            min-width: 100px;
+        }
+
+        .flashcard-counter {
+            font-weight: 600;
+            color: #666;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .flashcard {
+            perspective: 1000px;
+            width: 100%;
+            max-width: 600px;
+            height: 280px;
+            margin: 30px auto;
+            cursor: pointer;
+        }
+
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .flashcard.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .flashcard-front {
+            background: linear-gradient(135deg, #1a2332 0%, #2d3a4a 100%);
+            color: white;
+            border: 3px solid #2d3a4a;
+        }
+
+        .flashcard-front h3 {
+            font-size: 1.6em;
+            margin-bottom: 15px;
+        }
+
+        .flashcard-front .flip-hint {
+            font-size: 0.85em;
+            opacity: 0.6;
+            margin-top: 15px;
+        }
+
+        .flashcard-back {
+            background: #f0f4ff;
+            border: 3px solid #1a2332;
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-back p {
+            font-size: 1.15em;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .flashcard-back .term-label {
+            font-size: 0.8em;
+            font-weight: 700;
+            color: #1a2332;
+            background: #dbeafe;
+            padding: 4px 12px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+        }
+
+        .flashcard-progress {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+
+        .flashcard-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #e0e0e0;
+            transition: background 0.3s;
+        }
+
+        .flashcard-dot.active {
+            background: #1a2332;
+        }
+
+        .flashcard-dot.seen {
+            background: #4facfe;
+        }
+
+        .flashcard-mode-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .flashcard-mode-toggle .btn {
+            font-size: 0.85em;
+            padding: 8px 16px;
+        }
+
+        .flashcard-mode-toggle .btn.active-mode {
+            background: linear-gradient(135deg, #1a2332 0%, #2d3a4a 100%);
+            color: white;
+        }
+
         /* RESPONSIVE */
         @media (max-width: 768px) {
             .sort-container { flex-direction: column; }
+            .flashcard { height: 240px; }
+            .flashcard-front h3 { font-size: 1.3em; }
         }
 
         @media (max-width: 600px) {
             .content { padding: 15px; }
             header h1 { font-size: 1.2em; }
             .nav-buttons { grid-template-columns: 1fr; }
+            .flashcard { height: 220px; }
         }
     </style>
 </head>
@@ -488,12 +626,17 @@
                         <div class="number" id="sort-score">0%</div>
                         <div class="label">Amendments Sort</div>
                     </div>
+                    <div class="stat-card">
+                        <div class="number" id="vocab-score">0/24</div>
+                        <div class="label">Vocabulary</div>
+                    </div>
                 </div>
 
                 <div class="nav-buttons">
                     <button class="nav-btn" onclick="showSection('practice')">Multiple Choice</button>
                     <button class="nav-btn secondary" onclick="showSection('shortanswer')">Short Answer</button>
                     <button class="nav-btn success" onclick="showSection('sort')">Amendments Sort</button>
+                    <button class="nav-btn" onclick="showSection('vocab')">Vocabulary</button>
                 </div>
 
                 <div class="alert info">
@@ -573,6 +716,45 @@
                 </div>
 
                 <div id="sort-feedback"></div>
+            </div>
+
+            <!-- VOCABULARY FLASHCARDS -->
+            <div id="vocab" class="section">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2>Vocabulary</h2>
+                    <button class="btn btn-secondary" onclick="showSection('home')">Back</button>
+                </div>
+
+                <div class="alert info">
+                    <span>Click a card to flip it and reveal the answer. Use the arrows to navigate between terms.</span>
+                </div>
+
+                <div class="flashcard-mode-toggle">
+                    <button class="btn btn-secondary active-mode" id="mode-term" onclick="setFlashcardMode('term')">Term First</button>
+                    <button class="btn btn-secondary" id="mode-def" onclick="setFlashcardMode('definition')">Definition First</button>
+                    <button class="btn btn-secondary" id="shuffle-btn" onclick="shuffleFlashcards()">Shuffle</button>
+                </div>
+
+                <div class="flashcard-progress" id="flashcard-dots"></div>
+
+                <div class="flashcard" id="flashcard" onclick="flipCard()">
+                    <div class="flashcard-inner" id="flashcard-inner">
+                        <div class="flashcard-front" id="flashcard-front">
+                            <h3 id="card-front-text">Loading...</h3>
+                            <div class="flip-hint">Click to flip</div>
+                        </div>
+                        <div class="flashcard-back" id="flashcard-back">
+                            <div class="term-label" id="card-back-label">Definition</div>
+                            <p id="card-back-text">Loading...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flashcard-controls">
+                    <button class="btn btn-secondary" onclick="prevCard()">Previous</button>
+                    <span class="flashcard-counter" id="card-counter">1 / 24</span>
+                    <button class="btn btn-primary" onclick="nextCard()">Next</button>
+                </div>
             </div>
         </div>
     </div>
@@ -963,10 +1145,131 @@
     }
 
     // ==========================================
+    // VOCABULARY FLASHCARDS
+    // ==========================================
+    const vocabTerms = [
+        { term: "Jury", definition: "A group of ordinary citizens who listen to evidence and decide guilt or liability." },
+        { term: "Judge", definition: "The person who presides over a court and makes decisions about the law and fairness." },
+        { term: "Defendant", definition: "The person accused or being sued in a court case." },
+        { term: "Plaintiff", definition: "The person bringing a civil lawsuit; the person suing." },
+        { term: "Evidence", definition: "Documents, objects, witness testimony, or other information used to prove facts in a case." },
+        { term: "Trial Court / District Court", definition: "The first court where a case is heard; evidence and testimony are presented to a judge or jury." },
+        { term: "Civil Court", definition: "Handles disputes about money, property, contracts, and other non-criminal matters." },
+        { term: "Criminal Court", definition: "Handles cases where someone is accused of breaking a law and could face punishment." },
+        { term: "Bench Trial", definition: "A trial where a judge, not a jury, listens to evidence and makes the final decision." },
+        { term: "Jury Trial", definition: "A trial where citizens (the jury) listen to evidence and decide if the defendant is guilty or liable." },
+        { term: "Appellate Court", definition: "Reviews decisions from lower courts to check if the law was applied correctly." },
+        { term: "Court of Appeals", definition: "An appellate court that reviews decisions from trial courts at the federal or state level." },
+        { term: "Panel", definition: "A group of judges (usually 2-3) who review a case and vote on the decision." },
+        { term: "Affirm", definition: "An appellate court agrees with and upholds the lower court's decision." },
+        { term: "Reverse", definition: "An appellate court overturns the lower court's decision, often ordering a new trial." },
+        { term: "Federal Court System", definition: "Courts established by the federal government that handle federal laws and constitutional questions." },
+        { term: "State Court System", definition: "Courts in each state that handle criminal cases, civil disputes, and state/local laws." },
+        { term: "Petitioner", definition: "The person or party who appeals a case to a higher court, asking the court to review the lower court's decision." },
+        { term: "Respondent", definition: "The person or party being sued or appealed against; the other side in the case." },
+        { term: "Precedent", definition: "A court decision that serves as an example or rule for how similar cases should be decided in the future." },
+        { term: "Judicial Review", definition: "The power of courts to decide if laws and government actions are constitutional." },
+        { term: "Supreme Court", definition: "The highest U.S. court; decides if laws and government actions are constitutional." },
+        { term: "Birthright Citizenship", definition: "The right to become a U.S. citizen by being born in the United States, granted by the 14th Amendment." },
+        { term: "Amendment", definition: "An official change or addition to a law, the Constitution, or other legal document." }
+    ];
+
+    let currentCard = 0;
+    let flashcardMode = 'term'; // 'term' = show term first, 'definition' = show definition first
+    let cardOrder = [];
+    let seenCards = new Set();
+
+    function initFlashcards() {
+        cardOrder = vocabTerms.map((_, i) => i);
+        currentCard = 0;
+        seenCards = new Set();
+        renderDots();
+        renderCard();
+    }
+
+    function renderDots() {
+        const dotsEl = document.getElementById('flashcard-dots');
+        dotsEl.innerHTML = '';
+        cardOrder.forEach((_, i) => {
+            const dot = document.createElement('span');
+            dot.className = 'flashcard-dot';
+            if (i === currentCard) dot.classList.add('active');
+            if (seenCards.has(i)) dot.classList.add('seen');
+            dotsEl.appendChild(dot);
+        });
+    }
+
+    function renderCard() {
+        const idx = cardOrder[currentCard];
+        const card = vocabTerms[idx];
+        const flashcardEl = document.getElementById('flashcard');
+
+        // Reset flip
+        flashcardEl.classList.remove('flipped');
+
+        if (flashcardMode === 'term') {
+            document.getElementById('card-front-text').textContent = card.term;
+            document.getElementById('card-back-label').textContent = 'Definition';
+            document.getElementById('card-back-text').textContent = card.definition;
+        } else {
+            document.getElementById('card-front-text').textContent = card.definition;
+            document.getElementById('card-back-label').textContent = 'Term';
+            document.getElementById('card-back-text').textContent = card.term;
+        }
+
+        document.getElementById('card-counter').textContent = (currentCard + 1) + ' / ' + cardOrder.length;
+
+        seenCards.add(currentCard);
+        renderDots();
+        updateVocabScore();
+    }
+
+    function flipCard() {
+        document.getElementById('flashcard').classList.toggle('flipped');
+    }
+
+    function nextCard() {
+        if (currentCard < cardOrder.length - 1) {
+            currentCard++;
+        } else {
+            currentCard = 0;
+        }
+        renderCard();
+    }
+
+    function prevCard() {
+        if (currentCard > 0) {
+            currentCard--;
+        } else {
+            currentCard = cardOrder.length - 1;
+        }
+        renderCard();
+    }
+
+    function setFlashcardMode(mode) {
+        flashcardMode = mode;
+        document.getElementById('mode-term').classList.toggle('active-mode', mode === 'term');
+        document.getElementById('mode-def').classList.toggle('active-mode', mode === 'definition');
+        renderCard();
+    }
+
+    function shuffleFlashcards() {
+        cardOrder = cardOrder.sort(() => Math.random() - 0.5);
+        currentCard = 0;
+        seenCards = new Set();
+        renderCard();
+    }
+
+    function updateVocabScore() {
+        document.getElementById('vocab-score').textContent = seenCards.size + '/' + vocabTerms.length;
+    }
+
+    // ==========================================
     // INITIALIZATION
     // ==========================================
     document.addEventListener('DOMContentLoaded', function() {
         initSort();
+        initFlashcards();
 
         // Restore saved scores
         const savedMC = localStorage.getItem('scotus-mc-score');
