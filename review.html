@@ -451,25 +451,6 @@
         }
 
         /* FLASHCARDS */
-        .flashcard-controls {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-            margin: 20px 0;
-        }
-
-        .flashcard-controls .btn {
-            min-width: 100px;
-        }
-
-        .flashcard-counter {
-            font-weight: 600;
-            color: #666;
-            min-width: 80px;
-            text-align: center;
-        }
-
         .flashcard {
             perspective: 1000px;
             width: 100%;
@@ -513,13 +494,7 @@
 
         .flashcard-front h3 {
             font-size: 1.6em;
-            margin-bottom: 15px;
-        }
-
-        .flashcard-front .flip-hint {
-            font-size: 0.85em;
-            opacity: 0.6;
-            margin-top: 15px;
+            margin-bottom: 10px;
         }
 
         .flashcard-back {
@@ -534,7 +509,7 @@
             color: #333;
         }
 
-        .flashcard-back .term-label {
+        .flashcard-back .card-label {
             font-size: 0.8em;
             font-weight: 700;
             color: #1a2332;
@@ -544,45 +519,73 @@
             margin-bottom: 15px;
         }
 
-        .flashcard-progress {
+        .flashcard.known .flashcard-front {
+            border-color: #10b981;
+        }
+
+        .flashcard.known .flashcard-front::after {
+            content: 'Mastered';
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: #10b981;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-size: 0.75em;
+            font-weight: 600;
+        }
+
+        .card-controls {
             display: flex;
             justify-content: center;
-            gap: 5px;
+            align-items: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .flip-indicator {
+            text-align: center;
+            color: #999;
+            font-style: italic;
+            font-size: 0.9em;
+            margin: 10px 0;
+        }
+
+        .keyboard-hint {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
             flex-wrap: wrap;
             margin: 15px 0;
-        }
-
-        .flashcard-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #e0e0e0;
-            transition: background 0.3s;
-        }
-
-        .flashcard-dot.active {
-            background: #1a2332;
-        }
-
-        .flashcard-dot.seen {
-            background: #4facfe;
-        }
-
-        .flashcard-mode-toggle {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .flashcard-mode-toggle .btn {
             font-size: 0.85em;
-            padding: 8px 16px;
+            color: #888;
         }
 
-        .flashcard-mode-toggle .btn.active-mode {
-            background: linear-gradient(135deg, #1a2332 0%, #2d3a4a 100%);
-            color: white;
+        .keyboard-hint .key {
+            display: inline-block;
+            background: #e0e0e0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 2px 8px;
+            font-family: monospace;
+            font-size: 0.9em;
+            min-width: 24px;
+            text-align: center;
+        }
+
+        .reset-btn {
+            background: none;
+            border: none;
+            color: #ef4444;
+            cursor: pointer;
+            font-size: 0.9em;
+            text-decoration: underline;
+            margin-top: 10px;
+        }
+
+        .reset-btn:hover {
+            color: #dc2626;
         }
 
         /* RESPONSIVE */
@@ -590,6 +593,7 @@
             .sort-container { flex-direction: column; }
             .flashcard { height: 240px; }
             .flashcard-front h3 { font-size: 1.3em; }
+            .keyboard-hint { display: none; }
         }
 
         @media (max-width: 600px) {
@@ -628,7 +632,7 @@
                     </div>
                     <div class="stat-card">
                         <div class="number" id="vocab-score">0/24</div>
-                        <div class="label">Vocabulary</div>
+                        <div class="label">Vocab Mastered</div>
                     </div>
                 </div>
 
@@ -720,40 +724,36 @@
 
             <!-- VOCABULARY FLASHCARDS -->
             <div id="vocab" class="section">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                    <h2>Vocabulary</h2>
-                    <button class="btn btn-secondary" onclick="showSection('home')">Back</button>
+                <button class="btn btn-secondary" onclick="showSection('home')">Back to Dashboard</button>
+
+                <h2 style="margin: 20px 0;">Vocabulary Flashcards</h2>
+
+                <div class="progress-bar">
+                    <div class="progress-fill" id="vocabProgressBar" style="width: 0%"></div>
+                    <div class="progress-text" id="vocabProgress">0/24 terms mastered (0%)</div>
                 </div>
 
-                <div class="alert info">
-                    <span>Click a card to flip it and reveal the answer. Use the arrows to navigate between terms.</span>
-                </div>
+                <div id="flashcardContainer"></div>
 
-                <div class="flashcard-mode-toggle">
-                    <button class="btn btn-secondary active-mode" id="mode-term" onclick="setFlashcardMode('term')">Term First</button>
-                    <button class="btn btn-secondary" id="mode-def" onclick="setFlashcardMode('definition')">Definition First</button>
-                    <button class="btn btn-secondary" id="shuffle-btn" onclick="shuffleFlashcards()">Shuffle</button>
-                </div>
-
-                <div class="flashcard-progress" id="flashcard-dots"></div>
-
-                <div class="flashcard" id="flashcard" onclick="flipCard()">
-                    <div class="flashcard-inner" id="flashcard-inner">
-                        <div class="flashcard-front" id="flashcard-front">
-                            <h3 id="card-front-text">Loading...</h3>
-                            <div class="flip-hint">Click to flip</div>
-                        </div>
-                        <div class="flashcard-back" id="flashcard-back">
-                            <div class="term-label" id="card-back-label">Definition</div>
-                            <p id="card-back-text">Loading...</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flashcard-controls">
+                <div class="card-controls">
                     <button class="btn btn-secondary" onclick="prevCard()">Previous</button>
-                    <span class="flashcard-counter" id="card-counter">1 / 24</span>
-                    <button class="btn btn-primary" onclick="nextCard()">Next</button>
+                    <button class="btn btn-primary" onclick="markKnown()">I Know This</button>
+                    <button class="btn btn-secondary" onclick="nextCard()">Next</button>
+                </div>
+
+                <p class="flip-indicator">Click the card to flip between term and definition</p>
+
+                <div class="keyboard-hint">
+                    <span><span class="key">&#8592;</span> <span class="key">&#8594;</span> Navigate cards</span>
+                    <span><span class="key">Space</span> Flip card</span>
+                    <span><span class="key">K</span> Mark known</span>
+                    <span><span class="key">Esc</span> Home</span>
+                </div>
+
+                <div style="text-align: center; margin-top: 20px;">
+                    <button class="btn btn-secondary" onclick="shuffleCards()">Shuffle Cards</button>
+                    <br>
+                    <button class="reset-btn" onclick="resetVocabProgress()">Reset Vocabulary Progress</button>
                 </div>
             </div>
         </div>
@@ -1175,57 +1175,57 @@
     ];
 
     let currentCard = 0;
-    let flashcardMode = 'term'; // 'term' = show term first, 'definition' = show definition first
     let cardOrder = [];
-    let seenCards = new Set();
+    let knownCards = new Set();
 
-    function initFlashcards() {
-        cardOrder = vocabTerms.map((_, i) => i);
-        currentCard = 0;
-        seenCards = new Set();
-        renderDots();
-        renderCard();
+    function loadVocabProgress() {
+        const saved = localStorage.getItem('scotus-vocab-known');
+        if (saved) {
+            try {
+                const arr = JSON.parse(saved);
+                knownCards = new Set(arr);
+            } catch(e) {
+                knownCards = new Set();
+            }
+        }
     }
 
-    function renderDots() {
-        const dotsEl = document.getElementById('flashcard-dots');
-        dotsEl.innerHTML = '';
-        cardOrder.forEach((_, i) => {
-            const dot = document.createElement('span');
-            dot.className = 'flashcard-dot';
-            if (i === currentCard) dot.classList.add('active');
-            if (seenCards.has(i)) dot.classList.add('seen');
-            dotsEl.appendChild(dot);
-        });
+    function saveVocabProgress() {
+        localStorage.setItem('scotus-vocab-known', JSON.stringify([...knownCards]));
+    }
+
+    function initFlashcards() {
+        loadVocabProgress();
+        cardOrder = vocabTerms.map((_, i) => i);
+        currentCard = 0;
+        renderCard();
+        updateVocabProgress();
     }
 
     function renderCard() {
         const idx = cardOrder[currentCard];
         const card = vocabTerms[idx];
-        const flashcardEl = document.getElementById('flashcard');
+        const isKnown = knownCards.has(idx);
 
-        // Reset flip
-        flashcardEl.classList.remove('flipped');
-
-        if (flashcardMode === 'term') {
-            document.getElementById('card-front-text').textContent = card.term;
-            document.getElementById('card-back-label').textContent = 'Definition';
-            document.getElementById('card-back-text').textContent = card.definition;
-        } else {
-            document.getElementById('card-front-text').textContent = card.definition;
-            document.getElementById('card-back-label').textContent = 'Term';
-            document.getElementById('card-back-text').textContent = card.term;
-        }
-
-        document.getElementById('card-counter').textContent = (currentCard + 1) + ' / ' + cardOrder.length;
-
-        seenCards.add(currentCard);
-        renderDots();
-        updateVocabScore();
+        const container = document.getElementById('flashcardContainer');
+        container.innerHTML = `
+            <div class="flashcard${isKnown ? ' known' : ''}" id="flashcard" onclick="flipCard()">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">
+                        <h3>${card.term}</h3>
+                    </div>
+                    <div class="flashcard-back">
+                        <div class="card-label">Definition</div>
+                        <p>${card.definition}</p>
+                    </div>
+                </div>
+            </div>
+        `;
     }
 
     function flipCard() {
-        document.getElementById('flashcard').classList.toggle('flipped');
+        const el = document.getElementById('flashcard');
+        if (el) el.classList.toggle('flipped');
     }
 
     function nextCard() {
@@ -1246,22 +1246,40 @@
         renderCard();
     }
 
-    function setFlashcardMode(mode) {
-        flashcardMode = mode;
-        document.getElementById('mode-term').classList.toggle('active-mode', mode === 'term');
-        document.getElementById('mode-def').classList.toggle('active-mode', mode === 'definition');
+    function markKnown() {
+        const idx = cardOrder[currentCard];
+        if (knownCards.has(idx)) {
+            knownCards.delete(idx);
+        } else {
+            knownCards.add(idx);
+        }
+        saveVocabProgress();
         renderCard();
+        updateVocabProgress();
     }
 
-    function shuffleFlashcards() {
+    function shuffleCards() {
         cardOrder = cardOrder.sort(() => Math.random() - 0.5);
         currentCard = 0;
-        seenCards = new Set();
         renderCard();
     }
 
-    function updateVocabScore() {
-        document.getElementById('vocab-score').textContent = seenCards.size + '/' + vocabTerms.length;
+    function resetVocabProgress() {
+        if (confirm('Reset all vocabulary progress? This will unmark all mastered terms.')) {
+            knownCards = new Set();
+            saveVocabProgress();
+            renderCard();
+            updateVocabProgress();
+        }
+    }
+
+    function updateVocabProgress() {
+        const total = vocabTerms.length;
+        const known = knownCards.size;
+        const pct = Math.round((known / total) * 100);
+        document.getElementById('vocabProgressBar').style.width = pct + '%';
+        document.getElementById('vocabProgress').textContent = `${known}/${total} terms mastered (${pct}%)`;
+        document.getElementById('vocab-score').textContent = `${known}/${total}`;
     }
 
     // ==========================================
@@ -1276,6 +1294,39 @@
         const savedSort = localStorage.getItem('scotus-sort-score');
         if (savedMC) document.getElementById('mc-score').textContent = savedMC + '%';
         if (savedSort) document.getElementById('sort-score').textContent = savedSort + '%';
+
+        // Keyboard shortcuts for flashcards
+        document.addEventListener('keydown', function(e) {
+            const vocabSection = document.getElementById('vocab');
+            if (!vocabSection || !vocabSection.classList.contains('active')) return;
+
+            // Don't capture if user is typing in an input/textarea
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+            switch(e.key) {
+                case 'ArrowLeft':
+                    e.preventDefault();
+                    prevCard();
+                    break;
+                case 'ArrowRight':
+                    e.preventDefault();
+                    nextCard();
+                    break;
+                case ' ':
+                    e.preventDefault();
+                    flipCard();
+                    break;
+                case 'k':
+                case 'K':
+                    e.preventDefault();
+                    markKnown();
+                    break;
+                case 'Escape':
+                    e.preventDefault();
+                    showSection('home');
+                    break;
+            }
+        });
     });
     </script>
 </body>
