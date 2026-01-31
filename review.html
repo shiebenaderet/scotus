@@ -30,21 +30,37 @@
             border-radius: 12px;
             font-size: 1.1em;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.25s ease;
             font-weight: 600;
+            box-shadow: 0 3px 10px rgba(26, 26, 46, 0.25);
         }
 
         .nav-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(26, 35, 50, 0.4);
+            box-shadow: 0 8px 24px rgba(26, 26, 46, 0.35);
+        }
+
+        .nav-btn:active {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 6px rgba(26, 26, 46, 0.2);
         }
 
         .nav-btn.secondary {
             background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+            box-shadow: 0 3px 10px rgba(214, 56, 80, 0.3);
+        }
+
+        .nav-btn.secondary:hover {
+            box-shadow: 0 8px 24px rgba(214, 56, 80, 0.4);
         }
 
         .nav-btn.success {
             background: linear-gradient(135deg, #4facfe 0%, #00c6fb 100%);
+            box-shadow: 0 3px 10px rgba(79, 172, 254, 0.3);
+        }
+
+        .nav-btn.success:hover {
+            box-shadow: 0 8px 24px rgba(79, 172, 254, 0.4);
         }
 
         /* SECTIONS */
@@ -53,19 +69,22 @@
 
         /* PROGRESS BAR */
         .progress-bar {
-            background: #e0e0e0;
+            background: var(--bg-warm);
+            border: 1px solid var(--border);
             height: 30px;
             border-radius: 15px;
             overflow: visible;
             margin: 20px 0;
             position: relative;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08);
         }
 
         .progress-fill {
-            background: linear-gradient(90deg, #4facfe 0%, #00c6fb 100%);
+            background: linear-gradient(90deg, var(--accent) 0%, var(--accent-hover) 100%);
             height: 100%;
             transition: width 0.5s ease;
             border-radius: 15px;
+            box-shadow: 0 1px 4px rgba(214, 56, 80, 0.3);
         }
 
         .progress-bar .progress-text {
@@ -91,6 +110,13 @@
             padding: 20px;
             border-radius: 12px;
             text-align: center;
+            box-shadow: 0 4px 12px rgba(26, 26, 46, 0.2);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(26, 26, 46, 0.3);
         }
 
         .stat-card .number {
@@ -106,11 +132,12 @@
 
         /* QUESTION CARD */
         .question-card {
-            background: var(--bg-light);
+            background: var(--bg-white);
             padding: 25px;
             border-radius: 12px;
             margin: 20px 0;
-            border-left: 5px solid var(--primary-dark);
+            border-left: 5px solid var(--accent);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
         }
 
         .question-card h3 {
@@ -121,8 +148,8 @@
 
         .question-card .question-topic {
             display: inline-block;
-            background: #e0e7ff;
-            color: var(--primary-dark);
+            background: #fce7ea;
+            color: var(--accent);
             padding: 3px 10px;
             border-radius: 15px;
             font-size: 0.8em;
@@ -144,18 +171,22 @@
             border: 2px solid var(--border);
             border-radius: 10px;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.25s ease;
             font-size: 1em;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
         }
 
         .option:hover {
-            border-color: var(--primary-dark);
-            background: #f0f4ff;
+            border-color: var(--accent);
+            background: #fef2f3;
+            transform: translateY(-1px);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
         }
 
         .option.selected {
-            border-color: var(--primary-dark);
-            background: #e0e7ff;
+            border-color: var(--accent);
+            background: #fce7ea;
+            box-shadow: 0 2px 8px rgba(214, 56, 80, 0.15);
         }
 
         .option.correct {
@@ -253,11 +284,12 @@
 
         .sort-items {
             flex: 1;
-            background: var(--bg-light);
+            background: var(--bg-warm);
             padding: 20px;
             border-radius: 15px;
             max-height: 600px;
             overflow-y: auto;
+            box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.06);
         }
 
         .sort-items h3 {
@@ -322,11 +354,12 @@
 
         .drop-zone {
             background: var(--bg-white);
-            border: 3px dashed #ccc;
+            border: 3px dashed var(--border);
             border-radius: 12px;
             padding: 15px;
             min-height: 80px;
             transition: all 0.3s;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
         }
 
         .drop-zone.drag-over {
@@ -363,33 +396,49 @@
             font-size: 1em;
             cursor: pointer;
             font-weight: 600;
-            transition: all 0.2s;
+            transition: all 0.25s ease;
             margin: 5px;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-light) 100%);
+            background: var(--accent);
             color: var(--text-light);
+            box-shadow: 0 2px 8px rgba(214, 56, 80, 0.25);
         }
 
         .btn-primary:hover {
+            background: var(--accent-hover);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(26, 35, 50, 0.4);
+            box-shadow: 0 6px 16px rgba(214, 56, 80, 0.35);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(214, 56, 80, 0.25);
         }
 
         .btn-secondary {
-            background: #e0e0e0;
-            color: #333;
+            background: var(--bg-warm);
+            color: var(--text-dark);
+            border: 1px solid var(--border);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
         }
 
-        .btn-secondary:hover { background: #d0d0d0; }
+        .btn-secondary:hover {
+            background: #eae7e1;
+            transform: translateY(-1px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
 
         .btn-danger {
             background: #fee2e2;
             color: #991b1b;
         }
 
-        .btn-danger:hover { background: #fecaca; }
+        .btn-danger:hover {
+            background: #fecaca;
+            transform: translateY(-1px);
+        }
 
         /* ALERTS */
         .review-content .alert {
@@ -399,12 +448,13 @@
             display: flex;
             align-items: center;
             gap: 15px;
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
         }
 
         .review-content .alert.info {
-            background: #dbeafe;
-            border-left: 5px solid #3b82f6;
-            color: #1e40af;
+            background: var(--bg-warm);
+            border-left: 5px solid var(--primary-dark);
+            color: var(--text-dark);
         }
 
         .review-content .alert.success {
@@ -453,6 +503,7 @@
             background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-light) 100%);
             color: var(--text-light);
             border: 3px solid var(--primary-light);
+            box-shadow: 0 6px 20px rgba(26, 26, 46, 0.25);
         }
 
         .flashcard-front h3 {
@@ -461,9 +512,10 @@
         }
 
         .flashcard-back {
-            background: #f0f4ff;
-            border: 3px solid var(--primary-dark);
+            background: var(--bg-white);
+            border: 3px solid var(--accent);
             transform: rotateY(180deg);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
         }
 
         .flashcard-back p {
@@ -621,7 +673,7 @@
                         <div class="label">Multiple Choice</div>
                     </div>
                     <div class="stat-card">
-                        <div class="number" id="sa-score">0/5</div>
+                        <div class="number" id="sa-score">0/7</div>
                         <div class="label">Short Answer</div>
                     </div>
                     <div class="stat-card">
@@ -693,16 +745,17 @@
                     <button class="btn btn-secondary" onclick="showSection('home')">Back</button>
                 </div>
 
-                <div class="progress-bar">
-                    <div class="progress-fill" id="mc-progress" style="width: 0%"></div>
-                    <span class="progress-text" id="mc-progress-text">Question 1 of 10</span>
+                <div id="mc-case-picker">
+                    <p style="margin-bottom: 15px; color: #666;">Choose a case to test yourself on, or try all cases at once.</p>
+                    <div class="nav-buttons" id="mc-case-buttons"></div>
                 </div>
 
-                <div id="mc-question-area">
-                    <div class="alert info">
-                        <span>Questions will be added here. Click "Start" when ready.</span>
+                <div id="mc-quiz-area" style="display: none;">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="mc-progress" style="width: 0%"></div>
+                        <span class="progress-text" id="mc-progress-text">Question 1 of 5</span>
                     </div>
-                    <button class="btn btn-primary" onclick="startMultipleChoice()">Start</button>
+                    <div id="mc-question-area"></div>
                 </div>
             </div>
 
@@ -713,17 +766,17 @@
                     <button class="btn btn-secondary" onclick="showSection('home')">Back</button>
                 </div>
 
-                <div class="progress-bar">
-                    <div class="progress-fill" id="sa-progress" style="width: 0%"></div>
-                    <span class="progress-text" id="sa-progress-text">Question 1 of 5</span>
+                <div class="question-card" style="border-left-color: var(--primary-dark); margin-bottom: 25px;">
+                    <span class="question-topic">Guiding Question</span>
+                    <h3 style="font-size: 1.15em; line-height: 1.5;">When, if ever, should the government be allowed to limit a person's constitutional rights in order to protect the community?</h3>
                 </div>
 
-                <div id="sa-question-area">
-                    <div class="alert info">
-                        <span>Short answer questions will be added here. Click "Start" when ready.</span>
-                    </div>
-                    <button class="btn btn-primary" onclick="startShortAnswer()">Start</button>
+                <div id="sa-case-picker">
+                    <p style="margin-bottom: 15px; color: #666;">Choose your case. You'll use sentence starters to build your answer to the guiding question through the lens of that case.</p>
+                    <div class="nav-buttons" id="sa-case-buttons"></div>
                 </div>
+
+                <div id="sa-writing-area" style="display: none;"></div>
             </div>
 
             <!-- AMENDMENTS SORT -->
@@ -774,38 +827,279 @@
     }
 
     // ==========================================
-    // MULTIPLE CHOICE DATA (placeholder - content to be added)
+    // MULTIPLE CHOICE DATA — 5 questions per case
     // ==========================================
-    const multipleChoiceQuestions = [
-        // Example structure:
-        // {
-        //     topic: "Fourth Amendment",
-        //     question: "In Payton v. New York, what did the Court rule about warrantless home arrests?",
-        //     options: [
-        //         "Police can enter homes without warrants if they have probable cause",
-        //         "Police need a warrant to enter a home to make an arrest",
-        //         "Police only need a warrant for felony arrests",
-        //         "Warrants are never required for arrests"
-        //     ],
-        //     correct: 1,
-        //     explanation: "The Court ruled that the Fourth Amendment requires police to obtain a warrant before entering a person's home to make an arrest."
-        // }
-    ];
+    const mcQuestionsByCase = {
+        "Tinker v. Des Moines (1969)": [
+            {
+                question: "What did the students in Tinker v. Des Moines do to protest the Vietnam War?",
+                options: ["Organized a school walkout", "Wore black armbands to school", "Refused to say the Pledge of Allegiance", "Handed out anti-war flyers in the cafeteria"],
+                correct: 1,
+                explanation: "Mary Beth Tinker, John Tinker, and Christopher Eckhardt wore black armbands to school as a silent protest against the Vietnam War."
+            },
+            {
+                question: "Which constitutional right was at the center of the Tinker case?",
+                options: ["Fourth Amendment — search and seizure", "First Amendment — freedom of speech", "Fourteenth Amendment — equal protection", "Sixth Amendment — right to a fair trial"],
+                correct: 1,
+                explanation: "The case centered on the First Amendment right to freedom of speech, specifically whether students retain free speech rights at school."
+            },
+            {
+                question: "What legal standard did the Supreme Court establish in Tinker?",
+                options: ["The \"reasonable suspicion\" test", "The \"clear and present danger\" test", "The \"substantial disruption\" test", "The \"strict scrutiny\" test"],
+                correct: 2,
+                explanation: "The Court ruled that schools can only restrict student speech if it causes or is reasonably forecast to cause a \"substantial disruption\" to the school environment."
+            },
+            {
+                question: "Why did the school punish the students for wearing armbands?",
+                options: ["The armbands caused a riot in the hallway", "The school had a dress code banning all accessories", "The school preemptively banned armbands out of fear of disruption", "Students were bullying classmates who supported the war"],
+                correct: 2,
+                explanation: "School principals learned of the plan and preemptively created a policy banning armbands. The armbands were silent and caused no actual disruption."
+            },
+            {
+                question: "Which famous quote comes from the Tinker decision?",
+                options: ["\"Separate but equal is inherently unequal.\"", "\"Students do not shed their constitutional rights at the schoolhouse gate.\"", "\"A man's home is his castle.\"", "\"The Constitution is not a suicide pact.\""],
+                correct: 1,
+                explanation: "Justice Fortas wrote that students do not \"shed their constitutional rights to freedom of speech or expression at the schoolhouse gate.\""
+            }
+        ],
+        "New Jersey v. T.L.O. (1985)": [
+            {
+                question: "What was T.L.O. initially caught doing that led to the search of her purse?",
+                options: ["Cheating on a test", "Smoking in the school restroom", "Skipping class", "Selling items in the hallway"],
+                correct: 1,
+                explanation: "A teacher caught T.L.O. smoking in the restroom, which violated school rules."
+            },
+            {
+                question: "What constitutional amendment was at issue in New Jersey v. T.L.O.?",
+                options: ["First Amendment", "Fourth Amendment", "Fifth Amendment", "Eighth Amendment"],
+                correct: 1,
+                explanation: "The case centered on the Fourth Amendment, which protects against unreasonable searches and seizures."
+            },
+            {
+                question: "What standard did the Court say school officials need to search a student?",
+                options: ["A search warrant from a judge", "Probable cause, the same as police", "Reasonable suspicion", "Written permission from a parent"],
+                correct: 2,
+                explanation: "The Court ruled that school officials need only \"reasonable suspicion\" — a lower standard than the \"probable cause\" police need."
+            },
+            {
+                question: "What did the assistant vice principal find when he searched T.L.O.'s purse?",
+                options: ["A weapon and stolen property", "Cigarettes, marijuana, drug paraphernalia, and money", "Alcohol and prescription drugs", "Nothing — the search found no contraband"],
+                correct: 1,
+                explanation: "He found cigarettes, rolling papers, marijuana, a pipe, plastic bags, cash, and a list of students who owed T.L.O. money."
+            },
+            {
+                question: "Why are school searches held to a different standard than police searches?",
+                options: ["Students have no constitutional rights at school", "Schools act \"in loco parentis\" and need flexibility to maintain safety", "The Constitution only applies to adults", "Schools are private property, so the Fourth Amendment doesn't apply"],
+                correct: 1,
+                explanation: "Schools operate under a \"special needs\" doctrine — they act in loco parentis (in place of parents) and need flexibility to maintain order and safety."
+            }
+        ],
+        "Brown v. Board of Education (1954)": [
+            {
+                question: "What did the Supreme Court rule in Brown v. Board of Education?",
+                options: ["Schools could remain segregated if they were truly equal", "Racial segregation in public schools is unconstitutional", "Only Southern states had to desegregate their schools", "Schools could choose whether to integrate voluntarily"],
+                correct: 1,
+                explanation: "The Court unanimously ruled that segregation in public schools violates the Equal Protection Clause of the Fourteenth Amendment."
+            },
+            {
+                question: "Which earlier Supreme Court decision did Brown v. Board overturn?",
+                options: ["Marbury v. Madison (1803)", "Dred Scott v. Sandford (1857)", "Plessy v. Ferguson (1896)", "Korematsu v. United States (1944)"],
+                correct: 2,
+                explanation: "Brown overturned Plessy v. Ferguson (1896), which had established the \"separate but equal\" doctrine."
+            },
+            {
+                question: "Which part of the Constitution did the Brown decision rely on?",
+                options: ["The First Amendment — freedom of speech", "The Fourth Amendment — search and seizure", "The Fourteenth Amendment — Equal Protection Clause", "The Tenth Amendment — states' rights"],
+                correct: 2,
+                explanation: "The Court ruled that racial segregation violates the Equal Protection Clause of the Fourteenth Amendment."
+            },
+            {
+                question: "Who was Linda Brown, and why was her story important to the case?",
+                options: ["A teacher who refused to teach in a segregated school", "A Black student who had to travel far to a segregated school despite living near a whites-only school", "A lawyer for the NAACP who argued the case", "A Supreme Court justice who wrote the opinion"],
+                correct: 1,
+                explanation: "Linda Brown was a Black third-grader in Topeka, Kansas who had to walk through a dangerous railroad yard and take a bus to a distant school, even though a whites-only school was just seven blocks from her home."
+            },
+            {
+                question: "What was the vote count in the Brown v. Board decision?",
+                options: ["5-4 (a very close decision)", "6-3 (a solid majority)", "7-2 (a strong majority)", "9-0 (unanimous)"],
+                correct: 3,
+                explanation: "The decision was unanimous at 9-0, giving it maximum moral and legal authority."
+            }
+        ],
+        "Payton v. New York (1980)": [
+            {
+                question: "What did police do in the Payton case that raised constitutional concerns?",
+                options: ["They searched Payton's car without a warrant", "They broke down Payton's door and entered his home without a warrant", "They wiretapped Payton's phone without permission", "They arrested Payton at his workplace without identification"],
+                correct: 1,
+                explanation: "Six officers went to Payton's apartment, broke down the door with a crowbar, and entered without an arrest warrant."
+            },
+            {
+                question: "Which constitutional amendment protects against warrantless home entry?",
+                options: ["First Amendment", "Second Amendment", "Fourth Amendment", "Sixth Amendment"],
+                correct: 2,
+                explanation: "The Fourth Amendment protects people from unreasonable searches and seizures, including warrantless entry into their homes."
+            },
+            {
+                question: "What did the Supreme Court rule in Payton v. New York?",
+                options: ["Police can enter homes without warrants if they have probable cause", "Police must get an arrest warrant before entering a home for a routine arrest", "Police never need warrants to make arrests anywhere", "The Fourth Amendment does not apply to homes"],
+                correct: 1,
+                explanation: "The Court ruled that the Fourth Amendment prohibits warrantless, nonconsensual entry into a home to make a routine felony arrest."
+            },
+            {
+                question: "What exception did the Court recognize to the warrant requirement for home arrests?",
+                options: ["If the crime is a felony", "If the suspect is considered dangerous", "Exigent (emergency) circumstances", "If a neighbor gives permission"],
+                correct: 2,
+                explanation: "The Court recognized an exception for \"exigent circumstances\" — emergencies where evidence might be destroyed or a suspect might flee."
+            },
+            {
+                question: "Why does the home receive the highest level of Fourth Amendment protection?",
+                options: ["Because homes are expensive private property", "Because the Founders believed the home is a person's most private space", "Because police are not allowed near residential areas", "Because the Second Amendment protects homeowners"],
+                correct: 1,
+                explanation: "The principle that \"a man's home is his castle\" goes back to the founding of the country — the home is where a person has the greatest expectation of privacy."
+            }
+        ],
+        "Arizona v. United States (2012)": [
+            {
+                question: "What was Arizona's S.B. 1070 law designed to do?",
+                options: ["Protect the border with a wall", "Allow the state to enforce immigration laws on its own", "Give undocumented immigrants a path to citizenship", "Increase federal funding for border security"],
+                correct: 1,
+                explanation: "S.B. 1070 created state-level immigration enforcement, including requiring police to check immigration status and making it a state crime to be undocumented."
+            },
+            {
+                question: "Which part of the Constitution was at the center of Arizona v. United States?",
+                options: ["The First Amendment", "The Equal Protection Clause", "The Supremacy Clause (Article VI)", "The Second Amendment"],
+                correct: 2,
+                explanation: "The case centered on the Supremacy Clause, which establishes that federal law takes priority over state law when they conflict."
+            },
+            {
+                question: "What did the Supreme Court decide about most of Arizona's immigration law?",
+                options: ["The entire law was constitutional", "Most provisions were struck down because federal law preempts state immigration law", "The law was unconstitutional because of racial profiling", "The Court refused to hear the case"],
+                correct: 1,
+                explanation: "The Court struck down three of the four challenged provisions, ruling that federal immigration law is so comprehensive that it leaves no room for state enforcement."
+            },
+            {
+                question: "Why did Arizona argue it needed its own immigration law?",
+                options: ["The state wanted to secede from the union", "The federal government was not doing enough to enforce immigration laws", "Arizona wanted to attract more immigrants", "The state wanted to override the Fourteenth Amendment"],
+                correct: 1,
+                explanation: "Arizona argued the federal government was failing to enforce immigration laws, leaving the state to bear high costs in education, healthcare, and law enforcement."
+            },
+            {
+                question: "What broader constitutional principle does Arizona v. United States illustrate?",
+                options: ["Separation of church and state", "Checks and balances between the three branches", "Federalism — the balance of power between state and federal governments", "The right to a fair trial"],
+                correct: 2,
+                explanation: "The case illustrates federalism — the ongoing tension between state and federal power, especially in areas where federal law is comprehensive."
+            }
+        ],
+        "Kennedy v. Bremerton (2022)": [
+            {
+                question: "What did Coach Kennedy do that led to a legal dispute?",
+                options: ["He led mandatory team prayers before games", "He knelt at midfield for a brief, quiet prayer after games", "He required students to attend his church", "He taught religious lessons during practice"],
+                correct: 1,
+                explanation: "After games, Kennedy would walk to the 50-yard line, kneel, and offer a brief (15-30 second), quiet personal prayer of thanks."
+            },
+            {
+                question: "Which two parts of the First Amendment were in tension in this case?",
+                options: ["Free speech and free press", "Free Exercise Clause and Establishment Clause", "Right to petition and right to assemble", "Free speech and right to bear arms"],
+                correct: 1,
+                explanation: "The case involved tension between the Free Exercise Clause (Kennedy's right to practice his faith) and the Establishment Clause (the school's concern about appearing to endorse religion)."
+            },
+            {
+                question: "What did the Supreme Court rule in Kennedy v. Bremerton?",
+                options: ["The school was right to fire Kennedy to avoid endorsing religion", "Kennedy's prayer was protected private religious expression, not government speech", "All prayer in schools is unconstitutional", "Coaches cannot express any personal beliefs at school events"],
+                correct: 1,
+                explanation: "The Court ruled 6-3 that Kennedy's prayer was private religious expression, and the school violated his First Amendment rights by punishing him for it."
+            },
+            {
+                question: "What long-standing legal test did this decision overturn?",
+                options: ["The \"substantial disruption\" test from Tinker", "The \"reasonable suspicion\" test from T.L.O.", "The \"Lemon test\" from Lemon v. Kurtzman", "The \"clear and present danger\" test from Schenck"],
+                correct: 2,
+                explanation: "The decision overturned the \"Lemon test\" (from Lemon v. Kurtzman, 1971) that had been used for decades to evaluate Establishment Clause cases."
+            },
+            {
+                question: "Why do some people disagree with the Kennedy ruling?",
+                options: ["They believe coaches should never be allowed to pray", "They worry students may feel pressured when an authority figure prays publicly", "They think the First Amendment doesn't apply to public employees", "They believe all religious expression should be banned in public"],
+                correct: 1,
+                explanation: "Critics argue that when a coach (an authority figure) prays visibly at a school event, students may feel implicit pressure to participate, even if the prayer is technically voluntary."
+            }
+        ],
+        "Mahanoy v. B.L. (2021)": [
+            {
+                question: "Why was B.L. punished by her school?",
+                options: ["She cheated on a test and posted about it online", "She posted vulgar Snapchat messages about school and cheerleading while off campus", "She cyberbullied a teacher on social media", "She organized a protest during school hours"],
+                correct: 1,
+                explanation: "B.L. posted Snapchat images with vulgar language expressing frustration about not making the varsity cheerleading team. She posted from off campus on a weekend."
+            },
+            {
+                question: "What makes Mahanoy v. B.L. historically significant?",
+                options: ["It was the first case about student prayer", "It was the first Supreme Court case about student speech on social media", "It overturned the First Amendment for minors", "It was the first case to ban social media in schools"],
+                correct: 1,
+                explanation: "Mahanoy was the first major Supreme Court case addressing whether schools can punish students for speech on social media that happens off campus."
+            },
+            {
+                question: "What did the Supreme Court decide in Mahanoy v. B.L.?",
+                options: ["Schools can always punish students for social media posts", "The school overstepped — B.L.'s off-campus speech did not cause substantial disruption", "Students have no free speech rights on social media", "Snapchat posts are not protected speech"],
+                correct: 1,
+                explanation: "The Court ruled 8-1 in B.L.'s favor. Her posts did not cause substantial disruption, and schools have a diminished interest in regulating off-campus speech."
+            },
+            {
+                question: "How does Mahanoy connect to the Tinker case?",
+                options: ["It overturned the Tinker decision entirely", "It applied Tinker's \"substantial disruption\" test to off-campus speech", "It replaced Tinker with a new legal standard", "It had no connection to Tinker"],
+                correct: 1,
+                explanation: "Mahanoy extended Tinker's \"substantial disruption\" test to off-campus speech, but held that schools' regulatory power is significantly reduced outside school."
+            },
+            {
+                question: "In what situations did the Court suggest schools COULD regulate off-campus speech?",
+                options: ["Any time a post mentions the school", "Serious bullying, threats to teachers, or breaches of school security", "Only if parents give permission", "Schools can never regulate off-campus speech"],
+                correct: 1,
+                explanation: "The Court did not create a blanket rule. It left open that schools could regulate off-campus speech involving serious bullying, threats, or hacking."
+            }
+        ]
+    };
+
+    const caseList = Object.keys(mcQuestionsByCase);
 
     let currentMCQuestion = 0;
     let mcAnswers = {};
     let mcShuffled = [];
+    let mcSelected = null;
+    let mcCurrentCase = '';
 
-    function startMultipleChoice() {
-        if (multipleChoiceQuestions.length === 0) {
-            document.getElementById('mc-question-area').innerHTML =
-                '<div class="alert info"><span>No questions have been added yet. Check back soon!</span></div>' +
-                '<button class="btn btn-secondary" onclick="showSection(\'home\')">Back to Dashboard</button>';
-            return;
-        }
-        mcShuffled = [...multipleChoiceQuestions].sort(() => Math.random() - 0.5).slice(0, 10);
+    function initMCCasePicker() {
+        const container = document.getElementById('mc-case-buttons');
+        let html = '';
+        caseList.forEach((caseName, i) => {
+            const cls = i % 3 === 0 ? '' : i % 3 === 1 ? ' secondary' : ' success';
+            html += `<button class="nav-btn${cls}" onclick="startMCForCase('${caseName.replace(/'/g, "\\'")}')">${caseName}</button>`;
+        });
+        html += `<button class="nav-btn secondary" onclick="startMCAllCases()">All Cases (35 Questions)</button>`;
+        container.innerHTML = html;
+    }
+
+    function startMCForCase(caseName) {
+        mcCurrentCase = caseName;
+        const questions = mcQuestionsByCase[caseName];
+        mcShuffled = questions.map((q, i) => ({ ...q, topic: caseName, _origIdx: i }));
+        mcShuffled.sort(() => Math.random() - 0.5);
         currentMCQuestion = 0;
         mcAnswers = {};
+        document.getElementById('mc-case-picker').style.display = 'none';
+        document.getElementById('mc-quiz-area').style.display = 'block';
+        renderMCQuestion();
+    }
+
+    function startMCAllCases() {
+        mcCurrentCase = 'All Cases';
+        mcShuffled = [];
+        caseList.forEach(caseName => {
+            mcQuestionsByCase[caseName].forEach(q => {
+                mcShuffled.push({ ...q, topic: caseName });
+            });
+        });
+        mcShuffled.sort(() => Math.random() - 0.5);
+        currentMCQuestion = 0;
+        mcAnswers = {};
+        document.getElementById('mc-case-picker').style.display = 'none';
+        document.getElementById('mc-quiz-area').style.display = 'block';
         renderMCQuestion();
     }
 
@@ -834,8 +1128,6 @@
 
         document.getElementById('mc-question-area').innerHTML = html;
     }
-
-    let mcSelected = null;
 
     function selectMCOption(index) {
         mcSelected = index;
@@ -881,12 +1173,13 @@
         document.getElementById('mc-progress-text').textContent = 'Complete!';
         document.getElementById('mc-score').textContent = pct + '%';
 
-        let html = `<div class="stats-grid">
+        let html = `<div style="text-align:center; margin-bottom: 10px;"><h3>${mcCurrentCase}</h3></div>`;
+        html += `<div class="stats-grid">
             <div class="stat-card"><div class="number">${correct}/${total}</div><div class="label">Correct</div></div>
             <div class="stat-card"><div class="number">${pct}%</div><div class="label">Score</div></div>
         </div>`;
         html += `<div style="text-align:center; margin-top:20px;">`;
-        html += `<button class="btn btn-primary" onclick="startMultipleChoice()">Try Again</button> `;
+        html += `<button class="btn btn-primary" onclick="backToMCPicker()">Choose Another Case</button> `;
         html += `<button class="btn btn-secondary" onclick="showSection('home')">Back to Dashboard</button>`;
         html += `</div>`;
 
@@ -894,94 +1187,266 @@
         localStorage.setItem('scotus-mc-score', pct);
     }
 
-    // ==========================================
-    // SHORT ANSWER DATA (placeholder - content to be added)
-    // ==========================================
-    const shortAnswerQuestions = [
-        // Example structure:
-        // {
-        //     topic: "Judicial Review",
-        //     question: "Explain why judicial review is important for the system of checks and balances.",
-        //     exemplar: "Judicial review allows the Supreme Court to strike down laws...",
-        //     rubric: [
-        //         "Defines judicial review",
-        //         "Explains connection to checks and balances",
-        //         "Gives a specific reason why it matters"
-        //     ]
-        // }
-    ];
-
-    let currentSAQuestion = 0;
-
-    function startShortAnswer() {
-        if (shortAnswerQuestions.length === 0) {
-            document.getElementById('sa-question-area').innerHTML =
-                '<div class="alert info"><span>No questions have been added yet. Check back soon!</span></div>' +
-                '<button class="btn btn-secondary" onclick="showSection(\'home\')">Back to Dashboard</button>';
-            return;
-        }
-        currentSAQuestion = 0;
-        renderSAQuestion();
+    function backToMCPicker() {
+        document.getElementById('mc-quiz-area').style.display = 'none';
+        document.getElementById('mc-case-picker').style.display = 'block';
     }
 
-    function renderSAQuestion() {
-        if (currentSAQuestion >= shortAnswerQuestions.length) {
-            showSAResults();
-            return;
-        }
-        const q = shortAnswerQuestions[currentSAQuestion];
-        const progress = ((currentSAQuestion) / shortAnswerQuestions.length) * 100;
-        document.getElementById('sa-progress').style.width = progress + '%';
-        document.getElementById('sa-progress-text').textContent =
-            `Question ${currentSAQuestion + 1} of ${shortAnswerQuestions.length}`;
+    // ==========================================
+    // SHORT ANSWER — Scaffolded Writing Framework
+    // ==========================================
+    const guidingQuestion = "When, if ever, should the government be allowed to limit a person's constitutional rights in order to protect the community?";
 
-        let html = `<div class="question-card">`;
-        if (q.topic) html += `<span class="question-topic">${q.topic}</span>`;
-        html += `<h3>${q.question}</h3>`;
-        html += `<textarea class="short-answer-area" id="sa-response" placeholder="Type your answer here..."></textarea>`;
+    const saFrameworks = {
+        "Tinker v. Des Moines (1969)": {
+            amendment: "First Amendment — Freedom of Speech",
+            context: "Students wore black armbands to protest the Vietnam War. The school banned the armbands and suspended the students, even though no disruption occurred.",
+            starters: [
+                "In Tinker v. Des Moines, the government (the school) limited students' right to _____ by _____.",
+                "The school argued this was necessary because _____.",
+                "The Supreme Court ruled that the government should / should not have been allowed to limit this right because _____.",
+                "Based on this case, the government should only be allowed to limit free speech when _____.",
+                "This matters because if schools could silence any speech they disagreed with, then _____."
+            ],
+            checklist: [
+                "I identified the specific right that was limited (free speech / symbolic speech)",
+                "I explained what the government did to limit that right",
+                "I explained the government's reason for limiting the right",
+                "I stated whether the limitation was justified and why",
+                "I connected my answer back to the guiding question"
+            ]
+        },
+        "New Jersey v. T.L.O. (1985)": {
+            amendment: "Fourth Amendment — Protection from Unreasonable Searches",
+            context: "A school official searched a student's purse after catching her smoking. The search revealed drugs and evidence of dealing.",
+            starters: [
+                "In New Jersey v. T.L.O., the government (the school) limited the student's right to _____ by _____.",
+                "The school justified this because _____.",
+                "The Supreme Court decided that schools need a lower standard called _____ instead of _____ because _____.",
+                "This means the government can limit Fourth Amendment rights in schools when _____.",
+                "This trade-off between privacy and safety is justified / not justified because _____."
+            ],
+            checklist: [
+                "I identified the specific right that was limited (privacy / protection from searches)",
+                "I explained the difference between \"reasonable suspicion\" and \"probable cause\"",
+                "I explained why the Court allowed a lower standard in schools",
+                "I stated whether the limitation was justified and why",
+                "I connected my answer back to the guiding question"
+            ]
+        },
+        "Brown v. Board of Education (1954)": {
+            amendment: "Fourteenth Amendment — Equal Protection",
+            context: "Black students were forced to attend separate, unequal schools under the \"separate but equal\" doctrine. The government enforced segregation laws.",
+            starters: [
+                "In Brown v. Board, the government limited the rights of Black students by _____.",
+                "The government justified segregation by claiming _____.",
+                "The Supreme Court ruled that this limitation was unconstitutional because _____.",
+                "This case shows that the government should never limit rights when the real purpose is _____.",
+                "Brown teaches us that \"protecting the community\" cannot be used as an excuse to _____."
+            ],
+            checklist: [
+                "I identified the specific right that was limited (equal protection / equal access to education)",
+                "I explained how the government justified the limitation",
+                "I explained why the Court rejected the government's justification",
+                "I explained what makes a limitation of rights unjust",
+                "I connected my answer back to the guiding question"
+            ]
+        },
+        "Payton v. New York (1980)": {
+            amendment: "Fourth Amendment — Protection of the Home",
+            context: "Police suspected a man of murder and had strong evidence, but instead of getting a warrant, they broke down his apartment door to arrest him.",
+            starters: [
+                "In Payton v. New York, the government (the police) limited the suspect's right to _____ by _____.",
+                "The police believed this was justified because _____.",
+                "The Supreme Court ruled that even when police have strong evidence, they still must _____ before _____.",
+                "The only exception the Court allowed was _____, which means _____.",
+                "This case suggests that the government can limit rights to protect the community, but only when _____."
+            ],
+            checklist: [
+                "I identified the specific right that was limited (privacy of the home)",
+                "I explained why the police felt the limitation was necessary",
+                "I explained the Court's rule about warrants and home entry",
+                "I explained the \"exigent circumstances\" exception",
+                "I connected my answer back to the guiding question"
+            ]
+        },
+        "Arizona v. United States (2012)": {
+            amendment: "Supremacy Clause — Federal vs. State Power",
+            context: "Arizona passed its own immigration enforcement law (S.B. 1070) because it felt the federal government was not doing enough. The law required police to check immigration status during stops.",
+            starters: [
+                "In Arizona v. United States, the state government tried to limit people's rights by _____.",
+                "Arizona argued this was necessary to protect its communities because _____.",
+                "The Supreme Court struck down most of the law because _____.",
+                "This case raises the question of who gets to decide when rights can be limited: _____.",
+                "Even when a community feels unsafe, the government should / should not be allowed to act on its own because _____."
+            ],
+            checklist: [
+                "I identified what rights or protections were at stake",
+                "I explained Arizona's justification for the law",
+                "I explained why the Court ruled against most of the law",
+                "I addressed the federalism issue (state vs. federal power)",
+                "I connected my answer back to the guiding question"
+            ]
+        },
+        "Kennedy v. Bremerton (2022)": {
+            amendment: "First Amendment — Free Exercise of Religion vs. Establishment Clause",
+            context: "A public school football coach prayed briefly at midfield after games. The school fired him, worried it would look like the school was endorsing religion.",
+            starters: [
+                "In Kennedy v. Bremerton, the government (the school district) limited Coach Kennedy's right to _____ by _____.",
+                "The school argued this limitation was necessary because _____.",
+                "The Supreme Court ruled that the government went too far because _____.",
+                "However, some people argue the school was right because _____.",
+                "This case shows that deciding when to limit religious expression is difficult because _____."
+            ],
+            checklist: [
+                "I identified the specific right that was limited (free exercise of religion)",
+                "I explained the school's concern about the Establishment Clause",
+                "I explained why the Court sided with Kennedy",
+                "I acknowledged the other side of the argument",
+                "I connected my answer back to the guiding question"
+            ]
+        },
+        "Mahanoy v. B.L. (2021)": {
+            amendment: "First Amendment — Student Speech Off Campus",
+            context: "A student posted vulgar Snapchat messages about her school and cheerleading team from off campus on a weekend. The school suspended her from the team for a year.",
+            starters: [
+                "In Mahanoy v. B.L., the government (the school) limited B.L.'s right to _____ by _____.",
+                "The school believed this was justified because _____.",
+                "The Supreme Court ruled that schools have limited power over off-campus speech because _____.",
+                "The Court left open that schools could limit off-campus speech if _____.",
+                "This case matters for students today because _____."
+            ],
+            checklist: [
+                "I identified the specific right that was limited (free speech on social media)",
+                "I explained the school's justification for the punishment",
+                "I explained why the Court ruled in B.L.'s favor",
+                "I mentioned when schools might be able to limit off-campus speech",
+                "I connected my answer back to the guiding question"
+            ]
+        }
+    };
+
+    const saCaseList = Object.keys(saFrameworks);
+
+    let saCurrentCase = '';
+
+    function initSACasePicker() {
+        const container = document.getElementById('sa-case-buttons');
+        let html = '';
+        saCaseList.forEach((caseName, i) => {
+            const cls = i % 3 === 0 ? '' : i % 3 === 1 ? ' secondary' : ' success';
+            html += `<button class="nav-btn${cls}" onclick="startSAForCase('${caseName.replace(/'/g, "\\'")}')">${caseName}</button>`;
+        });
+        container.innerHTML = html;
+    }
+
+    function startSAForCase(caseName) {
+        saCurrentCase = caseName;
+        const fw = saFrameworks[caseName];
+
+        // Load any saved responses for this case
+        const savedKey = 'scotus-sa-' + caseName.replace(/[^a-zA-Z0-9]/g, '');
+        let savedResponses = [];
+        try {
+            const saved = localStorage.getItem(savedKey);
+            if (saved) savedResponses = JSON.parse(saved);
+        } catch(e) {}
+
+        let html = '';
+        html += `<button class="btn btn-secondary" onclick="backToSAPicker()" style="margin-bottom: 20px;">Back to Case Selection</button>`;
+        html += `<div class="question-card">`;
+        html += `<span class="question-topic">${fw.amendment}</span>`;
+        html += `<h3>${caseName}</h3>`;
+        html += `<p style="color: #666; margin-top: 10px;">${fw.context}</p>`;
         html += `</div>`;
-        html += `<div style="text-align:center; margin-top:15px;">`;
-        html += `<button class="btn btn-primary" onclick="showExemplar()">Show Model Answer</button>`;
-        html += `</div>`;
-        html += `<div class="exemplar" id="sa-exemplar">`;
-        html += `<h4>Model Answer:</h4><p>${q.exemplar || ''}</p>`;
-        if (q.rubric && q.rubric.length > 0) {
-            html += `<h4 style="margin-top:15px;">Rate your answer:</h4>`;
-            html += `<div class="rubric-checklist show">`;
-            q.rubric.forEach((item, i) => {
-                html += `<div class="rubric-item"><input type="checkbox" id="rubric-${i}"><label for="rubric-${i}">${item}</label></div>`;
-            });
+
+        html += `<div style="margin: 25px 0;">`;
+        html += `<h3 style="margin-bottom: 5px; color: var(--primary-dark);">Build Your Answer</h3>`;
+        html += `<p style="color: #666; font-size: 0.95em; margin-bottom: 20px;">Complete each sentence starter below. Together, they will form your answer to the guiding question.</p>`;
+
+        fw.starters.forEach((starter, i) => {
+            const savedVal = savedResponses[i] || '';
+            html += `<div class="question-card" style="border-left-width: 3px; padding: 18px;">`;
+            html += `<p style="font-weight: 600; color: var(--primary-dark); margin-bottom: 10px;">${i + 1}. ${starter}</p>`;
+            html += `<textarea class="short-answer-area sa-response" data-index="${i}" placeholder="Continue the sentence..." style="min-height: 80px;">${savedVal}</textarea>`;
             html += `</div>`;
-        }
-        html += `<div style="text-align:center; margin-top:15px;">`;
-        html += `<button class="btn btn-primary" onclick="nextSAQuestion()">`;
-        html += currentSAQuestion < shortAnswerQuestions.length - 1 ? 'Next Question' : 'Finish';
-        html += `</button></div></div>`;
-
-        document.getElementById('sa-question-area').innerHTML = html;
-    }
-
-    function showExemplar() {
-        document.getElementById('sa-exemplar').classList.add('show');
-    }
-
-    function nextSAQuestion() {
-        currentSAQuestion++;
-        renderSAQuestion();
-    }
-
-    function showSAResults() {
-        document.getElementById('sa-progress').style.width = '100%';
-        document.getElementById('sa-progress-text').textContent = 'Complete!';
-        document.getElementById('sa-score').textContent = shortAnswerQuestions.length + '/' + shortAnswerQuestions.length;
-
-        let html = `<div class="alert success"><span>You've completed all short answer questions. Great work!</span></div>`;
-        html += `<div style="text-align:center;">`;
-        html += `<button class="btn btn-primary" onclick="startShortAnswer()">Try Again</button> `;
-        html += `<button class="btn btn-secondary" onclick="showSection('home')">Back to Dashboard</button>`;
+        });
         html += `</div>`;
 
-        document.getElementById('sa-question-area').innerHTML = html;
+        // Self-assessment checklist
+        html += `<div class="question-card" style="border-left-color: #10b981;">`;
+        html += `<h4 style="color: var(--primary-dark); margin-bottom: 12px;">Self-Check: Does your answer include...</h4>`;
+        fw.checklist.forEach((item, i) => {
+            html += `<div class="rubric-item" style="display:flex; align-items:center; gap:10px; padding: 6px 0;">`;
+            html += `<input type="checkbox" id="sa-check-${i}" style="width:18px; height:18px; cursor:pointer;">`;
+            html += `<label for="sa-check-${i}" style="cursor:pointer;">${item}</label>`;
+            html += `</div>`;
+        });
+        html += `</div>`;
+
+        html += `<div style="text-align:center; margin-top: 20px;">`;
+        html += `<button class="btn btn-primary" onclick="saveSAResponses()">Save My Work</button> `;
+        html += `<button class="btn btn-secondary" onclick="backToSAPicker()">Back to Cases</button>`;
+        html += `</div>`;
+
+        document.getElementById('sa-case-picker').style.display = 'none';
+        document.getElementById('sa-writing-area').style.display = 'block';
+        document.getElementById('sa-writing-area').innerHTML = html;
+
+        // Auto-save on input
+        setTimeout(() => {
+            document.querySelectorAll('.sa-response').forEach(el => {
+                el.addEventListener('input', autoSaveSA);
+            });
+        }, 100);
+    }
+
+    function autoSaveSA() {
+        saveSAResponses(true);
+    }
+
+    function saveSAResponses(silent) {
+        const responses = [];
+        document.querySelectorAll('.sa-response').forEach(el => {
+            responses.push(el.value);
+        });
+        const savedKey = 'scotus-sa-' + saCurrentCase.replace(/[^a-zA-Z0-9]/g, '');
+        localStorage.setItem(savedKey, JSON.stringify(responses));
+
+        // Update dashboard score
+        updateSAScore();
+
+        if (!silent) {
+            const btn = event.target;
+            const origText = btn.textContent;
+            btn.textContent = 'Saved!';
+            btn.style.background = '#10b981';
+            setTimeout(() => {
+                btn.textContent = origText;
+                btn.style.background = '';
+            }, 1500);
+        }
+    }
+
+    function updateSAScore() {
+        let completed = 0;
+        saCaseList.forEach(caseName => {
+            const key = 'scotus-sa-' + caseName.replace(/[^a-zA-Z0-9]/g, '');
+            try {
+                const saved = localStorage.getItem(key);
+                if (saved) {
+                    const responses = JSON.parse(saved);
+                    const filledCount = responses.filter(r => r && r.trim().length > 10).length;
+                    if (filledCount >= 3) completed++;
+                }
+            } catch(e) {}
+        });
+        document.getElementById('sa-score').textContent = completed + '/' + saCaseList.length;
+    }
+
+    function backToSAPicker() {
+        document.getElementById('sa-writing-area').style.display = 'none';
+        document.getElementById('sa-case-picker').style.display = 'block';
     }
 
     // ==========================================
@@ -1282,12 +1747,19 @@
     // SAVE / LOAD PROGRESS
     // ==========================================
     function saveAllProgress() {
+        const saData = {};
+        saCaseList.forEach(caseName => {
+            const key = 'scotus-sa-' + caseName.replace(/[^a-zA-Z0-9]/g, '');
+            const saved = localStorage.getItem(key);
+            if (saved) saData[key] = JSON.parse(saved);
+        });
         const data = {
-            version: 1,
+            version: 2,
             timestamp: new Date().toISOString(),
             vocabKnown: [...knownCards],
             mcScore: localStorage.getItem('scotus-mc-score') || null,
-            sortScore: localStorage.getItem('scotus-sort-score') || null
+            sortScore: localStorage.getItem('scotus-sort-score') || null,
+            saResponses: saData
         };
         const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
@@ -1329,6 +1801,14 @@
                     document.getElementById('sort-score').textContent = data.sortScore + '%';
                 }
 
+                // Restore SA responses
+                if (data.saResponses) {
+                    Object.keys(data.saResponses).forEach(key => {
+                        localStorage.setItem(key, JSON.stringify(data.saResponses[key]));
+                    });
+                    updateSAScore();
+                }
+
                 alert('Progress loaded successfully!');
             } catch(err) {
                 alert('Error loading progress file. Make sure it is a valid SCOTUS review progress file.');
@@ -1339,13 +1819,17 @@
     }
 
     function resetAllProgress() {
-        if (confirm('Reset ALL progress? This will clear vocabulary, quiz scores, and sort scores.')) {
+        if (confirm('Reset ALL progress? This will clear vocabulary, quiz scores, short answer responses, and sort scores.')) {
             knownCards = new Set();
             saveVocabProgress();
             localStorage.removeItem('scotus-mc-score');
             localStorage.removeItem('scotus-sort-score');
+            saCaseList.forEach(caseName => {
+                const key = 'scotus-sa-' + caseName.replace(/[^a-zA-Z0-9]/g, '');
+                localStorage.removeItem(key);
+            });
             document.getElementById('mc-score').textContent = '0%';
-            document.getElementById('sa-score').textContent = '0/5';
+            document.getElementById('sa-score').textContent = '0/7';
             document.getElementById('sort-score').textContent = '0%';
             renderCard();
             updateVocabProgress();
@@ -1358,6 +1842,9 @@
     document.addEventListener('DOMContentLoaded', function() {
         initSort();
         initFlashcards();
+        initMCCasePicker();
+        initSACasePicker();
+        updateSAScore();
 
         // Restore saved scores
         const savedMC = localStorage.getItem('scotus-mc-score');
