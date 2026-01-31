@@ -1187,27 +1187,31 @@
                 </div>
 
                 <div class="amend-level-tabs">
-                    <button class="amend-level-tab active" id="level1-tab" onclick="showAmendLevel(1)">
-                        <div>Level 1: Know Your Rights</div>
-                        <div class="tab-subtitle">Match rights to amendments</div>
+                    <button class="amend-level-tab active" id="round1-tab" onclick="showRound(1)">
+                        <div>Round 1: The Basics</div>
+                        <div class="tab-subtitle">One right per amendment</div>
                     </button>
-                    <button class="amend-level-tab locked" id="level2-tab" onclick="showAmendLevel(2)">
-                        <div>Level 2: Apply It</div>
-                        <div class="tab-subtitle" id="level2-subtitle">Score 70%+ on Level 1 to unlock</div>
+                    <button class="amend-level-tab locked" id="round2-tab" onclick="showRound(2)">
+                        <div>Round 2: Go Deeper</div>
+                        <div class="tab-subtitle" id="round2-subtitle">Score 70%+ on Round 1 to unlock</div>
+                    </button>
+                    <button class="amend-level-tab locked" id="round3-tab" onclick="showRound(3)">
+                        <div>Round 3: Apply It</div>
+                        <div class="tab-subtitle" id="round3-subtitle">Score 70%+ on Round 2 to unlock</div>
                     </button>
                 </div>
 
-                <!-- LEVEL 1 -->
-                <div id="amend-level1">
-                    <div class="alert info">
+                <!-- MATCH ROUND (shared by Round 1 and Round 2) -->
+                <div id="amend-match-round">
+                    <div class="alert info" id="match-round-instructions">
                         <strong style="display:block; margin-bottom:6px;">How it works:</strong>
                         <span><b>1.</b> Pick a right from the list below. &nbsp;<b>2.</b> Click the amendment chip it belongs to — the chips will pulse when waiting for your choice. &nbsp;<b>3.</b> Hover over any chip to read what that amendment protects. Click a chip to open its drawer and review (or remove) what you've placed. When you've matched them all, hit <b>Check Answers</b> — chips turn <span style="color:#10b981;font-weight:600;">green</span> if everything underneath is correct, or <span style="color:#ef4444;font-weight:600;">red</span> if something needs fixing.</span>
                     </div>
 
                     <div class="level-progress">
-                        <span class="progress-text" id="l1-progress-text">0 / 0 placed</span>
+                        <span class="progress-text" id="match-progress-text">0 / 0 placed</span>
                         <div class="progress-bar-outer">
-                            <div class="progress-bar-inner" id="l1-progress-bar" style="width: 0%;"></div>
+                            <div class="progress-bar-inner" id="match-progress-bar" style="width: 0%;"></div>
                         </div>
                     </div>
 
@@ -1228,34 +1232,34 @@
                     </div>
 
                     <div style="text-align: center; margin-top: 20px;">
-                        <button class="btn btn-primary" onclick="checkLevel1()">Check Answers</button>
-                        <button class="btn btn-secondary" onclick="resetLevel1()">Reset</button>
+                        <button class="btn btn-primary" onclick="checkMatchRound()">Check Answers</button>
+                        <button class="btn btn-secondary" onclick="resetMatchRound()">Reset</button>
                     </div>
 
-                    <div id="level1-feedback"></div>
+                    <div id="match-round-feedback"></div>
                 </div>
 
-                <!-- LEVEL 2 -->
-                <div id="amend-level2" style="display: none;">
+                <!-- ROUND 3: APPLY IT (cases) -->
+                <div id="amend-round3" style="display: none;">
                     <div class="alert info">
                         <strong style="display:block; margin-bottom:6px;">How it works:</strong>
                         <span>Each card describes a real Supreme Court case. Read the summary, then pick the amendment at the center of the dispute. You'll get instant feedback — <span style="color:#10b981;font-weight:600;">green</span> means correct, <span style="color:#ef4444;font-weight:600;">red</span> reveals the right answer. Your studied project cases come first, then landmark cases from across American history.</span>
                     </div>
 
                     <div class="level-progress">
-                        <span class="progress-text" id="l2-progress-text">0 / 0 correct</span>
+                        <span class="progress-text" id="r3-progress-text">0 / 0 correct</span>
                         <div class="progress-bar-outer">
-                            <div class="progress-bar-inner" id="l2-progress-bar" style="width: 0%;"></div>
+                            <div class="progress-bar-inner" id="r3-progress-bar" style="width: 0%;"></div>
                         </div>
                     </div>
 
-                    <div id="level2-cases"></div>
+                    <div id="round3-cases"></div>
 
                     <div style="text-align: center; margin-top: 20px;">
-                        <button class="btn btn-secondary" onclick="resetLevel2()">Reset</button>
+                        <button class="btn btn-secondary" onclick="resetRound3()">Reset</button>
                     </div>
 
-                    <div id="level2-feedback"></div>
+                    <div id="round3-feedback"></div>
                 </div>
             </div>
         </div>
@@ -2273,7 +2277,8 @@
         { id: 'amend19', name: '19th Amendment', description: 'Women\'s right to vote' }
     ];
 
-    const matchItems = [
+    // Round 1: One core right per amendment (13 items)
+    const round1Items = [
         { id: 'm1', text: 'Freedom of speech', correctAmendment: 'amend1' },
         { id: 'm2', text: 'Right to bear arms', correctAmendment: 'amend2' },
         { id: 'm3', text: 'No soldiers housed in your home without consent', correctAmendment: 'amend3' },
@@ -2284,21 +2289,25 @@
         { id: 'm8', text: 'No cruel and unusual punishment', correctAmendment: 'amend8' },
         { id: 'm9', text: 'People have rights not listed in the Constitution', correctAmendment: 'amend9' },
         { id: 'm10', text: 'Powers not given to the federal government belong to states', correctAmendment: 'amend10' },
+        { id: 'm16', text: 'Slavery is illegal in the United States', correctAmendment: 'amend13' },
+        { id: 'm17', text: 'No state can deny any person equal protection of the laws', correctAmendment: 'amend14' },
+        { id: 'm19', text: 'Women cannot be denied the right to vote', correctAmendment: 'amend19' },
+    ];
+
+    // Round 2: Additional rights — multiple per amendment (8 items)
+    const round2Items = [
         { id: 'm11', text: 'Freedom of religion', correctAmendment: 'amend1' },
         { id: 'm12', text: 'Right to petition the government', correctAmendment: 'amend1' },
         { id: 'm13', text: 'Right to remain silent (self-incrimination)', correctAmendment: 'amend5' },
         { id: 'm14', text: 'Freedom of the press', correctAmendment: 'amend1' },
         { id: 'm15', text: 'No excessive bail', correctAmendment: 'amend8' },
-        { id: 'm16', text: 'Slavery is illegal in the United States', correctAmendment: 'amend13' },
-        { id: 'm17', text: 'No state can deny any person equal protection of the laws', correctAmendment: 'amend14' },
         { id: 'm18', text: 'Anyone born in the U.S. is a citizen', correctAmendment: 'amend14' },
-        { id: 'm19', text: 'Women cannot be denied the right to vote', correctAmendment: 'amend19' },
         { id: 'm20', text: 'No person can be forced into involuntary servitude', correctAmendment: 'amend13' },
-        { id: 'm21', text: 'States must provide due process before taking life, liberty, or property', correctAmendment: 'amend14' },
+        { id: 'm21', text: 'States must guarantee the same legal protections to every person within their borders', correctAmendment: 'amend14' },
     ];
 
-    // Level 2 real cases — studied cases first, then landmark cases
-    const level2Cases = [
+    // Round 3 real cases — studied cases first, then landmark cases
+    const round3Cases = [
         // The 7 studied cases
         { name: 'Tinker v. Des Moines (1969)', desc: 'Three students wore black armbands to school to protest the Vietnam War. The school created a policy banning armbands and suspended the students when they refused to remove them.', correctAmendment: 'amend1', explanation: 'The Court ruled 7-2 that students do not "shed their constitutional rights to freedom of speech or expression at the schoolhouse gate." The armbands were protected symbolic speech under the First Amendment.', oyez: 'https://www.oyez.org/cases/1968/21', studied: true },
         { name: 'New Jersey v. T.L.O. (1985)', desc: 'A high school student was caught smoking in the bathroom. An assistant principal searched her purse without a warrant and found drug paraphernalia and evidence of dealing.', correctAmendment: 'amend4', explanation: 'The Court ruled 6-3 that school officials can search students without a warrant, but the search must be reasonable. The Fourth Amendment applies in schools, though with a lower standard than police searches.', oyez: 'https://www.oyez.org/cases/1983/83-712', studied: true },
@@ -2321,18 +2330,33 @@
     ];
 
     // ==========================================
-    // LEVEL 1: CLICK-TO-ASSIGN
+    // MATCH ROUNDS (Round 1 & Round 2) + CASES (Round 3)
     // ==========================================
     let selectedItem = null;
     let placements = {}; // { itemId: amendmentId }
-    let level1Checked = false;
+    let matchChecked = false;
+    let openDrawerAmend = null;
+    let currentMatchRound = 1; // 1 or 2
+    let currentMatchItems = round1Items; // changes per round
 
-    function initLevel1() {
-        const shuffled = [...matchItems].sort(() => Math.random() - 0.5);
+    function getMatchItems() { return currentMatchRound === 1 ? round1Items : round2Items; }
+
+    function initMatchRound(round) {
+        currentMatchRound = round || currentMatchRound;
+        currentMatchItems = getMatchItems();
+        const shuffled = [...currentMatchItems].sort(() => Math.random() - 0.5);
         selectedItem = null;
         placements = {};
-        level1Checked = false;
+        matchChecked = false;
         openDrawerAmend = null;
+
+        // Update instructions for round context
+        const instrEl = document.getElementById('match-round-instructions');
+        if (currentMatchRound === 1) {
+            instrEl.innerHTML = '<strong style="display:block; margin-bottom:6px;">How it works:</strong><span>Each amendment gets <b>one</b> core right. <b>1.</b> Pick a right from the list below. &nbsp;<b>2.</b> Click the amendment chip it belongs to — the chips will pulse when waiting for your choice. &nbsp;<b>3.</b> Hover over any chip to read what that amendment protects. Click a chip to open its drawer and review (or remove) what you\'ve placed. When you\'ve matched them all, hit <b>Check Answers</b>.</span>';
+        } else {
+            instrEl.innerHTML = '<strong style="display:block; margin-bottom:6px;">How it works:</strong><span>Now some amendments get <b>multiple</b> rights — look closely! <b>1.</b> Pick a right from the list below. &nbsp;<b>2.</b> Click the amendment chip it belongs to — the chips will pulse when waiting for your choice. &nbsp;<b>3.</b> Hover over any chip to read what that amendment protects. Click a chip to open its drawer and review (or remove) what you\'ve placed. When you\'ve matched them all, hit <b>Check Answers</b>.</span>';
+        }
 
         const itemsList = document.getElementById('match-items-list');
         itemsList.innerHTML = '';
@@ -2377,17 +2401,14 @@
         // Close drawer
         document.getElementById('amend-drawer').classList.remove('open');
 
-        updateLevel1Progress();
-        document.getElementById('level1-feedback').innerHTML = '';
+        updateMatchProgress();
+        document.getElementById('match-round-feedback').innerHTML = '';
     }
-
-    let openDrawerAmend = null;
 
     function createAmendChip(a) {
         const el = document.createElement('div');
         el.className = 'amend-btn';
         el.dataset.amendId = a.id;
-        // Short label: e.g. "1st" from "1st Amendment"
         const shortName = a.name.replace(' Amendment', '');
         el.innerHTML = `<span class="amend-name">${shortName}</span><span class="amend-count" style="display:none;" id="count-${a.id}">0</span><div class="amend-tooltip"><strong>${a.name}</strong><br>${a.description}</div>`;
         el.addEventListener('click', (e) => {
@@ -2422,13 +2443,14 @@
             container.innerHTML = '<div style="font-size:0.85em;color:#999;font-style:italic;">No rights placed here yet</div>';
             return;
         }
+        const items = getMatchItems();
         itemsHere.forEach(([itemId]) => {
-            const item = matchItems.find(m => m.id === itemId);
+            const item = items.find(m => m.id === itemId);
             if (!item) return;
             const tag = document.createElement('div');
             tag.className = 'placed-tag';
             tag.dataset.itemId = itemId;
-            if (!level1Checked) {
+            if (!matchChecked) {
                 tag.innerHTML = `<span>${item.text}</span><span class="remove-x" onclick="event.stopPropagation(); removePlacement('${itemId}');">&times;</span>`;
             } else {
                 const isCorrect = item.correctAmendment === amendId;
@@ -2458,7 +2480,7 @@
     }
 
     function selectMatchItem(itemId, el) {
-        if (level1Checked) return;
+        if (matchChecked) return;
         if (el.classList.contains('placed')) return;
 
         document.querySelectorAll('.match-item.selected').forEach(s => s.classList.remove('selected'));
@@ -2471,26 +2493,24 @@
 
         selectedItem = itemId;
         el.classList.add('selected');
-        // Highlight all amendment buttons to show they're targets
         document.querySelectorAll('.amend-btn').forEach(b => b.classList.add('waiting'));
     }
 
     function assignToAmendment(amendId) {
-        if (level1Checked) return;
+        if (matchChecked) return;
         if (!selectedItem) return;
 
         const itemId = selectedItem;
-        const item = matchItems.find(m => m.id === itemId);
+        const items = getMatchItems();
+        const item = items.find(m => m.id === itemId);
         if (!item) return;
 
-        // Remove from previous placement if any
         if (placements[itemId]) {
             removePlacement(itemId);
         }
 
         placements[itemId] = amendId;
 
-        // Mark item as placed
         const itemEl = document.querySelector(`.match-item[data-item-id="${itemId}"]`);
         if (itemEl) {
             itemEl.classList.add('placed');
@@ -2500,47 +2520,46 @@
         selectedItem = null;
         document.querySelectorAll('.amend-btn.waiting').forEach(s => s.classList.remove('waiting'));
         updateAmendCounts();
-        updateLevel1Progress();
+        updateMatchProgress();
 
-        // Auto-open drawer to show what was just placed
         const a = amendments.find(am => am.id === amendId);
         if (a) toggleDrawer(amendId, a.name, a.description);
     }
 
     function removePlacement(itemId) {
-        if (level1Checked) return;
+        if (matchChecked) return;
         const amendId = placements[itemId];
         if (!amendId) return;
 
         delete placements[itemId];
 
-        // Unmark item
         const itemEl = document.querySelector(`.match-item[data-item-id="${itemId}"]`);
         if (itemEl) itemEl.classList.remove('placed');
 
         updateAmendCounts();
-        updateLevel1Progress();
+        updateMatchProgress();
 
-        // Refresh drawer if open
         if (openDrawerAmend === amendId) {
             renderDrawerItems(amendId);
         }
     }
 
-    function updateLevel1Progress() {
+    function updateMatchProgress() {
+        const items = getMatchItems();
         const placed = Object.keys(placements).length;
-        const total = matchItems.length;
+        const total = items.length;
         const pct = total > 0 ? Math.round((placed / total) * 100) : 0;
-        document.getElementById('l1-progress-text').textContent = `${placed} / ${total} placed`;
-        document.getElementById('l1-progress-bar').style.width = pct + '%';
+        document.getElementById('match-progress-text').textContent = `${placed} / ${total} placed`;
+        document.getElementById('match-progress-bar').style.width = pct + '%';
     }
 
-    function checkLevel1() {
-        level1Checked = true;
+    function checkMatchRound() {
+        matchChecked = true;
         let correct = 0;
-        const total = matchItems.length;
+        const items = getMatchItems();
+        const total = items.length;
 
-        matchItems.forEach(item => {
+        items.forEach(item => {
             const assignedAmend = placements[item.id];
             const itemEl = document.querySelector(`.match-item[data-item-id="${item.id}"]`);
 
@@ -2554,7 +2573,6 @@
             }
         });
 
-        // Refresh drawer if open to show correct/incorrect tags
         if (openDrawerAmend) {
             renderDrawerItems(openDrawerAmend);
         }
@@ -2566,11 +2584,7 @@
             const itemsHere = Object.entries(placements).filter(([, aid]) => aid === a.id);
             if (itemsHere.length === 0) return;
             const allCorrect = itemsHere.every(([itemId]) => {
-                const item = matchItems.find(m => m.id === itemId);
-                return item && item.correctAmendment === a.id;
-            });
-            const anyCorrect = itemsHere.some(([itemId]) => {
-                const item = matchItems.find(m => m.id === itemId);
+                const item = items.find(m => m.id === itemId);
                 return item && item.correctAmendment === a.id;
             });
             if (allCorrect) {
@@ -2586,9 +2600,11 @@
         const unplaced = total - placed;
         const pct = Math.round((correct / total) * 100);
 
-        // Save score
-        localStorage.setItem('scotus-sort-score', pct);
-        document.getElementById('sort-score').textContent = pct + '%';
+        // Save round score
+        const scoreKey = currentMatchRound === 1 ? 'scotus-round1-score' : 'scotus-round2-score';
+        localStorage.setItem(scoreKey, pct);
+        // Update overall sort score with best across rounds
+        updateOverallSortScore();
 
         let fbHtml = `<div class="stats-grid" style="margin-top:20px;">
             <div class="stat-card"><div class="number">${correct}/${total}</div><div class="label">Correct</div></div>
@@ -2598,52 +2614,68 @@
             fbHtml += `<div class="alert info" style="margin-top:15px;"><span>${unplaced} item(s) not yet placed. Place all items and check again for a complete score.</span></div>`;
         }
         if (pct >= 70) {
-            fbHtml += `<div class="alert" style="margin-top:15px; background: #d1fae5; border-left: 4px solid #10b981;"><span>Level 2 unlocked! Click the "Apply It" tab to test your knowledge with real Supreme Court cases.</span></div>`;
-            unlockLevel2();
+            if (currentMatchRound === 1) {
+                fbHtml += `<div class="alert" style="margin-top:15px; background: #d1fae5; border-left: 4px solid #10b981;"><span>Round 2 unlocked! Click the <b>"Go Deeper"</b> tab — some amendments protect more than one right.</span></div>`;
+                unlockRound(2);
+            } else {
+                fbHtml += `<div class="alert" style="margin-top:15px; background: #d1fae5; border-left: 4px solid #10b981;"><span>Round 3 unlocked! Click the <b>"Apply It"</b> tab to test your knowledge with real Supreme Court cases.</span></div>`;
+                unlockRound(3);
+            }
         }
-        document.getElementById('level1-feedback').innerHTML = fbHtml;
+        document.getElementById('match-round-feedback').innerHTML = fbHtml;
     }
 
-    function resetLevel1() {
-        initLevel1();
+    function resetMatchRound() {
+        initMatchRound(currentMatchRound);
     }
 
     // ==========================================
-    // LEVEL 2: APPLY IT — REAL CASES
+    // ROUND 3: APPLY IT — REAL CASES
     // ==========================================
-    let level2Answers = {};
-    let level2Checked = {};
+    let round3Answers = {};
+    let round3Checked = {};
 
-    function unlockLevel2() {
-        const tab = document.getElementById('level2-tab');
+    function unlockRound(roundNum) {
+        const tab = document.getElementById('round' + roundNum + '-tab');
+        if (!tab) return;
         tab.classList.remove('locked');
-        document.getElementById('level2-subtitle').textContent = 'Match amendments to real cases';
-    }
-
-    function showAmendLevel(level) {
-        if (level === 2) {
-            const tab = document.getElementById('level2-tab');
-            if (tab.classList.contains('locked')) return;
-        }
-
-        document.getElementById('amend-level1').style.display = level === 1 ? 'block' : 'none';
-        document.getElementById('amend-level2').style.display = level === 2 ? 'block' : 'none';
-        document.getElementById('level1-tab').classList.toggle('active', level === 1);
-        document.getElementById('level2-tab').classList.toggle('active', level === 2);
-
-        if (level === 2 && document.getElementById('level2-cases').innerHTML === '') {
-            initLevel2();
+        const subtitle = document.getElementById('round' + roundNum + '-subtitle');
+        if (subtitle) {
+            subtitle.textContent = roundNum === 2 ? 'Multiple rights per amendment' : 'Match amendments to real cases';
         }
     }
 
-    function initLevel2() {
-        level2Answers = {};
-        level2Checked = {};
-        const container = document.getElementById('level2-cases');
+    function showRound(roundNum) {
+        // Check if locked
+        const tab = document.getElementById('round' + roundNum + '-tab');
+        if (tab && tab.classList.contains('locked')) return;
+
+        // Toggle visibility
+        const matchDiv = document.getElementById('amend-match-round');
+        const round3Div = document.getElementById('amend-round3');
+        matchDiv.style.display = (roundNum === 1 || roundNum === 2) ? 'block' : 'none';
+        round3Div.style.display = roundNum === 3 ? 'block' : 'none';
+
+        // Toggle active tabs
+        document.getElementById('round1-tab').classList.toggle('active', roundNum === 1);
+        document.getElementById('round2-tab').classList.toggle('active', roundNum === 2);
+        document.getElementById('round3-tab').classList.toggle('active', roundNum === 3);
+
+        // Init the appropriate round
+        if (roundNum === 1 || roundNum === 2) {
+            initMatchRound(roundNum);
+        } else if (roundNum === 3 && document.getElementById('round3-cases').innerHTML === '') {
+            initRound3();
+        }
+    }
+
+    function initRound3() {
+        round3Answers = {};
+        round3Checked = {};
+        const container = document.getElementById('round3-cases');
         container.innerHTML = '';
 
-        level2Cases.forEach((c, i) => {
-            // Pick 3 wrong amendment choices + the correct one
+        round3Cases.forEach((c, i) => {
             const correctAmend = amendments.find(a => a.id === c.correctAmendment);
             let wrongAmends = amendments.filter(a => a.id !== c.correctAmendment);
             wrongAmends = wrongAmends.sort(() => Math.random() - 0.5).slice(0, 3);
@@ -2652,13 +2684,13 @@
             const studiedBadge = c.studied ? '<span style="background:var(--primary-dark);color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75em;margin-left:8px;vertical-align:middle;">Project Case</span>' : '';
 
             let html = `<div class="case-challenge" id="case-challenge-${i}">
-                <div class="case-label">Case ${i + 1} of ${level2Cases.length}</div>
+                <div class="case-label">Case ${i + 1} of ${round3Cases.length}</div>
                 <div class="case-name">${c.name}${studiedBadge}</div>
                 <div class="case-desc">${c.desc}</div>
                 <div class="amend-choices">`;
 
             choices.forEach(ch => {
-                html += `<div class="amend-choice" data-case-idx="${i}" data-amend-id="${ch.id}" onclick="selectLevel2Answer(${i}, '${ch.id}', this)">${ch.name}</div>`;
+                html += `<div class="amend-choice" data-case-idx="${i}" data-amend-id="${ch.id}" onclick="selectRound3Answer(${i}, '${ch.id}', this)">${ch.name}</div>`;
             });
 
             html += `</div>
@@ -2668,23 +2700,21 @@
             container.innerHTML += html;
         });
 
-        updateLevel2Progress();
+        updateRound3Progress();
     }
 
-    function selectLevel2Answer(caseIdx, amendId, el) {
-        if (level2Checked[caseIdx]) return;
-        level2Checked[caseIdx] = true;
+    function selectRound3Answer(caseIdx, amendId, el) {
+        if (round3Checked[caseIdx]) return;
+        round3Checked[caseIdx] = true;
 
-        const caseData = level2Cases[caseIdx];
-        level2Answers[caseIdx] = amendId;
+        const caseData = round3Cases[caseIdx];
+        round3Answers[caseIdx] = amendId;
 
-        // Mark chosen
         el.classList.add('chosen');
 
         const isCorrect = amendId === caseData.correctAmendment;
         const correctAmend = amendments.find(a => a.id === caseData.correctAmendment);
 
-        // Highlight correct/incorrect
         const allChoices = document.querySelectorAll(`#case-challenge-${caseIdx} .amend-choice`);
         allChoices.forEach(ch => {
             ch.style.cursor = 'default';
@@ -2695,54 +2725,60 @@
             }
         });
 
-        // Show feedback
         const fb = document.getElementById('case-fb-' + caseIdx);
         fb.className = 'case-feedback show ' + (isCorrect ? 'correct-fb' : 'incorrect-fb');
         fb.innerHTML = `<strong>${isCorrect ? 'Correct!' : 'Not quite — the answer is the ' + correctAmend.name + '.'}</strong><br>${caseData.explanation}<br><a class="oyez-link" href="${caseData.oyez}" target="_blank" rel="noopener">Read more on Oyez &rarr;</a>`;
 
-        updateLevel2Progress();
-        updateLevel2Score();
+        updateRound3Progress();
+        updateRound3Score();
     }
 
-    function updateLevel2Progress() {
-        const answered = Object.keys(level2Checked).length;
-        const total = level2Cases.length;
-        const correct = Object.keys(level2Answers).filter(i => level2Answers[i] === level2Cases[i].correctAmendment).length;
+    function updateRound3Progress() {
+        const answered = Object.keys(round3Checked).length;
+        const total = round3Cases.length;
+        const correct = Object.keys(round3Answers).filter(i => round3Answers[i] === round3Cases[i].correctAmendment).length;
         const pct = total > 0 ? Math.round((answered / total) * 100) : 0;
-        document.getElementById('l2-progress-text').textContent = `${correct} / ${total} correct`;
-        document.getElementById('l2-progress-bar').style.width = pct + '%';
+        document.getElementById('r3-progress-text').textContent = `${correct} / ${total} correct`;
+        document.getElementById('r3-progress-bar').style.width = pct + '%';
     }
 
-    function updateLevel2Score() {
-        const correct = Object.keys(level2Answers).filter(i => level2Answers[i] === level2Cases[i].correctAmendment).length;
-        const total = level2Cases.length;
-        const answered = Object.keys(level2Checked).length;
+    function updateRound3Score() {
+        const correct = Object.keys(round3Answers).filter(i => round3Answers[i] === round3Cases[i].correctAmendment).length;
+        const total = round3Cases.length;
+        const answered = Object.keys(round3Checked).length;
         if (answered === total) {
             const pct = Math.round((correct / total) * 100);
             let fbHtml = `<div class="stats-grid" style="margin-top:20px;">
                 <div class="stat-card"><div class="number">${correct}/${total}</div><div class="label">Correct</div></div>
                 <div class="stat-card"><div class="number">${pct}%</div><div class="label">Score</div></div>
             </div>`;
-            document.getElementById('level2-feedback').innerHTML = fbHtml;
-            // Save best of level1 and level2 as overall sort score
-            const l1Score = parseInt(localStorage.getItem('scotus-sort-score')) || 0;
-            if (pct > l1Score) {
-                localStorage.setItem('scotus-sort-score', pct);
-                document.getElementById('sort-score').textContent = pct + '%';
-            }
+            document.getElementById('round3-feedback').innerHTML = fbHtml;
+            localStorage.setItem('scotus-round3-score', pct);
+            updateOverallSortScore();
         }
     }
 
-    function resetLevel2() {
-        initLevel2();
-        document.getElementById('level2-feedback').innerHTML = '';
+    function resetRound3() {
+        initRound3();
+        document.getElementById('round3-feedback').innerHTML = '';
+    }
+
+    function updateOverallSortScore() {
+        const r1 = parseInt(localStorage.getItem('scotus-round1-score')) || 0;
+        const r2 = parseInt(localStorage.getItem('scotus-round2-score')) || 0;
+        const r3 = parseInt(localStorage.getItem('scotus-round3-score')) || 0;
+        const best = Math.max(r1, r2, r3);
+        localStorage.setItem('scotus-sort-score', best);
+        document.getElementById('sort-score').textContent = best + '%';
     }
 
     function initSort() {
-        initLevel1();
-        // Check if level 2 should already be unlocked
-        const savedSort = parseInt(localStorage.getItem('scotus-sort-score')) || 0;
-        if (savedSort >= 70) unlockLevel2();
+        initMatchRound(1);
+        // Check if rounds should already be unlocked from previous sessions
+        const r1Score = parseInt(localStorage.getItem('scotus-round1-score')) || 0;
+        const r2Score = parseInt(localStorage.getItem('scotus-round2-score')) || 0;
+        if (r1Score >= 70) unlockRound(2);
+        if (r2Score >= 70) unlockRound(3);
     }
 
     // ==========================================
