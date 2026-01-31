@@ -4,49 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Review | SCOTUS Debate Project</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/case.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #1a2332 0%, #2d3a4a 100%);
-            min-height: 100vh;
-            padding: 20px;
-            color: #333;
-        }
-
-        .container {
+        /* REVIEW PAGE SPECIFIC STYLES */
+        .review-content {
             max-width: 900px;
             margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            overflow: hidden;
+            padding: 30px 20px;
         }
-
-        header {
-            background: linear-gradient(135deg, #1a2332 0%, #2d3a4a 100%);
-            color: white;
-            padding: 25px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        header h1 {
-            font-size: 1.5em;
-        }
-
-        header a {
-            color: rgba(255,255,255,0.8);
-            text-decoration: none;
-            font-size: 0.95em;
-            transition: color 0.2s;
-        }
-
-        header a:hover { color: #e8646a; }
-
-        .content { padding: 30px; }
 
         /* NAVIGATION BUTTONS */
         .nav-buttons {
@@ -58,8 +24,8 @@
 
         .nav-btn {
             padding: 20px;
-            background: linear-gradient(135deg, #1a2332 0%, #2d3a4a 100%);
-            color: white;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-light) 100%);
+            color: var(--text-light);
             border: none;
             border-radius: 12px;
             font-size: 1.1em;
@@ -74,7 +40,7 @@
         }
 
         .nav-btn.secondary {
-            background: linear-gradient(135deg, #e8646a 0%, #c94f54 100%);
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
         }
 
         .nav-btn.success {
@@ -120,8 +86,8 @@
         }
 
         .stat-card {
-            background: linear-gradient(135deg, #1a2332 0%, #2d3a4a 100%);
-            color: white;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-light) 100%);
+            color: var(--text-light);
             padding: 20px;
             border-radius: 12px;
             text-align: center;
@@ -140,15 +106,15 @@
 
         /* QUESTION CARD */
         .question-card {
-            background: #f8f9fa;
+            background: var(--bg-light);
             padding: 25px;
             border-radius: 12px;
             margin: 20px 0;
-            border-left: 5px solid #1a2332;
+            border-left: 5px solid var(--primary-dark);
         }
 
         .question-card h3 {
-            color: #1a2332;
+            color: var(--primary-dark);
             margin-bottom: 15px;
             font-size: 1.2em;
         }
@@ -156,7 +122,7 @@
         .question-card .question-topic {
             display: inline-block;
             background: #e0e7ff;
-            color: #1a2332;
+            color: var(--primary-dark);
             padding: 3px 10px;
             border-radius: 15px;
             font-size: 0.8em;
@@ -174,8 +140,8 @@
 
         .option {
             padding: 15px 20px;
-            background: white;
-            border: 2px solid #e0e0e0;
+            background: var(--bg-white);
+            border: 2px solid var(--border);
             border-radius: 10px;
             cursor: pointer;
             transition: all 0.2s;
@@ -183,12 +149,12 @@
         }
 
         .option:hover {
-            border-color: #1a2332;
+            border-color: var(--primary-dark);
             background: #f0f4ff;
         }
 
         .option.selected {
-            border-color: #1a2332;
+            border-color: var(--primary-dark);
             background: #e0e7ff;
         }
 
@@ -229,7 +195,7 @@
             width: 100%;
             min-height: 120px;
             padding: 15px;
-            border: 2px solid #e0e0e0;
+            border: 2px solid var(--border);
             border-radius: 10px;
             font-size: 1em;
             font-family: inherit;
@@ -239,12 +205,12 @@
 
         .short-answer-area:focus {
             outline: none;
-            border-color: #1a2332;
+            border-color: var(--primary-dark);
         }
 
         .exemplar {
             background: #f0f4ff;
-            border-left: 4px solid #1a2332;
+            border-left: 4px solid var(--primary-dark);
             padding: 15px 20px;
             border-radius: 0 10px 10px 0;
             margin: 15px 0;
@@ -254,7 +220,7 @@
         .exemplar.show { display: block; }
 
         .exemplar h4 {
-            color: #1a2332;
+            color: var(--primary-dark);
             margin-bottom: 8px;
         }
 
@@ -283,12 +249,11 @@
             display: flex;
             gap: 20px;
             margin: 20px 0;
-            max-height: 600px;
         }
 
         .sort-items {
             flex: 1;
-            background: #f8f9fa;
+            background: var(--bg-light);
             padding: 20px;
             border-radius: 15px;
             max-height: 600px;
@@ -298,7 +263,7 @@
         .sort-items h3 {
             position: sticky;
             top: 0;
-            background: #f8f9fa;
+            background: var(--bg-light);
             padding: 10px 0;
             margin: -10px 0 10px 0;
             z-index: 10;
@@ -314,8 +279,8 @@
         }
 
         .sort-item {
-            background: white;
-            border: 3px solid #e0e0e0;
+            background: var(--bg-white);
+            border: 3px solid var(--border);
             border-radius: 12px;
             padding: 12px;
             margin-bottom: 12px;
@@ -327,7 +292,7 @@
         .sort-item:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            border-color: #1a2332;
+            border-color: var(--primary-dark);
         }
 
         .sort-item.dragging { opacity: 0.5; }
@@ -349,29 +314,24 @@
 
         .sort-item .item-title {
             font-weight: bold;
-            color: #1a2332;
+            color: var(--primary-dark);
             font-size: 1em;
-            margin-bottom: 4px;
-        }
-
-        .sort-item .item-description {
-            color: #666;
-            font-size: 0.9em;
-            line-height: 1.4;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
         .drop-zone {
-            background: white;
+            background: var(--bg-white);
             border: 3px dashed #ccc;
             border-radius: 12px;
             padding: 15px;
-            min-height: 150px;
+            min-height: 80px;
             transition: all 0.3s;
         }
 
         .drop-zone.drag-over {
             background: #e0e7ff;
-            border-color: #1a2332;
+            border-color: var(--primary-dark);
             border-style: solid;
         }
 
@@ -379,18 +339,21 @@
             text-align: center;
             padding-bottom: 10px;
             border-bottom: 2px solid currentColor;
-            margin-bottom: 15px;
-            color: #1a2332;
+            margin-bottom: 10px;
+            color: var(--primary-dark);
         }
 
         .drop-zone .empty-message {
             text-align: center;
-            padding: 30px 20px;
+            padding: 15px 10px;
             color: #999;
             font-style: italic;
+            font-size: 0.9em;
         }
 
-        .drop-zone .sort-item { margin-bottom: 8px; }
+        .drop-zone .sort-item {
+            margin-bottom: 8px;
+        }
 
         /* BUTTONS */
         .btn {
@@ -405,8 +368,8 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #1a2332 0%, #2d3a4a 100%);
-            color: white;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-light) 100%);
+            color: var(--text-light);
         }
 
         .btn-primary:hover {
@@ -429,7 +392,7 @@
         .btn-danger:hover { background: #fecaca; }
 
         /* ALERTS */
-        .alert {
+        .review-content .alert {
             padding: 15px 20px;
             border-radius: 10px;
             margin: 20px 0;
@@ -438,13 +401,13 @@
             gap: 15px;
         }
 
-        .alert.info {
+        .review-content .alert.info {
             background: #dbeafe;
             border-left: 5px solid #3b82f6;
             color: #1e40af;
         }
 
-        .alert.success {
+        .review-content .alert.success {
             background: #d1fae5;
             border-left: 5px solid #10b981;
             color: #065f46;
@@ -487,9 +450,9 @@
         }
 
         .flashcard-front {
-            background: linear-gradient(135deg, #1a2332 0%, #2d3a4a 100%);
-            color: white;
-            border: 3px solid #2d3a4a;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-light) 100%);
+            color: var(--text-light);
+            border: 3px solid var(--primary-light);
         }
 
         .flashcard-front h3 {
@@ -499,20 +462,20 @@
 
         .flashcard-back {
             background: #f0f4ff;
-            border: 3px solid #1a2332;
+            border: 3px solid var(--primary-dark);
             transform: rotateY(180deg);
         }
 
         .flashcard-back p {
             font-size: 1.15em;
             line-height: 1.6;
-            color: #333;
+            color: var(--text-dark);
         }
 
         .flashcard-back .card-label {
             font-size: 0.8em;
             font-weight: 700;
-            color: #1a2332;
+            color: var(--primary-dark);
             background: #dbeafe;
             padding: 4px 12px;
             border-radius: 15px;
@@ -588,36 +551,71 @@
             color: #dc2626;
         }
 
+        /* SAVE/LOAD */
+        .save-load-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid var(--border);
+            text-align: center;
+        }
+
+        .save-load-section p {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
         /* RESPONSIVE */
         @media (max-width: 768px) {
             .sort-container { flex-direction: column; }
             .flashcard { height: 240px; }
             .flashcard-front h3 { font-size: 1.3em; }
             .keyboard-hint { display: none; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
         }
 
         @media (max-width: 600px) {
-            .content { padding: 15px; }
-            header h1 { font-size: 1.2em; }
+            .review-content { padding: 15px; }
             .nav-buttons { grid-template-columns: 1fr; }
             .flashcard { height: 220px; }
+            .stats-grid { grid-template-columns: 1fr 1fr; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>SCOTUS Review</h1>
-            <a href="index.html">Back to Home</a>
-        </header>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <header class="site-header" role="banner">
+        <div class="container header-inner">
+            <a href="index.html" class="site-logo">
+                <span class="logo-icon">⚖️</span>
+                <span class="logo-text">SCOTUS Debate Project</span>
+            </a>
+            <nav class="header-nav" role="navigation" aria-label="Main navigation">
+                <a href="index.html#cases">Cases</a>
+                <a href="resources.html">Resources</a>
+                <a href="index.html">Home</a>
+            </nav>
+        </div>
+    </header>
 
-        <div class="content">
+    <main id="main-content" role="main">
+        <section class="case-header">
+            <div class="container">
+                <h1>SCOTUS Review</h1>
+            </div>
+        </section>
+
+        <div class="review-content">
             <!-- HOME / DASHBOARD -->
             <div id="home" class="section active">
                 <h2>Review Dashboard</h2>
                 <p style="margin: 10px 0 20px; color: #666;">Review what you've learned about Supreme Court cases and the Bill of Rights.</p>
 
                 <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="number" id="vocab-score">0/24</div>
+                        <div class="label">Vocab Mastered</div>
+                    </div>
                     <div class="stat-card">
                         <div class="number" id="mc-score">0%</div>
                         <div class="label">Multiple Choice</div>
@@ -630,96 +628,27 @@
                         <div class="number" id="sort-score">0%</div>
                         <div class="label">Amendments Sort</div>
                     </div>
-                    <div class="stat-card">
-                        <div class="number" id="vocab-score">0/24</div>
-                        <div class="label">Vocab Mastered</div>
-                    </div>
                 </div>
 
                 <div class="nav-buttons">
-                    <button class="nav-btn" onclick="showSection('practice')">Multiple Choice</button>
-                    <button class="nav-btn secondary" onclick="showSection('shortanswer')">Short Answer</button>
-                    <button class="nav-btn success" onclick="showSection('sort')">Amendments Sort</button>
                     <button class="nav-btn" onclick="showSection('vocab')">Vocabulary</button>
+                    <button class="nav-btn secondary" onclick="showSection('practice')">Multiple Choice</button>
+                    <button class="nav-btn" onclick="showSection('shortanswer')">Short Answer</button>
+                    <button class="nav-btn success" onclick="showSection('sort')">Amendments Sort</button>
                 </div>
 
                 <div class="alert info">
                     <span>This review covers key concepts from the SCOTUS cases and the Bill of Rights. Complete each section to track your progress.</span>
                 </div>
-            </div>
 
-            <!-- MULTIPLE CHOICE -->
-            <div id="practice" class="section">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                    <h2>Multiple Choice</h2>
-                    <button class="btn btn-secondary" onclick="showSection('home')">Back</button>
+                <div class="save-load-section">
+                    <p>Your progress is saved automatically in this browser. Use the buttons below to back up or transfer your progress.</p>
+                    <button class="btn btn-primary" onclick="saveAllProgress()">Save Progress</button>
+                    <button class="btn btn-secondary" onclick="document.getElementById('load-file').click()">Load Progress</button>
+                    <input type="file" id="load-file" accept=".json" style="display:none" onchange="loadAllProgress(event)">
+                    <br>
+                    <button class="reset-btn" onclick="resetAllProgress()">Reset All Progress</button>
                 </div>
-
-                <div class="progress-bar">
-                    <div class="progress-fill" id="mc-progress" style="width: 0%"></div>
-                    <span class="progress-text" id="mc-progress-text">Question 1 of 10</span>
-                </div>
-
-                <div id="mc-question-area">
-                    <!-- Questions will be rendered here by JavaScript -->
-                    <div class="alert info">
-                        <span>Questions will be added here. Click "Start" when ready.</span>
-                    </div>
-                    <button class="btn btn-primary" onclick="startMultipleChoice()">Start</button>
-                </div>
-            </div>
-
-            <!-- SHORT ANSWER -->
-            <div id="shortanswer" class="section">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                    <h2>Short Answer</h2>
-                    <button class="btn btn-secondary" onclick="showSection('home')">Back</button>
-                </div>
-
-                <div class="progress-bar">
-                    <div class="progress-fill" id="sa-progress" style="width: 0%"></div>
-                    <span class="progress-text" id="sa-progress-text">Question 1 of 5</span>
-                </div>
-
-                <div id="sa-question-area">
-                    <!-- Short answer questions will be rendered here -->
-                    <div class="alert info">
-                        <span>Short answer questions will be added here. Click "Start" when ready.</span>
-                    </div>
-                    <button class="btn btn-primary" onclick="startShortAnswer()">Start</button>
-                </div>
-            </div>
-
-            <!-- AMENDMENTS SORT -->
-            <div id="sort" class="section">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                    <h2>Bill of Rights Sort</h2>
-                    <button class="btn btn-secondary" onclick="showSection('home')">Back</button>
-                </div>
-
-                <div class="alert info">
-                    <span>Drag each right or protection to the correct amendment. The first ten amendments to the Constitution make up the Bill of Rights.</span>
-                </div>
-
-                <div class="sort-container">
-                    <div class="sort-items" id="sort-items-panel">
-                        <h3>Rights & Protections</h3>
-                        <div id="sort-items-list">
-                            <!-- Sort items rendered by JS -->
-                        </div>
-                    </div>
-
-                    <div class="sort-zones" id="sort-zones-panel">
-                        <!-- Amendment drop zones rendered by JS -->
-                    </div>
-                </div>
-
-                <div style="text-align: center; margin-top: 20px;">
-                    <button class="btn btn-primary" onclick="checkSort()">Check Answers</button>
-                    <button class="btn btn-secondary" onclick="resetSort()">Reset</button>
-                </div>
-
-                <div id="sort-feedback"></div>
             </div>
 
             <!-- VOCABULARY FLASHCARDS -->
@@ -756,8 +685,83 @@
                     <button class="reset-btn" onclick="resetVocabProgress()">Reset Vocabulary Progress</button>
                 </div>
             </div>
+
+            <!-- MULTIPLE CHOICE -->
+            <div id="practice" class="section">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2>Multiple Choice</h2>
+                    <button class="btn btn-secondary" onclick="showSection('home')">Back</button>
+                </div>
+
+                <div class="progress-bar">
+                    <div class="progress-fill" id="mc-progress" style="width: 0%"></div>
+                    <span class="progress-text" id="mc-progress-text">Question 1 of 10</span>
+                </div>
+
+                <div id="mc-question-area">
+                    <div class="alert info">
+                        <span>Questions will be added here. Click "Start" when ready.</span>
+                    </div>
+                    <button class="btn btn-primary" onclick="startMultipleChoice()">Start</button>
+                </div>
+            </div>
+
+            <!-- SHORT ANSWER -->
+            <div id="shortanswer" class="section">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2>Short Answer</h2>
+                    <button class="btn btn-secondary" onclick="showSection('home')">Back</button>
+                </div>
+
+                <div class="progress-bar">
+                    <div class="progress-fill" id="sa-progress" style="width: 0%"></div>
+                    <span class="progress-text" id="sa-progress-text">Question 1 of 5</span>
+                </div>
+
+                <div id="sa-question-area">
+                    <div class="alert info">
+                        <span>Short answer questions will be added here. Click "Start" when ready.</span>
+                    </div>
+                    <button class="btn btn-primary" onclick="startShortAnswer()">Start</button>
+                </div>
+            </div>
+
+            <!-- AMENDMENTS SORT -->
+            <div id="sort" class="section">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2>Bill of Rights Sort</h2>
+                    <button class="btn btn-secondary" onclick="showSection('home')">Back</button>
+                </div>
+
+                <div class="alert info">
+                    <span>Drag each right or protection to the correct amendment. The first ten amendments to the Constitution make up the Bill of Rights.</span>
+                </div>
+
+                <div class="sort-container">
+                    <div class="sort-items" id="sort-items-panel">
+                        <h3>Rights & Protections</h3>
+                        <div id="sort-items-list"></div>
+                    </div>
+
+                    <div class="sort-zones" id="sort-zones-panel"></div>
+                </div>
+
+                <div style="text-align: center; margin-top: 20px;">
+                    <button class="btn btn-primary" onclick="checkSort()">Check Answers</button>
+                    <button class="btn btn-secondary" onclick="resetSort()">Reset</button>
+                </div>
+
+                <div id="sort-feedback"></div>
+            </div>
         </div>
-    </div>
+    </main>
+
+    <footer role="contentinfo">
+        <div class="container">
+            <p><a href="index.html">Back to Home</a></p>
+            <p>&copy; 2026 SCOTUS Debate Project | Educational Resource</p>
+        </div>
+    </footer>
 
     <script>
     // ==========================================
@@ -898,7 +902,7 @@
         // {
         //     topic: "Judicial Review",
         //     question: "Explain why judicial review is important for the system of checks and balances.",
-        //     exemplar: "Judicial review allows the Supreme Court to strike down laws that violate the Constitution. This is important because it prevents Congress or the President from passing laws that take away people's rights. Without judicial review, there would be no check on the legislative and executive branches.",
+        //     exemplar: "Judicial review allows the Supreme Court to strike down laws...",
         //     rubric: [
         //         "Defines judicial review",
         //         "Explains connection to checks and balances",
@@ -1017,10 +1021,8 @@
     let sortPlaced = {};
 
     function initSort() {
-        // Shuffle items
         const shuffled = [...sortItems].sort(() => Math.random() - 0.5);
 
-        // Render draggable items
         const itemsList = document.getElementById('sort-items-list');
         itemsList.innerHTML = '';
         shuffled.forEach(item => {
@@ -1035,7 +1037,6 @@
             itemsList.appendChild(el);
         });
 
-        // Render drop zones
         const zonesPanel = document.getElementById('sort-zones-panel');
         zonesPanel.innerHTML = '';
         amendments.forEach(a => {
@@ -1087,16 +1088,13 @@
         const itemId = draggedItem.dataset.itemId;
         const amendmentId = zone.dataset.amendmentId;
 
-        // Remove empty message
         const emptyMsg = zone.querySelector('.empty-message');
         if (emptyMsg) emptyMsg.style.display = 'none';
 
-        // Move item to zone
         draggedItem.classList.add('placed');
         draggedItem.draggable = false;
         zone.appendChild(draggedItem);
 
-        // Track placement
         if (!sortPlaced[amendmentId]) sortPlaced[amendmentId] = [];
         sortPlaced[amendmentId].push(itemId);
     }
@@ -1105,7 +1103,6 @@
         let correct = 0;
         let total = sortItems.length;
 
-        // Check each placed item
         document.querySelectorAll('.sort-item.placed').forEach(el => {
             const itemId = el.dataset.itemId;
             const zone = el.closest('.drop-zone');
@@ -1122,7 +1119,6 @@
             }
         });
 
-        // Count unplaced
         const placed = document.querySelectorAll('.sort-item.placed').length;
         const unplaced = total - placed;
 
@@ -1283,6 +1279,80 @@
     }
 
     // ==========================================
+    // SAVE / LOAD PROGRESS
+    // ==========================================
+    function saveAllProgress() {
+        const data = {
+            version: 1,
+            timestamp: new Date().toISOString(),
+            vocabKnown: [...knownCards],
+            mcScore: localStorage.getItem('scotus-mc-score') || null,
+            sortScore: localStorage.getItem('scotus-sort-score') || null
+        };
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'scotus-review-progress.json';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
+
+    function loadAllProgress(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                const data = JSON.parse(e.target.result);
+
+                // Restore vocab
+                if (data.vocabKnown && Array.isArray(data.vocabKnown)) {
+                    knownCards = new Set(data.vocabKnown);
+                    saveVocabProgress();
+                    renderCard();
+                    updateVocabProgress();
+                }
+
+                // Restore MC score
+                if (data.mcScore !== null && data.mcScore !== undefined) {
+                    localStorage.setItem('scotus-mc-score', data.mcScore);
+                    document.getElementById('mc-score').textContent = data.mcScore + '%';
+                }
+
+                // Restore sort score
+                if (data.sortScore !== null && data.sortScore !== undefined) {
+                    localStorage.setItem('scotus-sort-score', data.sortScore);
+                    document.getElementById('sort-score').textContent = data.sortScore + '%';
+                }
+
+                alert('Progress loaded successfully!');
+            } catch(err) {
+                alert('Error loading progress file. Make sure it is a valid SCOTUS review progress file.');
+            }
+        };
+        reader.readAsText(file);
+        event.target.value = '';
+    }
+
+    function resetAllProgress() {
+        if (confirm('Reset ALL progress? This will clear vocabulary, quiz scores, and sort scores.')) {
+            knownCards = new Set();
+            saveVocabProgress();
+            localStorage.removeItem('scotus-mc-score');
+            localStorage.removeItem('scotus-sort-score');
+            document.getElementById('mc-score').textContent = '0%';
+            document.getElementById('sa-score').textContent = '0/5';
+            document.getElementById('sort-score').textContent = '0%';
+            renderCard();
+            updateVocabProgress();
+        }
+    }
+
+    // ==========================================
     // INITIALIZATION
     // ==========================================
     document.addEventListener('DOMContentLoaded', function() {
@@ -1300,7 +1370,6 @@
             const vocabSection = document.getElementById('vocab');
             if (!vocabSection || !vocabSection.classList.contains('active')) return;
 
-            // Don't capture if user is typing in an input/textarea
             if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
 
             switch(e.key) {
