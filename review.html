@@ -327,6 +327,87 @@
             cursor: pointer;
         }
 
+        /* COMPREHENSION GATE */
+        .comp-gate {
+            background: var(--bg-white);
+            border: 3px solid var(--primary-dark);
+            border-radius: 14px;
+            padding: 28px 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+        }
+
+        .comp-gate h3 {
+            margin: 0 0 16px 0;
+            font-size: 1.15em;
+            color: var(--primary-dark);
+        }
+
+        .comp-gate ol {
+            margin: 0 0 20px 20px;
+            padding: 0;
+            line-height: 1.7;
+        }
+
+        .comp-gate ol li {
+            margin-bottom: 4px;
+        }
+
+        .comp-gate-question {
+            background: var(--bg-warm);
+            border-radius: 10px;
+            padding: 18px 20px;
+            margin-top: 10px;
+        }
+
+        .comp-gate-question p {
+            font-weight: 600;
+            margin: 0 0 12px 0;
+        }
+
+        .comp-gate-option {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 12px 16px;
+            margin-bottom: 8px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            background: var(--bg-white);
+            cursor: pointer;
+            font-size: 0.95em;
+            transition: all 0.2s;
+        }
+
+        .comp-gate-option:hover {
+            border-color: var(--primary-dark);
+            background: #f0f0f8;
+        }
+
+        .comp-gate-option.correct-answer {
+            border-color: #10b981;
+            background: #d1fae5;
+            font-weight: 600;
+        }
+
+        .comp-gate-option.wrong-answer {
+            border-color: #ef4444;
+            background: #fee2e2;
+        }
+
+        .comp-gate-feedback {
+            margin-top: 12px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 0.9em;
+            display: none;
+        }
+
+        .comp-gate-feedback.show { display: block; }
+        .comp-gate-feedback.wrong { background: #fee2e2; color: #991b1b; }
+        .comp-gate-feedback.right { background: #d1fae5; color: #065f46; }
+
         /* AMENDMENTS ACTIVITY */
         .amend-level-tabs {
             display: flex;
@@ -1201,11 +1282,29 @@
                     </button>
                 </div>
 
+                <!-- COMPREHENSION GATE (shown before activity) -->
+                <div id="comp-gate" class="comp-gate">
+                    <h3>Before you begin — read the instructions:</h3>
+                    <ol id="comp-gate-steps">
+                        <li><strong>Pick a right</strong> from the "Rights &amp; Protections" list below.</li>
+                        <li>The amendment chips will start <strong>pulsing</strong> — click the <strong>amendment</strong> it belongs to.</li>
+                        <li><strong>Hover</strong> over any chip to read what that amendment protects.</li>
+                        <li>Click a chip anytime to open its drawer and <strong>review or remove</strong> what you've placed.</li>
+                        <li>When you've matched them all, hit <strong>Check Answers</strong>.</li>
+                    </ol>
+                    <div class="comp-gate-question">
+                        <p>Quick check: What do you click first?</p>
+                        <button class="comp-gate-option" data-gate-answer="wrong" onclick="handleGateAnswer(this)">An amendment chip at the top</button>
+                        <button class="comp-gate-option" data-gate-answer="correct" onclick="handleGateAnswer(this)">A right from the list, then an amendment chip</button>
+                        <button class="comp-gate-option" data-gate-answer="wrong" onclick="handleGateAnswer(this)">The Check Answers button</button>
+                        <div class="comp-gate-feedback" id="comp-gate-feedback"></div>
+                    </div>
+                </div>
+
                 <!-- MATCH ROUND (shared by Round 1 and Round 2) -->
-                <div id="amend-match-round">
-                    <div class="alert info" id="match-round-instructions">
-                        <strong style="display:block; margin-bottom:6px;">How it works:</strong>
-                        <span><b>1.</b> Pick a right from the list below. &nbsp;<b>2.</b> Click the amendment chip it belongs to — the chips will pulse when waiting for your choice. &nbsp;<b>3.</b> Hover over any chip to read what that amendment protects. Click a chip to open its drawer and review (or remove) what you've placed. When you've matched them all, hit <b>Check Answers</b> — chips turn <span style="color:#10b981;font-weight:600;">green</span> if everything underneath is correct, or <span style="color:#ef4444;font-weight:600;">red</span> if something needs fixing.</span>
+                <div id="amend-match-round" style="display:none;">
+                    <div class="alert info" id="match-round-instructions" style="padding:12px 18px; font-size:0.92em;">
+                        <span id="match-round-reminder"></span>
                     </div>
 
                     <div class="level-progress">
@@ -2341,6 +2440,36 @@
 
     function getMatchItems() { return currentMatchRound === 1 ? round1Items : round2Items; }
 
+    let gatePassedRounds = {}; // track which rounds student has already passed the gate
+
+    function handleGateAnswer(btn) {
+        const isCorrect = btn.dataset.gateAnswer === 'correct';
+        const feedback = document.getElementById('comp-gate-feedback');
+        const allBtns = document.querySelectorAll('.comp-gate-option');
+
+        if (isCorrect) {
+            btn.classList.add('correct-answer');
+            feedback.textContent = 'Correct! Pick a right first, then click the amendment it belongs to.';
+            feedback.className = 'comp-gate-feedback show right';
+            allBtns.forEach(b => b.disabled = true);
+            gatePassedRounds[currentMatchRound] = true;
+            // After a short pause, reveal the activity
+            setTimeout(() => {
+                document.getElementById('comp-gate').style.display = 'none';
+                document.getElementById('amend-match-round').style.display = 'block';
+            }, 900);
+        } else {
+            btn.classList.add('wrong-answer');
+            feedback.textContent = 'Not quite — re-read the steps above and try again!';
+            feedback.className = 'comp-gate-feedback show wrong';
+            // Let them try again after a brief moment
+            setTimeout(() => {
+                btn.classList.remove('wrong-answer');
+                feedback.className = 'comp-gate-feedback';
+            }, 1200);
+        }
+    }
+
     function initMatchRound(round) {
         currentMatchRound = round || currentMatchRound;
         currentMatchItems = getMatchItems();
@@ -2350,12 +2479,36 @@
         matchChecked = false;
         openDrawerAmend = null;
 
-        // Update instructions for round context
-        const instrEl = document.getElementById('match-round-instructions');
-        if (currentMatchRound === 1) {
-            instrEl.innerHTML = '<strong style="display:block; margin-bottom:6px;">How it works:</strong><span>Each amendment gets <b>one</b> core right. <b>1.</b> Pick a right from the list below. &nbsp;<b>2.</b> Click the amendment chip it belongs to — the chips will pulse when waiting for your choice. &nbsp;<b>3.</b> Hover over any chip to read what that amendment protects. Click a chip to open its drawer and review (or remove) what you\'ve placed. When you\'ve matched them all, hit <b>Check Answers</b>.</span>';
+        // Show gate or skip if already passed for this round
+        const gate = document.getElementById('comp-gate');
+        const matchDiv = document.getElementById('amend-match-round');
+        if (gatePassedRounds[currentMatchRound]) {
+            gate.style.display = 'none';
+            matchDiv.style.display = 'block';
         } else {
-            instrEl.innerHTML = '<strong style="display:block; margin-bottom:6px;">How it works:</strong><span>Now some amendments get <b>multiple</b> rights — look closely! <b>1.</b> Pick a right from the list below. &nbsp;<b>2.</b> Click the amendment chip it belongs to — the chips will pulse when waiting for your choice. &nbsp;<b>3.</b> Hover over any chip to read what that amendment protects. Click a chip to open its drawer and review (or remove) what you\'ve placed. When you\'ve matched them all, hit <b>Check Answers</b>.</span>';
+            gate.style.display = 'block';
+            matchDiv.style.display = 'none';
+            // Reset gate state
+            document.querySelectorAll('.comp-gate-option').forEach(b => {
+                b.classList.remove('correct-answer', 'wrong-answer');
+                b.disabled = false;
+            });
+            document.getElementById('comp-gate-feedback').className = 'comp-gate-feedback';
+            // Update gate step text for round context
+            const stepsEl = document.getElementById('comp-gate-steps');
+            if (currentMatchRound === 1) {
+                stepsEl.innerHTML = '<li><strong>Pick a right</strong> from the "Rights &amp; Protections" list below — each amendment gets <strong>one</strong> core right.</li><li>The amendment chips will start <strong>pulsing</strong> — click the <strong>amendment</strong> it belongs to.</li><li><strong>Hover</strong> over any chip to read what that amendment protects.</li><li>Click a chip anytime to open its drawer and <strong>review or remove</strong> what you\'ve placed.</li><li>When you\'ve matched them all, hit <strong>Check Answers</strong>.</li>';
+            } else {
+                stepsEl.innerHTML = '<li><strong>Pick a right</strong> from the list below — now some amendments get <strong>multiple</strong> rights!</li><li>The amendment chips will start <strong>pulsing</strong> — click the <strong>amendment</strong> it belongs to.</li><li><strong>Hover</strong> over any chip to read what that amendment protects.</li><li>Click a chip anytime to open its drawer and <strong>review or remove</strong> what you\'ve placed.</li><li>When you\'ve matched them all, hit <strong>Check Answers</strong>.</li>';
+            }
+        }
+
+        // Update the short in-activity reminder
+        const reminderEl = document.getElementById('match-round-reminder');
+        if (currentMatchRound === 1) {
+            reminderEl.innerHTML = '<strong>Reminder:</strong> Click a <b>right</b> first, then click the <b>amendment</b> it belongs to. Hover chips for descriptions.';
+        } else {
+            reminderEl.innerHTML = '<strong>Reminder:</strong> Click a <b>right</b> first, then click the <b>amendment</b>. Some amendments get <b>multiple</b> rights this round!';
         }
 
         const itemsList = document.getElementById('match-items-list');
@@ -2650,11 +2803,19 @@
         const tab = document.getElementById('round' + roundNum + '-tab');
         if (tab && tab.classList.contains('locked')) return;
 
-        // Toggle visibility
+        // Toggle visibility — gate + match round handled by initMatchRound
+        const gate = document.getElementById('comp-gate');
         const matchDiv = document.getElementById('amend-match-round');
         const round3Div = document.getElementById('amend-round3');
-        matchDiv.style.display = (roundNum === 1 || roundNum === 2) ? 'block' : 'none';
-        round3Div.style.display = roundNum === 3 ? 'block' : 'none';
+
+        if (roundNum === 3) {
+            gate.style.display = 'none';
+            matchDiv.style.display = 'none';
+            round3Div.style.display = 'block';
+        } else {
+            round3Div.style.display = 'none';
+            // initMatchRound will handle gate vs matchDiv visibility
+        }
 
         // Toggle active tabs
         document.getElementById('round1-tab').classList.toggle('active', roundNum === 1);
