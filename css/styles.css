@@ -685,4 +685,65 @@ footer a {
     .guiding-question-simple {
         font-size: 1rem;
     }
+
+    .auth-signed-in {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+/* AUTH UI */
+#auth-container {
+    display: flex;
+    align-items: center;
+}
+
+.auth-signed-in {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.auth-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.3);
+}
+
+.auth-name {
+    color: var(--text-light);
+    font-size: 0.85em;
+    font-weight: 500;
+    opacity: 0.9;
+}
+
+.auth-btn {
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 0.85em;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+    min-height: 36px;
+}
+
+.auth-btn-in {
+    background: var(--accent);
+    color: #fff;
+}
+
+.auth-btn-in:hover {
+    background: var(--accent-hover);
+}
+
+.auth-btn-out {
+    background: rgba(255,255,255,0.15);
+    color: var(--text-light);
+    border: 1px solid rgba(255,255,255,0.3);
+}
+
+.auth-btn-out:hover {
+    background: rgba(255,255,255,0.25);
 }
