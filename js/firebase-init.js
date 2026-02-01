@@ -16,8 +16,12 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-// Allowed email domain
-const ALLOWED_DOMAIN = 'edmonds15.org';
+// Allowed email domains
+const ALLOWED_DOMAINS = ['edmonds15.org', 'edmonds.wednet.edu'];
+
+function isAllowedEmail(email) {
+    return ALLOWED_DOMAINS.some(domain => email.endsWith('@' + domain));
+}
 
 // Current user state
 let currentUser = null;
@@ -49,13 +53,12 @@ function renderAuthUI() {
 
 async function signInWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
-    provider.setCustomParameters({ hd: ALLOWED_DOMAIN });
     try {
         const result = await auth.signInWithPopup(provider);
         const email = result.user.email || '';
-        if (!email.endsWith('@' + ALLOWED_DOMAIN)) {
+        if (!isAllowedEmail(email)) {
             await auth.signOut();
-            alert('Please sign in with your @' + ALLOWED_DOMAIN + ' school account.');
+            alert('Please sign in with your school account (@edmonds15.org or @edmonds.wednet.edu).');
             return;
         }
         // After successful sign-in, migrate any localStorage data
@@ -63,7 +66,7 @@ async function signInWithGoogle() {
     } catch (err) {
         if (err.code !== 'auth/popup-closed-by-user') {
             console.error('Sign-in error:', err);
-            alert('Sign-in failed. Make sure you are using your @' + ALLOWED_DOMAIN + ' account.');
+            alert('Sign-in failed. Make sure you are using your school account (@edmonds15.org or @edmonds.wednet.edu).');
         }
     }
 }
@@ -78,7 +81,7 @@ async function signOutUser() {
 
 // Listen for auth state changes
 auth.onAuthStateChanged(function(user) {
-    if (user && user.email && !user.email.endsWith('@' + ALLOWED_DOMAIN)) {
+    if (user && user.email && !isAllowedEmail(user.email)) {
         auth.signOut();
         return;
     }
