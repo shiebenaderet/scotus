@@ -91,6 +91,50 @@ document.addEventListener('DOMContentLoaded', function() {
     // Argument Sorting Activity
     const sortingTable = document.querySelector('.argument-sorting-table');
     if (sortingTable) {
+        // Derive a save key from the page filename
+        const pagePath = window.location.pathname;
+        const pageFile = pagePath.substring(pagePath.lastIndexOf('/') + 1).replace('.html', '');
+        const sortSaveKey = 'scotus-sort-' + pageFile;
+
+        function saveSortSelections() {
+            const rows = sortingTable.querySelectorAll('tbody tr');
+            const answers = [];
+            rows.forEach(row => {
+                const select = row.querySelector('select');
+                answers.push(select ? select.value : '');
+            });
+            localStorage.setItem(sortSaveKey, JSON.stringify(answers));
+            if (typeof saveToCloud === 'function') saveToCloud(sortSaveKey, answers);
+        }
+
+        function loadSortSelections() {
+            try {
+                const saved = localStorage.getItem(sortSaveKey);
+                if (saved) {
+                    const answers = JSON.parse(saved);
+                    const rows = sortingTable.querySelectorAll('tbody tr');
+                    rows.forEach((row, i) => {
+                        const select = row.querySelector('select');
+                        if (select && answers[i]) select.value = answers[i];
+                    });
+                }
+            } catch(e) {}
+
+            // Also try loading from cloud if signed in
+            if (typeof loadFromCloud === 'function') {
+                loadFromCloud(sortSaveKey).then(answers => {
+                    if (answers && Array.isArray(answers)) {
+                        localStorage.setItem(sortSaveKey, JSON.stringify(answers));
+                        const rows = sortingTable.querySelectorAll('tbody tr');
+                        rows.forEach((row, i) => {
+                            const select = row.querySelector('select');
+                            if (select && answers[i]) select.value = answers[i];
+                        });
+                    }
+                });
+            }
+        }
+
         // Add ARIA labels to all select dropdowns
         const selectDropdowns = sortingTable.querySelectorAll('select');
         selectDropdowns.forEach((select, index) => {
@@ -106,6 +150,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 answerCell.setAttribute('aria-atomic', 'true');
             }
         });
+        // Auto-save on each dropdown change
+        selectDropdowns.forEach(select => {
+            select.addEventListener('change', saveSortSelections);
+        });
+
+        // Load any saved selections
+        loadSortSelections();
+
         const checkAnswersBtn = document.createElement('button');
         checkAnswersBtn.textContent = 'Check Answers';
         checkAnswersBtn.className = 'check-answers-btn';
@@ -323,7 +375,7 @@ document.addEventListener('DOMContentLoaded', function() {
             rows.forEach(row => {
                 const select = row.querySelector('select');
                 const answerCell = row.querySelector('.answer-cell');
-                
+
                 if (select) {
                     select.value = '';
                 }
@@ -333,6 +385,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     answerCell.textContent = '';
                 }
             });
+
+            // Clear saved selections
+            localStorage.removeItem(sortSaveKey);
+            if (typeof saveToCloud === 'function') saveToCloud(sortSaveKey, null);
             
             // Reset answer key section
             answerKeySection.innerHTML = '';
