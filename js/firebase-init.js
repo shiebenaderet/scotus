@@ -87,12 +87,24 @@ auth.onAuthStateChanged(function(user) {
     }
     currentUser = user;
     renderAuthUI();
+    updateTeacherNavLink(user);
 
     // Notify page-specific code that auth state changed
     if (typeof onAuthReady === 'function') {
         onAuthReady(user);
     }
 });
+
+// Show/hide teacher nav link based on domain
+function updateTeacherNavLink(user) {
+    const link = document.getElementById('teacher-nav-link');
+    if (!link) return;
+    if (user && user.email && user.email.endsWith('@edmonds.wednet.edu')) {
+        link.style.display = '';
+    } else {
+        link.style.display = 'none';
+    }
+}
 
 // ==========================================
 // FIRESTORE HELPERS

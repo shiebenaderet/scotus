@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Resources | SCOTUS Debate Project</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .teacher-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px 20px 60px;
+        }
+
+        /* AUTH GATE */
+        .auth-gate {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .auth-gate h2 {
+            color: var(--primary-dark);
+            margin-bottom: 12px;
+        }
+
+        .auth-gate p {
+            color: #666;
+            margin-bottom: 24px;
+            max-width: 100%;
+        }
+
+        /* HERO */
+        .teacher-hero {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-light) 100%);
+            color: var(--text-light);
+            padding: 2.5rem 2rem;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .teacher-hero h1 {
+            font-family: var(--font-heading);
+            font-size: 1.6em;
+            margin-bottom: 8px;
+            max-width: 100%;
+        }
+
+        .teacher-hero p {
+            opacity: 0.9;
+            max-width: 100%;
+        }
+
+        .teacher-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: #fff;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        /* SECTION HEADERS */
+        .section-head {
+            margin: 40px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--primary-dark);
+        }
+
+        .section-head h2 {
+            color: var(--primary-dark);
+            font-size: 1.3em;
+            margin: 0;
+        }
+
+        .section-head p {
+            color: #666;
+            font-size: 0.92em;
+            margin-top: 4px;
+        }
+
+        /* MOTIVATION BOX */
+        .motivation-box {
+            background: var(--bg-warm);
+            border-radius: 14px;
+            padding: 24px 28px;
+            margin-bottom: 24px;
+            border-left: 5px solid var(--accent);
+        }
+
+        .motivation-box h3 {
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .motivation-box p {
+            color: var(--text-dark);
+            line-height: 1.7;
+            margin-bottom: 10px;
+        }
+
+        .motivation-box p:last-child { margin-bottom: 0; }
+
+        /* RESOURCE CARDS */
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+            margin: 20px 0;
+        }
+
+        .resource-card {
+            background: var(--bg-white);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.25s;
+            text-decoration: none;
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .resource-card:hover {
+            border-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+        }
+
+        .resource-card-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--bg-warm);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4em;
+        }
+
+        .resource-card h3 {
+            font-size: 1em;
+            color: var(--primary-dark);
+            margin: 0;
+        }
+
+        .resource-card p {
+            font-size: 0.88em;
+            color: #888;
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        .resource-card .dl-hint {
+            font-size: 0.8em;
+            color: var(--accent);
+            font-weight: 600;
+            margin-top: auto;
+        }
+
+        /* OVERVIEW CONTENT */
+        .overview-section {
+            background: var(--bg-white);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        .overview-section h3 {
+            color: var(--primary-dark);
+            margin-bottom: 12px;
+            font-size: 1.05em;
+        }
+
+        .overview-section h4 {
+            color: var(--primary-dark);
+            margin: 16px 0 8px;
+            font-size: 0.95em;
+        }
+
+        .overview-section p, .overview-section li {
+            line-height: 1.7;
+            color: var(--text-dark);
+        }
+
+        .overview-section ul, .overview-section ol {
+            margin: 8px 0 8px 20px;
+            padding: 0;
+        }
+
+        .overview-section li {
+            margin-bottom: 4px;
+        }
+
+        .week-label {
+            display: inline-block;
+            background: var(--primary-dark);
+            color: #fff;
+            padding: 2px 10px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .case-group-label {
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-top: 10px;
+            margin-bottom: 4px;
+        }
+
+        /* CONTACT CARD */
+        .contact-card {
+            background: var(--bg-white);
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            padding: 28px;
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+            margin: 20px 0;
+        }
+
+        .contact-avatar {
+            width: 72px;
+            height: 72px;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-light) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.8em;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .contact-info h3 {
+            color: var(--primary-dark);
+            margin-bottom: 4px;
+            font-size: 1.1em;
+        }
+
+        .contact-info .contact-pronouns {
+            font-size: 0.85em;
+            color: #888;
+            font-weight: 400;
+        }
+
+        .contact-info .contact-role {
+            font-size: 0.92em;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .contact-info .contact-detail {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9em;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .contact-info .contact-detail a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .contact-info .contact-detail a:hover {
+            text-decoration: underline;
+        }
+
+        .contact-icon {
+            font-size: 1em;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* CBA LINKS */
+        .cba-links {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 16px 0;
+        }
+
+        .cba-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            background: var(--bg-white);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-size: 0.92em;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .cba-link:hover {
+            border-color: var(--primary-dark);
+            background: var(--bg-warm);
+        }
+
+        /* COLLABORATION CTA */
+        .collab-cta {
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary-dark) 100%);
+            color: var(--text-light);
+            border-radius: 14px;
+            padding: 32px;
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .collab-cta h3 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            max-width: 100%;
+        }
+
+        .collab-cta p {
+            opacity: 0.9;
+            margin-bottom: 16px;
+            max-width: 100%;
+        }
+
+        .collab-cta a {
+            display: inline-block;
+            background: var(--accent);
+            color: #fff;
+            padding: 12px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .collab-cta a:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(214, 56, 80, 0.35);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .contact-card {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .contact-info .contact-detail {
+                justify-content: center;
+            }
+
+            .resource-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <header class="site-header" role="banner">
+        <div class="container header-inner">
+            <a href="index.html" class="site-logo">
+                <span class="logo-icon">⚖️</span>
+                <span class="logo-text">SCOTUS Debate Project</span>
+            </a>
+            <nav class="header-nav" role="navigation" aria-label="Main navigation">
+                <a href="index.html#cases">All Cases</a>
+                <a href="resources.html">Resources</a>
+                <a href="review.html">Review</a>
+                <a href="debate.html">Debate Prep</a>
+                <a href="teacher.html" id="teacher-nav-link" style="color: var(--accent);">Teacher</a>
+            </nav>
+            <div id="auth-container"></div>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="teacher-content">
+
+            <!-- AUTH GATE: shown when not signed in as teacher -->
+            <div id="teacher-gate" class="auth-gate">
+                <h2>Teacher Resources</h2>
+                <p>This page is available to teachers with an @edmonds.wednet.edu account. Please sign in to access project materials, handouts, and implementation guides.</p>
+                <button class="auth-btn auth-btn-in" style="font-size: 1.05em; padding: 12px 28px; border-radius: 8px; border: none; background: var(--accent); color: #fff; cursor: pointer;" onclick="signInWithGoogle()">Sign In with Google</button>
+            </div>
+
+            <!-- TEACHER CONTENT: shown after teacher auth -->
+            <div id="teacher-main" style="display: none;">
+
+                <!-- HERO -->
+                <div class="teacher-hero">
+                    <span class="teacher-badge">Teacher Resources</span>
+                    <h1>Supreme Court Debate Project</h1>
+                    <p>Everything you need to run the project in your classroom</p>
+                </div>
+
+                <!-- MOTIVATION -->
+                <div class="section-head">
+                    <h2>About This Project</h2>
+                </div>
+
+                <div class="motivation-box">
+                    <h3>Why I Built This</h3>
+                    <p>This project is designed to be a fun, engaging version of the <strong>OSPI Classroom-Based Assessment (CBA)</strong> for middle school civics — specifically the "Constitutional Issues" CBA. It meets the <strong>presentation requirement</strong> through the structured debate format, where students take on the role of constitutional lawyers arguing real Supreme Court cases.</p>
+                    <p>The one piece still in progress is <strong>sourcing</strong> — I'm working on integrating a citation tool so students can properly source their arguments. Beyond that, this project covers the full CBA: students research constitutional issues, take and defend a position, and present their reasoning with evidence.</p>
+                    <p>My goal was to take what can feel like a dry assessment and turn it into something students actually look forward to. The website gives them scaffolded support at every step — from learning vocabulary to building arguments to writing their opening statements — so they can focus on thinking deeply about the constitutional questions rather than getting lost in the format.</p>
+                </div>
+
+                <div class="cba-links">
+                    <a class="cba-link" href="https://ospi.k12.wa.us/sites/default/files/2023-08/middleschcivics-constitutionalissues-cba.pdf" target="_blank" rel="noopener">
+                        <span>📄</span> CBA Assessment (PDF)
+                    </a>
+                    <a class="cba-link" href="https://ospi.k12.wa.us/sites/default/files/2023-08/middleschcivics-constitutionalissues-cba.pdf" target="_blank" rel="noopener">
+                        <span>🌐</span> OSPI CBA Overview
+                    </a>
+                </div>
+
+                <!-- PROJECT OVERVIEW -->
+                <div class="section-head">
+                    <h2>Project Overview</h2>
+                    <p>A 4-week unit plan — adapt the pacing to fit your schedule</p>
+                </div>
+
+                <div class="overview-section">
+                    <h3>The Driving Question</h3>
+                    <p><em>When, if ever, should the government be allowed to limit a person's constitutional rights in order to protect the community?</em></p>
+                    <p>This is one of the most important questions in American democracy. Students become constitutional lawyers, analyzing real Supreme Court cases and debating whether individual rights or community safety should come first.</p>
+                </div>
+
+                <div class="overview-section">
+                    <h3>Weekly Breakdown</h3>
+
+                    <h4><span class="week-label">Week 1</span> Building Your Foundation</h4>
+                    <ul>
+                        <li><strong>Launch:</strong> Play "Do I Have a Right?" to see how courts protect our freedoms</li>
+                        <li><strong>Learn the Language:</strong> Master key legal vocabulary needed for debates</li>
+                        <li><strong>Real Story:</strong> Discover how Wong Kim Ark fought for his rights all the way to the Supreme Court</li>
+                        <li><strong>How It Works:</strong> Learn how cases actually reach the Supreme Court</li>
+                    </ul>
+
+                    <h4><span class="week-label">Week 2</span> Choose Your Case &amp; Get Creative</h4>
+                    <ul>
+                        <li><strong>Meet the Cases:</strong> Explore 7 landmark Supreme Court cases</li>
+                        <li><strong>Rank Your Choices:</strong> Pick which case you want to argue</li>
+                        <li><strong>Design Time:</strong> Create a movie-style poster introducing your case to the class</li>
+                        <li><strong>Think Deep:</strong> Discuss real dilemmas about individual rights vs. community good</li>
+                    </ul>
+
+                    <h4><span class="week-label">Week 3</span> Become a Lawyer</h4>
+                    <ul>
+                        <li><strong>Research:</strong> Read case materials and understand both sides</li>
+                        <li><strong>Prepare:</strong> Organize arguments, plan questions, write opening statements</li>
+                        <li><strong>Practice:</strong> Get ready to present your side convincingly</li>
+                    </ul>
+
+                    <h4><span class="week-label">Week 4</span> Debate</h4>
+                    <ul>
+                        <li><strong>Debate:</strong> Present your case to the class (2 cases per day)</li>
+                    </ul>
+                </div>
+
+                <div class="overview-section">
+                    <h3>Student Role</h3>
+                    <p>Students are constitutional lawyers representing either the petitioner or respondent in a real Supreme Court case. Their job is to:</p>
+                    <ul>
+                        <li>Understand the facts of their case</li>
+                        <li>Know the constitutional issues at stake</li>
+                        <li>Build strong arguments using evidence</li>
+                        <li>Anticipate and respond to opposing arguments</li>
+                        <li>Convince others that their side protects what matters most</li>
+                    </ul>
+                </div>
+
+                <div class="overview-section">
+                    <h3>The 7 Cases</h3>
+
+                    <p class="case-group-label">Student Rights &amp; Free Speech</p>
+                    <ul>
+                        <li><strong>Tinker v. Des Moines</strong> — Can students wear armbands to protest war?</li>
+                        <li><strong>Mahanoy v. B.L.</strong> — Can schools punish students for social media posts made off campus?</li>
+                    </ul>
+
+                    <p class="case-group-label">Religion &amp; Schools</p>
+                    <ul>
+                        <li><strong>Kennedy v. Bremerton</strong> — Can a coach pray on the field after games?</li>
+                    </ul>
+
+                    <p class="case-group-label">Privacy &amp; Search</p>
+                    <ul>
+                        <li><strong>New Jersey v. T.L.O.</strong> — Can schools search students without a warrant?</li>
+                        <li><strong>Payton v. New York</strong> — Can police enter your home without a warrant to arrest you?</li>
+                    </ul>
+
+                    <p class="case-group-label">Immigration &amp; Federalism</p>
+                    <ul>
+                        <li><strong>Arizona v. United States</strong> — Can states enforce their own immigration laws?</li>
+                    </ul>
+
+                    <p class="case-group-label">Civil Rights</p>
+                    <ul>
+                        <li><strong>Brown v. Board of Education</strong> — Can states force students to attend separate schools based on race?</li>
+                    </ul>
+                </div>
+
+                <!-- RESOURCE FILES -->
+                <div class="section-head">
+                    <h2>Project Files &amp; Handouts</h2>
+                    <p>Click any card to open or download the file</p>
+                </div>
+
+                <div class="resource-grid">
+                    <a class="resource-card" href="#" target="_blank" rel="noopener">
+                        <div class="resource-card-icon">📋</div>
+                        <h3>Cases Overview</h3>
+                        <p>Summary of all 7 cases with key facts and constitutional questions</p>
+                        <span class="dl-hint">Click to open &rarr;</span>
+                    </a>
+
+                    <a class="resource-card" href="#" target="_blank" rel="noopener">
+                        <div class="resource-card-icon">📝</div>
+                        <h3>Case Overview Notes</h3>
+                        <p>Student notetaker for recording case details during research</p>
+                        <span class="dl-hint">Click to open &rarr;</span>
+                    </a>
+
+                    <a class="resource-card" href="#" target="_blank" rel="noopener">
+                        <div class="resource-card-icon">📊</div>
+                        <h3>Case Overview Google Form</h3>
+                        <p>Comprehension check form for case overview activity</p>
+                        <span class="dl-hint">Click to open &rarr;</span>
+                    </a>
+
+                    <a class="resource-card" href="#" target="_blank" rel="noopener">
+                        <div class="resource-card-icon">📖</div>
+                        <h3>Case Information — Two Levels</h3>
+                        <p>Two reading levels of text for each case (standard and simplified)</p>
+                        <span class="dl-hint">Click to open &rarr;</span>
+                    </a>
+
+                    <a class="resource-card" href="#" target="_blank" rel="noopener">
+                        <div class="resource-card-icon">🔍</div>
+                        <h3>Background Research Handout</h3>
+                        <p>Guided research worksheet for students to gather case facts</p>
+                        <span class="dl-hint">Click to open &rarr;</span>
+                    </a>
+
+                    <a class="resource-card" href="#" target="_blank" rel="noopener">
+                        <div class="resource-card-icon">⚔️</div>
+                        <h3>Argument Prep Handout</h3>
+                        <p>Organizer for building arguments and anticipating rebuttals</p>
+                        <span class="dl-hint">Click to open &rarr;</span>
+                    </a>
+
+                    <a class="resource-card" href="#" target="_blank" rel="noopener">
+                        <div class="resource-card-icon">🎤</div>
+                        <h3>Opening/Closing Statement Handout</h3>
+                        <p>Template and scaffolding for writing opening and closing statements</p>
+                        <span class="dl-hint">Click to open &rarr;</span>
+                    </a>
+                </div>
+
+                <p style="font-size: 0.88em; color: #888; margin-top: 8px;">Links will be updated with downloadable files. Check back soon or reach out if you need a file immediately.</p>
+
+                <!-- PROJECT OVERVIEW DOC -->
+                <div class="section-head">
+                    <h2>Full Project Guide</h2>
+                    <p>Detailed implementation guide you can adapt for your classroom</p>
+                </div>
+
+                <a class="resource-card" href="#" target="_blank" rel="noopener" style="max-width: 400px;">
+                    <div class="resource-card-icon">📄</div>
+                    <h3>Project Guide (Google Doc)</h3>
+                    <p>Editable guide with full pacing, instructions, and tips</p>
+                    <span class="dl-hint">Click to open &rarr;</span>
+                </a>
+
+                <!-- CONTACT -->
+                <div class="section-head">
+                    <h2>Contact</h2>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-avatar">SB</div>
+                    <div class="contact-info">
+                        <h3>Shie Benaderet <span class="contact-pronouns">he/him/his</span></h3>
+                        <div class="contact-role">Social Studies Teacher &middot; Alderwood Middle School</div>
+                        <div class="contact-detail">
+                            <span class="contact-icon">✉️</span>
+                            <a href="mailto:benaderets885@edmonds.wednet.edu">benaderets885@edmonds.wednet.edu</a>
+                        </div>
+                        <div class="contact-detail">
+                            <span class="contact-icon">📞</span>
+                            <span>(425) 431-4037</span>
+                        </div>
+                        <div class="contact-detail">
+                            <span class="contact-icon">🏫</span>
+                            <span>Edmonds School District</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COLLABORATION CTA -->
+                <div class="collab-cta">
+                    <h3>Let's Make This Better Together</h3>
+                    <p>This project is a work in progress and I'd love help making it better. Whether you have ideas for new cases, better scaffolding, sourcing solutions, or just want to share how you adapted it for your classroom — I want to hear from you.</p>
+                    <a href="mailto:benaderets885@edmonds.wednet.edu?subject=SCOTUS%20Debate%20Project%20Collaboration">Get In Touch</a>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>SCOTUS Debate Project — A Student Resource for Understanding the Supreme Court</p>
+        </div>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+    <script src="js/firebase-init.js"></script>
+
+    <script>
+    const TEACHER_DOMAIN = 'edmonds.wednet.edu';
+
+    function onAuthReady(user) {
+        const gate = document.getElementById('teacher-gate');
+        const main = document.getElementById('teacher-main');
+
+        if (user && user.email && user.email.endsWith('@' + TEACHER_DOMAIN)) {
+            gate.style.display = 'none';
+            main.style.display = 'block';
+        } else if (user) {
+            // Signed in but not a teacher
+            gate.innerHTML = '<h2>Teacher Resources</h2><p>This page is only available to teacher accounts (@edmonds.wednet.edu). You are signed in with a student account.</p><button class="auth-btn auth-btn-in" style="font-size:1em;padding:10px 24px;border-radius:8px;border:none;background:var(--accent);color:#fff;cursor:pointer;margin-top:8px;" onclick="signOutUser()">Sign Out &amp; Switch Account</button>';
+            gate.style.display = 'block';
+            main.style.display = 'none';
+        } else {
+            gate.style.display = 'block';
+            main.style.display = 'none';
+        }
+    }
+    </script>
+</body>
+</html>
