@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debate Prep | SCOTUS Debate Project</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .debate-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        /* CASE & SIDE SELECTION */
+        .case-select-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .case-select-card {
+            padding: 20px;
+            background: var(--bg-white);
+            border: 3px solid var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.25s;
+            text-align: left;
+        }
+
+        .case-select-card:hover {
+            border-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .case-select-card.selected {
+            border-color: var(--accent);
+            background: #fff5f6;
+            box-shadow: 0 4px 12px rgba(214, 56, 80, 0.15);
+        }
+
+        .case-select-card h3 {
+            font-size: 1.05em;
+            color: var(--primary-dark);
+            margin-bottom: 4px;
+        }
+
+        .case-select-card .case-amendment {
+            font-size: 0.85em;
+            color: #888;
+        }
+
+        .side-select-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .side-select-card {
+            padding: 20px;
+            background: var(--bg-white);
+            border: 3px solid var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.25s;
+        }
+
+        .side-select-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .side-select-card.petitioner { border-left: 5px solid #3b82f6; }
+        .side-select-card.respondent { border-left: 5px solid #8b5cf6; }
+
+        .side-select-card.selected.petitioner {
+            border-color: #3b82f6;
+            background: #eff6ff;
+        }
+
+        .side-select-card.selected.respondent {
+            border-color: #8b5cf6;
+            background: #f5f3ff;
+        }
+
+        .side-select-card h4 {
+            margin-bottom: 6px;
+            color: var(--primary-dark);
+        }
+
+        .side-select-card p {
+            font-size: 0.9em;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .side-label {
+            display: inline-block;
+            font-size: 0.75em;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-bottom: 6px;
+        }
+
+        .side-label.pet { background: #dbeafe; color: #1e40af; }
+        .side-label.res { background: #ede9fe; color: #5b21b6; }
+
+        /* SECTION TABS */
+        .debate-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .debate-tab {
+            flex: 1;
+            min-width: 140px;
+            padding: 12px 16px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            background: var(--bg-white);
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        .debate-tab:hover { border-color: var(--primary-dark); }
+
+        .debate-tab.active {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-light) 100%);
+            color: var(--text-light);
+            border-color: var(--primary-dark);
+        }
+
+        .debate-tab .tab-sub {
+            font-size: 0.8em;
+            font-weight: 400;
+            opacity: 0.7;
+            margin-top: 2px;
+        }
+
+        .debate-section { display: none; }
+        .debate-section.active { display: block; }
+
+        /* BUILDER CARDS */
+        .builder-card {
+            background: var(--bg-white);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+        }
+
+        .builder-card h4 {
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+        }
+
+        .builder-card .instruction {
+            font-size: 0.92em;
+            color: #666;
+            margin-bottom: 14px;
+            line-height: 1.5;
+        }
+
+        .builder-part-label {
+            display: inline-block;
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.75em;
+            letter-spacing: 0.08em;
+            padding: 3px 10px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .starters-list {
+            margin-bottom: 10px;
+        }
+
+        .starters-list p {
+            font-size: 0.85em;
+            color: #888;
+            margin-bottom: 6px;
+        }
+
+        .starter-option {
+            display: block;
+            font-size: 0.9em;
+            color: var(--primary-dark);
+            background: #f0f4ff;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 8px 12px;
+            margin: 4px 0;
+            cursor: pointer;
+            transition: background 0.15s, border-color 0.15s;
+            text-align: left;
+            width: 100%;
+        }
+
+        .starter-option:hover {
+            background: #e0e7ff;
+            border-color: var(--primary-dark);
+        }
+
+        .debate-textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 15px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-size: 1em;
+            font-family: inherit;
+            resize: vertical;
+            margin: 12px 0 0 0;
+            line-height: 1.6;
+        }
+
+        .debate-textarea:focus {
+            outline: none;
+            border-color: var(--primary-dark);
+        }
+
+        /* ARGUMENT ROWS */
+        .arg-row {
+            background: var(--bg-white);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .arg-row-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .arg-number {
+            width: 32px;
+            height: 32px;
+            background: var(--primary-dark);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9em;
+            flex-shrink: 0;
+        }
+
+        .add-arg-btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            border: 2px dashed var(--border);
+            border-radius: 12px;
+            background: transparent;
+            color: #888;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 16px;
+        }
+
+        .add-arg-btn:hover {
+            border-color: var(--primary-dark);
+            color: var(--primary-dark);
+            background: var(--bg-warm);
+        }
+
+        /* ASSEMBLED PREVIEW */
+        .assembled-preview {
+            background: var(--bg-white);
+            border: 3px solid var(--primary-dark);
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 20px;
+            line-height: 1.8;
+        }
+
+        .assembled-preview p {
+            margin-bottom: 12px;
+            max-width: 100%;
+        }
+
+        .assembled-placeholder {
+            color: #aaa;
+            font-style: italic;
+        }
+
+        /* BUTTONS */
+        .btn {
+            border: none;
+            border-radius: 10px;
+            padding: 12px 24px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        .btn-primary:hover { background: var(--accent-hover); }
+
+        .btn-secondary {
+            background: var(--bg-warm);
+            color: var(--text-dark);
+            border: 2px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-success {
+            background: #10b981;
+            color: #fff;
+        }
+
+        .btn-success:hover { background: #059669; }
+
+        /* SELF-CHECK */
+        .self-check {
+            background: var(--bg-warm);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .self-check h4 {
+            color: var(--primary-dark);
+            margin-bottom: 12px;
+        }
+
+        .check-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 0;
+        }
+
+        .check-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .check-item label {
+            cursor: pointer;
+            font-size: 0.95em;
+        }
+
+        /* INFO ALERT */
+        .alert-info {
+            background: var(--bg-warm);
+            border-left: 5px solid var(--primary-dark);
+            border-radius: 10px;
+            padding: 15px 20px;
+            margin: 20px 0;
+            line-height: 1.6;
+        }
+
+        .saved-indicator {
+            display: inline-block;
+            font-size: 0.85em;
+            color: #10b981;
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity 0.3s;
+            margin-left: 10px;
+        }
+
+        .saved-indicator.show { opacity: 1; }
+
+        /* STATUS BAR */
+        .status-bar {
+            background: var(--bg-warm);
+            border-radius: 10px;
+            padding: 12px 18px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            font-size: 0.92em;
+        }
+
+        .status-bar .case-info { font-weight: 600; color: var(--primary-dark); }
+        .status-bar .side-info { color: #666; }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .side-select-grid { grid-template-columns: 1fr; }
+            .debate-tabs { flex-direction: column; }
+            .debate-tab { min-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <header class="site-header" role="banner">
+        <div class="container header-inner">
+            <a href="index.html" class="site-logo">
+                <span class="logo-icon">⚖️</span>
+                <span class="logo-text">SCOTUS Debate Project</span>
+            </a>
+            <nav class="header-nav" role="navigation" aria-label="Main navigation">
+                <a href="index.html#cases">All Cases</a>
+                <a href="resources.html">Resources</a>
+                <a href="review.html">Review</a>
+                <a href="debate.html" style="color: var(--accent);">Debate Prep</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="debate-content">
+
+            <!-- ===================== -->
+            <!-- STEP 1: SELECT CASE   -->
+            <!-- ===================== -->
+            <div id="step-case-select">
+                <h1 style="margin-bottom: 8px; color: var(--primary-dark); font-family: var(--font-heading);">Debate Prep</h1>
+                <p style="color: #666; margin-bottom: 24px;">Build your opening statement, arguments, rebuttals, and closing statement for the Supreme Court debate.</p>
+
+                <div class="alert-info">
+                    <strong>Step 1:</strong> Choose the case you are preparing to argue.
+                </div>
+
+                <div class="case-select-grid" id="case-select-grid"></div>
+
+                <div id="side-select-area" style="display: none;">
+                    <div class="alert-info">
+                        <strong>Step 2:</strong> Choose which side you will argue for.
+                    </div>
+                    <div class="side-select-grid" id="side-select-grid"></div>
+                </div>
+
+                <div style="text-align: center; margin-top: 24px;">
+                    <button class="btn btn-primary" id="begin-btn" style="display: none; font-size: 1.1em; padding: 14px 40px;" onclick="beginDebatePrep()">Begin Debate Prep</button>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- STEP 2: WRITING AREA  -->
+            <!-- ===================== -->
+            <div id="debate-workspace" style="display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+                    <h1 style="margin: 0; color: var(--primary-dark); font-family: var(--font-heading); font-size: 1.4em;">Debate Prep</h1>
+                    <button class="btn btn-secondary" onclick="backToCaseSelect()">Change Case / Side</button>
+                </div>
+
+                <div class="status-bar">
+                    <span class="case-info" id="ws-case-name"></span>
+                    <span class="side-info" id="ws-side-info"></span>
+                    <span class="saved-indicator" id="auto-save-indicator">Saved</span>
+                </div>
+
+                <div class="debate-tabs">
+                    <button class="debate-tab active" onclick="showDebateTab('opening')">
+                        <div>Opening Statement</div>
+                        <div class="tab-sub">Introduce your case</div>
+                    </button>
+                    <button class="debate-tab" onclick="showDebateTab('arguments')">
+                        <div>Arguments</div>
+                        <div class="tab-sub">Build 3+ arguments</div>
+                    </button>
+                    <button class="debate-tab" onclick="showDebateTab('rebuttals')">
+                        <div>Rebuttals</div>
+                        <div class="tab-sub">Counter the other side</div>
+                    </button>
+                    <button class="debate-tab" onclick="showDebateTab('closing')">
+                        <div>Closing Statement</div>
+                        <div class="tab-sub">Final appeal</div>
+                    </button>
+                </div>
+
+                <!-- ========== OPENING STATEMENT ========== -->
+                <div class="debate-section active" id="tab-opening">
+                    <div class="alert-info" style="margin-top: 0;">
+                        Your opening statement introduces you, your client, the case background, each side's constitutional claim, why this case matters, and a preview of your arguments.
+                    </div>
+
+                    <!-- Introduction -->
+                    <div class="builder-card" style="border-left: 4px solid #6366f1;">
+                        <span class="builder-part-label" style="background: #6366f1;">Introduction</span>
+                        <p class="instruction">Introduce yourself, your partners, and your client to the Court.</p>
+                        <div class="starters-list">
+                            <p>Sentence starters:</p>
+                            <button class="starter-option" onclick="useDebateStarter(this, 'opening-intro')">May it please the Court: My name is _____ and my partners are _____. We are lawyers for our client, _____.</button>
+                        </div>
+                        <textarea class="debate-textarea" id="opening-intro" data-field="opening-intro" placeholder="Introduce yourself, your partners, and your client..." style="min-height: 80px;"></textarea>
+                    </div>
+
+                    <!-- Background -->
+                    <div class="builder-card" style="border-left: 4px solid #dc2626;">
+                        <span class="builder-part-label" style="background: #dc2626;">Background</span>
+                        <p class="instruction">Explain what happened — the people involved, their positions, and the event that led this case to court. Use the facts from your case research.</p>
+                        <div class="starters-list">
+                            <p>Sentence starters:</p>
+                            <button class="starter-option" onclick="useDebateStarter(this, 'opening-background')">We are here today because _____.</button>
+                            <button class="starter-option" onclick="useDebateStarter(this, 'opening-background')">This case began when _____.</button>
+                        </div>
+                        <textarea class="debate-textarea" id="opening-background" data-field="opening-background" placeholder="Describe what happened — use facts from your case research..."></textarea>
+                    </div>
+
+                    <!-- Constitutional Claims -->
+                    <div class="builder-card" style="border-left: 4px solid #f59e0b;">
+                        <span class="builder-part-label" style="background: #f59e0b;">Constitutional Claims</span>
+                        <p class="instruction">State what each side believes about the Constitution. What does the petitioner claim was violated? What does the respondent claim?</p>
+                        <div class="starters-list">
+                            <p>Sentence starters:</p>
+                            <button class="starter-option" onclick="useDebateStarter(this, 'opening-claims')">The petitioners claim that _____. The respondents claim that _____.</button>
+                            <button class="starter-option" onclick="useDebateStarter(this, 'opening-claims')">The petitioners believe that the _____ Amendment was violated because _____. The respondents argue that _____.</button>
+                        </div>
+                        <textarea class="debate-textarea" id="opening-claims" data-field="opening-claims" placeholder="Explain what each side believes about the constitutional question..."></textarea>
+                    </div>
+
+                    <!-- Significance -->
+                    <div class="builder-card" style="border-left: 4px solid #10b981;">
+                        <span class="builder-part-label" style="background: #10b981;">Significance</span>
+                        <p class="instruction">Why is this case important? Why is the Supreme Court hearing it?</p>
+                        <div class="starters-list">
+                            <p>Sentence starters:</p>
+                            <button class="starter-option" onclick="useDebateStarter(this, 'opening-significance')">This issue is significant because _____.</button>
+                            <button class="starter-option" onclick="useDebateStarter(this, 'opening-significance')">The Supreme Court is hearing this case because _____.</button>
+                        </div>
+                        <textarea class="debate-textarea" id="opening-significance" data-field="opening-significance" placeholder="Explain why this case matters..." style="min-height: 80px;"></textarea>
+                    </div>
+
+                    <!-- Preview of Arguments -->
+                    <div class="builder-card" style="border-left: 4px solid #8b5cf6;">
+                        <span class="builder-part-label" style="background: #8b5cf6;">Preview of Arguments</span>
+                        <p class="instruction">Give the justices a roadmap of your arguments. You'll develop these fully in the Arguments tab.</p>
+                        <div class="starters-list">
+                            <p>Sentence starters:</p>
+                            <button class="starter-option" onclick="useDebateStarter(this, 'opening-preview')">Our client deserves to win this case because of the following reasons. First, _____. Second, _____. And finally, _____.</button>
+                        </div>
+                        <textarea class="debate-textarea" id="opening-preview" data-field="opening-preview" placeholder="Preview your main arguments..."></textarea>
+                    </div>
+
+                    <!-- Self-check -->
+                    <div class="self-check">
+                        <h4>Self-Check: Does your opening statement...</h4>
+                        <div class="check-item"><input type="checkbox" id="oc1"><label for="oc1">Introduce you, your partners, and your client?</label></div>
+                        <div class="check-item"><input type="checkbox" id="oc2"><label for="oc2">Explain what happened using specific facts from the case?</label></div>
+                        <div class="check-item"><input type="checkbox" id="oc3"><label for="oc3">State what both sides (petitioner and respondent) believe?</label></div>
+                        <div class="check-item"><input type="checkbox" id="oc4"><label for="oc4">Explain why this case is important?</label></div>
+                        <div class="check-item"><input type="checkbox" id="oc5"><label for="oc5">Preview at least 3 arguments?</label></div>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button class="btn btn-success" onclick="assembleOpening()">Put It Together</button>
+                    </div>
+
+                    <div id="opening-assembled" class="assembled-preview" style="display: none;">
+                        <h4 style="color: var(--primary-dark); margin-bottom: 12px;">Your Complete Opening Statement</h4>
+                        <div id="opening-assembled-text"></div>
+                    </div>
+                </div>
+
+                <!-- ========== ARGUMENTS ========== -->
+                <div class="debate-section" id="tab-arguments">
+                    <div class="alert-info" style="margin-top: 0;">
+                        Build at least 3 arguments for your side. Each argument should include your claim and supporting evidence from the case. Use facts from your research.
+                    </div>
+
+                    <div id="arguments-container"></div>
+
+                    <button class="add-arg-btn" id="add-arg-btn" onclick="addArgument()">+ Add Another Argument</button>
+
+                    <div class="self-check">
+                        <h4>Self-Check: Do your arguments...</h4>
+                        <div class="check-item"><input type="checkbox" id="ac1"><label for="ac1">Include at least 3 arguments?</label></div>
+                        <div class="check-item"><input type="checkbox" id="ac2"><label for="ac2">Use specific facts and evidence from the case?</label></div>
+                        <div class="check-item"><input type="checkbox" id="ac3"><label for="ac3">Explain how the Constitution supports your side?</label></div>
+                        <div class="check-item"><input type="checkbox" id="ac4"><label for="ac4">Use your own words (not just copied text)?</label></div>
+                    </div>
+                </div>
+
+                <!-- ========== REBUTTALS ========== -->
+                <div class="debate-section" id="tab-rebuttals">
+                    <div class="alert-info" style="margin-top: 0;">
+                        Think about what the other side will argue. For each of their likely arguments, prepare a rebuttal — explain why their argument is weak or why yours is stronger.
+                    </div>
+
+                    <div id="rebuttals-container"></div>
+
+                    <button class="add-arg-btn" id="add-rebuttal-btn" onclick="addRebuttal()">+ Add Another Rebuttal</button>
+
+                    <div class="self-check">
+                        <h4>Self-Check: Do your rebuttals...</h4>
+                        <div class="check-item"><input type="checkbox" id="rc1"><label for="rc1">Anticipate what the other side will likely argue?</label></div>
+                        <div class="check-item"><input type="checkbox" id="rc2"><label for="rc2">Explain why their argument is weak or incomplete?</label></div>
+                        <div class="check-item"><input type="checkbox" id="rc3"><label for="rc3">Use evidence or reasoning to support your counter-argument?</label></div>
+                    </div>
+                </div>
+
+                <!-- ========== CLOSING STATEMENT ========== -->
+                <div class="debate-section" id="tab-closing">
+                    <div class="alert-info" style="margin-top: 0;">
+                        Your closing statement summarizes your strongest arguments and makes a final appeal to the justices. This is your last chance to convince them.
+                    </div>
+
+                    <!-- Summary of Arguments -->
+                    <div class="builder-card" style="border-left: 4px solid #6366f1;">
+                        <span class="builder-part-label" style="background: #6366f1;">Summary</span>
+                        <p class="instruction">Briefly restate your strongest arguments. Remind the justices why your side should win.</p>
+                        <div class="starters-list">
+                            <p>Sentence starters:</p>
+                            <button class="starter-option" onclick="useDebateStarter(this, 'closing-summary')">Today we have shown that _____. The evidence clearly demonstrates that _____.</button>
+                            <button class="starter-option" onclick="useDebateStarter(this, 'closing-summary')">The facts of this case prove that our client _____. We have shown that first, _____. Second, _____. And finally, _____.</button>
+                        </div>
+                        <textarea class="debate-textarea" id="closing-summary" data-field="closing-summary" placeholder="Summarize your strongest arguments..."></textarea>
+                    </div>
+
+                    <!-- Constitutional Connection -->
+                    <div class="builder-card" style="border-left: 4px solid #dc2626;">
+                        <span class="builder-part-label" style="background: #dc2626;">Constitutional Connection</span>
+                        <p class="instruction">Connect your argument back to the Constitution. Why does the Constitution support your side?</p>
+                        <div class="starters-list">
+                            <p>Sentence starters:</p>
+                            <button class="starter-option" onclick="useDebateStarter(this, 'closing-constitution')">The _____ Amendment protects _____, and in this case _____.</button>
+                            <button class="starter-option" onclick="useDebateStarter(this, 'closing-constitution')">The Constitution is clear that _____. In this case, that means _____.</button>
+                        </div>
+                        <textarea class="debate-textarea" id="closing-constitution" data-field="closing-constitution" placeholder="Explain how the Constitution supports your position..."></textarea>
+                    </div>
+
+                    <!-- Final Appeal -->
+                    <div class="builder-card" style="border-left: 4px solid #10b981;">
+                        <span class="builder-part-label" style="background: #10b981;">Final Appeal</span>
+                        <p class="instruction">Make your final appeal to the justices. Ask them to rule in your favor.</p>
+                        <div class="starters-list">
+                            <p>Sentence starters:</p>
+                            <button class="starter-option" onclick="useDebateStarter(this, 'closing-appeal')">We trust that you, the Supreme Court justices, will listen carefully to the facts and make the right decision. Thank you.</button>
+                            <button class="starter-option" onclick="useDebateStarter(this, 'closing-appeal')">For these reasons, we respectfully ask the Court to rule in favor of _____. Thank you.</button>
+                        </div>
+                        <textarea class="debate-textarea" id="closing-appeal" data-field="closing-appeal" placeholder="Make your final appeal to the justices..." style="min-height: 80px;"></textarea>
+                    </div>
+
+                    <div class="self-check">
+                        <h4>Self-Check: Does your closing statement...</h4>
+                        <div class="check-item"><input type="checkbox" id="cc1"><label for="cc1">Summarize your strongest arguments?</label></div>
+                        <div class="check-item"><input type="checkbox" id="cc2"><label for="cc2">Connect your position to the Constitution?</label></div>
+                        <div class="check-item"><input type="checkbox" id="cc3"><label for="cc3">End with a clear appeal to the justices?</label></div>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button class="btn btn-success" onclick="assembleClosing()">Put It Together</button>
+                    </div>
+
+                    <div id="closing-assembled" class="assembled-preview" style="display: none;">
+                        <h4 style="color: var(--primary-dark); margin-bottom: 12px;">Your Complete Closing Statement</h4>
+                        <div id="closing-assembled-text"></div>
+                    </div>
+                </div>
+
+                <!-- BOTTOM ACTIONS -->
+                <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 2px solid var(--border);">
+                    <button class="btn btn-primary" onclick="saveAllWork()">Save My Work</button>
+                    <button class="btn btn-secondary" style="margin-left: 8px;" onclick="assembleFullDebate()">View Full Debate Package</button>
+                </div>
+
+                <!-- FULL DEBATE PREVIEW -->
+                <div id="full-debate-preview" class="assembled-preview" style="display: none; margin-top: 20px;">
+                    <h3 style="color: var(--primary-dark); margin-bottom: 16px; text-align: center;">Complete Debate Package</h3>
+                    <div id="full-debate-text"></div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>SCOTUS Debate Project — A Student Resource for Understanding the Supreme Court</p>
+        </div>
+    </footer>
+
+    <script>
+    // ==========================================
+    // CASE DATA
+    // ==========================================
+    const debateCases = {
+        "Tinker v. Des Moines (1969)": {
+            amendment: "First Amendment",
+            petitioner: { name: "Tinker Family", desc: "Students don't lose their First Amendment rights at school. Peaceful, non-disruptive expression is protected speech." },
+            respondent: { name: "Des Moines School District", desc: "Schools need authority to prevent disruptions and maintain order." },
+            caseLink: "cases/tinker.html"
+        },
+        "New Jersey v. T.L.O. (1985)": {
+            amendment: "Fourth Amendment",
+            petitioner: { name: "New Jersey (the State)", desc: "School officials should be able to search students to maintain safety without needing a warrant." },
+            respondent: { name: "T.L.O. (the Student)", desc: "Students have Fourth Amendment rights. Searches without warrants violate their privacy." },
+            caseLink: "cases/tlo.html"
+        },
+        "Brown v. Board of Education (1954)": {
+            amendment: "Fourteenth Amendment",
+            petitioner: { name: "Oliver Brown and families", desc: "Segregated schools are inherently unequal and violate the Equal Protection Clause." },
+            respondent: { name: "Board of Education of Topeka", desc: "Separate facilities are equal and within the state's authority to manage schools." },
+            caseLink: "cases/brown.html"
+        },
+        "Payton v. New York (1980)": {
+            amendment: "Fourth Amendment",
+            petitioner: { name: "Theodore Payton", desc: "Police cannot enter a home to make an arrest without a warrant. The home has special constitutional protection." },
+            respondent: { name: "New York (the State)", desc: "Police with probable cause should be able to enter a home to arrest a dangerous suspect." },
+            caseLink: "cases/payton.html"
+        },
+        "Mahanoy v. B.L. (2021)": {
+            amendment: "First Amendment",
+            petitioner: { name: "Mahanoy Area School District", desc: "Schools should be able to discipline students for speech that targets the school, even off campus." },
+            respondent: { name: "B.L. (the Student)", desc: "Off-campus speech on personal social media is fully protected by the First Amendment." },
+            caseLink: "cases/mahanoy.html"
+        },
+        "Kennedy v. Bremerton (2022)": {
+            amendment: "First Amendment",
+            petitioner: { name: "Joseph Kennedy (the Coach)", desc: "The coach's post-game prayer is private religious expression protected by the First Amendment." },
+            respondent: { name: "Bremerton School District", desc: "A coach praying at midfield could appear as government endorsement of religion." },
+            caseLink: "cases/kennedy.html"
+        },
+        "Arizona v. United States (2012)": {
+            amendment: "Tenth Amendment / Supremacy Clause",
+            petitioner: { name: "Arizona (the State)", desc: "States have the right to enforce immigration laws to protect their residents." },
+            respondent: { name: "United States (Federal Government)", desc: "Immigration is a federal responsibility. State laws interfere with federal authority." },
+            caseLink: "cases/arizona.html"
+        }
+    };
+
+    // ==========================================
+    // STATE
+    // ==========================================
+    let selectedCase = '';
+    let selectedSide = ''; // 'petitioner' or 'respondent'
+    let argCount = 3;
+    let rebuttalCount = 3;
+
+    // ==========================================
+    // CASE & SIDE SELECTION
+    // ==========================================
+    function initCaseSelect() {
+        const grid = document.getElementById('case-select-grid');
+        let html = '';
+        Object.keys(debateCases).forEach(name => {
+            const c = debateCases[name];
+            html += `<div class="case-select-card" data-case="${name}" onclick="selectCase(this, '${name.replace(/'/g, "\\'")}')">
+                <h3>${name}</h3>
+                <div class="case-amendment">${c.amendment}</div>
+            </div>`;
+        });
+        grid.innerHTML = html;
+
+        // Restore saved selection
+        try {
+            const saved = localStorage.getItem('scotus-debate-selection');
+            if (saved) {
+                const sel = JSON.parse(saved);
+                if (sel.caseName && debateCases[sel.caseName]) {
+                    selectCase(document.querySelector(`[data-case="${sel.caseName}"]`), sel.caseName);
+                    if (sel.side) {
+                        setTimeout(() => {
+                            const sideCard = document.querySelector(`[data-side="${sel.side}"]`);
+                            if (sideCard) selectSide(sideCard, sel.side);
+                        }, 50);
+                    }
+                }
+            }
+        } catch(e) {}
+    }
+
+    function selectCase(el, caseName) {
+        selectedCase = caseName;
+        document.querySelectorAll('.case-select-card').forEach(c => c.classList.remove('selected'));
+        el.classList.add('selected');
+
+        // Show side selection
+        const c = debateCases[caseName];
+        const sideArea = document.getElementById('side-select-area');
+        sideArea.style.display = 'block';
+        document.getElementById('side-select-grid').innerHTML = `
+            <div class="side-select-card petitioner" data-side="petitioner" onclick="selectSide(this, 'petitioner')">
+                <span class="side-label pet">Petitioner</span>
+                <h4>${c.petitioner.name}</h4>
+                <p>${c.petitioner.desc}</p>
+            </div>
+            <div class="side-select-card respondent" data-side="respondent" onclick="selectSide(this, 'respondent')">
+                <span class="side-label res">Respondent</span>
+                <h4>${c.respondent.name}</h4>
+                <p>${c.respondent.desc}</p>
+            </div>
+        `;
+
+        selectedSide = '';
+        document.getElementById('begin-btn').style.display = 'none';
+        sideArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function selectSide(el, side) {
+        selectedSide = side;
+        document.querySelectorAll('.side-select-card').forEach(c => c.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('begin-btn').style.display = 'inline-block';
+    }
+
+    function beginDebatePrep() {
+        if (!selectedCase || !selectedSide) return;
+
+        // Save selection
+        localStorage.setItem('scotus-debate-selection', JSON.stringify({ caseName: selectedCase, side: selectedSide }));
+
+        // Set workspace header
+        const c = debateCases[selectedCase];
+        const sideName = selectedSide === 'petitioner' ? c.petitioner.name : c.respondent.name;
+        document.getElementById('ws-case-name').textContent = selectedCase;
+        document.getElementById('ws-side-info').innerHTML = `Arguing for: <strong>${sideName}</strong> (${selectedSide})`;
+
+        // Hide selection, show workspace
+        document.getElementById('step-case-select').style.display = 'none';
+        document.getElementById('debate-workspace').style.display = 'block';
+
+        // Init arguments and rebuttals
+        initArguments();
+        initRebuttals();
+
+        // Load saved work
+        loadSavedWork();
+
+        // Attach auto-save to all textareas
+        setTimeout(attachAutoSave, 100);
+    }
+
+    function backToCaseSelect() {
+        saveAllWork(true);
+        document.getElementById('debate-workspace').style.display = 'none';
+        document.getElementById('step-case-select').style.display = 'block';
+    }
+
+    // ==========================================
+    // TAB NAVIGATION
+    // ==========================================
+    function showDebateTab(tabName) {
+        document.querySelectorAll('.debate-tab').forEach((t, i) => {
+            const tabs = ['opening', 'arguments', 'rebuttals', 'closing'];
+            t.classList.toggle('active', tabs[i] === tabName);
+        });
+        document.querySelectorAll('.debate-section').forEach(s => s.classList.remove('active'));
+        document.getElementById('tab-' + tabName).classList.add('active');
+    }
+
+    // ==========================================
+    // SENTENCE STARTERS
+    // ==========================================
+    function useDebateStarter(btn, fieldId) {
+        const textarea = document.getElementById(fieldId);
+        if (!textarea) return;
+        const current = textarea.value.trim();
+        if (current) {
+            textarea.value = current + ' ' + btn.textContent;
+        } else {
+            textarea.value = btn.textContent;
+        }
+        textarea.focus();
+        const blankPos = textarea.value.lastIndexOf('_____');
+        if (blankPos !== -1) {
+            textarea.setSelectionRange(blankPos, blankPos + 5);
+        }
+        autoSave();
+    }
+
+    // ==========================================
+    // ARGUMENTS BUILDER
+    // ==========================================
+    function initArguments() {
+        const container = document.getElementById('arguments-container');
+        container.innerHTML = '';
+        argCount = 3;
+        for (let i = 1; i <= 3; i++) {
+            container.innerHTML += buildArgRow(i);
+        }
+    }
+
+    function buildArgRow(num) {
+        return `<div class="arg-row" id="arg-row-${num}">
+            <div class="arg-row-header">
+                <div class="arg-number">${num}</div>
+                <h4>Argument ${num}</h4>
+            </div>
+            <div class="starters-list">
+                <p>Sentence starters:</p>
+                <button class="starter-option" onclick="useDebateStarter(this, 'arg-${num}')">Our ${num === 1 ? 'first' : num === 2 ? 'second' : num === 3 ? 'third' : 'next'} argument is that _____. This is supported by the fact that _____.</button>
+                <button class="starter-option" onclick="useDebateStarter(this, 'arg-${num}')">The evidence shows that _____. This matters because _____.</button>
+            </div>
+            <textarea class="debate-textarea" id="arg-${num}" data-field="arg-${num}" placeholder="Write argument ${num} here — state your claim and support it with evidence from the case..."></textarea>
+        </div>`;
+    }
+
+    function addArgument() {
+        argCount++;
+        const container = document.getElementById('arguments-container');
+        container.insertAdjacentHTML('beforeend', buildArgRow(argCount));
+        // Attach auto-save to new textarea
+        const newTa = document.getElementById('arg-' + argCount);
+        if (newTa) newTa.addEventListener('input', autoSave);
+        newTa.focus();
+    }
+
+    // ==========================================
+    // REBUTTALS BUILDER
+    // ==========================================
+    function initRebuttals() {
+        const container = document.getElementById('rebuttals-container');
+        container.innerHTML = '';
+        rebuttalCount = 3;
+        for (let i = 1; i <= 3; i++) {
+            container.innerHTML += buildRebuttalRow(i);
+        }
+    }
+
+    function buildRebuttalRow(num) {
+        return `<div class="arg-row" id="rebuttal-row-${num}" style="border-left: 4px solid #f59e0b;">
+            <div class="arg-row-header">
+                <div class="arg-number" style="background: #f59e0b;">${num}</div>
+                <h4>Rebuttal ${num}</h4>
+            </div>
+            <p class="instruction" style="margin-bottom: 8px;">What will the other side argue?</p>
+            <div class="starters-list">
+                <button class="starter-option" onclick="useDebateStarter(this, 'rebuttal-their-${num}')">The other side will argue that _____.</button>
+            </div>
+            <textarea class="debate-textarea" id="rebuttal-their-${num}" data-field="rebuttal-their-${num}" placeholder="What the other side will say..." style="min-height: 70px;"></textarea>
+
+            <p class="instruction" style="margin-top: 14px; margin-bottom: 8px;">Your response — why is their argument weak?</p>
+            <div class="starters-list">
+                <button class="starter-option" onclick="useDebateStarter(this, 'rebuttal-mine-${num}')">However, this argument fails because _____.</button>
+                <button class="starter-option" onclick="useDebateStarter(this, 'rebuttal-mine-${num}')">While the other side claims _____, the evidence actually shows that _____.</button>
+            </div>
+            <textarea class="debate-textarea" id="rebuttal-mine-${num}" data-field="rebuttal-mine-${num}" placeholder="Your counter-argument..." style="min-height: 70px;"></textarea>
+        </div>`;
+    }
+
+    function addRebuttal() {
+        rebuttalCount++;
+        const container = document.getElementById('rebuttals-container');
+        container.insertAdjacentHTML('beforeend', buildRebuttalRow(rebuttalCount));
+        // Attach auto-save
+        document.querySelectorAll(`#rebuttal-row-${rebuttalCount} textarea`).forEach(ta => {
+            ta.addEventListener('input', autoSave);
+        });
+        document.getElementById('rebuttal-their-' + rebuttalCount).focus();
+    }
+
+    // ==========================================
+    // ASSEMBLY
+    // ==========================================
+    function assembleOpening() {
+        const fields = ['opening-intro', 'opening-background', 'opening-claims', 'opening-significance', 'opening-preview'];
+        const parts = fields.map(id => {
+            const el = document.getElementById(id);
+            return el ? el.value.trim() : '';
+        }).filter(v => v);
+
+        const container = document.getElementById('opening-assembled');
+        const text = document.getElementById('opening-assembled-text');
+
+        if (parts.length === 0) {
+            text.innerHTML = '<p class="assembled-placeholder">Write your opening statement sections above first.</p>';
+        } else {
+            text.innerHTML = parts.map(p => `<p>${escHtml(p)}</p>`).join('');
+        }
+        container.style.display = 'block';
+        container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function assembleClosing() {
+        const fields = ['closing-summary', 'closing-constitution', 'closing-appeal'];
+        const parts = fields.map(id => {
+            const el = document.getElementById(id);
+            return el ? el.value.trim() : '';
+        }).filter(v => v);
+
+        const container = document.getElementById('closing-assembled');
+        const text = document.getElementById('closing-assembled-text');
+
+        if (parts.length === 0) {
+            text.innerHTML = '<p class="assembled-placeholder">Write your closing statement sections above first.</p>';
+        } else {
+            text.innerHTML = parts.map(p => `<p>${escHtml(p)}</p>`).join('');
+        }
+        container.style.display = 'block';
+        container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function assembleFullDebate() {
+        const preview = document.getElementById('full-debate-preview');
+        const text = document.getElementById('full-debate-text');
+        let html = '';
+
+        // Opening
+        const openingFields = ['opening-intro', 'opening-background', 'opening-claims', 'opening-significance', 'opening-preview'];
+        const openingParts = openingFields.map(id => { const el = document.getElementById(id); return el ? el.value.trim() : ''; }).filter(v => v);
+        if (openingParts.length > 0) {
+            html += '<h4 style="color: #6366f1; margin-bottom: 8px;">Opening Statement</h4>';
+            html += openingParts.map(p => `<p>${escHtml(p)}</p>`).join('');
+            html += '<hr style="margin: 16px 0; border: none; border-top: 1px solid var(--border);">';
+        }
+
+        // Arguments
+        const args = [];
+        for (let i = 1; i <= argCount; i++) {
+            const el = document.getElementById('arg-' + i);
+            if (el && el.value.trim()) args.push(el.value.trim());
+        }
+        if (args.length > 0) {
+            html += '<h4 style="color: var(--primary-dark); margin-bottom: 8px;">Arguments</h4>';
+            args.forEach((a, i) => { html += `<p><strong>Argument ${i + 1}:</strong> ${escHtml(a)}</p>`; });
+            html += '<hr style="margin: 16px 0; border: none; border-top: 1px solid var(--border);">';
+        }
+
+        // Rebuttals
+        const rebuttals = [];
+        for (let i = 1; i <= rebuttalCount; i++) {
+            const their = document.getElementById('rebuttal-their-' + i);
+            const mine = document.getElementById('rebuttal-mine-' + i);
+            if ((their && their.value.trim()) || (mine && mine.value.trim())) {
+                rebuttals.push({ their: their ? their.value.trim() : '', mine: mine ? mine.value.trim() : '' });
+            }
+        }
+        if (rebuttals.length > 0) {
+            html += '<h4 style="color: #f59e0b; margin-bottom: 8px;">Rebuttals</h4>';
+            rebuttals.forEach((r, i) => {
+                if (r.their) html += `<p><strong>They will say:</strong> ${escHtml(r.their)}</p>`;
+                if (r.mine) html += `<p><strong>Our response:</strong> ${escHtml(r.mine)}</p>`;
+                if (i < rebuttals.length - 1) html += '<br>';
+            });
+            html += '<hr style="margin: 16px 0; border: none; border-top: 1px solid var(--border);">';
+        }
+
+        // Closing
+        const closingFields = ['closing-summary', 'closing-constitution', 'closing-appeal'];
+        const closingParts = closingFields.map(id => { const el = document.getElementById(id); return el ? el.value.trim() : ''; }).filter(v => v);
+        if (closingParts.length > 0) {
+            html += '<h4 style="color: #10b981; margin-bottom: 8px;">Closing Statement</h4>';
+            html += closingParts.map(p => `<p>${escHtml(p)}</p>`).join('');
+        }
+
+        if (!html) {
+            html = '<p class="assembled-placeholder">Start writing in each tab to see your full debate package here.</p>';
+        }
+
+        text.innerHTML = html;
+        preview.style.display = 'block';
+        preview.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function escHtml(str) {
+        return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    // ==========================================
+    // SAVE / LOAD
+    // ==========================================
+    function getSaveKey() {
+        return 'scotus-debate-' + selectedCase.replace(/[^a-zA-Z0-9]/g, '') + '-' + selectedSide;
+    }
+
+    function autoSave() {
+        saveAllWork(true);
+    }
+
+    function saveAllWork(silent) {
+        if (!selectedCase || !selectedSide) return;
+
+        const data = {};
+
+        // Opening fields
+        ['opening-intro', 'opening-background', 'opening-claims', 'opening-significance', 'opening-preview'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) data[id] = el.value;
+        });
+
+        // Arguments
+        data.argCount = argCount;
+        for (let i = 1; i <= argCount; i++) {
+            const el = document.getElementById('arg-' + i);
+            if (el) data['arg-' + i] = el.value;
+        }
+
+        // Rebuttals
+        data.rebuttalCount = rebuttalCount;
+        for (let i = 1; i <= rebuttalCount; i++) {
+            const their = document.getElementById('rebuttal-their-' + i);
+            const mine = document.getElementById('rebuttal-mine-' + i);
+            if (their) data['rebuttal-their-' + i] = their.value;
+            if (mine) data['rebuttal-mine-' + i] = mine.value;
+        }
+
+        // Closing fields
+        ['closing-summary', 'closing-constitution', 'closing-appeal'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) data[id] = el.value;
+        });
+
+        localStorage.setItem(getSaveKey(), JSON.stringify(data));
+
+        // Flash saved indicator
+        const ind = document.getElementById('auto-save-indicator');
+        ind.classList.add('show');
+        clearTimeout(ind._timeout);
+        ind._timeout = setTimeout(() => ind.classList.remove('show'), 1500);
+
+        if (!silent) {
+            // Show a more obvious save confirmation
+            const btn = event.target;
+            const orig = btn.textContent;
+            btn.textContent = 'Saved!';
+            btn.style.background = '#10b981';
+            setTimeout(() => { btn.textContent = orig; btn.style.background = ''; }, 1500);
+        }
+    }
+
+    function loadSavedWork() {
+        let data;
+        try {
+            const saved = localStorage.getItem(getSaveKey());
+            if (!saved) return;
+            data = JSON.parse(saved);
+        } catch(e) { return; }
+
+        // Opening fields
+        ['opening-intro', 'opening-background', 'opening-claims', 'opening-significance', 'opening-preview'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el && data[id]) el.value = data[id];
+        });
+
+        // Arguments — rebuild if more than 3
+        if (data.argCount && data.argCount > 3) {
+            for (let i = 4; i <= data.argCount; i++) {
+                addArgument();
+            }
+        }
+        argCount = data.argCount || 3;
+        for (let i = 1; i <= argCount; i++) {
+            const el = document.getElementById('arg-' + i);
+            if (el && data['arg-' + i]) el.value = data['arg-' + i];
+        }
+
+        // Rebuttals — rebuild if more than 3
+        if (data.rebuttalCount && data.rebuttalCount > 3) {
+            for (let i = 4; i <= data.rebuttalCount; i++) {
+                addRebuttal();
+            }
+        }
+        rebuttalCount = data.rebuttalCount || 3;
+        for (let i = 1; i <= rebuttalCount; i++) {
+            const their = document.getElementById('rebuttal-their-' + i);
+            const mine = document.getElementById('rebuttal-mine-' + i);
+            if (their && data['rebuttal-their-' + i]) their.value = data['rebuttal-their-' + i];
+            if (mine && data['rebuttal-mine-' + i]) mine.value = data['rebuttal-mine-' + i];
+        }
+
+        // Closing fields
+        ['closing-summary', 'closing-constitution', 'closing-appeal'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el && data[id]) el.value = data[id];
+        });
+    }
+
+    function attachAutoSave() {
+        document.querySelectorAll('.debate-textarea').forEach(ta => {
+            ta.addEventListener('input', autoSave);
+        });
+    }
+
+    // ==========================================
+    // INIT
+    // ==========================================
+    document.addEventListener('DOMContentLoaded', function() {
+        initCaseSelect();
+
+        // If user had a saved selection and comes back, auto-load workspace
+        try {
+            const saved = localStorage.getItem('scotus-debate-selection');
+            if (saved) {
+                const sel = JSON.parse(saved);
+                const saveKey = 'scotus-debate-' + sel.caseName.replace(/[^a-zA-Z0-9]/g, '') + '-' + sel.side;
+                const hasWork = localStorage.getItem(saveKey);
+                if (hasWork && sel.caseName && sel.side) {
+                    selectedCase = sel.caseName;
+                    selectedSide = sel.side;
+                    // Small delay to allow DOM to settle
+                    setTimeout(() => beginDebatePrep(), 100);
+                }
+            }
+        } catch(e) {}
+    });
+    </script>
+</body>
+</html>
