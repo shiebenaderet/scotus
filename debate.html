@@ -433,6 +433,7 @@
                 <a href="review.html">Review</a>
                 <a href="debate.html" style="color: var(--accent);">Debate Prep</a>
             </nav>
+            <div id="auth-container"></div>
         </div>
     </header>
 
@@ -700,6 +701,11 @@
         </div>
     </footer>
 
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+    <script src="js/firebase-init.js"></script>
+
     <script>
     // ==========================================
     // CASE DATA
@@ -828,7 +834,9 @@
         if (!selectedCase || !selectedSide) return;
 
         // Save selection
-        localStorage.setItem('scotus-debate-selection', JSON.stringify({ caseName: selectedCase, side: selectedSide }));
+        const selData = { caseName: selectedCase, side: selectedSide };
+        localStorage.setItem('scotus-debate-selection', JSON.stringify(selData));
+        if (typeof saveToCloud === 'function') saveToCloud('scotus-debate-selection', selData);
 
         // Set workspace header
         const c = debateCases[selectedCase];
@@ -1122,6 +1130,7 @@
         });
 
         localStorage.setItem(getSaveKey(), JSON.stringify(data));
+        if (typeof saveToCloud === 'function') saveToCloud(getSaveKey(), data);
 
         // Flash saved indicator
         const ind = document.getElementById('auto-save-indicator');
@@ -1193,12 +1202,31 @@
     }
 
     // ==========================================
-    // INIT
+    // FIREBASE CLOUD SYNC
     // ==========================================
-    document.addEventListener('DOMContentLoaded', function() {
-        initCaseSelect();
+    async function onAuthReady(user) {
+        if (!user) return;
 
-        // If user had a saved selection and comes back, auto-load workspace
+        // Load selection from Firestore
+        const sel = await loadFromCloud('scotus-debate-selection');
+        if (sel && sel.caseName && sel.side) {
+            localStorage.setItem('scotus-debate-selection', JSON.stringify(sel));
+
+            // Also load the debate work for this selection
+            const workKey = 'scotus-debate-' + sel.caseName.replace(/[^a-zA-Z0-9]/g, '') + '-' + sel.side;
+            const work = await loadFromCloud(workKey);
+            if (work) {
+                localStorage.setItem(workKey, JSON.stringify(work));
+            }
+        }
+
+        // Re-trigger auto-restore if workspace isn't already open
+        if (document.getElementById('debate-workspace').style.display === 'none') {
+            tryAutoRestore();
+        }
+    }
+
+    function tryAutoRestore() {
         try {
             const saved = localStorage.getItem('scotus-debate-selection');
             if (saved) {
@@ -1208,11 +1236,18 @@
                 if (hasWork && sel.caseName && sel.side) {
                     selectedCase = sel.caseName;
                     selectedSide = sel.side;
-                    // Small delay to allow DOM to settle
                     setTimeout(() => beginDebatePrep(), 100);
                 }
             }
         } catch(e) {}
+    }
+
+    // ==========================================
+    // INIT
+    // ==========================================
+    document.addEventListener('DOMContentLoaded', function() {
+        initCaseSelect();
+        tryAutoRestore();
     });
     </script>
 </body>

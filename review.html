@@ -1129,6 +1129,7 @@
                 <a href="debate.html">Debate Prep</a>
                 <a href="index.html">Home</a>
             </nav>
+            <div id="auth-container"></div>
         </div>
     </header>
 
@@ -1371,6 +1372,11 @@
             <p>&copy; 2026 SCOTUS Debate Project | Educational Resource</p>
         </div>
     </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+    <script src="js/firebase-init.js"></script>
 
     <script>
     // ==========================================
@@ -1741,6 +1747,7 @@
 
         document.getElementById('mc-question-area').innerHTML = html;
         localStorage.setItem('scotus-mc-score', pct);
+        if (typeof saveToCloud === 'function') saveToCloud('scotus-mc-score', pct);
     }
 
     function backToMCPicker() {
@@ -2321,6 +2328,7 @@
         });
         const savedKey = 'scotus-sa-' + saCurrentCase.replace(/[^a-zA-Z0-9]/g, '');
         localStorage.setItem(savedKey, JSON.stringify(responses));
+        if (typeof saveToCloud === 'function') saveToCloud(savedKey, responses);
 
         // Update dashboard score
         updateSAScore();
@@ -2757,6 +2765,7 @@
         // Save round score
         const scoreKey = currentMatchRound === 1 ? 'scotus-round1-score' : 'scotus-round2-score';
         localStorage.setItem(scoreKey, pct);
+        if (typeof saveToCloud === 'function') saveToCloud(scoreKey, pct);
         // Update overall sort score with best across rounds
         updateOverallSortScore();
 
@@ -2916,6 +2925,7 @@
             </div>`;
             document.getElementById('round3-feedback').innerHTML = fbHtml;
             localStorage.setItem('scotus-round3-score', pct);
+            if (typeof saveToCloud === 'function') saveToCloud('scotus-round3-score', pct);
             updateOverallSortScore();
         }
     }
@@ -2931,6 +2941,7 @@
         const r3 = parseInt(localStorage.getItem('scotus-round3-score')) || 0;
         const best = Math.max(r1, r2, r3);
         localStorage.setItem('scotus-sort-score', best);
+        if (typeof saveToCloud === 'function') saveToCloud('scotus-sort-score', best);
         document.getElementById('sort-score').textContent = best + '%';
     }
 
@@ -2990,7 +3001,9 @@
     }
 
     function saveVocabProgress() {
-        localStorage.setItem('scotus-vocab-known', JSON.stringify([...knownCards]));
+        const arr = [...knownCards];
+        localStorage.setItem('scotus-vocab-known', JSON.stringify(arr));
+        if (typeof saveToCloud === 'function') saveToCloud('scotus-vocab-known', arr);
     }
 
     function initFlashcards() {
@@ -3162,9 +3175,17 @@
             saveVocabProgress();
             localStorage.removeItem('scotus-mc-score');
             localStorage.removeItem('scotus-sort-score');
+            if (typeof saveToCloud === 'function') {
+                saveToCloud('scotus-mc-score', null);
+                saveToCloud('scotus-sort-score', null);
+                saveToCloud('scotus-round1-score', null);
+                saveToCloud('scotus-round2-score', null);
+                saveToCloud('scotus-round3-score', null);
+            }
             saCaseList.forEach(caseName => {
                 const key = 'scotus-sa-' + caseName.replace(/[^a-zA-Z0-9]/g, '');
                 localStorage.removeItem(key);
+                if (typeof saveToCloud === 'function') saveToCloud(key, null);
             });
             document.getElementById('mc-score').textContent = '0%';
             document.getElementById('sa-score').textContent = '0/7';
@@ -3172,6 +3193,54 @@
             renderCard();
             updateVocabProgress();
         }
+    }
+
+    // ==========================================
+    // FIREBASE CLOUD SYNC
+    // ==========================================
+    async function onAuthReady(user) {
+        if (!user) return;
+        // Load scores from Firestore and update localStorage + UI
+        const mcScore = await loadFromCloud('scotus-mc-score');
+        if (mcScore != null) {
+            localStorage.setItem('scotus-mc-score', JSON.stringify(mcScore));
+            document.getElementById('mc-score').textContent = mcScore + '%';
+        }
+
+        const sortScore = await loadFromCloud('scotus-sort-score');
+        if (sortScore != null) {
+            localStorage.setItem('scotus-sort-score', JSON.stringify(sortScore));
+            document.getElementById('sort-score').textContent = sortScore + '%';
+        }
+
+        const r1 = await loadFromCloud('scotus-round1-score');
+        if (r1 != null) localStorage.setItem('scotus-round1-score', JSON.stringify(r1));
+        const r2 = await loadFromCloud('scotus-round2-score');
+        if (r2 != null) localStorage.setItem('scotus-round2-score', JSON.stringify(r2));
+        const r3 = await loadFromCloud('scotus-round3-score');
+        if (r3 != null) localStorage.setItem('scotus-round3-score', JSON.stringify(r3));
+
+        // Unlock rounds if needed
+        if ((r1 && parseInt(r1) >= 70) || (parseInt(localStorage.getItem('scotus-round1-score')) >= 70)) unlockRound(2);
+        if ((r2 && parseInt(r2) >= 70) || (parseInt(localStorage.getItem('scotus-round2-score')) >= 70)) unlockRound(3);
+
+        // Load vocab
+        const vocab = await loadFromCloud('scotus-vocab-known');
+        if (vocab) {
+            localStorage.setItem('scotus-vocab-known', JSON.stringify(vocab));
+            knownCards = new Set(vocab);
+            updateVocabProgress();
+        }
+
+        // Load SA responses
+        for (const caseName of saCaseList) {
+            const key = 'scotus-sa-' + caseName.replace(/[^a-zA-Z0-9]/g, '');
+            const saData = await loadFromCloud(key);
+            if (saData) {
+                localStorage.setItem(key, JSON.stringify(saData));
+            }
+        }
+        updateSAScore();
     }
 
     // ==========================================
