@@ -1062,3 +1062,190 @@ a:hover {
     line-height: 1.5;
     font-size: 0.9rem;
 }
+
+/* ==========================================
+   EVIDENCE VAULT
+   ========================================== */
+
+/* Locked state */
+.evidence-vault-locked {
+    text-align: center;
+    padding: 2.5rem 1.5rem;
+    background: linear-gradient(135deg, rgba(22, 33, 62, 0.04) 0%, rgba(214, 56, 80, 0.04) 100%);
+    border: 2px dashed var(--border);
+    border-radius: 12px;
+}
+
+.vault-lock-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
+    opacity: 0.6;
+}
+
+.evidence-vault-locked h3 {
+    color: var(--primary-dark);
+    margin-bottom: 0.35rem;
+}
+
+.evidence-vault-locked p {
+    color: #888;
+    font-size: 0.95rem;
+}
+
+/* Vault container */
+.evidence-vault-content {
+    display: none;
+}
+
+.evidence-vault-content.unlocked {
+    display: block;
+}
+
+.vault-intro {
+    background: linear-gradient(135deg, rgba(233, 69, 96, 0.08) 0%, rgba(22, 33, 62, 0.05) 100%);
+    border-left: 4px solid var(--accent);
+    padding: 1rem 1.25rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.vault-intro strong {
+    color: var(--accent);
+}
+
+/* Source cards */
+.source-card {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+    position: relative;
+}
+
+.source-card:hover {
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
+}
+
+.source-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.source-type-tag {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.source-type-tag.legal { background: #e0e7ff; color: #3730a3; }
+.source-type-tag.news { background: #fef3c7; color: #92400e; }
+.source-type-tag.opinion { background: #fce7f3; color: #9d174d; }
+.source-type-tag.government { background: #d1fae5; color: #065f46; }
+.source-type-tag.academic { background: #ede9fe; color: #5b21b6; }
+.source-type-tag.court { background: #f0f9ff; color: #0c4a6e; }
+.source-type-tag.civil-rights { background: #fef2f2; color: #991b1b; }
+.source-type-tag.historical { background: #f5f5f4; color: #44403c; }
+
+.source-card h4 {
+    color: var(--primary-dark);
+    font-size: 1rem;
+    margin: 0;
+    flex: 1;
+}
+
+/* Side label for simplified version */
+.source-side-label {
+    display: none;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.source-side-label.side-petitioner {
+    background: var(--primary-dark);
+    color: #fff;
+}
+
+.source-side-label.side-respondent {
+    background: var(--accent);
+    color: #fff;
+}
+
+/* Show side labels in simplified mode */
+.simplified.active .source-side-label {
+    display: inline-block;
+}
+
+.source-excerpt {
+    font-size: 0.93rem;
+    line-height: 1.7;
+    color: var(--text-dark);
+    margin-bottom: 0.75rem;
+    padding: 0.75rem 1rem;
+    background: var(--bg-light);
+    border-radius: 8px;
+    border-left: 3px solid var(--primary-light);
+}
+
+.source-citation {
+    font-size: 0.82rem;
+    color: #777;
+    line-height: 1.5;
+    padding-left: 1rem;
+    border-left: 2px solid var(--border);
+    font-style: italic;
+}
+
+.source-citation::before {
+    content: "MLA: ";
+    font-weight: 600;
+    font-style: normal;
+    color: #999;
+}
+
+/* Vault nav link in case header */
+.vault-nav-link {
+    opacity: 0.5;
+    pointer-events: none;
+    position: relative;
+}
+
+.vault-nav-link.unlocked {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.vault-nav-link::after {
+    content: "🔒";
+    font-size: 0.7em;
+    margin-left: 2px;
+}
+
+.vault-nav-link.unlocked::after {
+    content: "";
+}
+
+@media (max-width: 768px) {
+    .source-card {
+        padding: 1rem;
+    }
+    .source-card-header {
+        gap: 0.35rem;
+    }
+}
