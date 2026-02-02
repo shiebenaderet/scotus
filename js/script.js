@@ -196,7 +196,39 @@ document.addEventListener('DOMContentLoaded', function() {
         answerKeySection.className = 'answer-key-section';
         answerKeySection.style.display = 'none';
         sortingTable.appendChild(answerKeySection);
-        
+
+        // Evidence Vault unlock logic
+        const vaultSaveKey = 'scotus-vault-' + pageFile;
+
+        function unlockVault() {
+            const locked = document.getElementById('vault-locked');
+            const content = document.getElementById('vault-content');
+            const navLink = document.getElementById('vault-nav');
+            if (locked) locked.style.display = 'none';
+            if (content) content.classList.add('unlocked');
+            if (navLink) navLink.classList.add('unlocked');
+        }
+
+        function saveVaultUnlock() {
+            localStorage.setItem(vaultSaveKey, 'true');
+            if (typeof saveToCloud === 'function') saveToCloud(vaultSaveKey, true);
+        }
+
+        // Check if vault was previously unlocked
+        function checkVaultStatus() {
+            if (localStorage.getItem(vaultSaveKey) === 'true') {
+                unlockVault();
+                return;
+            }
+            if (typeof loadFromCloud === 'function') {
+                loadFromCloud(vaultSaveKey).then(function(val) {
+                    if (val === true || val === 'true') unlockVault();
+                });
+            }
+        }
+
+        checkVaultStatus();
+
         // Check answers functionality
         checkAnswersBtn.addEventListener('click', function() {
             const rows = sortingTable.querySelectorAll('tbody tr');
@@ -252,6 +284,10 @@ document.addEventListener('DOMContentLoaded', function() {
             // Show reset button
             resetBtn.style.display = 'inline-block';
             showAnswersBtn.style.display = 'inline-block';
+
+            // Unlock Evidence Vault
+            unlockVault();
+            saveVaultUnlock();
         });
         
         // Show answer key

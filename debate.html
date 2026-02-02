@@ -494,6 +494,10 @@
                         <div>Rebuttals</div>
                         <div class="tab-sub">Counter the other side</div>
                     </button>
+                    <button class="debate-tab" onclick="showDebateTab('sources')">
+                        <div>Sources</div>
+                        <div class="tab-sub">Pick 2+ sources</div>
+                    </button>
                     <button class="debate-tab" onclick="showDebateTab('closing')">
                         <div>Closing Statement</div>
                         <div class="tab-sub">Final appeal</div>
@@ -618,6 +622,55 @@
                         <div class="check-item"><input type="checkbox" id="rc1"><label for="rc1">Anticipate what the other side will likely argue?</label></div>
                         <div class="check-item"><input type="checkbox" id="rc2"><label for="rc2">Explain why their argument is weak or incomplete?</label></div>
                         <div class="check-item"><input type="checkbox" id="rc3"><label for="rc3">Use evidence or reasoning to support your counter-argument?</label></div>
+                    </div>
+                </div>
+
+                <!-- ========== SOURCES ========== -->
+                <div class="debate-section" id="tab-sources">
+                    <div class="alert-info" style="margin-top: 0;">
+                        Select at least <strong>2 sources</strong> from the Evidence Vault that support your side. For each source you pick, write a brief note explaining how it helps your argument. <a id="vault-link" href="#" target="_blank" style="color: var(--accent);">Open your case's Evidence Vault</a>
+                    </div>
+
+                    <div id="sources-container">
+                        <div class="builder-card source-pick-card" style="border-left: 4px solid #10b981;">
+                            <span class="builder-part-label" style="background: #10b981;">Source 1</span>
+                            <p class="instruction">Copy or describe the source from the Evidence Vault.</p>
+                            <textarea class="debate-textarea" id="source-1-text" data-field="source-1-text" placeholder="Paste or summarize the source excerpt here..." style="min-height: 70px;"></textarea>
+                            <p class="instruction" style="margin-top: 10px;">MLA Citation (copy from the Evidence Vault):</p>
+                            <textarea class="debate-textarea" id="source-1-cite" data-field="source-1-cite" placeholder="Paste the MLA citation here..." style="min-height: 45px; font-style: italic;"></textarea>
+                            <p class="instruction" style="margin-top: 10px;">How does this source support your side?</p>
+                            <div class="starters-list">
+                                <button class="starter-option" onclick="useDebateStarter(this, 'source-1-why')">This source supports our position because...</button>
+                                <button class="starter-option" onclick="useDebateStarter(this, 'source-1-why')">This evidence shows that...</button>
+                            </div>
+                            <textarea class="debate-textarea" id="source-1-why" data-field="source-1-why" placeholder="Explain how this source helps your argument..." style="min-height: 70px;"></textarea>
+                        </div>
+
+                        <div class="builder-card source-pick-card" style="border-left: 4px solid #10b981;">
+                            <span class="builder-part-label" style="background: #10b981;">Source 2</span>
+                            <p class="instruction">Copy or describe the source from the Evidence Vault.</p>
+                            <textarea class="debate-textarea" id="source-2-text" data-field="source-2-text" placeholder="Paste or summarize the source excerpt here..." style="min-height: 70px;"></textarea>
+                            <p class="instruction" style="margin-top: 10px;">MLA Citation (copy from the Evidence Vault):</p>
+                            <textarea class="debate-textarea" id="source-2-cite" data-field="source-2-cite" placeholder="Paste the MLA citation here..." style="min-height: 45px; font-style: italic;"></textarea>
+                            <p class="instruction" style="margin-top: 10px;">How does this source support your side?</p>
+                            <div class="starters-list">
+                                <button class="starter-option" onclick="useDebateStarter(this, 'source-2-why')">This source supports our position because...</button>
+                                <button class="starter-option" onclick="useDebateStarter(this, 'source-2-why')">This evidence shows that...</button>
+                            </div>
+                            <textarea class="debate-textarea" id="source-2-why" data-field="source-2-why" placeholder="Explain how this source helps your argument..." style="min-height: 70px;"></textarea>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 16px;">
+                        <button class="btn btn-secondary" id="add-source-btn" onclick="addSourceCard()">+ Add Another Source</button>
+                    </div>
+
+                    <div class="self-check" style="margin-top: 20px;">
+                        <h4>Self-Check: For your sources, did you...</h4>
+                        <div class="check-item"><input type="checkbox" id="sc1"><label for="sc1">Select at least 2 sources?</label></div>
+                        <div class="check-item"><input type="checkbox" id="sc2"><label for="sc2">Include the MLA citation for each source?</label></div>
+                        <div class="check-item"><input type="checkbox" id="sc3"><label for="sc3">Explain how each source supports your side?</label></div>
+                        <div class="check-item"><input type="checkbox" id="sc4"><label for="sc4">Choose sources from different types (e.g., legal analysis and court opinion)?</label></div>
                     </div>
                 </div>
 
@@ -763,6 +816,7 @@
     let selectedSide = ''; // 'petitioner' or 'respondent'
     let argCount = 3;
     let rebuttalCount = 3;
+    let sourceCount = 2;
 
     // ==========================================
     // CASE & SIDE SELECTION
@@ -853,6 +907,9 @@
         initArguments();
         initRebuttals();
 
+        // Update vault link to point to selected case
+        updateVaultLink();
+
         // Load saved work
         loadSavedWork();
 
@@ -871,7 +928,7 @@
     // ==========================================
     function showDebateTab(tabName) {
         document.querySelectorAll('.debate-tab').forEach((t, i) => {
-            const tabs = ['opening', 'arguments', 'rebuttals', 'closing'];
+            const tabs = ['opening', 'arguments', 'rebuttals', 'sources', 'closing'];
             t.classList.toggle('active', tabs[i] === tabName);
         });
         document.querySelectorAll('.debate-section').forEach(s => s.classList.remove('active'));
@@ -980,6 +1037,42 @@
     }
 
     // ==========================================
+    // SOURCES
+    // ==========================================
+    function addSourceCard() {
+        sourceCount++;
+        const container = document.getElementById('sources-container');
+        container.insertAdjacentHTML('beforeend', `
+            <div class="builder-card source-pick-card" style="border-left: 4px solid #10b981;">
+                <span class="builder-part-label" style="background: #10b981;">Source ${sourceCount}</span>
+                <p class="instruction">Copy or describe the source from the Evidence Vault.</p>
+                <textarea class="debate-textarea" id="source-${sourceCount}-text" data-field="source-${sourceCount}-text" placeholder="Paste or summarize the source excerpt here..." style="min-height: 70px;"></textarea>
+                <p class="instruction" style="margin-top: 10px;">MLA Citation (copy from the Evidence Vault):</p>
+                <textarea class="debate-textarea" id="source-${sourceCount}-cite" data-field="source-${sourceCount}-cite" placeholder="Paste the MLA citation here..." style="min-height: 45px; font-style: italic;"></textarea>
+                <p class="instruction" style="margin-top: 10px;">How does this source support your side?</p>
+                <div class="starters-list">
+                    <button class="starter-option" onclick="useDebateStarter(this, 'source-${sourceCount}-why')">This source supports our position because...</button>
+                    <button class="starter-option" onclick="useDebateStarter(this, 'source-${sourceCount}-why')">This evidence shows that...</button>
+                </div>
+                <textarea class="debate-textarea" id="source-${sourceCount}-why" data-field="source-${sourceCount}-why" placeholder="Explain how this source helps your argument..." style="min-height: 70px;"></textarea>
+            </div>`);
+        // Attach auto-save
+        document.querySelectorAll(`#sources-container .source-pick-card:last-child textarea`).forEach(ta => {
+            ta.addEventListener('input', autoSave);
+        });
+        document.getElementById('source-' + sourceCount + '-text').focus();
+    }
+
+    function updateVaultLink() {
+        const link = document.getElementById('vault-link');
+        if (!link || !selectedCase) return;
+        const caseData = debateCases[selectedCase];
+        if (caseData && caseData.caseLink) {
+            link.href = caseData.caseLink + '#evidence-vault';
+        }
+    }
+
+    // ==========================================
     // ASSEMBLY
     // ==========================================
     function assembleOpening() {
@@ -1065,6 +1158,27 @@
             html += '<hr style="margin: 16px 0; border: none; border-top: 1px solid var(--border);">';
         }
 
+        // Sources
+        const sources = [];
+        for (let i = 1; i <= sourceCount; i++) {
+            const t = document.getElementById('source-' + i + '-text');
+            const c = document.getElementById('source-' + i + '-cite');
+            const w = document.getElementById('source-' + i + '-why');
+            if ((t && t.value.trim()) || (c && c.value.trim())) {
+                sources.push({ text: t ? t.value.trim() : '', cite: c ? c.value.trim() : '', why: w ? w.value.trim() : '' });
+            }
+        }
+        if (sources.length > 0) {
+            html += '<h4 style="color: #10b981; margin-bottom: 8px;">Sources</h4>';
+            sources.forEach((s, i) => {
+                html += `<p><strong>Source ${i + 1}:</strong> ${escHtml(s.text)}</p>`;
+                if (s.cite) html += `<p style="font-style: italic; color: #777; font-size: 0.9em;">${escHtml(s.cite)}</p>`;
+                if (s.why) html += `<p><em>Why it matters:</em> ${escHtml(s.why)}</p>`;
+                if (i < sources.length - 1) html += '<br>';
+            });
+            html += '<hr style="margin: 16px 0; border: none; border-top: 1px solid var(--border);">';
+        }
+
         // Closing
         const closingFields = ['closing-summary', 'closing-constitution', 'closing-appeal'];
         const closingParts = closingFields.map(id => { const el = document.getElementById(id); return el ? el.value.trim() : ''; }).filter(v => v);
@@ -1122,6 +1236,15 @@
             const mine = document.getElementById('rebuttal-mine-' + i);
             if (their) data['rebuttal-their-' + i] = their.value;
             if (mine) data['rebuttal-mine-' + i] = mine.value;
+        }
+
+        // Sources
+        data.sourceCount = sourceCount;
+        for (let i = 1; i <= sourceCount; i++) {
+            ['source-' + i + '-text', 'source-' + i + '-cite', 'source-' + i + '-why'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) data[id] = el.value;
+            });
         }
 
         // Closing fields
@@ -1187,6 +1310,20 @@
             const mine = document.getElementById('rebuttal-mine-' + i);
             if (their && data['rebuttal-their-' + i]) their.value = data['rebuttal-their-' + i];
             if (mine && data['rebuttal-mine-' + i]) mine.value = data['rebuttal-mine-' + i];
+        }
+
+        // Sources — rebuild if more than 2
+        if (data.sourceCount && data.sourceCount > 2) {
+            for (let i = 3; i <= data.sourceCount; i++) {
+                addSourceCard();
+            }
+        }
+        sourceCount = data.sourceCount || 2;
+        for (let i = 1; i <= sourceCount; i++) {
+            ['source-' + i + '-text', 'source-' + i + '-cite', 'source-' + i + '-why'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el && data[id]) el.value = data[id];
+            });
         }
 
         // Closing fields
