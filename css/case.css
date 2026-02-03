@@ -155,12 +155,17 @@ padding: 0.75rem 1.5rem;
 .section-header {
     text-align: center;
     margin-bottom: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .section-header h2 {
     font-size: 1.75rem;
     color: var(--primary-dark);
     margin-bottom: 0.25rem;
+    text-align: center;
+    width: 100%;
 }
 
 .section-subtitle {
@@ -170,6 +175,7 @@ padding: 0.75rem 1.5rem;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
+    max-width: 600px;
 }
 
 /* GUIDING QUESTION CONNECTION */
@@ -1074,22 +1080,35 @@ a:hover {
     background: linear-gradient(135deg, rgba(22, 33, 62, 0.04) 0%, rgba(214, 56, 80, 0.04) 100%);
     border: 2px dashed var(--border);
     border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .vault-lock-icon {
     font-size: 2.5rem;
     margin-bottom: 0.75rem;
     opacity: 0.6;
+    display: block;
+    text-align: center;
 }
 
 .evidence-vault-locked h3 {
     color: var(--primary-dark);
-    margin-bottom: 0.35rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
+    width: 100%;
+    font-size: 1.25rem;
 }
 
 .evidence-vault-locked p {
-    color: #888;
+    color: #666;
     font-size: 0.95rem;
+    text-align: center;
+    max-width: 400px;
+    margin: 0 auto;
+    line-height: 1.5;
 }
 
 /* Vault container */
@@ -1109,10 +1128,16 @@ a:hover {
     margin-bottom: 1.5rem;
     font-size: 0.95rem;
     line-height: 1.6;
+    text-align: left;
 }
 
 .vault-intro strong {
     color: var(--accent);
+}
+
+/* Source cards grid intro alignment */
+.source-cards-grid {
+    text-align: left;
 }
 
 /* Source cards grid */
@@ -1236,13 +1261,15 @@ a:hover {
 }
 
 .source-flip-cta {
-    margin-top: 0.75rem;
-    padding-top: 0.6rem;
+    margin-top: auto;
+    padding-top: 0.75rem;
     border-top: 1px solid var(--border);
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 600;
     color: var(--accent);
     text-align: center;
+    display: block;
+    width: 100%;
 }
 
 /* Back of card */
@@ -1302,11 +1329,14 @@ a:hover {
 }
 
 .source-back-cta {
-    margin-top: 0.5rem;
-    font-size: 0.8rem;
+    margin-top: auto;
+    padding-top: 0.5rem;
+    font-size: 0.85rem;
     font-weight: 600;
     color: var(--accent);
     text-align: center;
+    display: block;
+    width: 100%;
 }
 
 /* Vault nav link in case header */
