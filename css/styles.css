@@ -633,6 +633,12 @@ footer a {
     text-decoration: none;
 }
 
+.site-version {
+    font-size: 0.75rem;
+    opacity: 0.45;
+    margin-top: 0.25rem;
+}
+
 /* RESPONSIVE */
 @media (max-width: 768px) {
     .site-header {
