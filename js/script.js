@@ -1,3 +1,11 @@
+// Helper function to check if user is a teacher (staff)
+function isTeacher(user) {
+    return user && user.email && user.email.endsWith('@edmonds.wednet.edu');
+}
+
+// Global vault unlock function (will be set up after DOM loads)
+var globalUnlockVault = null;
+
 // Reading Level Toggle
 document.addEventListener('DOMContentLoaded', function() {
     const levelButtons = document.querySelectorAll('.level-btn');
@@ -88,12 +96,53 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Evidence Vault unlock logic (independent of sorting table)
+    const pagePath = window.location.pathname;
+    const pageFile = pagePath.substring(pagePath.lastIndexOf('/') + 1).replace('.html', '');
+    const vaultSaveKey = 'scotus-vault-' + pageFile;
+    const vaultLocked = document.getElementById('vault-locked');
+    const vaultContent = document.getElementById('vault-content');
+    const vaultNavLink = document.getElementById('vault-nav');
+
+    function unlockVault() {
+        if (vaultLocked) vaultLocked.style.display = 'none';
+        if (vaultContent) vaultContent.classList.add('unlocked');
+        if (vaultNavLink) vaultNavLink.classList.add('unlocked');
+    }
+
+    // Expose unlockVault globally for teacher auto-unlock
+    globalUnlockVault = unlockVault;
+
+    function saveVaultUnlock() {
+        localStorage.setItem(vaultSaveKey, 'true');
+        if (typeof saveToCloud === 'function') saveToCloud(vaultSaveKey, true);
+    }
+
+    // Check if vault was previously unlocked for THIS case only
+    function checkVaultStatus() {
+        var stored = localStorage.getItem(vaultSaveKey);
+        if (stored === 'true') {
+            unlockVault();
+            return;
+        }
+        // If not in localStorage, check cloud
+        if (typeof loadFromCloud === 'function') {
+            loadFromCloud(vaultSaveKey).then(function(val) {
+                if (val === true || val === 'true') {
+                    unlockVault();
+                }
+            });
+        }
+    }
+
+    // Only check if vault elements exist on this page
+    if (vaultLocked || vaultContent) {
+        checkVaultStatus();
+    }
+
     // Argument Sorting Activity
     const sortingTable = document.querySelector('.argument-sorting-table');
     if (sortingTable) {
-        // Derive a save key from the page filename
-        const pagePath = window.location.pathname;
-        const pageFile = pagePath.substring(pagePath.lastIndexOf('/') + 1).replace('.html', '');
         const sortSaveKey = 'scotus-sort-' + pageFile;
 
         function saveSortSelections() {
@@ -196,45 +245,6 @@ document.addEventListener('DOMContentLoaded', function() {
         answerKeySection.className = 'answer-key-section';
         answerKeySection.style.display = 'none';
         sortingTable.appendChild(answerKeySection);
-
-        // Evidence Vault unlock logic
-        const vaultSaveKey = 'scotus-vault-' + pageFile;
-        const vaultLocked = document.getElementById('vault-locked');
-        const vaultContent = document.getElementById('vault-content');
-        const vaultNavLink = document.getElementById('vault-nav');
-
-        function unlockVault() {
-            if (vaultLocked) vaultLocked.style.display = 'none';
-            if (vaultContent) vaultContent.classList.add('unlocked');
-            if (vaultNavLink) vaultNavLink.classList.add('unlocked');
-        }
-
-        function saveVaultUnlock() {
-            localStorage.setItem(vaultSaveKey, 'true');
-            if (typeof saveToCloud === 'function') saveToCloud(vaultSaveKey, true);
-        }
-
-        // Check if vault was previously unlocked for THIS case only
-        function checkVaultStatus() {
-            var stored = localStorage.getItem(vaultSaveKey);
-            if (stored === 'true') {
-                unlockVault();
-                return;
-            }
-            // If not in localStorage, check cloud
-            if (typeof loadFromCloud === 'function') {
-                loadFromCloud(vaultSaveKey).then(function(val) {
-                    if (val === true || val === 'true') {
-                        unlockVault();
-                    }
-                });
-            }
-        }
-
-        // Only check if vault elements exist on this page
-        if (vaultLocked || vaultContent) {
-            checkVaultStatus();
-        }
 
         // Check answers functionality
         checkAnswersBtn.addEventListener('click', function() {
@@ -475,3 +485,11 @@ document.addEventListener('DOMContentLoaded', function() {
         window.addEventListener('resize', setHeight);
     });
 });
+
+// Teacher/Staff auto-unlock: called by firebase-init.js after auth state changes
+function onAuthReady(user) {
+    // If user is a teacher (staff), automatically unlock the Evidence Vault
+    if (isTeacher(user) && typeof globalUnlockVault === 'function') {
+        globalUnlockVault();
+    }
+}
