@@ -199,14 +199,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Evidence Vault unlock logic
         const vaultSaveKey = 'scotus-vault-' + pageFile;
+        const vaultLocked = document.getElementById('vault-locked');
+        const vaultContent = document.getElementById('vault-content');
+        const vaultNavLink = document.getElementById('vault-nav');
 
         function unlockVault() {
-            const locked = document.getElementById('vault-locked');
-            const content = document.getElementById('vault-content');
-            const navLink = document.getElementById('vault-nav');
-            if (locked) locked.style.display = 'none';
-            if (content) content.classList.add('unlocked');
-            if (navLink) navLink.classList.add('unlocked');
+            if (vaultLocked) vaultLocked.style.display = 'none';
+            if (vaultContent) vaultContent.classList.add('unlocked');
+            if (vaultNavLink) vaultNavLink.classList.add('unlocked');
         }
 
         function saveVaultUnlock() {
@@ -214,20 +214,27 @@ document.addEventListener('DOMContentLoaded', function() {
             if (typeof saveToCloud === 'function') saveToCloud(vaultSaveKey, true);
         }
 
-        // Check if vault was previously unlocked
+        // Check if vault was previously unlocked for THIS case only
         function checkVaultStatus() {
-            if (localStorage.getItem(vaultSaveKey) === 'true') {
+            var stored = localStorage.getItem(vaultSaveKey);
+            if (stored === 'true') {
                 unlockVault();
                 return;
             }
+            // If not in localStorage, check cloud
             if (typeof loadFromCloud === 'function') {
                 loadFromCloud(vaultSaveKey).then(function(val) {
-                    if (val === true || val === 'true') unlockVault();
+                    if (val === true || val === 'true') {
+                        unlockVault();
+                    }
                 });
             }
         }
 
-        checkVaultStatus();
+        // Only check if vault elements exist on this page
+        if (vaultLocked || vaultContent) {
+            checkVaultStatus();
+        }
 
         // Check answers functionality
         checkAnswersBtn.addEventListener('click', function() {
@@ -443,4 +450,28 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    // Flip-card height matching: set container height to taller of front/back
+    document.querySelectorAll('.source-flip-card').forEach(function(card) {
+        var inner = card.querySelector('.source-flip-inner');
+        var front = card.querySelector('.source-front');
+        var back = card.querySelector('.source-back');
+        if (!inner || !front || !back) return;
+
+        function setHeight() {
+            // Temporarily make both visible to measure
+            inner.style.height = 'auto';
+            front.style.position = 'relative';
+            back.style.position = 'relative';
+            back.style.transform = 'none';
+            var h = Math.max(front.offsetHeight, back.offsetHeight);
+            front.style.position = '';
+            back.style.position = '';
+            back.style.transform = '';
+            inner.style.height = h + 'px';
+            card.style.minHeight = h + 'px';
+        }
+        setHeight();
+        window.addEventListener('resize', setHeight);
+    });
 });
