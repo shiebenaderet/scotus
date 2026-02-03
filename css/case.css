@@ -1115,21 +1115,58 @@ a:hover {
     color: var(--accent);
 }
 
-/* Source cards */
-.source-card {
-    background: var(--bg-white);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1.25rem 1.5rem;
-    margin-bottom: 1rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    transition: box-shadow 0.2s ease, transform 0.2s ease;
-    position: relative;
+/* Source cards grid */
+.source-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
 }
 
-.source-card:hover {
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
-    transform: translateY(-1px);
+/* Flip card container */
+.source-flip-card {
+    perspective: 800px;
+    min-height: 220px;
+}
+
+.source-flip-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 220px;
+    transition: transform 0.5s ease;
+    transform-style: preserve-3d;
+    cursor: pointer;
+}
+
+.source-flip-card.flipped .source-flip-inner {
+    transform: rotateY(180deg);
+}
+
+.source-front,
+.source-back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    overflow: auto;
+}
+
+/* Front of card */
+.source-front {
+    background: var(--bg-white);
+    border: 2px solid var(--border);
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.source-front:hover {
+    border-color: var(--primary-light);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
 }
 
 .source-card-header {
@@ -1144,7 +1181,7 @@ a:hover {
     display: inline-block;
     padding: 0.2rem 0.6rem;
     border-radius: 20px;
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.03em;
@@ -1159,11 +1196,10 @@ a:hover {
 .source-type-tag.civil-rights { background: #fef2f2; color: #991b1b; }
 .source-type-tag.historical { background: #f5f5f4; color: #44403c; }
 
-.source-card h4 {
+.source-front h4 {
     color: var(--primary-dark);
-    font-size: 1rem;
-    margin: 0;
-    flex: 1;
+    font-size: 1.05rem;
+    margin: 0 0 0.75rem 0;
 }
 
 /* Side label for simplified version */
@@ -1193,22 +1229,68 @@ a:hover {
 }
 
 .source-excerpt {
-    font-size: 0.93rem;
-    line-height: 1.7;
+    font-size: 0.9rem;
+    line-height: 1.65;
     color: var(--text-dark);
-    margin-bottom: 0.75rem;
-    padding: 0.75rem 1rem;
-    background: var(--bg-light);
-    border-radius: 8px;
-    border-left: 3px solid var(--primary-light);
+    flex: 1;
+}
+
+.source-flip-cta {
+    margin-top: 0.75rem;
+    padding-top: 0.6rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-align: center;
+}
+
+/* Back of card */
+.source-back {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, #1e2d4a 100%);
+    color: var(--text-light);
+    transform: rotateY(180deg);
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.source-back-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+}
+
+.source-back h4 {
+    color: var(--text-light);
+    font-size: 1rem;
+    margin: 0 0 0.75rem 0;
+}
+
+.source-back-question {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+}
+
+.source-back-analysis {
+    font-size: 0.88rem;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.9);
+    flex: 1;
 }
 
 .source-citation {
-    font-size: 0.82rem;
-    color: #777;
-    line-height: 1.5;
-    padding-left: 1rem;
-    border-left: 2px solid var(--border);
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.4;
+    margin-top: 0.75rem;
+    padding-top: 0.6rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
     font-style: italic;
 }
 
@@ -1216,7 +1298,15 @@ a:hover {
     content: "MLA: ";
     font-weight: 600;
     font-style: normal;
-    color: #999;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.source-back-cta {
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-align: center;
 }
 
 /* Vault nav link in case header */
@@ -1242,10 +1332,13 @@ a:hover {
 }
 
 @media (max-width: 768px) {
-    .source-card {
-        padding: 1rem;
+    .source-cards-grid {
+        grid-template-columns: 1fr;
     }
-    .source-card-header {
-        gap: 0.35rem;
+    .source-flip-card {
+        min-height: 200px;
+    }
+    .source-flip-inner {
+        min-height: 200px;
     }
 }
