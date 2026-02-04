@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Journeys | SCOTUS Debate Project</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/journeys.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <header class="site-header" role="banner">
+        <div class="container header-inner">
+            <a href="index.html" class="site-logo">
+                <span class="logo-icon">&#9878;</span>
+                <span class="logo-text">SCOTUS Debate Project</span>
+            </a>
+            <nav class="header-nav" role="navigation" aria-label="Main navigation">
+                <a href="index.html#cases">Cases</a>
+                <a href="resources.html">Resources</a>
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn" aria-expanded="false" aria-haspopup="true">Prepare <span class="dropdown-arrow">&#9662;</span></button>
+                    <div class="nav-dropdown-content">
+                        <a href="review.html">Review</a>
+                        <a href="journeys.html" class="active">Case Journeys</a>
+                        <a href="debate.html">Debate Prep</a>
+                    </div>
+                </div>
+                <a href="teacher.html" id="teacher-nav-link" style="display:none;">Teacher</a>
+            </nav>
+            <div id="auth-container"></div>
+        </div>
+    </header>
+
+    <main id="main-content" role="main">
+        <section class="case-header">
+            <div class="container">
+                <h1>Case Journeys</h1>
+                <p class="case-subtitle">How each case made its way to the Supreme Court</p>
+            </div>
+        </section>
+
+        <div class="journeys-content">
+            <div class="container">
+                <!-- Reading Level Toggle -->
+                <div class="reading-level-toggle" role="group" aria-label="Reading level selection">
+                    <span class="toggle-label">Reading Level:</span>
+                    <button class="level-btn active" data-level="standard" aria-pressed="true">Standard</button>
+                    <button class="level-btn" data-level="simplified" aria-pressed="false">Simplified</button>
+                </div>
+
+                <!-- Case Selector -->
+                <div class="case-selector">
+                    <p class="selector-instruction">Select cases to see their journey to the Supreme Court:</p>
+                    <div class="case-buttons">
+                        <button class="case-btn" data-case="tinker">Tinker v. Des Moines</button>
+                        <button class="case-btn" data-case="tlo">New Jersey v. T.L.O.</button>
+                        <button class="case-btn" data-case="brown">Brown v. Board of Education</button>
+                        <button class="case-btn" data-case="payton">Payton v. New York</button>
+                        <button class="case-btn" data-case="mahanoy">Mahanoy v. B.L.</button>
+                        <button class="case-btn" data-case="kennedy">Kennedy v. Bremerton</button>
+                        <button class="case-btn" data-case="arizona">Arizona v. Gant</button>
+                    </div>
+                    <button class="clear-all-btn" id="clear-all" style="display: none;">Clear All</button>
+                </div>
+
+                <!-- Timeline -->
+                <div class="timeline-container">
+                    <div class="timeline-empty" id="timeline-empty">
+                        <div class="empty-icon">&#128218;</div>
+                        <p>Select one or more cases above to see their journey through the court system.</p>
+                    </div>
+                    <div class="timeline" id="timeline"></div>
+                </div>
+
+                <!-- Legend -->
+                <div class="timeline-legend" id="timeline-legend" style="display: none;">
+                    <h3>Timeline Legend</h3>
+                    <div class="legend-items">
+                        <div class="legend-item">
+                            <span class="legend-dot incident"></span>
+                            <span>Initial Incident</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-dot district"></span>
+                            <span>District/Trial Court</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-dot appeals"></span>
+                            <span>Appeals Court</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-dot scotus"></span>
+                            <span>Supreme Court</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2025 SCOTUS Debate Project. Educational use only.</p>
+            <p class="site-version">v1.6.0</p>
+        </div>
+    </footer>
+
+    <script src="js/firebase-init.js"></script>
+    <script src="js/journeys.js"></script>
+</body>
+</html>

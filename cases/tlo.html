@@ -16,10 +16,16 @@
                 <span class="logo-text">SCOTUS Debate Project</span>
             </a>
             <nav class="header-nav" role="navigation" aria-label="Main navigation">
-                <a href="../index.html#cases">All Cases</a>
+                <a href="../index.html#cases">Cases</a>
                 <a href="../resources.html">Resources</a>
-                <a href="../review.html">Review</a>
-                <a href="../debate.html">Debate Prep</a>
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn" aria-expanded="false" aria-haspopup="true">Prepare <span class="dropdown-arrow">&#9662;</span></button>
+                    <div class="nav-dropdown-content">
+                        <a href="../review.html">Review</a>
+                        <a href="../journeys.html">Case Journeys</a>
+                        <a href="../debate.html">Debate Prep</a>
+                    </div>
+                </div>
                 <a href="../teacher.html" id="teacher-nav-link" style="display:none;">Teacher</a>
             </nav>
             <div id="auth-container"></div>
@@ -762,7 +768,7 @@
         <div class="container">
             <p><a href="../index.html">← Back to All Cases</a></p>
             <p>&copy; 2026 SCOTUS Debate Project</p>
-            <p class="site-version">v1.5.1</p>
+            <p class="site-version">v1.6.0</p>
         </div>
     </footer>
 
