@@ -17,8 +17,14 @@
             <nav class="header-nav" role="navigation" aria-label="Main navigation">
                 <a href="#cases">Cases</a>
                 <a href="resources.html">Resources</a>
-                <a href="review.html">Review</a>
-                <a href="debate.html">Debate Prep</a>
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn" aria-expanded="false" aria-haspopup="true">Prepare <span class="dropdown-arrow">&#9662;</span></button>
+                    <div class="nav-dropdown-content">
+                        <a href="review.html">Review</a>
+                        <a href="journeys.html">Case Journeys</a>
+                        <a href="debate.html">Debate Prep</a>
+                    </div>
+                </div>
                 <a href="teacher.html" id="teacher-nav-link" style="display:none;">Teacher</a>
             </nav>
             <div id="auth-container"></div>
@@ -165,12 +171,32 @@
         <div class="container">
             <p>&copy; 2026 SCOTUS Debate Project | Educational Resource</p>
             <p><a href="resources.html">Additional Resources →</a></p>
-            <p class="site-version">v1.5.1</p>
+            <p class="site-version">v1.6.0</p>
         </div>
     </footer>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
     <script src="js/firebase-init.js"></script>
+    <script>
+    // Dropdown navigation
+    document.addEventListener('DOMContentLoaded', function() {
+        var dropdown = document.querySelector('.nav-dropdown');
+        var btn = dropdown ? dropdown.querySelector('.nav-dropdown-btn') : null;
+        if (dropdown && btn) {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                dropdown.classList.toggle('open');
+                btn.setAttribute('aria-expanded', dropdown.classList.contains('open'));
+            });
+            document.addEventListener('click', function(e) {
+                if (!dropdown.contains(e.target)) {
+                    dropdown.classList.remove('open');
+                    btn.setAttribute('aria-expanded', 'false');
+                }
+            });
+        }
+    });
+    </script>
 </body>
 </html>

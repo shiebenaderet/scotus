@@ -428,10 +428,16 @@
                 <span class="logo-text">SCOTUS Debate Project</span>
             </a>
             <nav class="header-nav" role="navigation" aria-label="Main navigation">
-                <a href="index.html#cases">All Cases</a>
+                <a href="index.html#cases">Cases</a>
                 <a href="resources.html">Resources</a>
-                <a href="review.html">Review</a>
-                <a href="debate.html" style="color: var(--accent);">Debate Prep</a>
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn" aria-expanded="false" aria-haspopup="true">Prepare <span class="dropdown-arrow">&#9662;</span></button>
+                    <div class="nav-dropdown-content">
+                        <a href="review.html">Review</a>
+                        <a href="journeys.html">Case Journeys</a>
+                        <a href="debate.html" class="active">Debate Prep</a>
+                    </div>
+                </div>
                 <a href="teacher.html" id="teacher-nav-link" style="display:none;">Teacher</a>
             </nav>
             <div id="auth-container"></div>
@@ -752,7 +758,7 @@
     <footer>
         <div class="container">
             <p>SCOTUS Debate Project — A Student Resource for Understanding the Supreme Court</p>
-            <p class="site-version">v1.5.1</p>
+            <p class="site-version">v1.6.0</p>
         </div>
     </footer>
 
@@ -1387,6 +1393,25 @@
     document.addEventListener('DOMContentLoaded', function() {
         initCaseSelect();
         tryAutoRestore();
+    });
+
+    // Dropdown navigation
+    document.addEventListener('DOMContentLoaded', function() {
+        var dropdown = document.querySelector('.nav-dropdown');
+        var btn = dropdown ? dropdown.querySelector('.nav-dropdown-btn') : null;
+        if (dropdown && btn) {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                dropdown.classList.toggle('open');
+                btn.setAttribute('aria-expanded', dropdown.classList.contains('open'));
+            });
+            document.addEventListener('click', function(e) {
+                if (!dropdown.contains(e.target)) {
+                    dropdown.classList.remove('open');
+                    btn.setAttribute('aria-expanded', 'false');
+                }
+            });
+        }
     });
     </script>
 </body>

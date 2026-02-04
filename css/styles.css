@@ -215,6 +215,81 @@ header .container h1,
     background-color: rgba(255, 255, 255, 0.1);
 }
 
+/* Navigation Dropdown */
+.nav-dropdown {
+    position: relative;
+    display: inline-flex;
+}
+
+.nav-dropdown-btn {
+    color: var(--text-light);
+    background: transparent;
+    border: none;
+    padding: 0.5rem 1rem;
+    min-height: var(--touch-target-min);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-weight: 500;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: color var(--transition-fast), background-color var(--transition-fast);
+    border-radius: 4px;
+    font-family: inherit;
+}
+
+.nav-dropdown-btn:hover {
+    color: var(--accent);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.dropdown-arrow {
+    font-size: 0.75rem;
+    transition: transform 0.2s ease;
+}
+
+.nav-dropdown.open .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.nav-dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--primary-dark);
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    min-width: 160px;
+    z-index: 1001;
+    overflow: hidden;
+    margin-top: 4px;
+}
+
+.nav-dropdown.open .nav-dropdown-content {
+    display: block;
+}
+
+.nav-dropdown-content a {
+    display: block;
+    color: var(--text-light);
+    padding: 0.75rem 1.25rem;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.nav-dropdown-content a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--accent);
+}
+
+.nav-dropdown-content a.active {
+    background-color: rgba(214, 56, 80, 0.15);
+    color: var(--accent);
+}
+
 /* Legacy header/nav styles for other pages */
 header:not(.site-header) {
     background-color: var(--primary-dark);

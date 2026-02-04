@@ -8,6 +8,23 @@ var globalUnlockVault = null;
 
 // Reading Level Toggle
 document.addEventListener('DOMContentLoaded', function() {
+    // Navigation Dropdown
+    var dropdown = document.querySelector('.nav-dropdown');
+    var dropdownBtn = dropdown ? dropdown.querySelector('.nav-dropdown-btn') : null;
+    if (dropdown && dropdownBtn) {
+        dropdownBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            dropdown.classList.toggle('open');
+            dropdownBtn.setAttribute('aria-expanded', dropdown.classList.contains('open'));
+        });
+        document.addEventListener('click', function(e) {
+            if (!dropdown.contains(e.target)) {
+                dropdown.classList.remove('open');
+                dropdownBtn.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
+
     const levelButtons = document.querySelectorAll('.level-btn');
 
     if (levelButtons.length > 0) {
