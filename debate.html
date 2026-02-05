@@ -284,6 +284,63 @@
             background: var(--bg-warm);
         }
 
+        /* ARGUMENT SORT INTEGRATION */
+        .sort-redirect-banner {
+            background: #fef3c7;
+            border: 2px solid #f59e0b;
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+        .sort-redirect-banner p {
+            margin: 0 0 10px;
+            color: #92400e;
+        }
+        .sort-redirect-banner .btn {
+            display: inline-block;
+            padding: 10px 24px;
+            background: #f59e0b;
+            color: #fff;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        .sort-redirect-banner .btn:hover {
+            background: #d97706;
+        }
+
+        .arg-sort-reference {
+            background: #f0f4ff;
+            border-left: 4px solid var(--primary-dark);
+            border-radius: 0 8px 8px 0;
+            padding: 12px 16px;
+            margin-bottom: 12px;
+        }
+        .arg-sort-reference.rebuttal-ref {
+            background: #fffbeb;
+            border-left-color: #f59e0b;
+        }
+        .arg-sort-label {
+            display: inline-block;
+            font-size: 0.75em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--primary-dark);
+            margin-bottom: 6px;
+        }
+        .arg-sort-reference.rebuttal-ref .arg-sort-label {
+            color: #92400e;
+        }
+        .arg-sort-text {
+            margin: 0;
+            font-style: italic;
+            color: #333;
+            line-height: 1.5;
+        }
+
         /* ASSEMBLED PREVIEW */
         .assembled-preview {
             background: var(--bg-white);
@@ -1071,7 +1128,7 @@
                 <div class="debate-section" id="tab-arguments">
                     <div class="ev-writing-ref" id="ev-arg-reference" style="display: none;"></div>
                     <div class="alert-info" style="margin-top: 0;">
-                        Build at least 3 arguments for your side. Each argument should include your claim and supporting evidence from the case. Use facts from your research.
+                        Below are the arguments you sorted to your side. Choose the strongest ones and explain how each supports your case using evidence and facts from your research.
                     </div>
 
                     <div id="arguments-container"></div>
@@ -1091,7 +1148,7 @@
                 <div class="debate-section" id="tab-rebuttals">
                     <div class="ev-writing-ref" id="ev-rebuttals-reference" style="display: none;"></div>
                     <div class="alert-info" style="margin-top: 0;">
-                        Think about what the other side will argue. For each of their likely arguments, prepare a rebuttal — explain why their argument is weak or why yours is stronger.
+                        Below are the arguments sorted to the other side. For each one, write a rebuttal explaining why that argument is weak, incomplete, or incorrect.
                     </div>
 
                     <div id="rebuttals-container"></div>
@@ -1259,7 +1316,7 @@
     <footer>
         <div class="container">
             <p>SCOTUS Debate Project — A Student Resource for Understanding the Supreme Court</p>
-            <p class="site-version">v1.12.0</p>
+            <p class="site-version">v1.13.0</p>
         </div>
     </footer>
 
@@ -1416,9 +1473,28 @@
         // Init evidence panel (Your Evidence tab)
         initEvidencePanel(selectedCase, selectedSide);
 
-        // Init arguments and rebuttals
-        initArguments();
-        initRebuttals();
+        // Compute argument sort data for arguments/rebuttals tabs
+        var ck = getCaseFileKey(selectedCase);
+        var args = (typeof argumentData !== 'undefined') ? (argumentData[ck] || []) : [];
+        var argSort = null;
+        try { argSort = JSON.parse(localStorage.getItem('scotus-sort-' + ck)); } catch(e) {}
+        var codeMap = (typeof argSortCodeMap !== 'undefined') ? (argSortCodeMap[ck] || {}) : {};
+        var otherSideKey = selectedSide === 'petitioner' ? 'respondent' : 'petitioner';
+        var myArgs = [];
+        var otherArgs = [];
+        var hasArgSort = !!(argSort && args.length);
+        if (hasArgSort) {
+            for (var i = 0; i < args.length; i++) {
+                var tSide = codeMap[argSort[i]] || argSort[i];
+                if (tSide === selectedSide) myArgs.push({ index: i, text: args[i] });
+                else if (tSide === otherSideKey) otherArgs.push({ index: i, text: args[i] });
+            }
+        }
+        var caseLink = c.caseLink || '';
+
+        // Init arguments and rebuttals with sort data
+        initArguments(myArgs, caseLink, hasArgSort);
+        initRebuttals(otherArgs, caseLink, hasArgSort);
 
         // Update vault link to point to selected case
         updateVaultLink();
@@ -1434,24 +1510,9 @@
 
         // Update writing references + evidence drawer from saved ranks
         setTimeout(function() {
-            var ck = getCaseFileKey(selectedCase);
             if (ck) {
                 var rk = 'scotus-debate-ranks-' + ck + '-' + selectedSide;
                 var ranks = loadRanks(rk);
-                var args = argumentData[ck] || [];
-                var argSort = null;
-                try { argSort = JSON.parse(localStorage.getItem('scotus-sort-' + ck)); } catch(e) {}
-                var codeMap = (typeof argSortCodeMap !== 'undefined') ? (argSortCodeMap[ck] || {}) : {};
-                var otherSideKey = selectedSide === 'petitioner' ? 'respondent' : 'petitioner';
-                var myArgs = [];
-                var otherArgs = [];
-                if (argSort && args.length) {
-                    for (var i = 0; i < args.length; i++) {
-                        var tSide = codeMap[argSort[i]] || argSort[i];
-                        if (tSide === selectedSide) myArgs.push({ index: i, text: args[i] });
-                        else if (tSide === otherSideKey) otherArgs.push({ index: i, text: args[i] });
-                    }
-                }
                 var eSortData = (typeof evidenceSortData !== 'undefined') ? evidenceSortData[ck] : null;
                 var eSort = null;
                 try { eSort = JSON.parse(localStorage.getItem('scotus-esort-' + ck)); } catch(e) {}
@@ -1528,27 +1589,61 @@
     // ==========================================
     // ARGUMENTS BUILDER
     // ==========================================
-    function initArguments() {
+    function initArguments(myArgs, caseLink, hasArgSort) {
         const container = document.getElementById('arguments-container');
         container.innerHTML = '';
-        argCount = 3;
-        for (let i = 1; i <= 3; i++) {
-            container.innerHTML += buildArgRow(i);
+        const addBtn = document.getElementById('add-arg-btn');
+
+        if (!hasArgSort) {
+            // No argument sort done — show redirect
+            container.innerHTML = `
+                <div class="sort-redirect-banner">
+                    <p><strong>Complete your argument sort first!</strong></p>
+                    <p>Before writing arguments, you need to sort the arguments on your case page.</p>
+                    <a href="${escHtml(caseLink)}#activity" class="btn">Go to Argument Sort &rarr;</a>
+                </div>`;
+            argCount = 0;
+            if (addBtn) addBtn.style.display = 'none';
+            return;
+        }
+
+        if (addBtn) addBtn.style.display = '';
+
+        if (myArgs.length === 0) {
+            container.innerHTML = '<div class="alert-info">No arguments were sorted to your side. You can add your own arguments below.</div>';
+            argCount = 0;
+        } else {
+            argCount = myArgs.length;
+            for (let i = 0; i < myArgs.length; i++) {
+                container.innerHTML += buildArgRow(i + 1, myArgs[i].text);
+            }
         }
     }
 
-    function buildArgRow(num) {
+    function buildArgRow(num, argText) {
+        var ordinals = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth'];
+        var ordinal = ordinals[num - 1] || 'next';
+
+        var argRef = '';
+        if (argText) {
+            argRef = '<div class="arg-sort-reference">' +
+                '<span class="arg-sort-label">From your argument sort:</span>' +
+                '<p class="arg-sort-text">\u201C' + escHtml(argText) + '\u201D</p>' +
+                '</div>';
+        }
+
         return `<div class="arg-row" id="arg-row-${num}">
             <div class="arg-row-header">
                 <div class="arg-number">${num}</div>
                 <h4>Argument ${num}</h4>
             </div>
+            ${argRef}
             <div class="starters-list">
                 <p>Sentence starters:</p>
-                <button class="starter-option" onclick="useDebateStarter(this, 'arg-${num}')">Our ${num === 1 ? 'first' : num === 2 ? 'second' : num === 3 ? 'third' : 'next'} argument is that _____. This is supported by the fact that _____.</button>
+                <button class="starter-option" onclick="useDebateStarter(this, 'arg-${num}')">Our ${ordinal} argument is that _____. This is supported by the fact that _____.</button>
                 <button class="starter-option" onclick="useDebateStarter(this, 'arg-${num}')">The evidence shows that _____. This matters because _____.</button>
             </div>
-            <textarea class="debate-textarea" id="arg-${num}" data-field="arg-${num}" placeholder="Write argument ${num} here — state your claim and support it with evidence from the case..."></textarea>
+            <textarea class="debate-textarea" id="arg-${num}" data-field="arg-${num}" placeholder="Explain how this argument supports your side using evidence from the case..."></textarea>
         </div>`;
     }
 
@@ -1559,39 +1654,74 @@
         // Attach auto-save to new textarea
         const newTa = document.getElementById('arg-' + argCount);
         if (newTa) newTa.addEventListener('input', autoSave);
-        newTa.focus();
+        if (newTa) newTa.focus();
     }
 
     // ==========================================
     // REBUTTALS BUILDER
     // ==========================================
-    function initRebuttals() {
+    function initRebuttals(otherArgs, caseLink, hasArgSort) {
         const container = document.getElementById('rebuttals-container');
         container.innerHTML = '';
-        rebuttalCount = 3;
-        for (let i = 1; i <= 3; i++) {
-            container.innerHTML += buildRebuttalRow(i);
+        const addBtn = document.getElementById('add-rebuttal-btn');
+
+        if (!hasArgSort) {
+            // No argument sort done — show redirect
+            container.innerHTML = `
+                <div class="sort-redirect-banner">
+                    <p><strong>Complete your argument sort first!</strong></p>
+                    <p>Before preparing rebuttals, you need to sort the arguments on your case page.</p>
+                    <a href="${escHtml(caseLink)}#activity" class="btn">Go to Argument Sort &rarr;</a>
+                </div>`;
+            rebuttalCount = 0;
+            if (addBtn) addBtn.style.display = 'none';
+            return;
+        }
+
+        if (addBtn) addBtn.style.display = '';
+
+        if (otherArgs.length === 0) {
+            container.innerHTML = '<div class="alert-info">No arguments were sorted to the other side. You can add your own rebuttals below.</div>';
+            rebuttalCount = 0;
+        } else {
+            rebuttalCount = otherArgs.length;
+            for (let i = 0; i < otherArgs.length; i++) {
+                container.innerHTML += buildRebuttalRow(i + 1, otherArgs[i].text);
+            }
         }
     }
 
-    function buildRebuttalRow(num) {
+    function buildRebuttalRow(num, argText) {
+        var theirArgSection = '';
+        if (argText) {
+            // Show the other side's argument as a fixed reference
+            var safeVal = escHtml(argText).replace(/"/g, '&quot;');
+            theirArgSection = '<div class="arg-sort-reference rebuttal-ref">' +
+                '<span class="arg-sort-label">The other side will argue:</span>' +
+                '<p class="arg-sort-text">\u201C' + escHtml(argText) + '\u201D</p>' +
+                '</div>' +
+                '<input type="hidden" id="rebuttal-their-' + num + '" data-field="rebuttal-their-' + num + '" value="' + safeVal + '">';
+        } else {
+            // Generic rebuttal row (for manually added rebuttals)
+            theirArgSection = `<p class="instruction" style="margin-bottom: 8px;">What will the other side argue?</p>
+            <div class="starters-list">
+                <button class="starter-option" onclick="useDebateStarter(this, 'rebuttal-their-${num}')">The other side will argue that _____.</button>
+            </div>
+            <textarea class="debate-textarea" id="rebuttal-their-${num}" data-field="rebuttal-their-${num}" placeholder="What the other side will say..." style="min-height: 70px;"></textarea>`;
+        }
+
         return `<div class="arg-row" id="rebuttal-row-${num}" style="border-left: 4px solid #f59e0b;">
             <div class="arg-row-header">
                 <div class="arg-number" style="background: #f59e0b;">${num}</div>
                 <h4>Rebuttal ${num}</h4>
             </div>
-            <p class="instruction" style="margin-bottom: 8px;">What will the other side argue?</p>
-            <div class="starters-list">
-                <button class="starter-option" onclick="useDebateStarter(this, 'rebuttal-their-${num}')">The other side will argue that _____.</button>
-            </div>
-            <textarea class="debate-textarea" id="rebuttal-their-${num}" data-field="rebuttal-their-${num}" placeholder="What the other side will say..." style="min-height: 70px;"></textarea>
-
-            <p class="instruction" style="margin-top: 14px; margin-bottom: 8px;">Your response — why is their argument weak?</p>
+            ${theirArgSection}
+            <p class="instruction" style="margin-top: 14px; margin-bottom: 8px;">Your response — why is this argument weak or incorrect?</p>
             <div class="starters-list">
                 <button class="starter-option" onclick="useDebateStarter(this, 'rebuttal-mine-${num}')">However, this argument fails because _____.</button>
                 <button class="starter-option" onclick="useDebateStarter(this, 'rebuttal-mine-${num}')">While the other side claims _____, the evidence actually shows that _____.</button>
             </div>
-            <textarea class="debate-textarea" id="rebuttal-mine-${num}" data-field="rebuttal-mine-${num}" placeholder="Your counter-argument..." style="min-height: 70px;"></textarea>
+            <textarea class="debate-textarea" id="rebuttal-mine-${num}" data-field="rebuttal-mine-${num}" placeholder="Your counter-argument — explain why this argument is wrong or weak..." style="min-height: 70px;"></textarea>
         </div>`;
     }
 
@@ -1603,7 +1733,12 @@
         document.querySelectorAll(`#rebuttal-row-${rebuttalCount} textarea`).forEach(ta => {
             ta.addEventListener('input', autoSave);
         });
-        document.getElementById('rebuttal-their-' + rebuttalCount).focus();
+        var focusEl = document.getElementById('rebuttal-their-' + rebuttalCount);
+        if (focusEl && focusEl.tagName === 'TEXTAREA') focusEl.focus();
+        else {
+            focusEl = document.getElementById('rebuttal-mine-' + rebuttalCount);
+            if (focusEl) focusEl.focus();
+        }
     }
 
     // ==========================================
@@ -1856,30 +1991,37 @@
             if (el && data[id]) el.value = data[id];
         });
 
-        // Arguments — rebuild if more than 3
-        if (data.argCount && data.argCount > 3) {
-            for (let i = 4; i <= data.argCount; i++) {
-                addArgument();
+        // Arguments — skip if redirect banner is showing (no sort done)
+        var argContainer = document.getElementById('arguments-container');
+        if (!argContainer || !argContainer.querySelector('.sort-redirect-banner')) {
+            // Add extra rows if saved count exceeds sort-based rows
+            if (data.argCount && data.argCount > argCount) {
+                for (let i = argCount + 1; i <= data.argCount; i++) {
+                    addArgument();
+                }
             }
-        }
-        argCount = data.argCount || 3;
-        for (let i = 1; i <= argCount; i++) {
-            const el = document.getElementById('arg-' + i);
-            if (el && data['arg-' + i]) el.value = data['arg-' + i];
+            for (let i = 1; i <= argCount; i++) {
+                const el = document.getElementById('arg-' + i);
+                if (el && data['arg-' + i]) el.value = data['arg-' + i];
+            }
         }
 
-        // Rebuttals — rebuild if more than 3
-        if (data.rebuttalCount && data.rebuttalCount > 3) {
-            for (let i = 4; i <= data.rebuttalCount; i++) {
-                addRebuttal();
+        // Rebuttals — skip if redirect banner is showing (no sort done)
+        var rebContainer = document.getElementById('rebuttals-container');
+        if (!rebContainer || !rebContainer.querySelector('.sort-redirect-banner')) {
+            // Add extra rows if saved count exceeds sort-based rows
+            if (data.rebuttalCount && data.rebuttalCount > rebuttalCount) {
+                for (let i = rebuttalCount + 1; i <= data.rebuttalCount; i++) {
+                    addRebuttal();
+                }
             }
-        }
-        rebuttalCount = data.rebuttalCount || 3;
-        for (let i = 1; i <= rebuttalCount; i++) {
-            const their = document.getElementById('rebuttal-their-' + i);
-            const mine = document.getElementById('rebuttal-mine-' + i);
-            if (their && data['rebuttal-their-' + i]) their.value = data['rebuttal-their-' + i];
-            if (mine && data['rebuttal-mine-' + i]) mine.value = data['rebuttal-mine-' + i];
+            for (let i = 1; i <= rebuttalCount; i++) {
+                const their = document.getElementById('rebuttal-their-' + i);
+                const mine = document.getElementById('rebuttal-mine-' + i);
+                // Don't overwrite hidden inputs (sort-driven "their" arguments)
+                if (their && their.type !== 'hidden' && data['rebuttal-their-' + i]) their.value = data['rebuttal-their-' + i];
+                if (mine && data['rebuttal-mine-' + i]) mine.value = data['rebuttal-mine-' + i];
+            }
         }
 
         // Sources — rebuild if more than 2
