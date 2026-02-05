@@ -328,6 +328,19 @@ document.addEventListener('DOMContentLoaded', function() {
             // Unlock Evidence Vault
             unlockVault();
             saveVaultUnlock();
+
+            // Add "Continue to Debate Prep" CTA if not already shown
+            if (!buttonContainer.querySelector('.debate-prep-cta')) {
+                var ctaLink = document.createElement('a');
+                ctaLink.href = '../debate.html';
+                ctaLink.className = 'debate-prep-cta';
+                ctaLink.textContent = 'Continue to Debate Prep \u2192';
+                ctaLink.style.cssText = 'display: inline-block; margin-top: 12px; padding: 12px 28px; background: #6366f1; color: #fff; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 1em; transition: background 0.2s;';
+                ctaLink.addEventListener('mouseenter', function() { this.style.background = '#4f46e5'; });
+                ctaLink.addEventListener('mouseleave', function() { this.style.background = '#6366f1'; });
+                buttonContainer.appendChild(document.createElement('br'));
+                buttonContainer.appendChild(ctaLink);
+            }
         });
         
         // Show answer key

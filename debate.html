@@ -341,6 +341,91 @@
             line-height: 1.5;
         }
 
+        /* SELECTABLE ARGUMENT CARDS */
+        .arg-row.arg-selectable {
+            border-color: #e2e8f0;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .arg-row.arg-selectable:hover {
+            border-color: var(--primary-dark);
+            box-shadow: 0 2px 8px rgba(99, 102, 241, 0.1);
+        }
+        .arg-row.arg-selectable.rebuttal-selectable:hover {
+            border-color: #f59e0b;
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.1);
+        }
+        .arg-row.arg-selected-active {
+            border-color: var(--primary-dark);
+            background: #fafbff;
+        }
+        .arg-row.arg-selected-active.rebuttal-selectable {
+            border-color: #f59e0b;
+            background: #fffdf7;
+        }
+        .arg-select-checkbox {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .arg-select-input {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--primary-dark);
+        }
+        .rebuttal-selectable .arg-select-input {
+            accent-color: #f59e0b;
+        }
+        .arg-write-section {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+        }
+        .arg-selection-counter {
+            display: inline-block;
+            padding: 6px 14px;
+            background: #fee2e2;
+            color: #991b1b;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        .arg-selection-counter.met {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        /* TAB GATING */
+        .tab-gated-banner {
+            background: #f1f5f9;
+            border: 2px solid #cbd5e1;
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+        .tab-gated-banner p {
+            margin: 0 0 10px;
+            color: #475569;
+        }
+        .tab-gated-banner .btn {
+            display: inline-block;
+            padding: 10px 24px;
+            background: var(--primary-dark);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .tab-gated-banner .btn:hover {
+            background: var(--primary);
+        }
+
         /* ASSEMBLED PREVIEW */
         .assembled-preview {
             background: var(--bg-white);
@@ -1014,17 +1099,17 @@
                         <div>Your Evidence</div>
                         <div class="tab-sub">Review &amp; rank</div>
                     </button>
-                    <button class="debate-tab" onclick="showDebateTab('opening')">
-                        <div>Opening Statement</div>
-                        <div class="tab-sub">Introduce your case</div>
-                    </button>
                     <button class="debate-tab" onclick="showDebateTab('arguments')">
                         <div>Arguments</div>
-                        <div class="tab-sub">Build 3+ arguments</div>
+                        <div class="tab-sub">Pick your top 3</div>
                     </button>
                     <button class="debate-tab" onclick="showDebateTab('rebuttals')">
                         <div>Rebuttals</div>
                         <div class="tab-sub">Counter the other side</div>
+                    </button>
+                    <button class="debate-tab" onclick="showDebateTab('opening')">
+                        <div>Opening Statement</div>
+                        <div class="tab-sub">Introduce your case</div>
                     </button>
                     <button class="debate-tab" onclick="showDebateTab('sources')">
                         <div>Sources</div>
@@ -1041,6 +1126,7 @@
 
                 <!-- ========== OPENING STATEMENT ========== -->
                 <div class="debate-section" id="tab-opening">
+                    <div class="tab-gated-banner" id="opening-gated-banner" style="display: none;"></div>
                     <div class="ev-writing-ref" id="ev-opening-reference" style="display: none;"></div>
                     <div class="alert-info" style="margin-top: 0;">
                         Your opening statement introduces you, your client, the case background, each side's constitutional claim, why this case matters, and a preview of your arguments.
@@ -1128,7 +1214,7 @@
                 <div class="debate-section" id="tab-arguments">
                     <div class="ev-writing-ref" id="ev-arg-reference" style="display: none;"></div>
                     <div class="alert-info" style="margin-top: 0;">
-                        Below are the arguments you sorted to your side. Choose the strongest ones and explain how each supports your case using evidence and facts from your research.
+                        Select your <strong>3 strongest arguments</strong> from the ones you sorted to your side. Check the box next to each one, then explain how it supports your case. You can select more if you have time.
                     </div>
 
                     <div id="arguments-container"></div>
@@ -1148,7 +1234,7 @@
                 <div class="debate-section" id="tab-rebuttals">
                     <div class="ev-writing-ref" id="ev-rebuttals-reference" style="display: none;"></div>
                     <div class="alert-info" style="margin-top: 0;">
-                        Below are the arguments sorted to the other side. For each one, write a rebuttal explaining why that argument is weak, incomplete, or incorrect.
+                        Select the <strong>3 strongest arguments the other side will use</strong>. Check the box next to each one, then write your counter-argument explaining why it's weak or incorrect. You can select more if you have time.
                     </div>
 
                     <div id="rebuttals-container"></div>
@@ -1215,6 +1301,7 @@
 
                 <!-- ========== CLOSING STATEMENT ========== -->
                 <div class="debate-section" id="tab-closing">
+                    <div class="tab-gated-banner" id="closing-gated-banner" style="display: none;"></div>
                     <div class="ev-writing-ref" id="ev-closing-reference" style="display: none;"></div>
                     <div class="alert-info" style="margin-top: 0;">
                         Your closing statement summarizes your strongest arguments and makes a final appeal to the justices. This is your last chance to convince them.
@@ -1316,7 +1403,7 @@
     <footer>
         <div class="container">
             <p>SCOTUS Debate Project — A Student Resource for Understanding the Supreme Court</p>
-            <p class="site-version">v1.13.0</p>
+            <p class="site-version">v1.14.0</p>
         </div>
     </footer>
 
@@ -1548,8 +1635,49 @@
     // TAB NAVIGATION
     // ==========================================
     function showDebateTab(tabName) {
+        var tabs = ['evidence', 'arguments', 'rebuttals', 'opening', 'sources', 'closing'];
+
+        // Gating: Opening requires 3+ args and 3+ rebuttals selected
+        if (tabName === 'opening') {
+            var selArgs = document.querySelectorAll('#arguments-container .arg-select-input:checked').length;
+            var selRebs = document.querySelectorAll('#rebuttals-container .arg-select-input:checked').length;
+            var argsWritten = 0, rebsWritten = 0;
+            document.querySelectorAll('#arguments-container .arg-select-input:checked').forEach(function(cb) {
+                var n = cb.getAttribute('data-arg-num');
+                var ta = document.getElementById('arg-' + n);
+                if (ta && ta.value.trim()) argsWritten++;
+            });
+            document.querySelectorAll('#rebuttals-container .arg-select-input:checked').forEach(function(cb) {
+                var n = cb.getAttribute('data-arg-num');
+                var ta = document.getElementById('rebuttal-mine-' + n);
+                if (ta && ta.value.trim()) rebsWritten++;
+            });
+            if (selArgs < 3 || selRebs < 3 || argsWritten < 3 || rebsWritten < 3) {
+                showGatedBanner('opening', argsWritten, rebsWritten);
+            } else {
+                clearGatedBanner('opening');
+                populateArgReferences();
+            }
+        }
+
+        // Gating: Closing requires opening + args + rebuttals
+        if (tabName === 'closing') {
+            var openingStarted = false;
+            ['opening-intro', 'opening-background', 'opening-claims'].forEach(function(id) {
+                var el = document.getElementById(id);
+                if (el && el.value.trim()) openingStarted = true;
+            });
+            var selArgs2 = document.querySelectorAll('#arguments-container .arg-select-input:checked').length;
+            var selRebs2 = document.querySelectorAll('#rebuttals-container .arg-select-input:checked').length;
+            if (!openingStarted || selArgs2 < 3 || selRebs2 < 3) {
+                showGatedBanner('closing', null, null, openingStarted);
+            } else {
+                clearGatedBanner('closing');
+                populateArgReferences();
+            }
+        }
+
         document.querySelectorAll('.debate-tab').forEach((t, i) => {
-            const tabs = ['evidence', 'opening', 'arguments', 'rebuttals', 'sources', 'closing'];
             t.classList.toggle('active', tabs[i] === tabName);
         });
         document.querySelectorAll('.debate-section').forEach(s => s.classList.remove('active'));
@@ -1563,6 +1691,81 @@
         // Close drawer when switching to evidence tab
         if (tabName === 'evidence') {
             toggleEvidenceDrawer(false);
+        }
+    }
+
+    function showGatedBanner(tab, argsCount, rebsCount, openingStarted) {
+        var container, msg;
+        if (tab === 'opening') {
+            container = document.getElementById('opening-gated-banner');
+            var needs = [];
+            if (argsCount < 3) needs.push('write ' + (3 - argsCount) + ' more argument' + (3 - argsCount > 1 ? 's' : ''));
+            if (rebsCount < 3) needs.push('write ' + (3 - rebsCount) + ' more rebuttal' + (3 - rebsCount > 1 ? 's' : ''));
+            msg = '<p><strong>Prepare your arguments and rebuttals first!</strong></p>' +
+                '<p>You need to ' + needs.join(' and ') + ' before writing your opening statement.</p>' +
+                '<button class="btn" onclick="showDebateTab(\'arguments\')">Go to Arguments &rarr;</button>';
+        } else {
+            container = document.getElementById('closing-gated-banner');
+            var needs2 = [];
+            if (!openingStarted) needs2.push('your opening statement');
+            needs2.push('your arguments and rebuttals');
+            msg = '<p><strong>Complete earlier sections first!</strong></p>' +
+                '<p>Finish ' + needs2.join(' and ') + ' before writing your closing statement.</p>' +
+                '<button class="btn" onclick="showDebateTab(\'opening\')">Go to Opening Statement &rarr;</button>';
+        }
+        if (container) {
+            container.innerHTML = msg;
+            container.style.display = '';
+        }
+    }
+
+    function clearGatedBanner(tab) {
+        var id = tab === 'opening' ? 'opening-gated-banner' : 'closing-gated-banner';
+        var el = document.getElementById(id);
+        if (el) { el.innerHTML = ''; el.style.display = 'none'; }
+    }
+
+    function populateArgReferences() {
+        // Populate key arguments on Opening and Closing tabs
+        var argTexts = [];
+        document.querySelectorAll('#arguments-container .arg-select-input:checked').forEach(function(cb) {
+            var n = cb.getAttribute('data-arg-num');
+            var ta = document.getElementById('arg-' + n);
+            if (ta && ta.value.trim()) argTexts.push(ta.value.trim());
+        });
+        var rebTexts = [];
+        document.querySelectorAll('#rebuttals-container .arg-select-input:checked').forEach(function(cb) {
+            var n = cb.getAttribute('data-arg-num');
+            var ta = document.getElementById('rebuttal-mine-' + n);
+            if (ta && ta.value.trim()) rebTexts.push(ta.value.trim());
+        });
+
+        // Opening: show args as reference for "Preview of Arguments" section
+        var openRef = document.getElementById('ev-opening-reference');
+        if (openRef && argTexts.length) {
+            var h = '<strong>Your key arguments (for reference):</strong><ul style="margin: 8px 0 0; padding-left: 20px;">';
+            argTexts.forEach(function(t) { h += '<li style="margin-bottom: 6px;">' + escHtml(t.substring(0, 150)) + (t.length > 150 ? '...' : '') + '</li>'; });
+            h += '</ul>';
+            openRef.innerHTML = h;
+            openRef.style.display = '';
+        }
+
+        // Closing: show args + rebuttals for reference
+        var closeRef = document.getElementById('ev-closing-reference');
+        if (closeRef && (argTexts.length || rebTexts.length)) {
+            var h2 = '';
+            if (argTexts.length) {
+                h2 += '<strong>Your key arguments:</strong><ul style="margin: 8px 0 12px; padding-left: 20px;">';
+                argTexts.forEach(function(t) { h2 += '<li style="margin-bottom: 6px;">' + escHtml(t.substring(0, 150)) + (t.length > 150 ? '...' : '') + '</li>'; });
+                h2 += '</ul>';
+            }
+            if (rebTexts.length) {
+                h2 += '<strong>Your key rebuttals:</strong><ul style="margin: 8px 0 0; padding-left: 20px;">';
+                rebTexts.forEach(function(t) { h2 += '<li style="margin-bottom: 6px;">' + escHtml(t.substring(0, 150)) + (t.length > 150 ? '...' : '') + '</li>'; });
+                h2 += '</ul>';
+            }
+            closeRef.innerHTML = h2;
+            closeRef.style.display = '';
         }
     }
 
@@ -1595,7 +1798,6 @@
         const addBtn = document.getElementById('add-arg-btn');
 
         if (!hasArgSort) {
-            // No argument sort done — show redirect
             container.innerHTML = `
                 <div class="sort-redirect-banner">
                     <p><strong>Complete your argument sort first!</strong></p>
@@ -1613,6 +1815,8 @@
             container.innerHTML = '<div class="alert-info">No arguments were sorted to your side. You can add your own arguments below.</div>';
             argCount = 0;
         } else {
+            // Selection counter
+            container.innerHTML = '<div class="arg-selection-counter" id="arg-counter">0 of 3 selected</div>';
             argCount = myArgs.length;
             for (let i = 0; i < myArgs.length; i++) {
                 container.innerHTML += buildArgRow(i + 1, myArgs[i].text);
@@ -1621,37 +1825,72 @@
     }
 
     function buildArgRow(num, argText) {
-        var ordinals = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth'];
-        var ordinal = ordinals[num - 1] || 'next';
-
-        var argRef = '';
+        // argText present = from sort (selectable), absent = custom (always expanded)
         if (argText) {
-            argRef = '<div class="arg-sort-reference">' +
-                '<span class="arg-sort-label">From your argument sort:</span>' +
-                '<p class="arg-sort-text">\u201C' + escHtml(argText) + '\u201D</p>' +
-                '</div>';
+            return '<div class="arg-row arg-selectable" id="arg-row-' + num + '">' +
+                '<div class="arg-row-header">' +
+                    '<label class="arg-select-checkbox"><input type="checkbox" class="arg-select-input" data-arg-num="' + num + '" onchange="toggleArgSelect(this)"></label>' +
+                    '<div class="arg-number">' + num + '</div>' +
+                    '<h4>Argument ' + num + '</h4>' +
+                '</div>' +
+                '<div class="arg-sort-reference">' +
+                    '<span class="arg-sort-label">From your argument sort:</span>' +
+                    '<p class="arg-sort-text">\u201C' + escHtml(argText) + '\u201D</p>' +
+                '</div>' +
+                '<div class="arg-write-section" style="display:none;">' +
+                    '<div class="starters-list">' +
+                        '<p>Sentence starters:</p>' +
+                        '<button class="starter-option" onclick="useDebateStarter(this, \'arg-' + num + '\')">This argument supports our case because _____. The evidence shows that _____.</button>' +
+                        '<button class="starter-option" onclick="useDebateStarter(this, \'arg-' + num + '\')">This is important because _____. It proves that _____.</button>' +
+                    '</div>' +
+                    '<textarea class="debate-textarea" id="arg-' + num + '" data-field="arg-' + num + '" placeholder="Explain how this argument supports your side using evidence from the case..."></textarea>' +
+                '</div>' +
+            '</div>';
         }
 
+        // Custom argument row (no sort reference, always expanded)
         return `<div class="arg-row" id="arg-row-${num}">
             <div class="arg-row-header">
                 <div class="arg-number">${num}</div>
                 <h4>Argument ${num}</h4>
             </div>
-            ${argRef}
             <div class="starters-list">
                 <p>Sentence starters:</p>
-                <button class="starter-option" onclick="useDebateStarter(this, 'arg-${num}')">Our ${ordinal} argument is that _____. This is supported by the fact that _____.</button>
+                <button class="starter-option" onclick="useDebateStarter(this, 'arg-${num}')">Our argument is that _____. This is supported by the fact that _____.</button>
                 <button class="starter-option" onclick="useDebateStarter(this, 'arg-${num}')">The evidence shows that _____. This matters because _____.</button>
             </div>
-            <textarea class="debate-textarea" id="arg-${num}" data-field="arg-${num}" placeholder="Explain how this argument supports your side using evidence from the case..."></textarea>
+            <textarea class="debate-textarea" id="arg-${num}" data-field="arg-${num}" placeholder="Write your argument here..."></textarea>
         </div>`;
+    }
+
+    function toggleArgSelect(cb) {
+        var num = cb.getAttribute('data-arg-num');
+        var row = document.getElementById('arg-row-' + num);
+        var writeSection = row.querySelector('.arg-write-section');
+        if (cb.checked) {
+            row.classList.add('arg-selected-active');
+            writeSection.style.display = '';
+        } else {
+            row.classList.remove('arg-selected-active');
+            writeSection.style.display = 'none';
+        }
+        updateArgSelectionCount();
+        autoSave();
+    }
+
+    function updateArgSelectionCount() {
+        var checked = document.querySelectorAll('#arguments-container .arg-select-input:checked').length;
+        var counter = document.getElementById('arg-counter');
+        if (counter) {
+            counter.textContent = checked + ' of 3 selected';
+            counter.className = 'arg-selection-counter' + (checked >= 3 ? ' met' : '');
+        }
     }
 
     function addArgument() {
         argCount++;
         const container = document.getElementById('arguments-container');
         container.insertAdjacentHTML('beforeend', buildArgRow(argCount));
-        // Attach auto-save to new textarea
         const newTa = document.getElementById('arg-' + argCount);
         if (newTa) newTa.addEventListener('input', autoSave);
         if (newTa) newTa.focus();
@@ -1666,7 +1905,6 @@
         const addBtn = document.getElementById('add-rebuttal-btn');
 
         if (!hasArgSort) {
-            // No argument sort done — show redirect
             container.innerHTML = `
                 <div class="sort-redirect-banner">
                     <p><strong>Complete your argument sort first!</strong></p>
@@ -1684,6 +1922,7 @@
             container.innerHTML = '<div class="alert-info">No arguments were sorted to the other side. You can add your own rebuttals below.</div>';
             rebuttalCount = 0;
         } else {
+            container.innerHTML = '<div class="arg-selection-counter" id="rebuttal-counter">0 of 3 selected</div>';
             rebuttalCount = otherArgs.length;
             for (let i = 0; i < otherArgs.length; i++) {
                 container.innerHTML += buildRebuttalRow(i + 1, otherArgs[i].text);
@@ -1692,44 +1931,78 @@
     }
 
     function buildRebuttalRow(num, argText) {
-        var theirArgSection = '';
         if (argText) {
-            // Show the other side's argument as a fixed reference
             var safeVal = escHtml(argText).replace(/"/g, '&quot;');
-            theirArgSection = '<div class="arg-sort-reference rebuttal-ref">' +
-                '<span class="arg-sort-label">The other side will argue:</span>' +
-                '<p class="arg-sort-text">\u201C' + escHtml(argText) + '\u201D</p>' +
+            return '<div class="arg-row arg-selectable rebuttal-selectable" id="rebuttal-row-' + num + '" style="border-left: 4px solid #f59e0b;">' +
+                '<div class="arg-row-header">' +
+                    '<label class="arg-select-checkbox"><input type="checkbox" class="arg-select-input" data-arg-num="' + num + '" onchange="toggleRebuttalSelect(this)"></label>' +
+                    '<div class="arg-number" style="background: #f59e0b;">' + num + '</div>' +
+                    '<h4>Rebuttal ' + num + '</h4>' +
                 '</div>' +
-                '<input type="hidden" id="rebuttal-their-' + num + '" data-field="rebuttal-their-' + num + '" value="' + safeVal + '">';
-        } else {
-            // Generic rebuttal row (for manually added rebuttals)
-            theirArgSection = `<p class="instruction" style="margin-bottom: 8px;">What will the other side argue?</p>
-            <div class="starters-list">
-                <button class="starter-option" onclick="useDebateStarter(this, 'rebuttal-their-${num}')">The other side will argue that _____.</button>
-            </div>
-            <textarea class="debate-textarea" id="rebuttal-their-${num}" data-field="rebuttal-their-${num}" placeholder="What the other side will say..." style="min-height: 70px;"></textarea>`;
+                '<div class="arg-sort-reference rebuttal-ref">' +
+                    '<span class="arg-sort-label">The other side will argue:</span>' +
+                    '<p class="arg-sort-text">\u201C' + escHtml(argText) + '\u201D</p>' +
+                '</div>' +
+                '<input type="hidden" id="rebuttal-their-' + num + '" data-field="rebuttal-their-' + num + '" value="' + safeVal + '">' +
+                '<div class="arg-write-section" style="display:none;">' +
+                    '<p class="instruction" style="margin-bottom: 8px;">Your response — why is this argument weak or incorrect?</p>' +
+                    '<div class="starters-list">' +
+                        '<button class="starter-option" onclick="useDebateStarter(this, \'rebuttal-mine-' + num + '\')">However, this argument fails because _____.</button>' +
+                        '<button class="starter-option" onclick="useDebateStarter(this, \'rebuttal-mine-' + num + '\')">While the other side claims _____, the evidence actually shows that _____.</button>' +
+                    '</div>' +
+                    '<textarea class="debate-textarea" id="rebuttal-mine-' + num + '" data-field="rebuttal-mine-' + num + '" placeholder="Your counter-argument — explain why this argument is wrong or weak..." style="min-height: 70px;"></textarea>' +
+                '</div>' +
+            '</div>';
         }
 
+        // Generic custom rebuttal (always expanded)
         return `<div class="arg-row" id="rebuttal-row-${num}" style="border-left: 4px solid #f59e0b;">
             <div class="arg-row-header">
                 <div class="arg-number" style="background: #f59e0b;">${num}</div>
                 <h4>Rebuttal ${num}</h4>
             </div>
-            ${theirArgSection}
+            <p class="instruction" style="margin-bottom: 8px;">What will the other side argue?</p>
+            <div class="starters-list">
+                <button class="starter-option" onclick="useDebateStarter(this, 'rebuttal-their-${num}')">The other side will argue that _____.</button>
+            </div>
+            <textarea class="debate-textarea" id="rebuttal-their-${num}" data-field="rebuttal-their-${num}" placeholder="What the other side will say..." style="min-height: 70px;"></textarea>
             <p class="instruction" style="margin-top: 14px; margin-bottom: 8px;">Your response — why is this argument weak or incorrect?</p>
             <div class="starters-list">
                 <button class="starter-option" onclick="useDebateStarter(this, 'rebuttal-mine-${num}')">However, this argument fails because _____.</button>
                 <button class="starter-option" onclick="useDebateStarter(this, 'rebuttal-mine-${num}')">While the other side claims _____, the evidence actually shows that _____.</button>
             </div>
-            <textarea class="debate-textarea" id="rebuttal-mine-${num}" data-field="rebuttal-mine-${num}" placeholder="Your counter-argument — explain why this argument is wrong or weak..." style="min-height: 70px;"></textarea>
+            <textarea class="debate-textarea" id="rebuttal-mine-${num}" data-field="rebuttal-mine-${num}" placeholder="Your counter-argument..." style="min-height: 70px;"></textarea>
         </div>`;
+    }
+
+    function toggleRebuttalSelect(cb) {
+        var num = cb.getAttribute('data-arg-num');
+        var row = document.getElementById('rebuttal-row-' + num);
+        var writeSection = row.querySelector('.arg-write-section');
+        if (cb.checked) {
+            row.classList.add('arg-selected-active');
+            writeSection.style.display = '';
+        } else {
+            row.classList.remove('arg-selected-active');
+            writeSection.style.display = 'none';
+        }
+        updateRebuttalSelectionCount();
+        autoSave();
+    }
+
+    function updateRebuttalSelectionCount() {
+        var checked = document.querySelectorAll('#rebuttals-container .arg-select-input:checked').length;
+        var counter = document.getElementById('rebuttal-counter');
+        if (counter) {
+            counter.textContent = checked + ' of 3 selected';
+            counter.className = 'arg-selection-counter' + (checked >= 3 ? ' met' : '');
+        }
     }
 
     function addRebuttal() {
         rebuttalCount++;
         const container = document.getElementById('rebuttals-container');
         container.insertAdjacentHTML('beforeend', buildRebuttalRow(rebuttalCount));
-        // Attach auto-save
         document.querySelectorAll(`#rebuttal-row-${rebuttalCount} textarea`).forEach(ta => {
             ta.addEventListener('input', autoSave);
         });
@@ -1832,11 +2105,20 @@
             html += '<hr style="margin: 16px 0; border: none; border-top: 1px solid var(--border);">';
         }
 
-        // Arguments
+        // Arguments — only include selected (checked) arguments
         const args = [];
-        for (let i = 1; i <= argCount; i++) {
-            const el = document.getElementById('arg-' + i);
+        document.querySelectorAll('#arguments-container .arg-select-input:checked').forEach(function(cb) {
+            var n = cb.getAttribute('data-arg-num');
+            var el = document.getElementById('arg-' + n);
             if (el && el.value.trim()) args.push(el.value.trim());
+        });
+        // Also include custom arguments (no checkbox)
+        for (let i = 1; i <= argCount; i++) {
+            var row = document.getElementById('arg-row-' + i);
+            if (row && !row.classList.contains('arg-selectable')) {
+                var el = document.getElementById('arg-' + i);
+                if (el && el.value.trim()) args.push(el.value.trim());
+            }
         }
         if (args.length > 0) {
             html += '<h4 style="color: var(--primary-dark); margin-bottom: 8px;">Arguments</h4>';
@@ -1844,13 +2126,25 @@
             html += '<hr style="margin: 16px 0; border: none; border-top: 1px solid var(--border);">';
         }
 
-        // Rebuttals
+        // Rebuttals — only include selected (checked) rebuttals
         const rebuttals = [];
-        for (let i = 1; i <= rebuttalCount; i++) {
-            const their = document.getElementById('rebuttal-their-' + i);
-            const mine = document.getElementById('rebuttal-mine-' + i);
+        document.querySelectorAll('#rebuttals-container .arg-select-input:checked').forEach(function(cb) {
+            var n = cb.getAttribute('data-arg-num');
+            var their = document.getElementById('rebuttal-their-' + n);
+            var mine = document.getElementById('rebuttal-mine-' + n);
             if ((their && their.value.trim()) || (mine && mine.value.trim())) {
                 rebuttals.push({ their: their ? their.value.trim() : '', mine: mine ? mine.value.trim() : '' });
+            }
+        });
+        // Also include custom rebuttals (no checkbox)
+        for (let i = 1; i <= rebuttalCount; i++) {
+            var rRow = document.getElementById('rebuttal-row-' + i);
+            if (rRow && !rRow.classList.contains('arg-selectable')) {
+                var their2 = document.getElementById('rebuttal-their-' + i);
+                var mine2 = document.getElementById('rebuttal-mine-' + i);
+                if ((their2 && their2.value.trim()) || (mine2 && mine2.value.trim())) {
+                    rebuttals.push({ their: their2 ? their2.value.trim() : '', mine: mine2 ? mine2.value.trim() : '' });
+                }
             }
         }
         if (rebuttals.length > 0) {
@@ -1927,15 +2221,25 @@
             if (el) data[id] = el.value;
         });
 
-        // Arguments
+        // Arguments + selection state
         data.argCount = argCount;
+        var selectedArgNums = [];
+        document.querySelectorAll('#arguments-container .arg-select-input:checked').forEach(function(cb) {
+            selectedArgNums.push(parseInt(cb.getAttribute('data-arg-num')));
+        });
+        data.selectedArgs = selectedArgNums;
         for (let i = 1; i <= argCount; i++) {
             const el = document.getElementById('arg-' + i);
             if (el) data['arg-' + i] = el.value;
         }
 
-        // Rebuttals
+        // Rebuttals + selection state
         data.rebuttalCount = rebuttalCount;
+        var selectedRebNums = [];
+        document.querySelectorAll('#rebuttals-container .arg-select-input:checked').forEach(function(cb) {
+            selectedRebNums.push(parseInt(cb.getAttribute('data-arg-num')));
+        });
+        data.selectedRebuttals = selectedRebNums;
         for (let i = 1; i <= rebuttalCount; i++) {
             const their = document.getElementById('rebuttal-their-' + i);
             const mine = document.getElementById('rebuttal-mine-' + i);
@@ -1994,34 +2298,51 @@
         // Arguments — skip if redirect banner is showing (no sort done)
         var argContainer = document.getElementById('arguments-container');
         if (!argContainer || !argContainer.querySelector('.sort-redirect-banner')) {
-            // Add extra rows if saved count exceeds sort-based rows
+            // Add extra custom rows if saved count exceeds sort-based rows
             if (data.argCount && data.argCount > argCount) {
                 for (let i = argCount + 1; i <= data.argCount; i++) {
                     addArgument();
                 }
             }
+            // Restore selection state
+            if (data.selectedArgs && data.selectedArgs.length) {
+                data.selectedArgs.forEach(function(num) {
+                    var cb = document.querySelector('#arguments-container .arg-select-input[data-arg-num="' + num + '"]');
+                    if (cb) { cb.checked = true; toggleArgSelect(cb); }
+                });
+            }
+            // Restore text values
             for (let i = 1; i <= argCount; i++) {
                 const el = document.getElementById('arg-' + i);
                 if (el && data['arg-' + i]) el.value = data['arg-' + i];
             }
+            updateArgSelectionCount();
         }
 
         // Rebuttals — skip if redirect banner is showing (no sort done)
         var rebContainer = document.getElementById('rebuttals-container');
         if (!rebContainer || !rebContainer.querySelector('.sort-redirect-banner')) {
-            // Add extra rows if saved count exceeds sort-based rows
+            // Add extra custom rows if saved count exceeds sort-based rows
             if (data.rebuttalCount && data.rebuttalCount > rebuttalCount) {
                 for (let i = rebuttalCount + 1; i <= data.rebuttalCount; i++) {
                     addRebuttal();
                 }
             }
+            // Restore selection state
+            if (data.selectedRebuttals && data.selectedRebuttals.length) {
+                data.selectedRebuttals.forEach(function(num) {
+                    var cb = document.querySelector('#rebuttals-container .arg-select-input[data-arg-num="' + num + '"]');
+                    if (cb) { cb.checked = true; toggleRebuttalSelect(cb); }
+                });
+            }
+            // Restore text values
             for (let i = 1; i <= rebuttalCount; i++) {
                 const their = document.getElementById('rebuttal-their-' + i);
                 const mine = document.getElementById('rebuttal-mine-' + i);
-                // Don't overwrite hidden inputs (sort-driven "their" arguments)
                 if (their && their.type !== 'hidden' && data['rebuttal-their-' + i]) their.value = data['rebuttal-their-' + i];
                 if (mine && data['rebuttal-mine-' + i]) mine.value = data['rebuttal-mine-' + i];
             }
+            updateRebuttalSelectionCount();
         }
 
         // Sources — rebuild if more than 2
