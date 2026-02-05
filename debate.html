@@ -719,6 +719,7 @@
 
                 <!-- ========== OPENING STATEMENT ========== -->
                 <div class="debate-section" id="tab-opening">
+                    <div class="ev-writing-ref" id="ev-opening-reference" style="display: none;"></div>
                     <div class="alert-info" style="margin-top: 0;">
                         Your opening statement introduces you, your client, the case background, each side's constitutional claim, why this case matters, and a preview of your arguments.
                     </div>
@@ -823,6 +824,7 @@
 
                 <!-- ========== REBUTTALS ========== -->
                 <div class="debate-section" id="tab-rebuttals">
+                    <div class="ev-writing-ref" id="ev-rebuttals-reference" style="display: none;"></div>
                     <div class="alert-info" style="margin-top: 0;">
                         Think about what the other side will argue. For each of their likely arguments, prepare a rebuttal — explain why their argument is weak or why yours is stronger.
                     </div>
@@ -891,6 +893,7 @@
 
                 <!-- ========== CLOSING STATEMENT ========== -->
                 <div class="debate-section" id="tab-closing">
+                    <div class="ev-writing-ref" id="ev-closing-reference" style="display: none;"></div>
                     <div class="alert-info" style="margin-top: 0;">
                         Your closing statement summarizes your strongest arguments and makes a final appeal to the justices. This is your last chance to convince them.
                     </div>
@@ -967,7 +970,7 @@
     <footer>
         <div class="container">
             <p>SCOTUS Debate Project — A Student Resource for Understanding the Supreme Court</p>
-            <p class="site-version">v1.10.2</p>
+            <p class="site-version">v1.11.0</p>
         </div>
     </footer>
 
@@ -1147,11 +1150,14 @@
                 var argSort = null;
                 try { argSort = JSON.parse(localStorage.getItem('scotus-sort-' + ck)); } catch(e) {}
                 var codeMap = (typeof argSortCodeMap !== 'undefined') ? (argSortCodeMap[ck] || {}) : {};
+                var otherSideKey = selectedSide === 'petitioner' ? 'respondent' : 'petitioner';
                 var myArgs = [];
+                var otherArgs = [];
                 if (argSort && args.length) {
                     for (var i = 0; i < args.length; i++) {
                         var tSide = codeMap[argSort[i]] || argSort[i];
                         if (tSide === selectedSide) myArgs.push({ index: i, text: args[i] });
+                        else if (tSide === otherSideKey) otherArgs.push({ index: i, text: args[i] });
                     }
                 }
                 var eSortData = (typeof evidenceSortData !== 'undefined') ? evidenceSortData[ck] : null;
@@ -1166,7 +1172,7 @@
                         }
                     }
                 }
-                updateWritingReferences(ranks, myArgs, myFacts);
+                updateWritingReferences(ranks, myArgs, myFacts, otherArgs);
             }
         }, 150);
 

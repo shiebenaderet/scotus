@@ -6,49 +6,49 @@
 // ============================================================
 var argumentData = {
     tinker: [
-        "Students do not lose their constitutional rights when they enter school.",
-        "Schools need authority to maintain order so students can learn effectively.",
+        "Students must attend school and should focus on education, not political protests.",
+        "Wearing armbands is a form of symbolic speech protected by the First Amendment.",
         "The students' armbands were silent and did not disrupt classes or bother other students.",
+        "Teachers and principals know their schools better than judges and should decide what might cause disruption.",
+        "Banning speech just because officials disagree with the message violates the First Amendment.",
+        "School officials should be able to prevent problems before they happen, not wait until after disruption occurs.",
+        "Schools have a responsibility to teach good citizenship and appropriate behavior.",
+        "No actual disruption happened - the school acted only on fear of possible problems.",
         "The Vietnam War was very controversial and could cause serious problems in schools.",
         "The school allowed other political symbols but banned only anti-war armbands.",
-        "School officials should be able to prevent problems before they happen, not wait until after disruption occurs.",
-        "Wearing armbands is a form of symbolic speech protected by the First Amendment.",
-        "Students must attend school and should focus on education, not political protests.",
-        "No actual disruption happened - the school acted only on fear of possible problems.",
-        "Teachers and principals know their schools better than judges and should decide what might cause disruption.",
-        "The First Amendment protects unpopular speech, especially about political issues.",
-        "Schools have a responsibility to teach good citizenship and appropriate behavior.",
-        "Banning speech just because officials disagree with the message violates the First Amendment."
+        "Students do not lose their constitutional rights when they enter school.",
+        "Schools need authority to maintain order so students can learn effectively.",
+        "The First Amendment protects unpopular speech, especially about political issues."
     ],
     tlo: [
         "Schools have special responsibilities for student safety that require flexibility.",
-        "The Fourth Amendment protects all people, including students, from unreasonable searches.",
-        "The \"in loco parentis\" principle gives schools authority to act like parents in supervising students.",
-        "School officials are government employees and should need warrants just like police officers.",
         "T.L.O. was caught violating a school rule and then lied about her smoking habits.",
-        "Students should not lose their constitutional rights when they enter school.",
-        "The search immediately revealed cigarettes, proving that T.L.O. had lied about not smoking.",
-        "The search went beyond what was necessary to investigate the original smoking violation.",
-        "Finding rolling papers gave reasonable suspicion that T.L.O. might possess drugs.",
-        "Allowing warrantless searches gives school officials too much power over students.",
-        "Students are minors who need more supervision and guidance than adults.",
         "Evidence obtained through illegal searches should not be allowed in court.",
         "School officials need to be able to investigate rule violations quickly to maintain order.",
-        "T.L.O.'s purse was her private property and should have been protected from search."
+        "Students are minors who need more supervision and guidance than adults.",
+        "Allowing warrantless searches gives school officials too much power over students.",
+        "The \"in loco parentis\" principle gives schools authority to act like parents in supervising students.",
+        "The search went beyond what was necessary to investigate the original smoking violation.",
+        "T.L.O.'s purse was her private property and should have been protected from search.",
+        "The search immediately revealed cigarettes, proving that T.L.O. had lied about not smoking.",
+        "Students should not lose their constitutional rights when they enter school.",
+        "Finding rolling papers gave reasonable suspicion that T.L.O. might possess drugs.",
+        "The Fourth Amendment protects all people, including students, from unreasonable searches.",
+        "School officials are government employees and should need warrants just like police officers."
     ],
     brown: [
-        "The Fourteenth Amendment requires that all people be treated equally under the law.",
-        "The \"separate but equal\" rule has been the law since 1896 and has worked for many years.",
-        "Separating people by race automatically suggests that one race is inferior to another.",
-        "Both Black and white schools have similar buildings, teachers, and educational materials.",
-        "Research shows that segregation causes psychological harm to Black children.",
-        "Forcing integration could cause social problems and conflicts in communities.",
-        "Education is too important to allow racial discrimination in public schools.",
-        "States should have the right to organize their school systems based on local traditions.",
-        "Even when facilities look equal, segregated schools are inferior in reputation and opportunities.",
-        "The Fourteenth Amendment was not originally intended to require integrated schools.",
         "Government cannot classify and separate people based on their race.",
-        "\"Separate but equal\" has worked effectively for nearly 60 years without major problems."
+        "States should have the right to organize their school systems based on local traditions.",
+        "Separating people by race automatically suggests that one race is inferior to another.",
+        "Education is too important to allow racial discrimination in public schools.",
+        "The Fourteenth Amendment was not originally intended to require integrated schools.",
+        "\"Separate but equal\" has worked effectively for nearly 60 years without major problems.",
+        "Research shows that segregation causes psychological harm to Black children.",
+        "Both Black and white schools have similar buildings, teachers, and educational materials.",
+        "Even when facilities look equal, segregated schools are inferior in reputation and opportunities.",
+        "The Fourteenth Amendment requires that all people be treated equally under the law.",
+        "Forcing integration could cause social problems and conflicts in communities.",
+        "The \"separate but equal\" rule has been the law since 1896 and has worked for many years."
     ],
     payton: [
         "The Fourth Amendment protects people's homes from unreasonable government searches.",
@@ -65,35 +65,35 @@ var argumentData = {
         "A person's home deserves the strongest Fourth Amendment protection."
     ],
     mahanoy: [
-        "Most federal courts have ruled that schools can regulate student speech that affects the school, even when made off-campus.",
-        "B.L. made her posts on a weekend, away from school property, using her personal social media account.",
         "Other courts have allowed schools to punish students for criticizing school officials online.",
-        "B.L.'s posts contained no threats, harassment, or even mention of her specific school.",
         "Social media posts can be seen by many students and can spread quickly to cause disruption.",
-        "The First Amendment protects students' right to express frustration and criticism.",
-        "Cheerleaders represent the school and should maintain appropriate conduct at all times.",
-        "Snapchat posts disappear quickly and are not permanent like other social media.",
-        "Schools need authority to maintain discipline and positive culture in their programs.",
         "B.L. never required anyone to see her posts - they were shared with her chosen friends.",
+        "The Court's decision in Tinker bars schools from punishing speech based on disagreement with the message.",
         "With online learning, there is no clear separation between on-campus and off-campus activities.",
         "Allowing schools to punish off-campus speech gives them too much control over students' lives.",
-        "The Court's decision in Tinker bars schools from punishing speech based on disagreement with the message."
+        "The First Amendment protects students' right to express frustration and criticism.",
+        "Most federal courts have ruled that schools can regulate student speech that affects the school, even when made off-campus.",
+        "Schools need authority to maintain discipline and positive culture in their programs.",
+        "B.L. made her posts on a weekend, away from school property, using her personal social media account.",
+        "Snapchat posts disappear quickly and are not permanent like other social media.",
+        "Cheerleaders represent the school and should maintain appropriate conduct at all times.",
+        "B.L.'s posts contained no threats, harassment, or even mention of her specific school."
     ],
     kennedy: [
-        "The Free Exercise Clause protects his right to pray according to his faith.",
-        "When a government employee prays publicly, it appears that the government endorses that religion.",
-        "His prayers were personal, brief, and quiet - not attempts to convert students or promote religion.",
-        "Students might feel pressured to join prayer to stay on the team or please their coach.",
-        "He never required, asked, or pressured students to join his prayers.",
-        "The Establishment Clause requires schools to remain neutral on religious matters.",
-        "The government cannot force religious people to hide their faith or pray only in private.",
-        "A reasonable observer would think the school was endorsing Christianity when they saw the coach praying.",
         "Praying at midfield was an important part of his personal religious practice.",
-        "The school offered reasonable alternatives - Kennedy could pray privately in his office.",
         "Accommodating his prayer practice does not violate the Establishment Clause.",
+        "A reasonable observer would think the school was endorsing Christianity when they saw the coach praying.",
+        "Students might feel pressured to join prayer to stay on the team or please their coach.",
+        "The Free Exercise Clause protects his right to pray according to his faith.",
         "Kennedy's refusal to compromise created safety issues when media and crowds rushed the field.",
+        "The government cannot force religious people to hide their faith or pray only in private.",
+        "The school offered reasonable alternatives - Kennedy could pray privately in his office.",
         "Schools have a special responsibility to avoid even the appearance of religious endorsement.",
-        "Public employees retain their First Amendment rights even while working."
+        "His prayers were personal, brief, and quiet - not attempts to convert students or promote religion.",
+        "The Establishment Clause requires schools to remain neutral on religious matters.",
+        "When a government employee prays publicly, it appears that the government endorses that religion.",
+        "Public employees retain their First Amendment rights even while working.",
+        "He never required, asked, or pressured students to join his prayers."
     ],
     arizona: [
         "The Constitution gives Congress the exclusive power to make immigration laws.",
@@ -167,15 +167,19 @@ function initEvidencePanel(caseName, side) {
     var args = argumentData[caseKey] || [];
     var eSortData = (typeof evidenceSortData !== 'undefined') ? evidenceSortData[caseKey] : null;
 
-    // Filter arguments that match student's chosen side
+    // Filter arguments by side
     // Argument sort uses short codes (T/D/N/B etc.), translate to petitioner/respondent
     var codeMap = argSortCodeMap[caseKey] || {};
+    var otherSide = (side === 'petitioner') ? 'respondent' : 'petitioner';
     var myArgs = [];
+    var otherArgs = [];
     if (argSort && args.length) {
         for (var i = 0; i < args.length; i++) {
             var translatedSide = codeMap[argSort[i]] || argSort[i];
             if (translatedSide === side) {
                 myArgs.push({ index: i, text: args[i] });
+            } else if (translatedSide === otherSide) {
+                otherArgs.push({ index: i, text: args[i] });
             }
         }
     }
@@ -288,7 +292,7 @@ function initEvidencePanel(caseName, side) {
 
         saveRanks(rankKey, ranks);
         renderPicksSummary(ranks, myArgs, myFacts);
-        updateWritingReferences(ranks, myArgs, myFacts);
+        updateWritingReferences(ranks, myArgs, myFacts, otherArgs);
     });
 }
 
@@ -351,50 +355,91 @@ function renderPicksSummary(ranks, myArgs, myFacts) {
     el.innerHTML = html;
 }
 
-function updateWritingReferences(ranks, myArgs, myFacts) {
-    // Show starred arguments AND facts together on the Arguments writing tab.
-    // ev-src-reference is reserved for initStarredSources (starred source cards).
-    var argRef = document.getElementById('ev-arg-reference');
-    if (!argRef) return;
+function updateWritingReferences(ranks, myArgs, myFacts, otherArgs) {
+    // Build starred evidence HTML (used on multiple tabs)
+    var starredArgsHtml = '';
+    var starredFactsHtml = '';
 
-    var hasStarredArgs = ranks.args && ranks.args.length > 0;
-    var hasStarredFacts = ranks.facts && ranks.facts.length > 0;
-
-    if (!hasStarredArgs && !hasStarredFacts) {
-        argRef.style.display = 'none';
-        return;
-    }
-
-    var html = '';
-
-    if (hasStarredArgs) {
-        html += '<strong>Your starred arguments:</strong><ol>';
+    if (ranks.args && ranks.args.length > 0) {
+        starredArgsHtml = '<strong>Your starred arguments:</strong><ol>';
         for (var i = 0; i < ranks.args.length; i++) {
             for (var a = 0; a < myArgs.length; a++) {
                 if (myArgs[a].index === ranks.args[i]) {
-                    html += '<li>' + escHtmlSafe(myArgs[a].text) + '</li>';
+                    starredArgsHtml += '<li>' + escHtmlSafe(myArgs[a].text) + '</li>';
                     break;
                 }
             }
         }
-        html += '</ol>';
+        starredArgsHtml += '</ol>';
     }
 
-    if (hasStarredFacts) {
-        html += '<strong>Your starred facts:</strong><ol>';
+    if (ranks.facts && ranks.facts.length > 0) {
+        starredFactsHtml = '<strong>Your starred facts:</strong><ol>';
         for (var j = 0; j < ranks.facts.length; j++) {
             for (var f = 0; f < myFacts.length; f++) {
                 if (myFacts[f].index === ranks.facts[j]) {
-                    html += '<li>' + escHtmlSafe(myFacts[f].text) + '</li>';
+                    starredFactsHtml += '<li>' + escHtmlSafe(myFacts[f].text) + '</li>';
                     break;
                 }
             }
         }
-        html += '</ol>';
+        starredFactsHtml += '</ol>';
     }
 
-    argRef.innerHTML = html;
-    argRef.style.display = 'block';
+    var hasEvidence = starredArgsHtml || starredFactsHtml;
+
+    // ---- Opening Statement: show starred arguments (preview in opening) ----
+    var openRef = document.getElementById('ev-opening-reference');
+    if (openRef) {
+        if (hasEvidence) {
+            openRef.innerHTML = '<strong>Your research — use these to preview your arguments:</strong>' +
+                (starredArgsHtml ? starredArgsHtml : '') +
+                (starredFactsHtml ? starredFactsHtml : '');
+            openRef.style.display = 'block';
+        } else {
+            openRef.style.display = 'none';
+        }
+    }
+
+    // ---- Arguments tab: show starred arguments + facts ----
+    var argRef = document.getElementById('ev-arg-reference');
+    if (argRef) {
+        if (hasEvidence) {
+            argRef.innerHTML = starredArgsHtml + starredFactsHtml;
+            argRef.style.display = 'block';
+        } else {
+            argRef.style.display = 'none';
+        }
+    }
+
+    // ---- Rebuttals tab: show the OTHER side's arguments ----
+    var rebRef = document.getElementById('ev-rebuttals-reference');
+    if (rebRef) {
+        if (otherArgs && otherArgs.length > 0) {
+            var rebHtml = '<strong>The other side\'s arguments — prepare rebuttals for these:</strong><ol>';
+            for (var r = 0; r < otherArgs.length; r++) {
+                rebHtml += '<li>' + escHtmlSafe(otherArgs[r].text) + '</li>';
+            }
+            rebHtml += '</ol>';
+            rebRef.innerHTML = rebHtml;
+            rebRef.style.display = 'block';
+        } else {
+            rebRef.style.display = 'none';
+        }
+    }
+
+    // ---- Closing Statement: show starred arguments + facts (summarize) ----
+    var closeRef = document.getElementById('ev-closing-reference');
+    if (closeRef) {
+        if (hasEvidence) {
+            closeRef.innerHTML = '<strong>Your strongest evidence — summarize these in your closing:</strong>' +
+                (starredArgsHtml ? starredArgsHtml : '') +
+                (starredFactsHtml ? starredFactsHtml : '');
+            closeRef.style.display = 'block';
+        } else {
+            closeRef.style.display = 'none';
+        }
+    }
 }
 
 // ============================================================
