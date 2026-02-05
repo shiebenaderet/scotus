@@ -113,6 +113,21 @@ var argumentData = {
 };
 
 // ============================================================
+// ARGUMENT SORT CODE MAPPING
+// Case pages use short codes (T/D/N/B etc.) in select dropdowns.
+// Map them to "petitioner"/"respondent" so debate prep can filter.
+// ============================================================
+var argSortCodeMap = {
+    tinker:  { T: 'petitioner', D: 'respondent' },
+    tlo:     { N: 'petitioner', T: 'respondent' },
+    brown:   { B: 'petitioner', S: 'respondent' },
+    payton:  { P: 'petitioner', N: 'respondent' },
+    mahanoy: { M: 'petitioner', B: 'respondent' },
+    kennedy: { K: 'petitioner', B: 'respondent' },
+    arizona: { A: 'petitioner', U: 'respondent' }
+};
+
+// ============================================================
 // HELPERS
 // ============================================================
 
@@ -153,10 +168,13 @@ function initEvidencePanel(caseName, side) {
     var eSortData = (typeof evidenceSortData !== 'undefined') ? evidenceSortData[caseKey] : null;
 
     // Filter arguments that match student's chosen side
+    // Argument sort uses short codes (T/D/N/B etc.), translate to petitioner/respondent
+    var codeMap = argSortCodeMap[caseKey] || {};
     var myArgs = [];
     if (argSort && args.length) {
         for (var i = 0; i < args.length; i++) {
-            if (argSort[i] === side) {
+            var translatedSide = codeMap[argSort[i]] || argSort[i];
+            if (translatedSide === side) {
                 myArgs.push({ index: i, text: args[i] });
             }
         }

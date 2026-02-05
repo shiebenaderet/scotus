@@ -967,7 +967,7 @@
     <footer>
         <div class="container">
             <p>SCOTUS Debate Project — A Student Resource for Understanding the Supreme Court</p>
-            <p class="site-version">v1.10.0</p>
+            <p class="site-version">v1.10.1</p>
         </div>
     </footer>
 
@@ -1146,10 +1146,12 @@
                 var args = argumentData[ck] || [];
                 var argSort = null;
                 try { argSort = JSON.parse(localStorage.getItem('scotus-sort-' + ck)); } catch(e) {}
+                var codeMap = (typeof argSortCodeMap !== 'undefined') ? (argSortCodeMap[ck] || {}) : {};
                 var myArgs = [];
                 if (argSort && args.length) {
                     for (var i = 0; i < args.length; i++) {
-                        if (argSort[i] === selectedSide) myArgs.push({ index: i, text: args[i] });
+                        var tSide = codeMap[argSort[i]] || argSort[i];
+                        if (tSide === selectedSide) myArgs.push({ index: i, text: args[i] });
                     }
                 }
                 var eSortData = (typeof evidenceSortData !== 'undefined') ? evidenceSortData[ck] : null;

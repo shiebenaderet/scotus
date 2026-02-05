@@ -5,6 +5,8 @@ function isTeacher(user) {
 
 // Global vault unlock function (will be set up after DOM loads)
 var globalUnlockVault = null;
+// Collected setHeight functions for flip cards (called after vault unlock)
+var flipCardHeightFns = [];
 
 // Reading Level Toggle
 document.addEventListener('DOMContentLoaded', function() {
@@ -125,6 +127,10 @@ document.addEventListener('DOMContentLoaded', function() {
         if (vaultLocked) vaultLocked.style.display = 'none';
         if (vaultContent) vaultContent.classList.add('unlocked');
         if (vaultNavLink) vaultNavLink.classList.add('unlocked');
+        // Recalculate flip card heights now that vault is visible
+        setTimeout(function() {
+            flipCardHeightFns.forEach(function(fn) { fn(); });
+        }, 50);
     }
 
     // Expose unlockVault globally for teacher auto-unlock
@@ -486,6 +492,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!inner || !front || !back) return;
 
         function setHeight() {
+            // Skip if vault is hidden — heights will be 0
+            if (vaultContent && !vaultContent.classList.contains('unlocked')) return;
             // Temporarily make both visible to measure
             inner.style.height = 'auto';
             front.style.position = 'relative';
@@ -498,6 +506,7 @@ document.addEventListener('DOMContentLoaded', function() {
             inner.style.height = h + 'px';
             card.style.minHeight = h + 'px';
         }
+        flipCardHeightFns.push(setHeight);
         setHeight();
         window.addEventListener('resize', setHeight);
     });
