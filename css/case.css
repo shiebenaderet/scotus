@@ -1483,6 +1483,155 @@ a:hover {
     display: block !important;
 }
 
+/* Completion CTA buttons */
+.esort-complete-cta {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 0.75rem;
+}
+
+.esort-cta-btn {
+    display: inline-block;
+    padding: 0.6rem 1.25rem;
+    border-radius: 8px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border: none;
+}
+
+.esort-cta-debate {
+    background: var(--accent);
+    color: #fff;
+}
+
+.esort-cta-debate:hover {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+}
+
+.esort-cta-sources {
+    background: var(--primary-dark);
+    color: #fff;
+}
+
+.esort-cta-sources:hover {
+    background: var(--primary-light);
+    transform: translateY(-1px);
+}
+
+@media (max-width: 480px) {
+    .esort-complete-cta {
+        flex-direction: column;
+    }
+}
+
+/* Source card star button */
+.source-star-btn {
+    display: block;
+    width: 100%;
+    padding: 0.6rem;
+    margin-top: auto;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.85rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+.source-star-btn:hover {
+    background: rgba(245, 158, 11, 0.2);
+    border-color: #f59e0b;
+    color: #fbbf24;
+}
+
+.source-star-btn.active {
+    background: #f59e0b;
+    border-color: #f59e0b;
+    color: #fff;
+}
+
+/* Star counter above source grid */
+.source-star-counter {
+    margin-top: 0.75rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #92400e;
+}
+
+.source-star-counter-icon {
+    color: #f59e0b;
+}
+
+/* Post-sources CTA */
+.vault-next-steps {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    background: var(--bg-warm);
+    text-align: center;
+}
+
+.vault-next-steps h3 {
+    color: var(--primary-dark);
+    font-size: 1.15rem;
+    margin: 0 0 0.35rem;
+}
+
+.vault-next-steps p {
+    color: #666;
+    font-size: 0.92rem;
+    margin: 0 0 1rem;
+}
+
+.vault-next-btns {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.vault-next-btn {
+    display: inline-block;
+    padding: 0.7rem 1.5rem;
+    border-radius: 8px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.vault-next-debate {
+    background: var(--accent);
+    color: #fff;
+}
+
+.vault-next-debate:hover {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+}
+
+.vault-next-review {
+    background: var(--bg-white);
+    color: var(--primary-dark);
+    border: 2px solid var(--border);
+}
+
+.vault-next-review:hover {
+    border-color: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
 .esort-header {
     text-align: center;
     margin: 1.5rem 0 2rem;

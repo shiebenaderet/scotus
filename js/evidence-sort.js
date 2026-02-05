@@ -660,7 +660,11 @@ document.addEventListener('DOMContentLoaded', function() {
     html += '<span class="esort-toggle-arrow" id="esort-arrow">&#9662;</span>';
     html += '</div>';
     html += '<div class="esort-complete-banner" id="esort-complete" style="display:none">';
-    html += '<span class="esort-complete-icon">&#10003;</span> All facts sorted! Tap to review your choices.';
+    html += '<span class="esort-complete-icon">&#10003;</span> All facts sorted! Nice work.';
+    html += '<div class="esort-complete-cta">';
+    html += '<a href="../debate.html" class="esort-cta-btn esort-cta-debate">Prepare for Debate &rarr;</a>';
+    html += '<button class="esort-cta-btn esort-cta-sources" id="esort-cta-sources">Analyze Sources &darr;</button>';
+    html += '</div>';
     html += '</div>';
     html += '<div class="esort-collapsible" id="esort-body">';
     html += '<div class="esort-header">';
@@ -714,6 +718,20 @@ document.addEventListener('DOMContentLoaded', function() {
     if (toggleBtn && bodyEl) {
         toggleBtn.addEventListener('click', function() {
             container.classList.toggle('collapsed');
+        });
+    }
+
+    // "Analyze Sources" CTA — collapse sort and scroll to sources
+    var ctaSources = document.getElementById('esort-cta-sources');
+    if (ctaSources) {
+        ctaSources.addEventListener('click', function() {
+            container.classList.add('collapsed');
+            var sourcesHeader = document.getElementById('vault-sources-header');
+            if (sourcesHeader) {
+                setTimeout(function() {
+                    sourcesHeader.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 350);
+            }
         });
     }
 
@@ -788,12 +806,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
         var banner = document.getElementById('esort-complete');
         if (count >= total) {
-            // All sorted — show completion banner and collapse
-            if (banner) banner.style.display = '';
-            container.classList.add('collapsed');
+            // All sorted — show CTA banner (don't auto-collapse yet)
+            if (banner) {
+                banner.style.display = '';
+                banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
         } else {
             if (banner) banner.style.display = 'none';
-            container.classList.remove('collapsed');
         }
     }
 

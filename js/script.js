@@ -501,6 +501,112 @@ document.addEventListener('DOMContentLoaded', function() {
         setHeight();
         window.addEventListener('resize', setHeight);
     });
+
+    // ================================================
+    // SOURCE CARD STARRING — Save sources to evidence collection
+    // ================================================
+    var sourceCards = document.querySelectorAll('.source-flip-card');
+    if (sourceCards.length > 0) {
+        var srcSaveKey = 'scotus-starred-sources-' + pageFile;
+
+        function loadStarredSources() {
+            try {
+                var raw = localStorage.getItem(srcSaveKey);
+                return raw ? JSON.parse(raw) : {};
+            } catch(e) { return {}; }
+        }
+
+        function saveStarredSources(data) {
+            localStorage.setItem(srcSaveKey, JSON.stringify(data));
+            if (typeof saveToCloud === 'function') saveToCloud(srcSaveKey, data);
+        }
+
+        function updateSourceStarCount() {
+            var counter = document.getElementById('source-star-count');
+            if (counter) {
+                var data = loadStarredSources();
+                var count = Object.keys(data).length;
+                counter.textContent = count;
+                counter.closest('.source-star-counter').style.display = count > 0 ? '' : 'none';
+            }
+        }
+
+        var starred = loadStarredSources();
+
+        // Add counter above source grid
+        var sourcesHeader = document.getElementById('vault-sources-header');
+        if (sourcesHeader) {
+            var counterEl = document.createElement('div');
+            counterEl.className = 'source-star-counter';
+            counterEl.style.display = Object.keys(starred).length > 0 ? '' : 'none';
+            counterEl.innerHTML = '<span class="source-star-counter-icon">&#9733;</span> <span id="source-star-count">' + Object.keys(starred).length + '</span> source(s) saved for debate prep';
+            sourcesHeader.appendChild(counterEl);
+        }
+
+        sourceCards.forEach(function(card, idx) {
+            var front = card.querySelector('.source-front');
+            var back = card.querySelector('.source-back');
+            if (!front) return;
+
+            // Create star button on the back of the card
+            var starBtn = document.createElement('button');
+            starBtn.className = 'source-star-btn' + (starred[idx] ? ' active' : '');
+            starBtn.innerHTML = starred[idx] ? '&#9733; Saved' : '&#9734; Save for Debate';
+            starBtn.setAttribute('aria-label', 'Save source for debate prep');
+
+            // Prevent star click from flipping the card
+            starBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                var current = loadStarredSources();
+
+                if (current[idx]) {
+                    // Unstar
+                    delete current[idx];
+                    starBtn.classList.remove('active');
+                    starBtn.innerHTML = '&#9734; Save for Debate';
+                } else {
+                    // Star — extract source data from card
+                    var title = front.querySelector('h4') ? front.querySelector('h4').textContent : '';
+                    var excerpt = front.querySelector('.source-excerpt') ? front.querySelector('.source-excerpt').textContent : '';
+                    var sideLabel = front.querySelector('.source-side-label') ? front.querySelector('.source-side-label').textContent.trim() : '';
+                    var analysis = back && back.querySelector('.source-back-analysis') ? back.querySelector('.source-back-analysis').textContent : '';
+                    var citation = back && back.querySelector('.source-citation') ? back.querySelector('.source-citation').textContent.replace(/^MLA:\s*/i, '') : '';
+
+                    current[idx] = {
+                        title: title,
+                        excerpt: excerpt,
+                        side: sideLabel,
+                        analysis: analysis,
+                        citation: citation
+                    };
+                    starBtn.classList.add('active');
+                    starBtn.innerHTML = '&#9733; Saved';
+                }
+
+                saveStarredSources(current);
+                updateSourceStarCount();
+            });
+
+            // Add star button to the back of the card
+            if (back) {
+                back.appendChild(starBtn);
+            }
+        });
+
+        // Add post-sources CTA after the source grid
+        var sourceGrid = document.querySelector('.source-cards-grid');
+        if (sourceGrid) {
+            var ctaDiv = document.createElement('div');
+            ctaDiv.className = 'vault-next-steps';
+            ctaDiv.innerHTML = '<h3>Ready for the next step?</h3>' +
+                '<p>Use your research to build your debate arguments, or review the key concepts first.</p>' +
+                '<div class="vault-next-btns">' +
+                '<a href="../debate.html" class="vault-next-btn vault-next-debate">Prepare for Debate &rarr;</a>' +
+                '<a href="../review.html" class="vault-next-btn vault-next-review">Review Key Concepts &rarr;</a>' +
+                '</div>';
+            sourceGrid.parentNode.insertBefore(ctaDiv, sourceGrid.nextSibling);
+        }
+    }
 });
 
 // Teacher/Staff auto-unlock: called by firebase-init.js after auth state changes

@@ -397,11 +397,51 @@ function saveRanks(key, ranks) {
     if (typeof saveToCloud === 'function') saveToCloud(key, ranks);
 }
 
+// ============================================================
+// STARRED SOURCES — Pull saved sources into debate prep
+// ============================================================
+
+function initStarredSources(caseName, side) {
+    var srcRef = document.getElementById('ev-src-reference');
+    if (!srcRef) return;
+
+    var caseKey = getCaseFileKey(caseName);
+    if (!caseKey) return;
+
+    var starredRaw = localStorage.getItem('scotus-starred-sources-' + caseKey);
+    var starred = null;
+    try { starred = starredRaw ? JSON.parse(starredRaw) : null; } catch(e) {}
+
+    if (!starred || Object.keys(starred).length === 0) return;
+
+    // Build a reference of starred sources for the Sources writing tab
+    var html = '<strong>Your saved sources from the Evidence Vault:</strong>';
+    html += '<div class="ev-saved-sources">';
+    var keys = Object.keys(starred);
+    for (var i = 0; i < keys.length; i++) {
+        var src = starred[keys[i]];
+        html += '<div class="ev-saved-source">';
+        html += '<div class="ev-saved-source-title">' + escHtmlSafe(src.title) + '</div>';
+        if (src.side) {
+            html += '<span class="ev-saved-source-side">' + escHtmlSafe(src.side) + '</span>';
+        }
+        html += '<div class="ev-saved-source-excerpt">' + escHtmlSafe(src.excerpt) + '</div>';
+        if (src.citation) {
+            html += '<div class="ev-saved-source-cite"><em>' + escHtmlSafe(src.citation) + '</em></div>';
+        }
+        html += '</div>';
+    }
+    html += '</div>';
+
+    srcRef.innerHTML = html;
+    srcRef.style.display = 'block';
+}
+
 // escHtml is defined in debate.html's inline script.
 // Provide a fallback in case this file loads first.
 var _escHtmlFallback = function(str) {
     return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 };
 function escHtmlSafe(str) {
-    return (typeof escHtml === 'function') ? escHtmlSafe(str) : _escHtmlFallback(str);
+    return (typeof escHtml === 'function') ? escHtml(str) : _escHtmlFallback(str);
 }
