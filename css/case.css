@@ -1372,3 +1372,287 @@ a:hover {
         min-height: 200px;
     }
 }
+
+/* ============================================
+   EVIDENCE SORT - Interactive Fact Sorting
+   ============================================ */
+
+.evidence-sort-container {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 2px solid var(--border);
+}
+
+.esort-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.esort-header h3 {
+    color: var(--primary-dark);
+    font-size: 1.4rem;
+    margin: 0 0 0.5rem;
+}
+
+.esort-header p {
+    color: #666;
+    font-size: 0.95rem;
+    max-width: 500px;
+    margin: 0 auto 1.25rem;
+    line-height: 1.5;
+}
+
+.esort-sides-label {
+    display: flex;
+    justify-content: space-between;
+    max-width: 500px;
+    margin: 0 auto 0.75rem;
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+
+.esort-side-left {
+    color: var(--primary-dark);
+}
+
+.esort-side-right {
+    color: var(--accent);
+}
+
+.esort-progress {
+    font-size: 0.85rem;
+    color: #888;
+    font-weight: 600;
+}
+
+/* Fact Card */
+.esort-card {
+    background: var(--bg-white);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.esort-card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.esort-card.sorted-petitioner {
+    border-left: 5px solid var(--primary-dark);
+    background: linear-gradient(90deg, rgba(22, 33, 62, 0.03) 0%, transparent 30%);
+}
+
+.esort-card.sorted-respondent {
+    border-right: 5px solid var(--accent);
+    background: linear-gradient(270deg, rgba(214, 56, 80, 0.03) 0%, transparent 30%);
+}
+
+.esort-fact {
+    margin-bottom: 1rem;
+}
+
+.esort-fact-num {
+    display: inline-block;
+    background: var(--primary-dark);
+    color: var(--text-light);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+}
+
+.esort-fact p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-dark);
+    margin: 0.5rem 0 0;
+}
+
+.esort-source-link {
+    display: inline-block;
+    font-size: 0.78rem;
+    color: var(--primary-light);
+    text-decoration: none;
+    margin-top: 0.35rem;
+    font-weight: 600;
+    transition: color 0.15s;
+}
+
+.esort-source-link:hover {
+    color: var(--accent);
+    text-decoration: underline;
+}
+
+/* Sort Buttons */
+.esort-controls {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.esort-btn {
+    flex: 1;
+    padding: 0.7rem 1rem;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg-white);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    color: #555;
+}
+
+.esort-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.esort-btn-left:hover,
+.esort-btn-left.active {
+    background: var(--primary-dark);
+    color: var(--text-light);
+    border-color: var(--primary-dark);
+}
+
+.esort-btn-right:hover,
+.esort-btn-right.active {
+    background: var(--accent);
+    color: var(--text-light);
+    border-color: var(--accent);
+}
+
+/* Feedback */
+.esort-feedback {
+    margin-top: 0.75rem;
+}
+
+.esort-feedback.fade-in {
+    animation: esortFadeIn 0.35s ease;
+}
+
+@keyframes esortFadeIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.esort-fb-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem;
+    border-radius: 8px;
+    line-height: 1.6;
+}
+
+.esort-fb-petitioner {
+    background: rgba(22, 33, 62, 0.06);
+    border: 1px solid rgba(22, 33, 62, 0.15);
+}
+
+.esort-fb-respondent {
+    background: rgba(214, 56, 80, 0.06);
+    border: 1px solid rgba(214, 56, 80, 0.15);
+}
+
+.esort-fb-icon {
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+}
+
+.esort-fb-petitioner .esort-fb-icon {
+    color: var(--primary-dark);
+}
+
+.esort-fb-respondent .esort-fb-icon {
+    color: var(--accent);
+}
+
+.esort-fb-text {
+    font-size: 0.9rem;
+    color: var(--text-dark);
+}
+
+.esort-fb-text strong {
+    display: block;
+    margin-bottom: 0.25rem;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.esort-fb-petitioner .esort-fb-text strong {
+    color: var(--primary-dark);
+}
+
+.esort-fb-respondent .esort-fb-text strong {
+    color: var(--accent);
+}
+
+/* Can Be Both badge */
+.esort-fb-both {
+    margin-top: 0.75rem;
+    padding: 0.75rem 1rem;
+    background: #fffbeb;
+    border: 1px solid #fbbf24;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: #92400e;
+}
+
+.esort-fb-both-badge {
+    display: inline-block;
+    background: #fbbf24;
+    color: #78350f;
+    font-weight: 700;
+    font-size: 0.78rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+/* See other side button */
+.esort-other-btn {
+    display: inline-block;
+    margin-top: 0.75rem;
+    padding: 0.5rem 1rem;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    font-family: inherit;
+}
+
+.esort-other-btn:hover {
+    background: var(--bg-warm);
+    border-color: var(--primary-dark);
+    color: var(--primary-dark);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .esort-controls {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .esort-btn {
+        padding: 0.6rem;
+        font-size: 0.85rem;
+    }
+
+    .esort-sides-label {
+        font-size: 0.85rem;
+    }
+}
