@@ -1,0 +1,407 @@
+// debate-evidence.js — Pulls argument sort + evidence sort data into Debate Prep
+// Lets students rank their strongest arguments and facts to guide writing.
+
+// ============================================================
+// ARGUMENT DATA (extracted from case page sorting tables)
+// ============================================================
+var argumentData = {
+    tinker: [
+        "Students do not lose their constitutional rights when they enter school.",
+        "Schools need authority to maintain order so students can learn effectively.",
+        "The students' armbands were silent and did not disrupt classes or bother other students.",
+        "The Vietnam War was very controversial and could cause serious problems in schools.",
+        "The school allowed other political symbols but banned only anti-war armbands.",
+        "School officials should be able to prevent problems before they happen, not wait until after disruption occurs.",
+        "Wearing armbands is a form of symbolic speech protected by the First Amendment.",
+        "Students must attend school and should focus on education, not political protests.",
+        "No actual disruption happened - the school acted only on fear of possible problems.",
+        "Teachers and principals know their schools better than judges and should decide what might cause disruption.",
+        "The First Amendment protects unpopular speech, especially about political issues.",
+        "Schools have a responsibility to teach good citizenship and appropriate behavior.",
+        "Banning speech just because officials disagree with the message violates the First Amendment."
+    ],
+    tlo: [
+        "Schools have special responsibilities for student safety that require flexibility.",
+        "The Fourth Amendment protects all people, including students, from unreasonable searches.",
+        "The \"in loco parentis\" principle gives schools authority to act like parents in supervising students.",
+        "School officials are government employees and should need warrants just like police officers.",
+        "T.L.O. was caught violating a school rule and then lied about her smoking habits.",
+        "Students should not lose their constitutional rights when they enter school.",
+        "The search immediately revealed cigarettes, proving that T.L.O. had lied about not smoking.",
+        "The search went beyond what was necessary to investigate the original smoking violation.",
+        "Finding rolling papers gave reasonable suspicion that T.L.O. might possess drugs.",
+        "Allowing warrantless searches gives school officials too much power over students.",
+        "Students are minors who need more supervision and guidance than adults.",
+        "Evidence obtained through illegal searches should not be allowed in court.",
+        "School officials need to be able to investigate rule violations quickly to maintain order.",
+        "T.L.O.'s purse was her private property and should have been protected from search."
+    ],
+    brown: [
+        "The Fourteenth Amendment requires that all people be treated equally under the law.",
+        "The \"separate but equal\" rule has been the law since 1896 and has worked for many years.",
+        "Separating people by race automatically suggests that one race is inferior to another.",
+        "Both Black and white schools have similar buildings, teachers, and educational materials.",
+        "Research shows that segregation causes psychological harm to Black children.",
+        "Forcing integration could cause social problems and conflicts in communities.",
+        "Education is too important to allow racial discrimination in public schools.",
+        "States should have the right to organize their school systems based on local traditions.",
+        "Even when facilities look equal, segregated schools are inferior in reputation and opportunities.",
+        "The Fourteenth Amendment was not originally intended to require integrated schools.",
+        "Government cannot classify and separate people based on their race.",
+        "\"Separate but equal\" has worked effectively for nearly 60 years without major problems."
+    ],
+    payton: [
+        "The Fourth Amendment protects people's homes from unreasonable government searches.",
+        "Police had strong evidence that Payton committed murder based on witness statements.",
+        "The Supreme Court has consistently required warrants for searches of homes.",
+        "Allowing warrantless arrests in homes would effectively eliminate the warrant requirement.",
+        "Police have traditionally had the power to arrest suspects without warrants in public places.",
+        "The suspect could destroy evidence or flee if police had to wait for a warrant.",
+        "There is an important difference between searching a home and entering to arrest someone.",
+        "Most states believe that arrest warrants should be required for home entries.",
+        "Police can enter homes without warrants in true emergencies.",
+        "Throughout American history, police have made home arrests without warrants.",
+        "Getting a warrant is not difficult for police to obtain.",
+        "A person's home deserves the strongest Fourth Amendment protection."
+    ],
+    mahanoy: [
+        "Most federal courts have ruled that schools can regulate student speech that affects the school, even when made off-campus.",
+        "B.L. made her posts on a weekend, away from school property, using her personal social media account.",
+        "Other courts have allowed schools to punish students for criticizing school officials online.",
+        "B.L.'s posts contained no threats, harassment, or even mention of her specific school.",
+        "Social media posts can be seen by many students and can spread quickly to cause disruption.",
+        "The First Amendment protects students' right to express frustration and criticism.",
+        "Cheerleaders represent the school and should maintain appropriate conduct at all times.",
+        "Snapchat posts disappear quickly and are not permanent like other social media.",
+        "Schools need authority to maintain discipline and positive culture in their programs.",
+        "B.L. never required anyone to see her posts - they were shared with her chosen friends.",
+        "With online learning, there is no clear separation between on-campus and off-campus activities.",
+        "Allowing schools to punish off-campus speech gives them too much control over students' lives.",
+        "The Court's decision in Tinker bars schools from punishing speech based on disagreement with the message."
+    ],
+    kennedy: [
+        "The Free Exercise Clause protects his right to pray according to his faith.",
+        "When a government employee prays publicly, it appears that the government endorses that religion.",
+        "His prayers were personal, brief, and quiet - not attempts to convert students or promote religion.",
+        "Students might feel pressured to join prayer to stay on the team or please their coach.",
+        "He never required, asked, or pressured students to join his prayers.",
+        "The Establishment Clause requires schools to remain neutral on religious matters.",
+        "The government cannot force religious people to hide their faith or pray only in private.",
+        "A reasonable observer would think the school was endorsing Christianity when they saw the coach praying.",
+        "Praying at midfield was an important part of his personal religious practice.",
+        "The school offered reasonable alternatives - Kennedy could pray privately in his office.",
+        "Accommodating his prayer practice does not violate the Establishment Clause.",
+        "Kennedy's refusal to compromise created safety issues when media and crowds rushed the field.",
+        "Schools have a special responsibility to avoid even the appearance of religious endorsement.",
+        "Public employees retain their First Amendment rights even while working."
+    ],
+    arizona: [
+        "The Constitution gives Congress the exclusive power to make immigration laws.",
+        "States have always helped enforce federal laws within their borders.",
+        "Federal immigration law is so complete that it leaves no room for state laws.",
+        "Arizona's law only copies existing federal requirements and doesn't create new crimes.",
+        "The federal government doesn't have enough resources to enforce immigration law everywhere.",
+        "State immigration enforcement could interfere with America's relationships with other countries.",
+        "Arizona faces special problems from illegal immigration because it borders Mexico.",
+        "Different state immigration laws would create confusing and conflicting rules across the country.",
+        "The Supremacy Clause makes federal law more important than conflicting state laws.",
+        "States have the right to protect their borders and citizens from harm.",
+        "State enforcement of immigration law could lead to racial profiling and discrimination.",
+        "Federal immigration priorities focus on dangerous criminals, not all undocumented immigrants.",
+        "Arizona taxpayers pay high costs for illegal immigration in schools, hospitals, and police services."
+    ]
+};
+
+// ============================================================
+// HELPERS
+// ============================================================
+
+// Derive localStorage case key from debate case name
+// "Tinker v. Des Moines (1969)" → "tinker" via debateCases[name].caseLink
+function getCaseFileKey(caseName) {
+    if (typeof debateCases === 'undefined') return null;
+    var c = debateCases[caseName];
+    if (!c || !c.caseLink) return null;
+    return c.caseLink.replace('cases/', '').replace('.html', '');
+}
+
+// ============================================================
+// EVIDENCE PANEL — "Your Evidence" tab
+// ============================================================
+
+function initEvidencePanel(caseName, side) {
+    var container = document.getElementById('tab-evidence');
+    if (!container) return;
+
+    var caseKey = getCaseFileKey(caseName);
+    if (!caseKey) {
+        container.innerHTML = '<div class="alert-info">Could not load evidence data for this case.</div>';
+        return;
+    }
+
+    // Load argument sort data
+    var argSortRaw = localStorage.getItem('scotus-sort-' + caseKey);
+    var argSort = null;
+    try { argSort = argSortRaw ? JSON.parse(argSortRaw) : null; } catch(e) {}
+
+    // Load evidence sort data
+    var eSortRaw = localStorage.getItem('scotus-esort-' + caseKey);
+    var eSort = null;
+    try { eSort = eSortRaw ? JSON.parse(eSortRaw) : null; } catch(e) {}
+
+    var args = argumentData[caseKey] || [];
+    var eSortData = (typeof evidenceSortData !== 'undefined') ? evidenceSortData[caseKey] : null;
+
+    // Filter arguments that match student's chosen side
+    var myArgs = [];
+    if (argSort && args.length) {
+        for (var i = 0; i < args.length; i++) {
+            if (argSort[i] === side) {
+                myArgs.push({ index: i, text: args[i] });
+            }
+        }
+    }
+
+    // Filter evidence facts that match student's chosen side
+    var myFacts = [];
+    if (eSort && eSortData && eSortData.facts) {
+        var facts = eSortData.facts;
+        for (var j = 0; j < facts.length; j++) {
+            if (eSort[j] === side) {
+                var feedback = side === 'petitioner' ? facts[j].petitionerFeedback : facts[j].respondentFeedback;
+                myFacts.push({ index: j, text: facts[j].text, feedback: feedback, canBeBoth: facts[j].canBeBoth });
+            }
+        }
+    }
+
+    // Load ranking state
+    var rankKey = 'scotus-debate-ranks-' + caseKey + '-' + side;
+    var ranks = loadRanks(rankKey);
+
+    // Build HTML
+    var html = '';
+
+    // Status message if nothing was sorted
+    var hasArgs = myArgs.length > 0;
+    var hasFacts = myFacts.length > 0;
+
+    if (!hasArgs && !hasFacts) {
+        html += '<div class="alert-info" style="margin-top: 0;">';
+        html += '<strong>No sorted evidence found.</strong> Complete the Argument Sort activity and the Evidence Sort Challenge on your case page first, then come back here to see your evidence.';
+        html += '<br><br><a href="' + (debateCases[caseName] ? debateCases[caseName].caseLink : '#') + '" style="color: var(--accent); font-weight: 600;">Go to your case page &rarr;</a>';
+        html += '</div>';
+        container.innerHTML = html;
+        return;
+    }
+
+    html += '<div class="alert-info" style="margin-top: 0;">';
+    html += 'These are the arguments and facts you sorted to <strong>your side</strong> on the case page. Star your strongest picks — they\'ll appear as reminders when you write your arguments and sources.';
+    html += '</div>';
+
+    // ARGUMENTS SECTION
+    if (hasArgs) {
+        html += '<div class="ev-panel-section">';
+        html += '<h3 class="ev-panel-heading">Your Arguments <span class="ev-panel-count">' + myArgs.length + ' sorted to your side</span></h3>';
+        for (var a = 0; a < myArgs.length; a++) {
+            var argRanked = ranks.args && ranks.args.indexOf(myArgs[a].index) !== -1;
+            html += '<div class="ev-item' + (argRanked ? ' starred' : '') + '" data-type="arg" data-idx="' + myArgs[a].index + '">';
+            html += '<button class="ev-star-btn' + (argRanked ? ' active' : '') + '" title="Star this for your debate" aria-label="Star argument">';
+            html += argRanked ? '&#9733;' : '&#9734;';
+            html += '</button>';
+            html += '<div class="ev-item-text">' + escHtmlSafe(myArgs[a].text) + '</div>';
+            html += '</div>';
+        }
+        html += '</div>';
+    }
+
+    // FACTS SECTION
+    if (hasFacts) {
+        html += '<div class="ev-panel-section">';
+        html += '<h3 class="ev-panel-heading">Your Facts <span class="ev-panel-count">' + myFacts.length + ' sorted to your side</span></h3>';
+        for (var f = 0; f < myFacts.length; f++) {
+            var factRanked = ranks.facts && ranks.facts.indexOf(myFacts[f].index) !== -1;
+            html += '<div class="ev-item' + (factRanked ? ' starred' : '') + '" data-type="fact" data-idx="' + myFacts[f].index + '">';
+            html += '<button class="ev-star-btn' + (factRanked ? ' active' : '') + '" title="Star this for your debate" aria-label="Star fact">';
+            html += factRanked ? '&#9733;' : '&#9734;';
+            html += '</button>';
+            html += '<div class="ev-item-text">';
+            html += '<p>' + escHtmlSafe(myFacts[f].text) + '</p>';
+            html += '<p class="ev-item-feedback"><em>Why it helps your side:</em> ' + escHtmlSafe(myFacts[f].feedback) + '</p>';
+            if (myFacts[f].canBeBoth) {
+                html += '<span class="ev-both-badge">Can help both sides</span>';
+            }
+            html += '</div>';
+            html += '</div>';
+        }
+        html += '</div>';
+    }
+
+    // YOUR PICKS SUMMARY
+    html += '<div class="ev-picks-summary" id="ev-picks-summary"></div>';
+
+    container.innerHTML = html;
+
+    // Render picks summary
+    renderPicksSummary(ranks, myArgs, myFacts);
+
+    // Attach star click handlers via delegation
+    container.addEventListener('click', function(e) {
+        var starBtn = e.target.closest('.ev-star-btn');
+        if (!starBtn) return;
+
+        var item = starBtn.closest('.ev-item');
+        var type = item.getAttribute('data-type');
+        var idx = parseInt(item.getAttribute('data-idx'));
+
+        // Toggle star
+        var arr = type === 'arg' ? ranks.args : ranks.facts;
+        var pos = arr.indexOf(idx);
+        if (pos !== -1) {
+            arr.splice(pos, 1);
+            item.classList.remove('starred');
+            starBtn.classList.remove('active');
+            starBtn.innerHTML = '&#9734;';
+        } else {
+            arr.push(idx);
+            item.classList.add('starred');
+            starBtn.classList.add('active');
+            starBtn.innerHTML = '&#9733;';
+        }
+
+        saveRanks(rankKey, ranks);
+        renderPicksSummary(ranks, myArgs, myFacts);
+        updateWritingReferences(ranks, myArgs, myFacts);
+    });
+}
+
+// ============================================================
+// PICKS SUMMARY + WRITING REFERENCES
+// ============================================================
+
+function renderPicksSummary(ranks, myArgs, myFacts) {
+    var el = document.getElementById('ev-picks-summary');
+    if (!el) return;
+
+    var starredArgs = [];
+    var starredFacts = [];
+
+    if (ranks.args) {
+        for (var i = 0; i < ranks.args.length; i++) {
+            for (var a = 0; a < myArgs.length; a++) {
+                if (myArgs[a].index === ranks.args[i]) {
+                    starredArgs.push(myArgs[a]);
+                    break;
+                }
+            }
+        }
+    }
+
+    if (ranks.facts) {
+        for (var j = 0; j < ranks.facts.length; j++) {
+            for (var f = 0; f < myFacts.length; f++) {
+                if (myFacts[f].index === ranks.facts[j]) {
+                    starredFacts.push(myFacts[f]);
+                    break;
+                }
+            }
+        }
+    }
+
+    if (starredArgs.length === 0 && starredFacts.length === 0) {
+        el.innerHTML = '<p class="ev-picks-empty">Star your strongest arguments and facts above to build your debate picks.</p>';
+        return;
+    }
+
+    var html = '<h3 class="ev-picks-title">Your Debate Picks</h3>';
+
+    if (starredArgs.length > 0) {
+        html += '<div class="ev-picks-group"><h4>Starred Arguments</h4><ol>';
+        for (var sa = 0; sa < starredArgs.length; sa++) {
+            html += '<li>' + escHtmlSafe(starredArgs[sa].text) + '</li>';
+        }
+        html += '</ol></div>';
+    }
+
+    if (starredFacts.length > 0) {
+        html += '<div class="ev-picks-group"><h4>Starred Facts</h4><ol>';
+        for (var sf = 0; sf < starredFacts.length; sf++) {
+            html += '<li>' + escHtmlSafe(starredFacts[sf].text) + '</li>';
+        }
+        html += '</ol></div>';
+    }
+
+    el.innerHTML = html;
+}
+
+function updateWritingReferences(ranks, myArgs, myFacts) {
+    // Update the reference note in the Arguments writing tab
+    var argRef = document.getElementById('ev-arg-reference');
+    if (argRef) {
+        if (ranks.args && ranks.args.length > 0) {
+            var argHtml = '<strong>Your starred arguments:</strong><ol>';
+            for (var i = 0; i < ranks.args.length; i++) {
+                for (var a = 0; a < myArgs.length; a++) {
+                    if (myArgs[a].index === ranks.args[i]) {
+                        argHtml += '<li>' + escHtmlSafe(myArgs[a].text) + '</li>';
+                        break;
+                    }
+                }
+            }
+            argHtml += '</ol>';
+            argRef.innerHTML = argHtml;
+            argRef.style.display = 'block';
+        } else {
+            argRef.style.display = 'none';
+        }
+    }
+
+    // Update the reference note in the Sources writing tab
+    var srcRef = document.getElementById('ev-src-reference');
+    if (srcRef) {
+        if (ranks.facts && ranks.facts.length > 0) {
+            var srcHtml = '<strong>Your starred facts:</strong><ol>';
+            for (var j = 0; j < ranks.facts.length; j++) {
+                for (var f = 0; f < myFacts.length; f++) {
+                    if (myFacts[f].index === ranks.facts[j]) {
+                        srcHtml += '<li>' + escHtmlSafe(myFacts[f].text) + '</li>';
+                        break;
+                    }
+                }
+            }
+            srcHtml += '</ol>';
+            srcRef.innerHTML = srcHtml;
+            srcRef.style.display = 'block';
+        } else {
+            srcRef.style.display = 'none';
+        }
+    }
+}
+
+// ============================================================
+// RANK PERSISTENCE
+// ============================================================
+
+function loadRanks(key) {
+    try {
+        var raw = localStorage.getItem(key);
+        if (raw) {
+            var data = JSON.parse(raw);
+            return { args: data.args || [], facts: data.facts || [] };
+        }
+    } catch(e) {}
+    return { args: [], facts: [] };
+}
+
+function saveRanks(key, ranks) {
+    localStorage.setItem(key, JSON.stringify(ranks));
+    if (typeof saveToCloud === 'function') saveToCloud(key, ranks);
+}
+
+// escHtml is defined in debate.html's inline script.
+// Provide a fallback in case this file loads first.
+var _escHtmlFallback = function(str) {
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+};
+function escHtmlSafe(str) {
+    return (typeof escHtml === 'function') ? escHtmlSafe(str) : _escHtmlFallback(str);
+}
