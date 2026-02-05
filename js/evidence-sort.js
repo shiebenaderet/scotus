@@ -260,90 +260,90 @@ var evidenceSortData = {
         ]
     },
     mahanoy: {
-        petitioner: 'B.L.',
-        respondent: 'Mahanoy School District',
+        petitioner: 'Mahanoy School District',
+        respondent: 'B.L.',
         facts: [
             {
                 text: 'B.L. failed to make the varsity cheerleading team and was placed on junior varsity.',
-                petitionerFeedback: 'Personal frustration is understandable and natural. Being upset about a team decision is a normal human reaction.',
-                respondentFeedback: 'Disappointment is normal, but it doesn\'t justify violating the code of conduct she agreed to follow.',
+                respondentFeedback: 'Personal frustration is understandable and natural. Being upset about a team decision is a normal human reaction.',
+                petitionerFeedback: 'Disappointment is normal, but it doesn\'t justify violating the code of conduct she agreed to follow.',
                 canBeBoth: true,
                 source: 'https://www.oyez.org/cases/2020/20-255'
             },
             {
                 text: 'B.L. posted on Snapchat over the weekend, away from school property.',
-                petitionerFeedback: 'The speech happened off campus and outside school hours. Schools shouldn\'t control what students say on their own time.',
-                respondentFeedback: 'School interest extends to extracurricular activities. Cheerleaders represent the school even off campus.',
+                respondentFeedback: 'The speech happened off campus and outside school hours. Schools shouldn\'t control what students say on their own time.',
+                petitionerFeedback: 'School interest extends to extracurricular activities. Cheerleaders represent the school even off campus.',
                 canBeBoth: false,
                 source: 'https://www.supremecourt.gov/opinions/20pdf/20-255_g3bi.pdf'
             },
             {
                 text: 'The caption read: "F*** school f*** softball f*** cheer f*** everything."',
-                petitionerFeedback: 'This was an expression of personal frustration about her own situation\u2014venting, not targeting anyone.',
-                respondentFeedback: 'Vulgar language targeting the school community undermines the team and school values.',
+                respondentFeedback: 'This was an expression of personal frustration about her own situation\u2014venting, not targeting anyone.',
+                petitionerFeedback: 'Vulgar language targeting the school community undermines the team and school values.',
                 canBeBoth: true,
                 source: 'https://www.oyez.org/cases/2020/20-255'
             },
             {
                 text: 'Snapchat automatically deletes content sent to friends after it is viewed.',
-                petitionerFeedback: 'The content was ephemeral\u2014meant to be temporary and private, not a permanent public statement.',
-                respondentFeedback: 'Screenshots can preserve content permanently. Temporary platforms don\'t guarantee temporary impact.',
+                respondentFeedback: 'The content was ephemeral\u2014meant to be temporary and private, not a permanent public statement.',
+                petitionerFeedback: 'Screenshots can preserve content permanently. Temporary platforms don\'t guarantee temporary impact.',
                 canBeBoth: false,
                 source: 'https://www.supremecourt.gov/opinions/20pdf/20-255_g3bi.pdf'
             },
             {
                 text: 'The post was shared with approximately 250 Snapchat friends.',
-                petitionerFeedback: 'This was a limited audience chosen by the student, not a public broadcast. She controlled who saw it.',
-                respondentFeedback: '250 people is a large audience. Content shared that widely can easily spread beyond the intended group.',
+                respondentFeedback: 'This was a limited audience chosen by the student, not a public broadcast. She controlled who saw it.',
+                petitionerFeedback: '250 people is a large audience. Content shared that widely can easily spread beyond the intended group.',
                 canBeBoth: false,
                 source: 'https://www.oyez.org/cases/2020/20-255'
             },
             {
                 text: 'A teammate took screenshots and showed them to the cheerleading coach.',
-                petitionerFeedback: 'Someone else distributed the content beyond B.L.\'s control. She didn\'t bring it to school\u2014another student did.',
-                respondentFeedback: 'The content reached the school community through a team member, bringing it within the school\'s interest.',
+                respondentFeedback: 'Someone else distributed the content beyond B.L.\'s control. She didn\'t bring it to school\u2014another student did.',
+                petitionerFeedback: 'The content reached the school community through a team member, bringing it within the school\'s interest.',
                 canBeBoth: true,
                 source: 'https://harvardlawreview.org/print/vol-135/mahanoy-v-b-l/'
             },
             {
                 text: 'B.L. had signed a code of conduct for cheerleaders requiring respect for school and coaches.',
-                petitionerFeedback: 'She signed a school code, but her speech was private and off campus. The code can\'t control her entire life.',
-                respondentFeedback: 'Extracurricular participation is voluntary. She agreed to the rules as a condition of being on the team.',
+                respondentFeedback: 'She signed a school code, but her speech was private and off campus. The code can\'t control her entire life.',
+                petitionerFeedback: 'Extracurricular participation is voluntary. She agreed to the rules as a condition of being on the team.',
                 canBeBoth: true,
                 source: 'https://harvardlawreview.org/print/vol-135/mahanoy-v-b-l/'
             },
             {
                 text: 'The code of conduct prohibited "foul language and inappropriate gestures."',
-                petitionerFeedback: 'The rule existed, but extending it to private off-campus speech goes too far.',
-                respondentFeedback: 'A clear rule existed before the incident. B.L. knew the expectations.',
+                respondentFeedback: 'The rule existed, but extending it to private off-campus speech goes too far.',
+                petitionerFeedback: 'A clear rule existed before the incident. B.L. knew the expectations.',
                 canBeBoth: false,
                 source: 'https://harvardlawreview.org/print/vol-135/mahanoy-v-b-l/'
             },
             {
                 text: 'B.L. apologized to the coaches after they approached her about the post.',
-                petitionerFeedback: 'Her apology shows understanding and maturity, not defiance. This wasn\'t a pattern of behavior.',
-                respondentFeedback: 'An apology doesn\'t erase the rule violation or its impact on the team.',
+                respondentFeedback: 'Her apology shows understanding and maturity, not defiance. This wasn\'t a pattern of behavior.',
+                petitionerFeedback: 'An apology doesn\'t erase the rule violation or its impact on the team.',
                 canBeBoth: false,
                 source: 'https://harvardlawreview.org/print/vol-135/mahanoy-v-b-l/'
             },
             {
                 text: 'The school suspended B.L. from the cheerleading team for one full year.',
-                petitionerFeedback: 'A one-year suspension is disproportionate punishment for a frustrated teenager\'s off-campus social media post.',
-                respondentFeedback: 'A significant consequence sends a clear message about expectations for team members.',
+                respondentFeedback: 'A one-year suspension is disproportionate punishment for a frustrated teenager\'s off-campus social media post.',
+                petitionerFeedback: 'A significant consequence sends a clear message about expectations for team members.',
                 canBeBoth: false,
                 source: 'https://www.oyez.org/cases/2020/20-255'
             },
             {
                 text: 'B.L. was a 14-year-old minor at the time of the incident.',
-                petitionerFeedback: 'Minors deserve understanding about emotional regulation. Teenagers vent\u2014it\'s part of growing up.',
-                respondentFeedback: 'Minors require guidance about appropriate conduct. The school has a role in teaching responsibility.',
+                respondentFeedback: 'Minors deserve understanding about emotional regulation. Teenagers vent\u2014it\'s part of growing up.',
+                petitionerFeedback: 'Minors require guidance about appropriate conduct. The school has a role in teaching responsibility.',
                 canBeBoth: true,
                 source: 'https://www.oyez.org/cases/2020/20-255'
             },
             {
                 text: 'No actual disruption occurred at school as a result of the Snapchat post.',
-                petitionerFeedback: 'The speech didn\'t affect school functioning at all. There was no disruption to punish.',
-                respondentFeedback: 'Potential disruption to team cohesion justifies action even if classroom disruption didn\'t occur.',
+                respondentFeedback: 'The speech didn\'t affect school functioning at all. There was no disruption to punish.',
+                petitionerFeedback: 'Potential disruption to team cohesion justifies action even if classroom disruption didn\'t occur.',
                 canBeBoth: true,
                 source: 'https://www.law.cornell.edu/supct/cert/20-255'
             }
@@ -440,90 +440,90 @@ var evidenceSortData = {
         ]
     },
     tlo: {
-        petitioner: 'T.L.O.',
-        respondent: 'New Jersey',
+        petitioner: 'New Jersey',
+        respondent: 'T.L.O.',
         facts: [
             {
                 text: 'T.L.O. was a 14-year-old high school freshman.',
-                petitionerFeedback: 'Even minors have privacy rights protected by the Fourth Amendment.',
-                respondentFeedback: 'Minors in school need more supervision and oversight than adults in public.',
+                respondentFeedback: 'Even minors have privacy rights protected by the Fourth Amendment.',
+                petitionerFeedback: 'Minors in school need more supervision and oversight than adults in public.',
                 canBeBoth: true,
                 source: 'https://www.uscourts.gov/about-federal-courts/educational-resources/educational-activities/fourth-amendment-activities/new-jersey-v-tlo/facts-and-case-summary-new-jersey-v-tlo'
             },
             {
                 text: 'A teacher found T.L.O. smoking in the girls\' restroom, which was a non-smoking area per school rules.',
-                petitionerFeedback: 'This was a minor rule violation\u2014smoking. It didn\'t justify an invasive search of personal property.',
-                respondentFeedback: 'The school has authority to investigate rule violations. A teacher witnessed the infraction directly.',
+                respondentFeedback: 'This was a minor rule violation\u2014smoking. It didn\'t justify an invasive search of personal property.',
+                petitionerFeedback: 'The school has authority to investigate rule violations. A teacher witnessed the infraction directly.',
                 canBeBoth: true,
                 source: 'https://www.infoplease.com/us/government/judicial-branch/new-jersey-v-tlo-1985'
             },
             {
                 text: 'The teacher observed T.L.O. and another student together smoking.',
-                petitionerFeedback: 'Teacher observation of smoking doesn\'t connect to anything beyond cigarettes in a purse.',
-                respondentFeedback: 'The teacher\'s direct observation provided a reasonable basis for the administrator to investigate further.',
+                respondentFeedback: 'Teacher observation of smoking doesn\'t connect to anything beyond cigarettes in a purse.',
+                petitionerFeedback: 'The teacher\'s direct observation provided a reasonable basis for the administrator to investigate further.',
                 canBeBoth: false,
                 source: 'https://schistory.org/education/new-jersey-v-t-l-o-1985/'
             },
             {
                 text: 'The other student admitted smoking when questioned by the administrator.',
-                petitionerFeedback: 'The other student\'s admission doesn\'t establish grounds to search T.L.O.\'s personal belongings.',
-                respondentFeedback: 'This established the credibility of the teacher\'s report and the situation\'s seriousness.',
+                respondentFeedback: 'The other student\'s admission doesn\'t establish grounds to search T.L.O.\'s personal belongings.',
+                petitionerFeedback: 'This established the credibility of the teacher\'s report and the situation\'s seriousness.',
                 canBeBoth: false,
                 source: 'https://www.uscourts.gov/about-federal-courts/educational-resources/educational-activities/fourth-amendment-activities/new-jersey-v-tlo/facts-and-case-summary-new-jersey-v-tlo'
             },
             {
                 text: 'T.L.O. denied smoking and claimed she "didn\'t smoke at all."',
-                petitionerFeedback: 'She exercised her right to deny the accusation. Denial alone shouldn\'t trigger a search.',
-                respondentFeedback: 'Her false denial gave the administrator reason to doubt her credibility and investigate further.',
+                respondentFeedback: 'She exercised her right to deny the accusation. Denial alone shouldn\'t trigger a search.',
+                petitionerFeedback: 'Her false denial gave the administrator reason to doubt her credibility and investigate further.',
                 canBeBoth: false,
                 source: 'https://www.infoplease.com/us/government/judicial-branch/new-jersey-v-tlo-1985'
             },
             {
                 text: 'The administrator searched T.L.O.\'s purse looking for cigarettes.',
-                petitionerFeedback: 'Searching a student\'s purse\u2014personal property\u2014invaded her privacy based on suspicion of a minor rule violation.',
-                respondentFeedback: 'The search was limited to the scope of the suspected violation: looking for evidence of smoking.',
+                respondentFeedback: 'Searching a student\'s purse\u2014personal property\u2014invaded her privacy based on suspicion of a minor rule violation.',
+                petitionerFeedback: 'The search was limited to the scope of the suspected violation: looking for evidence of smoking.',
                 canBeBoth: true,
                 source: 'https://www.uscourts.gov/about-federal-courts/educational-resources/educational-activities/fourth-amendment-activities/new-jersey-v-tlo/facts-and-case-summary-new-jersey-v-tlo'
             },
             {
                 text: 'The initial search found cigarettes in the purse, proving T.L.O. had lied about not smoking.',
-                petitionerFeedback: 'Finding cigarettes validated the search only to that point. The administrator should have stopped there.',
-                respondentFeedback: 'The discovery proved T.L.O. lied, which gave reason to believe she might be hiding more.',
+                respondentFeedback: 'Finding cigarettes validated the search only to that point. The administrator should have stopped there.',
+                petitionerFeedback: 'The discovery proved T.L.O. lied, which gave reason to believe she might be hiding more.',
                 canBeBoth: false,
                 source: 'https://www.uscourts.gov/data-news/judiciary-news/2015/05/14/judge-recalls-1985-case-still-shapes-students-rights'
             },
             {
                 text: 'Continuing the search found: rolling papers, marijuana, a pipe, cash, and a list of students who owed money.',
-                petitionerFeedback: 'The evidence found went far beyond the initial suspicion of smoking. The search scope was not justified.',
-                respondentFeedback: 'Each new discovery expanded the reasonable suspicion, justifying the continued search.',
+                respondentFeedback: 'The evidence found went far beyond the initial suspicion of smoking. The search scope was not justified.',
+                petitionerFeedback: 'Each new discovery expanded the reasonable suspicion, justifying the continued search.',
                 canBeBoth: true,
                 source: 'https://www.uscourts.gov/about-federal-courts/educational-resources/educational-activities/fourth-amendment-activities/new-jersey-v-tlo/facts-and-case-summary-new-jersey-v-tlo'
             },
             {
                 text: 'The search was conducted by a school administrator, not a police officer.',
-                petitionerFeedback: 'School administrators aren\'t trained law enforcement. They shouldn\'t have the same search powers.',
-                respondentFeedback: 'School administrators have a duty to enforce rules and maintain a safe environment for all students.',
+                respondentFeedback: 'School administrators aren\'t trained law enforcement. They shouldn\'t have the same search powers.',
+                petitionerFeedback: 'School administrators have a duty to enforce rules and maintain a safe environment for all students.',
                 canBeBoth: false,
                 source: 'https://www.uscourts.gov/data-news/judiciary-news/2015/05/14/judge-recalls-1985-case-still-shapes-students-rights'
             },
             {
                 text: 'A student\'s purse is personal property containing personal effects.',
-                petitionerFeedback: 'Personal property carries a reasonable expectation of privacy, even in school.',
-                respondentFeedback: 'Schools have a custodial relationship with students and their belongings during school hours.',
+                respondentFeedback: 'Personal property carries a reasonable expectation of privacy, even in school.',
+                petitionerFeedback: 'Schools have a custodial relationship with students and their belongings during school hours.',
                 canBeBoth: false,
                 source: 'https://www.oyez.org/cases/1983/83-712'
             },
             {
                 text: 'The Fourth Amendment states: "no Warrants shall issue, but upon probable cause."',
-                petitionerFeedback: 'The text requires warrants and probable cause for government searches. Schools are government institutions.',
-                respondentFeedback: 'A school exception to the full warrant requirement exists because of the special school environment.',
+                respondentFeedback: 'The text requires warrants and probable cause for government searches. Schools are government institutions.',
+                petitionerFeedback: 'A school exception to the full warrant requirement exists because of the special school environment.',
                 canBeBoth: false,
                 source: null
             },
             {
                 text: 'Students attend school under state compulsory attendance laws.',
-                petitionerFeedback: 'Students compelled to attend school cannot be compelled to waive their constitutional rights.',
-                respondentFeedback: 'State compulsion to attend creates a special environment where different rules for safety apply.',
+                respondentFeedback: 'Students compelled to attend school cannot be compelled to waive their constitutional rights.',
+                petitionerFeedback: 'State compulsion to attend creates a special environment where different rules for safety apply.',
                 canBeBoth: true,
                 source: 'https://en.wikipedia.org/wiki/New_Jersey_v._T._L._O.'
             }

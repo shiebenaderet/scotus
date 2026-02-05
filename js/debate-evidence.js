@@ -352,47 +352,49 @@ function renderPicksSummary(ranks, myArgs, myFacts) {
 }
 
 function updateWritingReferences(ranks, myArgs, myFacts) {
-    // Update the reference note in the Arguments writing tab
+    // Show starred arguments AND facts together on the Arguments writing tab.
+    // ev-src-reference is reserved for initStarredSources (starred source cards).
     var argRef = document.getElementById('ev-arg-reference');
-    if (argRef) {
-        if (ranks.args && ranks.args.length > 0) {
-            var argHtml = '<strong>Your starred arguments:</strong><ol>';
-            for (var i = 0; i < ranks.args.length; i++) {
-                for (var a = 0; a < myArgs.length; a++) {
-                    if (myArgs[a].index === ranks.args[i]) {
-                        argHtml += '<li>' + escHtmlSafe(myArgs[a].text) + '</li>';
-                        break;
-                    }
-                }
-            }
-            argHtml += '</ol>';
-            argRef.innerHTML = argHtml;
-            argRef.style.display = 'block';
-        } else {
-            argRef.style.display = 'none';
-        }
+    if (!argRef) return;
+
+    var hasStarredArgs = ranks.args && ranks.args.length > 0;
+    var hasStarredFacts = ranks.facts && ranks.facts.length > 0;
+
+    if (!hasStarredArgs && !hasStarredFacts) {
+        argRef.style.display = 'none';
+        return;
     }
 
-    // Update the reference note in the Sources writing tab
-    var srcRef = document.getElementById('ev-src-reference');
-    if (srcRef) {
-        if (ranks.facts && ranks.facts.length > 0) {
-            var srcHtml = '<strong>Your starred facts:</strong><ol>';
-            for (var j = 0; j < ranks.facts.length; j++) {
-                for (var f = 0; f < myFacts.length; f++) {
-                    if (myFacts[f].index === ranks.facts[j]) {
-                        srcHtml += '<li>' + escHtmlSafe(myFacts[f].text) + '</li>';
-                        break;
-                    }
+    var html = '';
+
+    if (hasStarredArgs) {
+        html += '<strong>Your starred arguments:</strong><ol>';
+        for (var i = 0; i < ranks.args.length; i++) {
+            for (var a = 0; a < myArgs.length; a++) {
+                if (myArgs[a].index === ranks.args[i]) {
+                    html += '<li>' + escHtmlSafe(myArgs[a].text) + '</li>';
+                    break;
                 }
             }
-            srcHtml += '</ol>';
-            srcRef.innerHTML = srcHtml;
-            srcRef.style.display = 'block';
-        } else {
-            srcRef.style.display = 'none';
         }
+        html += '</ol>';
     }
+
+    if (hasStarredFacts) {
+        html += '<strong>Your starred facts:</strong><ol>';
+        for (var j = 0; j < ranks.facts.length; j++) {
+            for (var f = 0; f < myFacts.length; f++) {
+                if (myFacts[f].index === ranks.facts[j]) {
+                    html += '<li>' + escHtmlSafe(myFacts[f].text) + '</li>';
+                    break;
+                }
+            }
+        }
+        html += '</ol>';
+    }
+
+    argRef.innerHTML = html;
+    argRef.style.display = 'block';
 }
 
 // ============================================================
