@@ -1444,14 +1444,14 @@ a:hover {
 
 /* Collapsible body */
 .esort-collapsible {
-    max-height: 5000px;
-    overflow: hidden;
-    transition: max-height 0.4s ease, opacity 0.3s ease;
+    overflow: visible;
     opacity: 1;
+    transition: max-height 0.4s ease, opacity 0.3s ease;
 }
 
 .evidence-sort-container.collapsed .esort-collapsible {
     max-height: 0;
+    overflow: hidden;
     opacity: 0;
 }
 
