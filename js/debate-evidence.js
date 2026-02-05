@@ -293,6 +293,7 @@ function initEvidencePanel(caseName, side) {
         saveRanks(rankKey, ranks);
         renderPicksSummary(ranks, myArgs, myFacts);
         updateWritingReferences(ranks, myArgs, myFacts, otherArgs);
+        updateEvidenceDrawer(ranks, myArgs, myFacts);
     });
 }
 
@@ -509,4 +510,200 @@ var _escHtmlFallback = function(str) {
 };
 function escHtmlSafe(str) {
     return (typeof escHtml === 'function') ? escHtml(str) : _escHtmlFallback(str);
+}
+
+// ============================================================
+// EVIDENCE DRAWER — Floating panel with insert-to-textarea
+// ============================================================
+
+var _evDrawerLastTextarea = null;
+var _evDrawerTexts = [];
+var _evDrawerListenerAttached = false;
+
+function toggleEvidenceDrawer(forceState) {
+    var drawer = document.getElementById('ev-drawer');
+    var overlay = document.getElementById('ev-drawer-overlay');
+    if (!drawer || !overlay) return;
+
+    var shouldOpen = typeof forceState === 'boolean' ? forceState : !drawer.classList.contains('open');
+
+    if (shouldOpen) {
+        drawer.classList.add('open');
+        overlay.classList.add('open');
+    } else {
+        drawer.classList.remove('open');
+        overlay.classList.remove('open');
+    }
+}
+
+var _evDrawerTrackingInit = false;
+function initEvidenceDrawerTracking() {
+    if (_evDrawerTrackingInit) return;
+    _evDrawerTrackingInit = true;
+
+    // Track last focused textarea for insert functionality
+    document.addEventListener('focusin', function(e) {
+        if (e.target && e.target.classList && e.target.classList.contains('debate-textarea')) {
+            // Remove highlight from previous
+            if (_evDrawerLastTextarea && _evDrawerLastTextarea !== e.target) {
+                _evDrawerLastTextarea.classList.remove('ev-focus-target');
+            }
+            _evDrawerLastTextarea = e.target;
+            _evDrawerLastTextarea.classList.add('ev-focus-target');
+
+            // Update hint text
+            var hint = document.getElementById('ev-drawer-hint');
+            var fieldLabel = _evDrawerLastTextarea.getAttribute('placeholder') || '';
+            if (fieldLabel.length > 40) fieldLabel = fieldLabel.substring(0, 40) + '...';
+            if (hint && fieldLabel) {
+                hint.innerHTML = 'Inserting into: <strong>' + escHtmlSafe(fieldLabel) + '</strong>';
+            }
+        }
+    });
+
+    // Close drawer on Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') toggleEvidenceDrawer(false);
+    });
+}
+
+function updateEvidenceDrawer(ranks, myArgs, myFacts) {
+    var body = document.getElementById('ev-drawer-body');
+    var badge = document.getElementById('ev-drawer-badge');
+    var toggle = document.getElementById('ev-drawer-toggle');
+    if (!body) return;
+
+    var starredArgs = [];
+    var starredFacts = [];
+
+    if (ranks && ranks.args) {
+        for (var i = 0; i < ranks.args.length; i++) {
+            for (var a = 0; a < myArgs.length; a++) {
+                if (myArgs[a].index === ranks.args[i]) {
+                    starredArgs.push(myArgs[a]);
+                    break;
+                }
+            }
+        }
+    }
+
+    if (ranks && ranks.facts) {
+        for (var j = 0; j < ranks.facts.length; j++) {
+            for (var f = 0; f < myFacts.length; f++) {
+                if (myFacts[f].index === ranks.facts[j]) {
+                    starredFacts.push(myFacts[f]);
+                    break;
+                }
+            }
+        }
+    }
+
+    var totalStarred = starredArgs.length + starredFacts.length;
+
+    // Update badge
+    if (badge) {
+        if (totalStarred > 0) {
+            badge.textContent = totalStarred;
+            badge.style.display = '';
+        } else {
+            badge.style.display = 'none';
+        }
+    }
+
+    // Empty state
+    if (totalStarred === 0) {
+        body.innerHTML = '<div class="ev-drawer-empty">' +
+            '<p>Star your best arguments and facts on the <strong>Your Evidence</strong> tab to see them here.</p>' +
+            '<p><button class="starter-option" style="display: inline-block; width: auto;" onclick="showDebateTab(\'evidence\'); toggleEvidenceDrawer(false);">Go to Your Evidence</button></p>' +
+            '</div>';
+        return;
+    }
+
+    var html = '';
+
+    // Store texts in a module-level lookup for safe insertion
+    _evDrawerTexts = [];
+
+    // Starred arguments
+    if (starredArgs.length > 0) {
+        html += '<div class="ev-drawer-section">';
+        html += '<div class="ev-drawer-section-title">Starred Arguments (' + starredArgs.length + ')</div>';
+        for (var sa = 0; sa < starredArgs.length; sa++) {
+            var argIdx = _evDrawerTexts.length;
+            _evDrawerTexts.push(starredArgs[sa].text);
+            html += '<div class="ev-drawer-item">';
+            html += '<div class="ev-drawer-item-text">' + escHtmlSafe(starredArgs[sa].text) + '</div>';
+            html += '<button class="ev-drawer-insert-btn" data-drawer-idx="' + argIdx + '">Insert &#8595;</button>';
+            html += '</div>';
+        }
+        html += '</div>';
+    }
+
+    // Starred facts
+    if (starredFacts.length > 0) {
+        html += '<div class="ev-drawer-section">';
+        html += '<div class="ev-drawer-section-title">Starred Facts (' + starredFacts.length + ')</div>';
+        for (var sf = 0; sf < starredFacts.length; sf++) {
+            var factIdx = _evDrawerTexts.length;
+            _evDrawerTexts.push(starredFacts[sf].text);
+            html += '<div class="ev-drawer-item">';
+            html += '<div class="ev-drawer-item-text">' + escHtmlSafe(starredFacts[sf].text) + '</div>';
+            if (starredFacts[sf].feedback) {
+                html += '<div class="ev-drawer-item-feedback">Why it helps: ' + escHtmlSafe(starredFacts[sf].feedback) + '</div>';
+            }
+            html += '<button class="ev-drawer-insert-btn" data-drawer-idx="' + factIdx + '">Insert &#8595;</button>';
+            html += '</div>';
+        }
+        html += '</div>';
+    }
+
+    body.innerHTML = html;
+
+    // Attach insert handler via delegation (once)
+    if (!_evDrawerListenerAttached) {
+        _evDrawerListenerAttached = true;
+        body.addEventListener('click', function(e) {
+            var btn = e.target.closest('.ev-drawer-insert-btn');
+            if (!btn) return;
+            var idx = parseInt(btn.getAttribute('data-drawer-idx'));
+            if (!isNaN(idx) && _evDrawerTexts[idx]) {
+                insertDrawerEvidence(btn, _evDrawerTexts[idx]);
+            }
+        });
+    }
+}
+
+function insertDrawerEvidence(btn, text) {
+    if (!_evDrawerLastTextarea) {
+        // Flash the hint to tell them to click a textarea
+        var hint = document.getElementById('ev-drawer-hint');
+        if (hint) {
+            hint.innerHTML = '<strong style="color: #dc2626;">Click in a writing box first!</strong>';
+            setTimeout(function() {
+                hint.innerHTML = 'Click in any writing box, then use <strong>Insert</strong> to add evidence to your writing.';
+            }, 2000);
+        }
+        return;
+    }
+
+    var ta = _evDrawerLastTextarea;
+    var current = ta.value;
+    var sep = current.trim() ? '\n\n' : '';
+    ta.value = current + sep + text;
+
+    // Scroll textarea to bottom to show inserted text
+    ta.scrollTop = ta.scrollHeight;
+
+    // Trigger input event so auto-save picks it up
+    var evt = new Event('input', { bubbles: true });
+    ta.dispatchEvent(evt);
+
+    // Visual feedback on button
+    var original = btn.innerHTML;
+    btn.innerHTML = 'Inserted &#10003;';
+    btn.classList.add('inserted');
+    setTimeout(function() {
+        btn.innerHTML = original;
+        btn.classList.remove('inserted');
+    }, 1500);
 }
