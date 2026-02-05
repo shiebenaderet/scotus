@@ -652,14 +652,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Build the UI
     var html = '';
-    html += '<div class="esort-header">';
+    html += '<div class="esort-section-toggle" id="esort-toggle">';
+    html += '<div class="esort-toggle-left">';
     html += '<h3>Evidence Sort Challenge</h3>';
+    html += '<div class="esort-progress"><span id="esort-progress-count">0</span> of ' + caseInfo.facts.length + ' sorted</div>';
+    html += '</div>';
+    html += '<span class="esort-toggle-arrow" id="esort-arrow">&#9662;</span>';
+    html += '</div>';
+    html += '<div class="esort-complete-banner" id="esort-complete" style="display:none">';
+    html += '<span class="esort-complete-icon">&#10003;</span> All facts sorted! Tap to review your choices.';
+    html += '</div>';
+    html += '<div class="esort-collapsible" id="esort-body">';
+    html += '<div class="esort-header">';
     html += '<p>Read each fact carefully. Slide it toward the side you think it helps, then see the interpretation!</p>';
     html += '<div class="esort-sides-label">';
     html += '<span class="esort-side-left">\u2190 ' + caseInfo.petitioner + '</span>';
     html += '<span class="esort-side-right">' + caseInfo.respondent + ' \u2192</span>';
     html += '</div>';
-    html += '<div class="esort-progress"><span id="esort-progress-count">0</span> of ' + caseInfo.facts.length + ' sorted</div>';
     html += '</div>';
 
     caseInfo.facts.forEach(function(fact, i) {
@@ -694,7 +703,19 @@ document.addEventListener('DOMContentLoaded', function() {
         html += '</div>';
     });
 
+    html += '</div>'; // close esort-collapsible
+
     container.innerHTML = html;
+
+    // Toggle collapse on header click
+    var toggleBtn = document.getElementById('esort-toggle');
+    var bodyEl = document.getElementById('esort-body');
+    var arrowEl = document.getElementById('esort-arrow');
+    if (toggleBtn && bodyEl) {
+        toggleBtn.addEventListener('click', function() {
+            container.classList.toggle('collapsed');
+        });
+    }
 
     // Update progress count
     updateProgress();
@@ -761,8 +782,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function updateProgress() {
         var count = Object.keys(state).length;
+        var total = caseInfo.facts.length;
         var el = document.getElementById('esort-progress-count');
         if (el) el.textContent = count;
+
+        var banner = document.getElementById('esort-complete');
+        if (count >= total) {
+            // All sorted — show completion banner and collapse
+            if (banner) banner.style.display = '';
+            container.classList.add('collapsed');
+        } else {
+            if (banner) banner.style.display = 'none';
+            container.classList.remove('collapsed');
+        }
     }
 
     // Also try loading from cloud
