@@ -609,6 +609,228 @@
             margin-top: 2px;
         }
 
+        /* EVIDENCE DRAWER */
+        .ev-drawer-toggle {
+            position: fixed;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 999;
+            background: #fffbeb;
+            border: 2px solid #f59e0b;
+            border-right: none;
+            border-radius: 8px 0 0 8px;
+            padding: 12px 8px;
+            cursor: pointer;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: #92400e;
+            letter-spacing: 0.03em;
+            box-shadow: -2px 0 8px rgba(0,0,0,0.08);
+            transition: background 0.15s, transform 0.15s;
+            display: none;
+        }
+
+        .ev-drawer-toggle:hover {
+            background: #fef3c7;
+        }
+
+        .ev-drawer-toggle .ev-drawer-toggle-star {
+            font-size: 1rem;
+            margin-bottom: 4px;
+            display: block;
+            text-orientation: upright;
+        }
+
+        .ev-drawer-toggle .ev-drawer-badge {
+            display: block;
+            text-orientation: upright;
+            font-size: 0.75rem;
+            background: #f59e0b;
+            color: #fff;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            text-align: center;
+            margin-top: 6px;
+            writing-mode: horizontal-tb;
+        }
+
+        .ev-drawer-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.25);
+            z-index: 1000;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .ev-drawer-overlay.open {
+            display: block;
+            opacity: 1;
+        }
+
+        .ev-drawer {
+            position: fixed;
+            top: 0;
+            right: -380px;
+            width: 360px;
+            height: 100vh;
+            background: #fff;
+            border-left: 3px solid #f59e0b;
+            box-shadow: -4px 0 20px rgba(0,0,0,0.12);
+            z-index: 1001;
+            display: flex;
+            flex-direction: column;
+            transition: right 0.25s ease;
+            overflow: hidden;
+        }
+
+        .ev-drawer.open {
+            right: 0;
+        }
+
+        .ev-drawer-header {
+            padding: 16px 16px 12px;
+            border-bottom: 2px solid #fde68a;
+            background: #fffbeb;
+            flex-shrink: 0;
+        }
+
+        .ev-drawer-header-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .ev-drawer-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin: 0;
+        }
+
+        .ev-drawer-close {
+            background: none;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            width: 32px;
+            height: 32px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #888;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ev-drawer-close:hover {
+            background: #fee2e2;
+            color: #dc2626;
+            border-color: #fca5a5;
+        }
+
+        .ev-drawer-hint {
+            font-size: 0.8rem;
+            color: #92400e;
+            margin-top: 6px;
+            line-height: 1.4;
+        }
+
+        .ev-drawer-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+        }
+
+        .ev-drawer-empty {
+            text-align: center;
+            padding: 30px 16px;
+            color: #92400e;
+        }
+
+        .ev-drawer-empty p {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin: 0 0 12px;
+        }
+
+        .ev-drawer-section-title {
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: #92400e;
+            margin: 0 0 8px;
+            padding-bottom: 4px;
+            border-bottom: 1px solid #fde68a;
+        }
+
+        .ev-drawer-item {
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            border-radius: 8px;
+            padding: 10px 12px;
+            margin-bottom: 10px;
+            font-size: 0.88rem;
+            line-height: 1.5;
+            color: var(--text-dark);
+        }
+
+        .ev-drawer-item-text {
+            margin-bottom: 6px;
+        }
+
+        .ev-drawer-item-feedback {
+            font-size: 0.82rem;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 8px;
+            padding-left: 10px;
+            border-left: 2px solid #fbbf24;
+        }
+
+        .ev-drawer-insert-btn {
+            background: #10b981;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 4px 10px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .ev-drawer-insert-btn:hover {
+            background: #059669;
+        }
+
+        .ev-drawer-insert-btn.inserted {
+            background: #6366f1;
+            cursor: default;
+        }
+
+        .ev-drawer-section + .ev-drawer-section {
+            margin-top: 18px;
+        }
+
+        .ev-drawer-target-hint {
+            display: inline-block;
+            font-size: 0.75rem;
+            color: #888;
+            margin-left: 6px;
+        }
+
+        .debate-textarea.ev-focus-target {
+            border-color: #f59e0b;
+            box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.15);
+        }
+
         /* RESPONSIVE */
         @media (max-width: 768px) {
             .side-select-grid { grid-template-columns: 1fr; }
@@ -616,6 +838,49 @@
             .debate-tab { min-width: 100%; }
             .ev-item { padding: 12px; gap: 10px; }
             .ev-star-btn { width: 32px; height: 32px; font-size: 1.1rem; }
+
+            .ev-drawer {
+                top: auto;
+                bottom: -80vh;
+                right: 0;
+                left: 0;
+                width: 100%;
+                height: 75vh;
+                border-left: none;
+                border-top: 3px solid #f59e0b;
+                border-radius: 16px 16px 0 0;
+                transition: bottom 0.3s ease;
+            }
+
+            .ev-drawer.open {
+                bottom: 0;
+                right: 0;
+            }
+
+            .ev-drawer-toggle {
+                writing-mode: horizontal-tb;
+                text-orientation: initial;
+                right: 12px;
+                top: auto;
+                bottom: 12px;
+                transform: none;
+                border: 2px solid #f59e0b;
+                border-radius: 50px;
+                padding: 10px 14px;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+            }
+
+            .ev-drawer-toggle .ev-drawer-toggle-star {
+                margin-bottom: 0;
+                margin-right: 4px;
+                display: inline;
+            }
+
+            .ev-drawer-toggle .ev-drawer-badge {
+                display: inline-block;
+                margin-top: 0;
+                margin-left: 4px;
+            }
         }
     </style>
 </head>
@@ -967,10 +1232,34 @@
         </div>
     </main>
 
+    <!-- EVIDENCE DRAWER -->
+    <button class="ev-drawer-toggle" id="ev-drawer-toggle" onclick="toggleEvidenceDrawer()">
+        <span class="ev-drawer-toggle-star">&#9733;</span>
+        My Evidence
+        <span class="ev-drawer-badge" id="ev-drawer-badge" style="display: none;">0</span>
+    </button>
+
+    <div class="ev-drawer-overlay" id="ev-drawer-overlay" onclick="toggleEvidenceDrawer(false)"></div>
+
+    <div class="ev-drawer" id="ev-drawer">
+        <div class="ev-drawer-header">
+            <div class="ev-drawer-header-row">
+                <h3 class="ev-drawer-title">&#9733; My Starred Evidence</h3>
+                <button class="ev-drawer-close" onclick="toggleEvidenceDrawer(false)" aria-label="Close evidence drawer">&times;</button>
+            </div>
+            <div class="ev-drawer-hint" id="ev-drawer-hint">Click in any writing box, then use <strong>Insert</strong> to add evidence to your writing.</div>
+        </div>
+        <div class="ev-drawer-body" id="ev-drawer-body">
+            <div class="ev-drawer-empty">
+                <p>Star your best arguments and facts on the <strong>Your Evidence</strong> tab to see them here.</p>
+            </div>
+        </div>
+    </div>
+
     <footer>
         <div class="container">
             <p>SCOTUS Debate Project — A Student Resource for Understanding the Supreme Court</p>
-            <p class="site-version">v1.11.1</p>
+            <p class="site-version">v1.12.0</p>
         </div>
     </footer>
 
@@ -1140,7 +1429,10 @@
         // Load starred sources into Sources tab
         initStarredSources(selectedCase, selectedSide);
 
-        // Update writing references from saved ranks
+        // Init evidence drawer tracking (focus listener, keyboard)
+        initEvidenceDrawerTracking();
+
+        // Update writing references + evidence drawer from saved ranks
         setTimeout(function() {
             var ck = getCaseFileKey(selectedCase);
             if (ck) {
@@ -1173,6 +1465,7 @@
                     }
                 }
                 updateWritingReferences(ranks, myArgs, myFacts, otherArgs);
+                updateEvidenceDrawer(ranks, myArgs, myFacts);
             }
         }, 150);
 
@@ -1184,6 +1477,10 @@
         saveAllWork(true);
         document.getElementById('debate-workspace').style.display = 'none';
         document.getElementById('step-case-select').style.display = 'block';
+        // Hide drawer and toggle
+        var toggle = document.getElementById('ev-drawer-toggle');
+        if (toggle) toggle.style.display = 'none';
+        toggleEvidenceDrawer(false);
     }
 
     // ==========================================
@@ -1196,6 +1493,16 @@
         });
         document.querySelectorAll('.debate-section').forEach(s => s.classList.remove('active'));
         document.getElementById('tab-' + tabName).classList.add('active');
+
+        // Show drawer toggle on writing tabs, hide on Your Evidence tab
+        var toggle = document.getElementById('ev-drawer-toggle');
+        if (toggle) {
+            toggle.style.display = (tabName === 'evidence') ? 'none' : '';
+        }
+        // Close drawer when switching to evidence tab
+        if (tabName === 'evidence') {
+            toggleEvidenceDrawer(false);
+        }
     }
 
     // ==========================================
