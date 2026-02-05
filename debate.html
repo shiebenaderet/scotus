@@ -411,11 +411,167 @@
         .status-bar .case-info { font-weight: 600; color: var(--primary-dark); }
         .status-bar .side-info { color: #666; }
 
+        /* YOUR EVIDENCE PANEL */
+        .ev-panel-section {
+            margin-bottom: 2rem;
+        }
+
+        .ev-panel-heading {
+            color: var(--primary-dark);
+            font-size: 1.15rem;
+            margin: 0 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .ev-panel-count {
+            font-size: 0.82rem;
+            font-weight: 400;
+            color: #888;
+            margin-left: 0.5rem;
+        }
+
+        .ev-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 14px 16px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            margin-bottom: 10px;
+            background: var(--bg-white);
+            transition: all 0.2s ease;
+        }
+
+        .ev-item.starred {
+            border-color: #f59e0b;
+            background: #fffbeb;
+        }
+
+        .ev-star-btn {
+            flex-shrink: 0;
+            width: 36px;
+            height: 36px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            background: var(--bg-white);
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            color: #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .ev-star-btn:hover {
+            border-color: #f59e0b;
+            color: #f59e0b;
+        }
+
+        .ev-star-btn.active {
+            background: #f59e0b;
+            border-color: #f59e0b;
+            color: #fff;
+        }
+
+        .ev-item-text {
+            flex: 1;
+            font-size: 0.92rem;
+            line-height: 1.55;
+            color: var(--text-dark);
+        }
+
+        .ev-item-text p {
+            margin: 0 0 0.4rem;
+        }
+
+        .ev-item-feedback {
+            font-size: 0.85rem;
+            color: #555;
+        }
+
+        .ev-both-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: #fbbf24;
+            color: #78350f;
+            margin-top: 4px;
+        }
+
+        /* PICKS SUMMARY */
+        .ev-picks-summary {
+            margin-top: 2rem;
+            padding: 1.25rem;
+            border: 2px solid #f59e0b;
+            border-radius: 12px;
+            background: #fffbeb;
+        }
+
+        .ev-picks-title {
+            color: #92400e;
+            font-size: 1.1rem;
+            margin: 0 0 1rem;
+        }
+
+        .ev-picks-group h4 {
+            font-size: 0.9rem;
+            color: #92400e;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin: 0 0 0.5rem;
+        }
+
+        .ev-picks-group ol {
+            margin: 0 0 1rem 1.25rem;
+            padding: 0;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--text-dark);
+        }
+
+        .ev-picks-empty {
+            color: #92400e;
+            font-size: 0.9rem;
+            font-style: italic;
+            margin: 0;
+        }
+
+        /* WRITING REFERENCE NOTES */
+        .ev-writing-ref {
+            background: #fffbeb;
+            border: 1px solid #fbbf24;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 16px;
+            font-size: 0.88rem;
+            line-height: 1.55;
+            color: #92400e;
+        }
+
+        .ev-writing-ref strong {
+            display: block;
+            margin-bottom: 0.4rem;
+        }
+
+        .ev-writing-ref ol {
+            margin: 0 0 0 1.25rem;
+            padding: 0;
+        }
+
         /* RESPONSIVE */
         @media (max-width: 768px) {
             .side-select-grid { grid-template-columns: 1fr; }
             .debate-tabs { flex-direction: column; }
             .debate-tab { min-width: 100%; }
+            .ev-item { padding: 12px; gap: 10px; }
+            .ev-star-btn { width: 32px; height: 32px; font-size: 1.1rem; }
         }
     </style>
 </head>
@@ -488,7 +644,11 @@
                 </div>
 
                 <div class="debate-tabs">
-                    <button class="debate-tab active" onclick="showDebateTab('opening')">
+                    <button class="debate-tab active" onclick="showDebateTab('evidence')">
+                        <div>Your Evidence</div>
+                        <div class="tab-sub">Review &amp; rank</div>
+                    </button>
+                    <button class="debate-tab" onclick="showDebateTab('opening')">
                         <div>Opening Statement</div>
                         <div class="tab-sub">Introduce your case</div>
                     </button>
@@ -510,8 +670,11 @@
                     </button>
                 </div>
 
+                <!-- ========== YOUR EVIDENCE ========== -->
+                <div class="debate-section active" id="tab-evidence"></div>
+
                 <!-- ========== OPENING STATEMENT ========== -->
-                <div class="debate-section active" id="tab-opening">
+                <div class="debate-section" id="tab-opening">
                     <div class="alert-info" style="margin-top: 0;">
                         Your opening statement introduces you, your client, the case background, each side's constitutional claim, why this case matters, and a preview of your arguments.
                     </div>
@@ -596,6 +759,7 @@
 
                 <!-- ========== ARGUMENTS ========== -->
                 <div class="debate-section" id="tab-arguments">
+                    <div class="ev-writing-ref" id="ev-arg-reference" style="display: none;"></div>
                     <div class="alert-info" style="margin-top: 0;">
                         Build at least 3 arguments for your side. Each argument should include your claim and supporting evidence from the case. Use facts from your research.
                     </div>
@@ -633,6 +797,7 @@
 
                 <!-- ========== SOURCES ========== -->
                 <div class="debate-section" id="tab-sources">
+                    <div class="ev-writing-ref" id="ev-src-reference" style="display: none;"></div>
                     <div class="alert-info" style="margin-top: 0;">
                         Select at least <strong>2 sources</strong> from the Evidence Vault that support your side. For each source you pick, write a brief note explaining how it helps your argument. <a id="vault-link" href="#" target="_blank" style="color: var(--accent);">Open your case's Evidence Vault</a>
                     </div>
@@ -758,7 +923,7 @@
     <footer>
         <div class="container">
             <p>SCOTUS Debate Project — A Student Resource for Understanding the Supreme Court</p>
-            <p class="site-version">v1.8.1</p>
+            <p class="site-version">v1.9.0</p>
         </div>
     </footer>
 
@@ -766,6 +931,8 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
     <script src="js/firebase-init.js"></script>
+    <script src="js/evidence-sort.js"></script>
+    <script src="js/debate-evidence.js"></script>
 
     <script>
     // ==========================================
@@ -910,6 +1077,9 @@
         document.getElementById('step-case-select').style.display = 'none';
         document.getElementById('debate-workspace').style.display = 'block';
 
+        // Init evidence panel (Your Evidence tab)
+        initEvidencePanel(selectedCase, selectedSide);
+
         // Init arguments and rebuttals
         initArguments();
         initRebuttals();
@@ -919,6 +1089,37 @@
 
         // Load saved work
         loadSavedWork();
+
+        // Update writing references from saved ranks
+        setTimeout(function() {
+            var ck = getCaseFileKey(selectedCase);
+            if (ck) {
+                var rk = 'scotus-debate-ranks-' + ck + '-' + selectedSide;
+                var ranks = loadRanks(rk);
+                var args = argumentData[ck] || [];
+                var argSort = null;
+                try { argSort = JSON.parse(localStorage.getItem('scotus-sort-' + ck)); } catch(e) {}
+                var myArgs = [];
+                if (argSort && args.length) {
+                    for (var i = 0; i < args.length; i++) {
+                        if (argSort[i] === selectedSide) myArgs.push({ index: i, text: args[i] });
+                    }
+                }
+                var eSortData = (typeof evidenceSortData !== 'undefined') ? evidenceSortData[ck] : null;
+                var eSort = null;
+                try { eSort = JSON.parse(localStorage.getItem('scotus-esort-' + ck)); } catch(e) {}
+                var myFacts = [];
+                if (eSort && eSortData && eSortData.facts) {
+                    for (var j = 0; j < eSortData.facts.length; j++) {
+                        if (eSort[j] === selectedSide) {
+                            var fb = selectedSide === 'petitioner' ? eSortData.facts[j].petitionerFeedback : eSortData.facts[j].respondentFeedback;
+                            myFacts.push({ index: j, text: eSortData.facts[j].text, feedback: fb });
+                        }
+                    }
+                }
+                updateWritingReferences(ranks, myArgs, myFacts);
+            }
+        }, 150);
 
         // Attach auto-save to all textareas
         setTimeout(attachAutoSave, 100);
@@ -935,7 +1136,7 @@
     // ==========================================
     function showDebateTab(tabName) {
         document.querySelectorAll('.debate-tab').forEach((t, i) => {
-            const tabs = ['opening', 'arguments', 'rebuttals', 'sources', 'closing'];
+            const tabs = ['evidence', 'opening', 'arguments', 'rebuttals', 'sources', 'closing'];
             t.classList.toggle('active', tabs[i] === tabName);
         });
         document.querySelectorAll('.debate-section').forEach(s => s.classList.remove('active'));
