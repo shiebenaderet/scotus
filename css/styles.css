@@ -1,3 +1,48 @@
+/* ============================================================
+   SCOTUS DEBATE SITE - TYPOGRAPHY & DESIGN SYSTEM
+   ============================================================
+
+   TEXT ALIGNMENT RULES:
+   ---------------------
+   CENTERED (text-align: center):
+   - Page headers and hero sections
+   - Section titles (h2 level)
+   - Call-to-action buttons and their containers
+   - Footer content
+   - Modal/dialog headers
+   - Empty states and loading messages
+   - Navigation menus (horizontal centering)
+
+   LEFT-ALIGNED (text-align: left):
+   - All body paragraphs and prose content
+   - List items (ul, ol)
+   - Table cell content
+   - Card body text and descriptions
+   - Form labels and inputs
+   - Instructional text
+   - Evidence/argument content blocks
+
+   FONT SIZE HIERARCHY:
+   --------------------
+   4xl (2.5rem/40px) - Hero titles only
+   3xl (2rem/32px)   - Page titles (h1)
+   2xl (1.75rem/28px)- Section headers (h2)
+   xl  (1.5rem/24px) - Subsection headers (h3)
+   lg  (1.25rem/20px)- Card titles, h4
+   md  (1.125rem/18px)- Lead/emphasized body text
+   base(1rem/16px)   - Standard body text
+   sm  (0.875rem/14px)- Secondary text, captions
+   xs  (0.75rem/12px) - Badges, small labels
+
+   FONT WEIGHT USAGE:
+   ------------------
+   700 (bold)     - Primary headings (h1, h2)
+   600 (semibold) - Secondary headings (h3, h4), buttons, links
+   500 (medium)   - Navigation, emphasized inline text
+   400 (normal)   - Body text, paragraphs
+
+   ============================================================ */
+
 /* RESET & BASE STYLES */
 * {
     margin: 0;
@@ -30,7 +75,32 @@
     /* Typography - Larger base for readability */
     --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     --font-heading: 'Georgia', serif;
-    --font-size-base: 1rem;     /* 16px base */
+
+    /* Type Scale (based on 16px base, ~1.125 ratio for education readability)
+       Note: 0.9rem and 0.95rem are intentionally used for dense content areas
+       to create subtle hierarchy without sacrificing readability */
+    --font-size-xs: 0.75rem;    /* 12px - badges, tiny labels */
+    --font-size-sm: 0.875rem;   /* 14px - small captions, footnotes */
+    --font-size-compact: 0.9rem;/* 14.4px - dense UI, table cells, nav items */
+    --font-size-body: 0.95rem;  /* 15.2px - comfortable reading in content areas */
+    --font-size-base: 1rem;     /* 16px - primary body text */
+    --font-size-md: 1.125rem;   /* 18px - emphasized body, lead text */
+    --font-size-lg: 1.25rem;    /* 20px - card headers, h4 */
+    --font-size-xl: 1.5rem;     /* 24px - h3, section subheads */
+    --font-size-2xl: 1.75rem;   /* 28px - h2, section headers */
+    --font-size-3xl: 2rem;      /* 32px - h1, page titles */
+    --font-size-4xl: 2.5rem;    /* 40px - hero titles */
+
+    /* Font Weights (use numeric values consistently) */
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+
+    /* Line Heights */
+    --line-height-tight: 1.3;   /* Headings */
+    --line-height-snug: 1.4;    /* UI elements, compact text */
+    --line-height-normal: 1.6;  /* Body text, paragraphs */
     --line-height-body: 1.7;    /* More generous line spacing */
     --line-height-heading: 1.3;
 
@@ -547,7 +617,7 @@ padding: 0.75rem 2rem;
     align-items: center;
     justify-content: center;
     font-size: 1.1rem;
-    font-weight: bold;
+    font-weight: 700;
     margin: 0 auto 0.5rem;
 }
 
@@ -827,4 +897,102 @@ footer a {
 
 .auth-btn-out:hover {
     background: rgba(255,255,255,0.25);
+}
+
+/* ============================================================
+   TYPOGRAPHY UTILITY CLASSES
+   Use these for consistent text styling across the site
+   ============================================================ */
+
+/* Text Alignment */
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+
+/* Font Sizes */
+.text-xs { font-size: var(--font-size-xs); }
+.text-sm { font-size: var(--font-size-sm); }
+.text-compact { font-size: var(--font-size-compact); }
+.text-body { font-size: var(--font-size-body); }
+.text-base { font-size: var(--font-size-base); }
+.text-md { font-size: var(--font-size-md); }
+.text-lg { font-size: var(--font-size-lg); }
+.text-xl { font-size: var(--font-size-xl); }
+.text-2xl { font-size: var(--font-size-2xl); }
+.text-3xl { font-size: var(--font-size-3xl); }
+.text-4xl { font-size: var(--font-size-4xl); }
+
+/* Font Weights */
+.font-normal { font-weight: var(--font-weight-normal); }
+.font-medium { font-weight: var(--font-weight-medium); }
+.font-semibold { font-weight: var(--font-weight-semibold); }
+.font-bold { font-weight: var(--font-weight-bold); }
+
+/* Line Heights */
+.leading-tight { line-height: var(--line-height-tight); }
+.leading-snug { line-height: var(--line-height-snug); }
+.leading-normal { line-height: var(--line-height-normal); }
+.leading-relaxed { line-height: var(--line-height-body); }
+
+/* Common Text Patterns */
+.prose {
+    /* For long-form readable content */
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-body);
+    text-align: left;
+}
+
+.prose p {
+    margin-bottom: 1em;
+}
+
+.prose ul, .prose ol {
+    margin-bottom: 1em;
+    padding-left: 1.5em;
+}
+
+.lead {
+    /* For introductory paragraphs */
+    font-size: var(--font-size-md);
+    line-height: var(--line-height-normal);
+    color: var(--text-dark);
+    opacity: 0.9;
+}
+
+.caption {
+    /* For image captions, footnotes */
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-snug);
+    opacity: 0.8;
+}
+
+.section-header {
+    /* For consistent section titles */
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.section-header h2 {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+    color: var(--primary-dark);
+    margin-bottom: var(--spacing-sm);
+}
+
+.section-header p {
+    font-size: var(--font-size-body);
+    opacity: 0.8;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Button container utility - centers buttons with proper spacing */
+.btn-container {
+    text-align: center;
+    margin-top: var(--spacing-lg);
+}
+
+.btn-container .btn + .btn {
+    margin-left: var(--spacing-sm);
 }
