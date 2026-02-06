@@ -1493,7 +1493,7 @@
     <footer>
         <div class="container">
             <p>SCOTUS Debate Project — A Student Resource for Understanding the Supreme Court</p>
-            <p class="site-version">v1.15.0</p>
+            <p class="site-version">v1.15.1</p>
         </div>
     </footer>
 
@@ -1670,12 +1670,20 @@
         var myArgs = [];
         var otherArgs = [];
         var hasArgSort = !!(argSort && args.length);
+
+        // Debug: log argument sort data for troubleshooting
+        console.log('[DebatePrep] Case:', ck, 'Side:', selectedSide);
+        console.log('[DebatePrep] argSort from localStorage:', argSort);
+        console.log('[DebatePrep] codeMap:', codeMap);
+
         if (hasArgSort) {
             for (var i = 0; i < args.length; i++) {
                 var tSide = codeMap[argSort[i]] || argSort[i];
                 if (tSide === selectedSide) myArgs.push({ index: i, text: args[i] });
                 else if (tSide === otherSideKey) otherArgs.push({ index: i, text: args[i] });
             }
+            console.log('[DebatePrep] myArgs indices:', myArgs.map(function(a) { return a.index; }));
+            console.log('[DebatePrep] otherArgs indices:', otherArgs.map(function(a) { return a.index; }));
         }
         var caseLink = c.caseLink || '';
 
