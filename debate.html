@@ -1180,10 +1180,6 @@
                         <div>Arguments</div>
                         <div class="tab-sub">Pick your top 3</div>
                     </button>
-                    <button class="debate-tab" onclick="showDebateTab('rebuttals')">
-                        <div>Rebuttals</div>
-                        <div class="tab-sub">Counter the other side</div>
-                    </button>
                     <button class="debate-tab" onclick="showDebateTab('opening')">
                         <div>Opening Statement</div>
                         <div class="tab-sub">Introduce your case</div>
@@ -1195,6 +1191,10 @@
                     <button class="debate-tab" onclick="showDebateTab('closing')">
                         <div>Closing Statement</div>
                         <div class="tab-sub">Final appeal</div>
+                    </button>
+                    <button class="debate-tab" onclick="showDebateTab('rebuttals')">
+                        <div>Rebuttals</div>
+                        <div class="tab-sub">Counter the other side</div>
                     </button>
                 </div>
 
@@ -1309,6 +1309,7 @@
 
                 <!-- ========== REBUTTALS ========== -->
                 <div class="debate-section" id="tab-rebuttals">
+                    <div class="tab-gated-banner" id="rebuttals-gated-banner" style="display: none;"></div>
                     <div class="ev-writing-ref" id="ev-rebuttals-reference" style="display: none;"></div>
                     <div class="alert-info" style="margin-top: 0;">
                         Select the <strong>3 strongest arguments the other side will use</strong>. Check the box next to each one, then write your counter-argument explaining why it's weak or incorrect. You can select more if you have time.
@@ -1493,7 +1494,7 @@
     <footer>
         <div class="container">
             <p>SCOTUS Debate Project — A Student Resource for Understanding the Supreme Court</p>
-            <p class="site-version">v1.17.0</p>
+            <p class="site-version">v1.18.0</p>
         </div>
     </footer>
 
@@ -1753,32 +1754,26 @@
     // TAB NAVIGATION
     // ==========================================
     function showDebateTab(tabName) {
-        var tabs = ['evidence', 'arguments', 'rebuttals', 'opening', 'sources', 'closing'];
+        var tabs = ['evidence', 'arguments', 'opening', 'sources', 'closing', 'rebuttals'];
 
-        // Gating: Opening requires 3+ args and 3+ rebuttals selected
+        // Gating: Opening requires 3+ args selected & written
         if (tabName === 'opening') {
             var selArgs = document.querySelectorAll('#arguments-container .arg-select-input:checked').length;
-            var selRebs = document.querySelectorAll('#rebuttals-container .arg-select-input:checked').length;
-            var argsWritten = 0, rebsWritten = 0;
+            var argsWritten = 0;
             document.querySelectorAll('#arguments-container .arg-select-input:checked').forEach(function(cb) {
                 var n = cb.getAttribute('data-arg-num');
                 var ta = document.getElementById('arg-' + n);
                 if (ta && ta.value.trim()) argsWritten++;
             });
-            document.querySelectorAll('#rebuttals-container .arg-select-input:checked').forEach(function(cb) {
-                var n = cb.getAttribute('data-arg-num');
-                var ta = document.getElementById('rebuttal-mine-' + n);
-                if (ta && ta.value.trim()) rebsWritten++;
-            });
-            if (selArgs < 3 || selRebs < 3 || argsWritten < 3 || rebsWritten < 3) {
-                showGatedBanner('opening', argsWritten, rebsWritten);
+            if (selArgs < 3 || argsWritten < 3) {
+                showGatedBanner('opening', argsWritten, null);
             } else {
                 clearGatedBanner('opening');
                 populateArgReferences();
             }
         }
 
-        // Gating: Closing requires opening + args + rebuttals
+        // Gating: Closing requires opening started + 3+ args
         if (tabName === 'closing') {
             var openingStarted = false;
             ['opening-intro', 'opening-background', 'opening-claims'].forEach(function(id) {
@@ -1786,12 +1781,25 @@
                 if (el && el.value.trim()) openingStarted = true;
             });
             var selArgs2 = document.querySelectorAll('#arguments-container .arg-select-input:checked').length;
-            var selRebs2 = document.querySelectorAll('#rebuttals-container .arg-select-input:checked').length;
-            if (!openingStarted || selArgs2 < 3 || selRebs2 < 3) {
+            if (!openingStarted || selArgs2 < 3) {
                 showGatedBanner('closing', null, null, openingStarted);
             } else {
                 clearGatedBanner('closing');
                 populateArgReferences();
+            }
+        }
+
+        // Gating: Rebuttals requires closing started
+        if (tabName === 'rebuttals') {
+            var closingStarted = false;
+            ['closing-summary', 'closing-constitution', 'closing-appeal'].forEach(function(id) {
+                var el = document.getElementById(id);
+                if (el && el.value.trim()) closingStarted = true;
+            });
+            if (!closingStarted) {
+                showGatedBanner('rebuttals', null, null, null, closingStarted);
+            } else {
+                clearGatedBanner('rebuttals');
             }
         }
 
@@ -1812,24 +1820,28 @@
         }
     }
 
-    function showGatedBanner(tab, argsCount, rebsCount, openingStarted) {
+    function showGatedBanner(tab, argsCount, rebsCount, openingStarted, closingStarted) {
         var container, msg;
         if (tab === 'opening') {
             container = document.getElementById('opening-gated-banner');
             var needs = [];
             if (argsCount < 3) needs.push('write ' + (3 - argsCount) + ' more argument' + (3 - argsCount > 1 ? 's' : ''));
-            if (rebsCount < 3) needs.push('write ' + (3 - rebsCount) + ' more rebuttal' + (3 - rebsCount > 1 ? 's' : ''));
-            msg = '<p><strong>Prepare your arguments and rebuttals first!</strong></p>' +
+            msg = '<p><strong>Prepare your arguments first!</strong></p>' +
                 '<p>You need to ' + needs.join(' and ') + ' before writing your opening statement.</p>' +
                 '<button class="btn" onclick="showDebateTab(\'arguments\')">Go to Arguments &rarr;</button>';
-        } else {
+        } else if (tab === 'closing') {
             container = document.getElementById('closing-gated-banner');
             var needs2 = [];
             if (!openingStarted) needs2.push('your opening statement');
-            needs2.push('your arguments and rebuttals');
+            needs2.push('your arguments');
             msg = '<p><strong>Complete earlier sections first!</strong></p>' +
                 '<p>Finish ' + needs2.join(' and ') + ' before writing your closing statement.</p>' +
                 '<button class="btn" onclick="showDebateTab(\'opening\')">Go to Opening Statement &rarr;</button>';
+        } else if (tab === 'rebuttals') {
+            container = document.getElementById('rebuttals-gated-banner');
+            msg = '<p><strong>Complete your closing statement first!</strong></p>' +
+                '<p>Write your closing statement before preparing rebuttals.</p>' +
+                '<button class="btn" onclick="showDebateTab(\'closing\')">Go to Closing Statement &rarr;</button>';
         }
         if (container) {
             container.innerHTML = msg;
@@ -1838,8 +1850,12 @@
     }
 
     function clearGatedBanner(tab) {
-        var id = tab === 'opening' ? 'opening-gated-banner' : 'closing-gated-banner';
-        var el = document.getElementById(id);
+        var idMap = {
+            'opening': 'opening-gated-banner',
+            'closing': 'closing-gated-banner',
+            'rebuttals': 'rebuttals-gated-banner'
+        };
+        var el = document.getElementById(idMap[tab]);
         if (el) { el.innerHTML = ''; el.style.display = 'none'; }
     }
 

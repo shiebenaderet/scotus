@@ -32,18 +32,17 @@
         </div>
     </header>
 
-    <main id="main-content">
+    <main id="main-content" class="tabbed-content">
         <!-- Case Header -->
         <section class="case-header">
             <div class="container">
                 <h1>New Jersey v. T.L.O. <span class="case-year">(1985)</span></h1>
                 <div class="case-controls">
-                    <nav class="case-nav" aria-label="Case sections">
-                        <a href="#background">Background</a>
-                        <a href="#activity">Activity</a>
-                        <a href="#key-terms">Key Terms</a>
-                        <a href="#evidence-vault" class="vault-nav-link" id="vault-nav">Evidence Vault</a>
-                        <a href="#today">Today</a>
+                    <nav class="case-nav tabbed" aria-label="Case sections">
+                        <button class="case-tab active" data-tab="background">Background</button>
+                        <button class="case-tab" data-tab="activity">Argument Sort</button>
+                        <button class="case-tab" data-tab="evidence-vault" id="vault-nav">Evidence Vault</button>
+                        <button class="case-tab" data-tab="today">Today</button>
                     </nav>
                     <div class="reading-toggle-inline">
                         <span class="toggle-label">Reading:</span>
@@ -55,7 +54,7 @@
         </section>
 
         <!-- Background Section -->
-        <section id="background" class="case-section">
+        <section id="background" class="case-section active-tab">
             <div class="container">
                 <div class="section-header">
                     <h2>Background Information</h2>
@@ -865,7 +864,7 @@
         <div class="container">
             <p><a href="../index.html">← Back to All Cases</a></p>
             <p>&copy; 2026 SCOTUS Debate Project</p>
-            <p class="site-version">v1.17.0</p>
+            <p class="site-version">v1.18.0</p>
         </div>
     </footer>
 

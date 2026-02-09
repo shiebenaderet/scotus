@@ -60,6 +60,126 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // ============================================
+    // TABBED CASE INTERFACE
+    // ============================================
+    const tabbedContent = document.querySelector('.tabbed-content');
+    const caseTabs = document.querySelectorAll('.case-nav.tabbed .case-tab');
+
+    if (tabbedContent && caseTabs.length > 0) {
+        // Get case identifier for storage key
+        const casePageFile = pagePath ? pagePath.substring(pagePath.lastIndexOf('/') + 1).replace('.html', '') : 'case';
+        const progressKey = 'scotus-progress-' + casePageFile;
+
+        // Load progress from localStorage
+        function loadCaseProgress() {
+            try {
+                const saved = localStorage.getItem(progressKey);
+                if (saved) {
+                    return JSON.parse(saved);
+                }
+            } catch(e) {}
+            return { completed: [], lastTab: 'background' };
+        }
+
+        // Save progress to localStorage
+        function saveCaseProgress(progress) {
+            localStorage.setItem(progressKey, JSON.stringify(progress));
+            if (typeof saveToCloud === 'function') {
+                saveToCloud(progressKey, progress);
+            }
+        }
+
+        // Update tab completion indicators
+        function updateTabCompletionUI(progress) {
+            caseTabs.forEach(tab => {
+                const tabId = tab.getAttribute('data-tab');
+                if (progress.completed.includes(tabId)) {
+                    tab.classList.add('completed');
+                } else {
+                    tab.classList.remove('completed');
+                }
+            });
+        }
+
+        // Switch to a specific tab
+        function switchToTab(tabId) {
+            const progress = loadCaseProgress();
+
+            // Update tab active states
+            caseTabs.forEach(tab => {
+                tab.classList.remove('active');
+                if (tab.getAttribute('data-tab') === tabId) {
+                    tab.classList.add('active');
+                }
+            });
+
+            // Update section visibility
+            document.querySelectorAll('.tabbed-content .case-section').forEach(section => {
+                section.classList.remove('active-tab');
+                if (section.id === tabId) {
+                    section.classList.add('active-tab');
+                }
+            });
+
+            // Map activity to the section id (activity -> activity)
+            // Handle special cases where data-tab might differ from section id
+            const sectionId = tabId === 'activity' ? 'activity' : tabId;
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.add('active-tab');
+            }
+
+            // Save last tab
+            progress.lastTab = tabId;
+            saveCaseProgress(progress);
+
+            // Scroll to top of content
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Mark current section as complete
+        function markSectionComplete(tabId) {
+            const progress = loadCaseProgress();
+            if (!progress.completed.includes(tabId)) {
+                progress.completed.push(tabId);
+                saveCaseProgress(progress);
+                updateTabCompletionUI(progress);
+            }
+        }
+
+        // Expose globally for use by other scripts
+        window.markSectionComplete = markSectionComplete;
+        window.switchToTab = switchToTab;
+
+        // Set up tab click handlers
+        caseTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabId = this.getAttribute('data-tab');
+
+                // Check if tab is locked (e.g., evidence vault)
+                if (this.classList.contains('locked')) {
+                    return;
+                }
+
+                switchToTab(tabId);
+            });
+        });
+
+        // Load initial state
+        const progress = loadCaseProgress();
+        updateTabCompletionUI(progress);
+
+        // If returning to page, restore last tab (or use URL hash)
+        const hash = window.location.hash.replace('#', '');
+        if (hash && document.getElementById(hash)) {
+            switchToTab(hash);
+        } else if (progress.lastTab && document.getElementById(progress.lastTab)) {
+            // Restore last viewed tab
+            switchToTab(progress.lastTab);
+        }
+    }
+
     // Smooth scroll for navigation
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
