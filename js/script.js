@@ -68,7 +68,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (tabbedContent && caseTabs.length > 0) {
         // Get case identifier for storage key
-        const casePageFile = pagePath ? pagePath.substring(pagePath.lastIndexOf('/') + 1).replace('.html', '') : 'case';
+        const currentPath = window.location.pathname;
+        const casePageFile = currentPath.substring(currentPath.lastIndexOf('/') + 1).replace('.html', '') || 'case';
         const progressKey = 'scotus-progress-' + casePageFile;
 
         // Load progress from localStorage
