@@ -1901,3 +1901,150 @@ a:hover {
         font-size: 0.85rem;
     }
 }
+
+/* ============================================================
+   KEY PEOPLE SECTION
+   Introduces the main people/parties involved in each case
+   ============================================================ */
+
+.key-people {
+    margin: 1.5rem 0 2rem;
+    padding: 1.5rem;
+    background: var(--bg-warm);
+    border-radius: 12px;
+    border: 2px solid var(--border);
+}
+
+.key-people-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--border);
+}
+
+.key-people-header h3 {
+    font-size: 1.1rem;
+    color: var(--primary-dark);
+    margin: 0;
+    font-weight: 700;
+}
+
+.key-people-icon {
+    font-size: 1.25rem;
+}
+
+.key-people-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+}
+
+.person-card {
+    background: var(--bg-white);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--border);
+    transition: all 0.2s ease;
+}
+
+.person-card:hover {
+    border-color: var(--primary-dark);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.person-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.5rem;
+}
+
+.person-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.person-avatar.petitioner {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-light) 100%);
+    color: #fff;
+}
+
+.person-avatar.respondent {
+    background: linear-gradient(135deg, var(--accent) 0%, #c4314a 100%);
+    color: #fff;
+}
+
+.person-avatar.neutral {
+    background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+    color: #fff;
+}
+
+.person-name {
+    font-weight: 700;
+    color: var(--primary-dark);
+    font-size: 1rem;
+    line-height: 1.2;
+}
+
+.person-role {
+    font-size: 0.8rem;
+    color: #666;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-bottom: 0.6rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.person-description {
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    line-height: 1.55;
+    margin: 0;
+}
+
+/* Side indicator badge */
+.person-side {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-left: auto;
+}
+
+.person-side.petitioner {
+    background: rgba(22, 33, 62, 0.1);
+    color: var(--primary-dark);
+}
+
+.person-side.respondent {
+    background: rgba(214, 56, 80, 0.1);
+    color: var(--accent);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .key-people {
+        padding: 1rem;
+    }
+
+    .key-people-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .person-card {
+        padding: 1rem;
+    }
+}
