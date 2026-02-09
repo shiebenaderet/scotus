@@ -34,7 +34,7 @@ This project provides comprehensive resources for seven landmark Supreme Court c
 
 ## Version
 
-Current version: v1.17.0
+Current version: v1.18.0
 
 ## License
 

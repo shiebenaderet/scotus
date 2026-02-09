@@ -2048,3 +2048,131 @@ a:hover {
         padding: 1rem;
     }
 }
+
+/* ============================================================
+   TABBED CASE INTERFACE
+   Shows one section at a time with tab navigation
+   ============================================================ */
+
+/* Tab navigation styling */
+.case-nav.tabbed {
+    display: flex;
+    gap: 0.35rem;
+    flex-wrap: wrap;
+}
+
+.case-nav.tabbed .case-tab {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    color: var(--text-light);
+    text-decoration: none;
+    padding: 0.45rem 0.85rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    opacity: 0.8;
+}
+
+.case-nav.tabbed .case-tab:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+    opacity: 1;
+}
+
+.case-nav.tabbed .case-tab.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    opacity: 1;
+}
+
+.case-nav.tabbed .case-tab.completed {
+    border-color: rgba(40, 167, 69, 0.6);
+}
+
+.case-nav.tabbed .case-tab.completed::after {
+    content: "✓";
+    font-size: 0.7rem;
+    color: #10b981;
+    margin-left: 0.15rem;
+}
+
+.case-nav.tabbed .case-tab.active.completed::after {
+    color: #fff;
+}
+
+/* Lock icon for gated tabs */
+.case-nav.tabbed .case-tab.locked {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.case-nav.tabbed .case-tab.locked::after {
+    content: "🔒";
+    font-size: 0.65rem;
+    margin-left: 0.2rem;
+}
+
+/* Hide sections by default when tabbed mode is active */
+.tabbed-content .case-section {
+    display: none;
+}
+
+.tabbed-content .case-section.active-tab {
+    display: block;
+}
+
+/* Section progress indicator (shown in tab bar) */
+.tab-progress-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.tab-progress-bar .progress-text {
+    font-weight: 600;
+}
+
+.tab-progress-bar .progress-dots {
+    display: flex;
+    gap: 0.3rem;
+}
+
+.tab-progress-bar .progress-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transition: background 0.2s ease;
+}
+
+.tab-progress-bar .progress-dot.completed {
+    background: #10b981;
+}
+
+.tab-progress-bar .progress-dot.current {
+    background: var(--accent);
+    box-shadow: 0 0 0 2px rgba(233, 69, 96, 0.3);
+}
+
+/* Mobile responsive tabs */
+@media (max-width: 768px) {
+    .case-nav.tabbed {
+        gap: 0.25rem;
+    }
+
+    .case-nav.tabbed .case-tab {
+        padding: 0.35rem 0.6rem;
+        font-size: 0.75rem;
+    }
+}
