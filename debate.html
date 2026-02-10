@@ -426,6 +426,28 @@
             background: var(--primary);
         }
 
+        /* Non-blocking helpful tips */
+        .tab-helpful-tip {
+            background: linear-gradient(135deg, #eff6ff 0%, #f0fdf4 100%);
+            border: 1px solid #bfdbfe;
+            border-left: 4px solid #3b82f6;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 16px;
+        }
+        .tab-helpful-tip p {
+            margin: 0;
+            color: #1e40af;
+            font-size: 0.9rem;
+        }
+        .tab-helpful-tip a {
+            color: #2563eb;
+            font-weight: 600;
+        }
+        .tab-helpful-tip a:hover {
+            text-decoration: underline;
+        }
+
         /* FLOATING CASE INFO PANEL */
         .case-info-float {
             position: fixed;
@@ -1756,7 +1778,7 @@
     function showDebateTab(tabName) {
         var tabs = ['evidence', 'arguments', 'opening', 'sources', 'closing', 'rebuttals'];
 
-        // Gating: Opening requires 3+ args selected & written
+        // Show helpful tips (non-blocking) if earlier sections aren't complete
         if (tabName === 'opening') {
             var selArgs = document.querySelectorAll('#arguments-container .arg-select-input:checked').length;
             var argsWritten = 0;
@@ -1766,14 +1788,14 @@
                 if (ta && ta.value.trim()) argsWritten++;
             });
             if (selArgs < 3 || argsWritten < 3) {
-                showGatedBanner('opening', argsWritten, null);
+                showHelpfulTip('opening', argsWritten, null);
             } else {
-                clearGatedBanner('opening');
-                populateArgReferences();
+                clearHelpfulTip('opening');
             }
+            populateArgReferences();
         }
 
-        // Gating: Closing requires opening started + 3+ args
+        // Helpful tip for Closing
         if (tabName === 'closing') {
             var openingStarted = false;
             ['opening-intro', 'opening-background', 'opening-claims'].forEach(function(id) {
@@ -1782,14 +1804,14 @@
             });
             var selArgs2 = document.querySelectorAll('#arguments-container .arg-select-input:checked').length;
             if (!openingStarted || selArgs2 < 3) {
-                showGatedBanner('closing', null, null, openingStarted);
+                showHelpfulTip('closing', null, null, openingStarted);
             } else {
-                clearGatedBanner('closing');
-                populateArgReferences();
+                clearHelpfulTip('closing');
             }
+            populateArgReferences();
         }
 
-        // Gating: Rebuttals requires closing started
+        // Helpful tip for Rebuttals
         if (tabName === 'rebuttals') {
             var closingStarted = false;
             ['closing-summary', 'closing-constitution', 'closing-appeal'].forEach(function(id) {
@@ -1797,9 +1819,9 @@
                 if (el && el.value.trim()) closingStarted = true;
             });
             if (!closingStarted) {
-                showGatedBanner('rebuttals', null, null, null, closingStarted);
+                showHelpfulTip('rebuttals', null, null, null, closingStarted);
             } else {
-                clearGatedBanner('rebuttals');
+                clearHelpfulTip('rebuttals');
             }
         }
 
@@ -1820,36 +1842,27 @@
         }
     }
 
-    function showGatedBanner(tab, argsCount, rebsCount, openingStarted, closingStarted) {
+    // Non-blocking helpful tips (replaces old gating banners)
+    function showHelpfulTip(tab, argsCount, rebsCount, openingStarted, closingStarted) {
         var container, msg;
         if (tab === 'opening') {
             container = document.getElementById('opening-gated-banner');
-            var needs = [];
-            if (argsCount < 3) needs.push('write ' + (3 - argsCount) + ' more argument' + (3 - argsCount > 1 ? 's' : ''));
-            msg = '<p><strong>Prepare your arguments first!</strong></p>' +
-                '<p>You need to ' + needs.join(' and ') + ' before writing your opening statement.</p>' +
-                '<button class="btn" onclick="showDebateTab(\'arguments\')">Go to Arguments &rarr;</button>';
+            msg = '<p><strong>💡 Tip:</strong> If you need help with your arguments, visit the <a href="#" onclick="showDebateTab(\'arguments\'); return false;">Arguments tab</a> first to organize your thoughts.</p>';
         } else if (tab === 'closing') {
             container = document.getElementById('closing-gated-banner');
-            var needs2 = [];
-            if (!openingStarted) needs2.push('your opening statement');
-            needs2.push('your arguments');
-            msg = '<p><strong>Complete earlier sections first!</strong></p>' +
-                '<p>Finish ' + needs2.join(' and ') + ' before writing your closing statement.</p>' +
-                '<button class="btn" onclick="showDebateTab(\'opening\')">Go to Opening Statement &rarr;</button>';
+            msg = '<p><strong>💡 Tip:</strong> Your closing statement will be stronger if you\'ve drafted your <a href="#" onclick="showDebateTab(\'opening\'); return false;">Opening Statement</a> and <a href="#" onclick="showDebateTab(\'arguments\'); return false;">Arguments</a> first.</p>';
         } else if (tab === 'rebuttals') {
             container = document.getElementById('rebuttals-gated-banner');
-            msg = '<p><strong>Complete your closing statement first!</strong></p>' +
-                '<p>Write your closing statement before preparing rebuttals.</p>' +
-                '<button class="btn" onclick="showDebateTab(\'closing\')">Go to Closing Statement &rarr;</button>';
+            msg = '<p><strong>💡 Tip:</strong> Rebuttals are usually prepared after your main arguments. Consider completing your <a href="#" onclick="showDebateTab(\'closing\'); return false;">Closing Statement</a> first.</p>';
         }
         if (container) {
             container.innerHTML = msg;
             container.style.display = '';
+            container.className = 'tab-helpful-tip'; // Changed from blocking banner style
         }
     }
 
-    function clearGatedBanner(tab) {
+    function clearHelpfulTip(tab) {
         var idMap = {
             'opening': 'opening-gated-banner',
             'closing': 'closing-gated-banner',
