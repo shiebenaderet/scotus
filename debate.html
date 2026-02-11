@@ -426,6 +426,28 @@
             background: var(--primary);
         }
 
+        /* Non-blocking helpful tips */
+        .tab-helpful-tip {
+            background: linear-gradient(135deg, #eff6ff 0%, #f0fdf4 100%);
+            border: 1px solid #bfdbfe;
+            border-left: 4px solid #3b82f6;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 16px;
+        }
+        .tab-helpful-tip p {
+            margin: 0;
+            color: #1e40af;
+            font-size: 0.9rem;
+        }
+        .tab-helpful-tip a {
+            color: #2563eb;
+            font-weight: 600;
+        }
+        .tab-helpful-tip a:hover {
+            text-decoration: underline;
+        }
+
         /* FLOATING CASE INFO PANEL */
         .case-info-float {
             position: fixed;
@@ -521,6 +543,38 @@
         .assembled-placeholder {
             color: #aaa;
             font-style: italic;
+        }
+
+        /* MLA Formatted Output */
+        .mla-formatted-output {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 4px;
+            padding: 1in;
+            font-family: "Times New Roman", Times, serif;
+            font-size: 12pt;
+            line-height: 2;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        .mla-header {
+            margin-bottom: 24pt;
+        }
+        .mla-header p {
+            margin: 0;
+            line-height: 2;
+        }
+        .mla-title {
+            text-align: center;
+            font-style: italic;
+            margin-bottom: 24pt;
+        }
+        .mla-body p {
+            text-indent: 0.5in;
+            margin: 0 0 0 0;
+        }
+        .mla-body p:first-child {
+            text-indent: 0.5in;
         }
 
         /* BUTTONS */
@@ -1209,6 +1263,22 @@
                         Your opening statement introduces you, your client, the case background, each side's constitutional claim, why this case matters, and a preview of your arguments.
                     </div>
 
+                    <!-- Student Info for MLA Header -->
+                    <div class="builder-card" style="border-left: 4px solid #059669; background: #ecfdf5;">
+                        <span class="builder-part-label" style="background: #059669;">Document Info</span>
+                        <p class="instruction">This information will appear in your final formatted document.</p>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                            <div>
+                                <label style="font-size: 0.85rem; font-weight: 600; color: #374151;">Your Name(s)</label>
+                                <input type="text" id="student-names" class="debate-textarea" style="min-height: auto; padding: 8px 12px;" placeholder="e.g., John Smith, Jane Doe" data-field="student-names">
+                            </div>
+                            <div>
+                                <label style="font-size: 0.85rem; font-weight: 600; color: #374151;">Class Period</label>
+                                <input type="text" id="class-period" class="debate-textarea" style="min-height: auto; padding: 8px 12px;" placeholder="e.g., 3" data-field="class-period">
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Introduction -->
                     <div class="builder-card" style="border-left: 4px solid #6366f1;">
                         <span class="builder-part-label" style="background: #6366f1;">Introduction</span>
@@ -1278,12 +1348,16 @@
                     </div>
 
                     <div style="text-align: center; margin-top: 20px;">
-                        <button class="btn btn-success" onclick="assembleOpening()">Put It Together</button>
+                        <button class="btn btn-success" onclick="assembleOpening()">📄 Generate Formatted Document</button>
                     </div>
 
                     <div id="opening-assembled" class="assembled-preview" style="display: none;">
-                        <h4 style="color: var(--primary-dark); margin-bottom: 12px;">Your Complete Opening Statement</h4>
-                        <div id="opening-assembled-text"></div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                            <h4 style="color: var(--primary-dark); margin: 0;">Your Formatted Opening Statement</h4>
+                            <button class="btn" onclick="copyOpeningToClipboard()" style="background: #059669;">📋 Copy to Clipboard</button>
+                        </div>
+                        <p style="font-size: 0.85rem; color: #6b7280; margin-bottom: 12px;">This document is formatted for Google Docs. Click "Copy to Clipboard" and paste into a new Google Doc.</p>
+                        <div id="opening-assembled-text" class="mla-formatted-output"></div>
                     </div>
                 </div>
 
@@ -1756,7 +1830,7 @@
     function showDebateTab(tabName) {
         var tabs = ['evidence', 'arguments', 'opening', 'sources', 'closing', 'rebuttals'];
 
-        // Gating: Opening requires 3+ args selected & written
+        // Show helpful tips (non-blocking) if earlier sections aren't complete
         if (tabName === 'opening') {
             var selArgs = document.querySelectorAll('#arguments-container .arg-select-input:checked').length;
             var argsWritten = 0;
@@ -1766,14 +1840,14 @@
                 if (ta && ta.value.trim()) argsWritten++;
             });
             if (selArgs < 3 || argsWritten < 3) {
-                showGatedBanner('opening', argsWritten, null);
+                showHelpfulTip('opening', argsWritten, null);
             } else {
-                clearGatedBanner('opening');
-                populateArgReferences();
+                clearHelpfulTip('opening');
             }
+            populateArgReferences();
         }
 
-        // Gating: Closing requires opening started + 3+ args
+        // Helpful tip for Closing
         if (tabName === 'closing') {
             var openingStarted = false;
             ['opening-intro', 'opening-background', 'opening-claims'].forEach(function(id) {
@@ -1782,14 +1856,14 @@
             });
             var selArgs2 = document.querySelectorAll('#arguments-container .arg-select-input:checked').length;
             if (!openingStarted || selArgs2 < 3) {
-                showGatedBanner('closing', null, null, openingStarted);
+                showHelpfulTip('closing', null, null, openingStarted);
             } else {
-                clearGatedBanner('closing');
-                populateArgReferences();
+                clearHelpfulTip('closing');
             }
+            populateArgReferences();
         }
 
-        // Gating: Rebuttals requires closing started
+        // Helpful tip for Rebuttals
         if (tabName === 'rebuttals') {
             var closingStarted = false;
             ['closing-summary', 'closing-constitution', 'closing-appeal'].forEach(function(id) {
@@ -1797,9 +1871,9 @@
                 if (el && el.value.trim()) closingStarted = true;
             });
             if (!closingStarted) {
-                showGatedBanner('rebuttals', null, null, null, closingStarted);
+                showHelpfulTip('rebuttals', null, null, null, closingStarted);
             } else {
-                clearGatedBanner('rebuttals');
+                clearHelpfulTip('rebuttals');
             }
         }
 
@@ -1820,36 +1894,27 @@
         }
     }
 
-    function showGatedBanner(tab, argsCount, rebsCount, openingStarted, closingStarted) {
+    // Non-blocking helpful tips (replaces old gating banners)
+    function showHelpfulTip(tab, argsCount, rebsCount, openingStarted, closingStarted) {
         var container, msg;
         if (tab === 'opening') {
             container = document.getElementById('opening-gated-banner');
-            var needs = [];
-            if (argsCount < 3) needs.push('write ' + (3 - argsCount) + ' more argument' + (3 - argsCount > 1 ? 's' : ''));
-            msg = '<p><strong>Prepare your arguments first!</strong></p>' +
-                '<p>You need to ' + needs.join(' and ') + ' before writing your opening statement.</p>' +
-                '<button class="btn" onclick="showDebateTab(\'arguments\')">Go to Arguments &rarr;</button>';
+            msg = '<p><strong>💡 Tip:</strong> If you need help with your arguments, visit the <a href="#" onclick="showDebateTab(\'arguments\'); return false;">Arguments tab</a> first to organize your thoughts.</p>';
         } else if (tab === 'closing') {
             container = document.getElementById('closing-gated-banner');
-            var needs2 = [];
-            if (!openingStarted) needs2.push('your opening statement');
-            needs2.push('your arguments');
-            msg = '<p><strong>Complete earlier sections first!</strong></p>' +
-                '<p>Finish ' + needs2.join(' and ') + ' before writing your closing statement.</p>' +
-                '<button class="btn" onclick="showDebateTab(\'opening\')">Go to Opening Statement &rarr;</button>';
+            msg = '<p><strong>💡 Tip:</strong> Your closing statement will be stronger if you\'ve drafted your <a href="#" onclick="showDebateTab(\'opening\'); return false;">Opening Statement</a> and <a href="#" onclick="showDebateTab(\'arguments\'); return false;">Arguments</a> first.</p>';
         } else if (tab === 'rebuttals') {
             container = document.getElementById('rebuttals-gated-banner');
-            msg = '<p><strong>Complete your closing statement first!</strong></p>' +
-                '<p>Write your closing statement before preparing rebuttals.</p>' +
-                '<button class="btn" onclick="showDebateTab(\'closing\')">Go to Closing Statement &rarr;</button>';
+            msg = '<p><strong>💡 Tip:</strong> Rebuttals are usually prepared after your main arguments. Consider completing your <a href="#" onclick="showDebateTab(\'closing\'); return false;">Closing Statement</a> first.</p>';
         }
         if (container) {
             container.innerHTML = msg;
             container.style.display = '';
+            container.className = 'tab-helpful-tip'; // Changed from blocking banner style
         }
     }
 
-    function clearGatedBanner(tab) {
+    function clearHelpfulTip(tab) {
         var idMap = {
             'opening': 'opening-gated-banner',
             'closing': 'closing-gated-banner',
@@ -2188,22 +2253,99 @@
     // ASSEMBLY
     // ==========================================
     function assembleOpening() {
-        const fields = ['opening-intro', 'opening-background', 'opening-claims', 'opening-significance', 'opening-preview'];
-        const parts = fields.map(id => {
-            const el = document.getElementById(id);
-            return el ? el.value.trim() : '';
-        }).filter(v => v);
+        // Get student info
+        const studentNames = document.getElementById('student-names')?.value.trim() || '[Your Name]';
+        const classPeriod = document.getElementById('class-period')?.value.trim() || '[Period]';
+
+        // Get today's date formatted
+        const today = new Date();
+        const dateStr = today.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+
+        // Get case name
+        const caseName = selectedCase || '[Case Name]';
+
+        // Get content fields
+        const intro = document.getElementById('opening-intro')?.value.trim() || '';
+        const background = document.getElementById('opening-background')?.value.trim() || '';
+        const claims = document.getElementById('opening-claims')?.value.trim() || '';
+        const significance = document.getElementById('opening-significance')?.value.trim() || '';
+        const preview = document.getElementById('opening-preview')?.value.trim() || '';
 
         const container = document.getElementById('opening-assembled');
         const text = document.getElementById('opening-assembled-text');
 
-        if (parts.length === 0) {
+        if (!intro && !background && !claims && !significance && !preview) {
             text.innerHTML = '<p class="assembled-placeholder">Write your opening statement sections above first.</p>';
         } else {
-            text.innerHTML = parts.map(p => `<p>${escHtml(p)}</p>`).join('');
+            // Build MLA formatted document
+            let html = `
+                <div class="mla-header">
+                    <p>${escHtml(studentNames)}</p>
+                    <p>Mr. Benaderet</p>
+                    <p>Social Studies Period ${escHtml(classPeriod)}</p>
+                    <p>${escHtml(dateStr)}</p>
+                </div>
+                <div class="mla-title">${escHtml(caseName)}</div>
+                <div class="mla-body">
+            `;
+
+            // Paragraph 1: Introduction
+            if (intro) {
+                html += `<p>${escHtml(intro)}</p>`;
+            }
+
+            // Paragraph 2: Background + Claims + Significance (combined as shown in template)
+            let para2Parts = [];
+            if (background) para2Parts.push(background);
+            if (claims) para2Parts.push(claims);
+            if (significance) para2Parts.push(significance);
+            if (para2Parts.length > 0) {
+                html += `<p>${escHtml(para2Parts.join(' '))}</p>`;
+            }
+
+            // Paragraph 3: Preview of arguments
+            if (preview) {
+                html += `<p>${escHtml(preview)}</p>`;
+            }
+
+            // Closing line (standard)
+            html += `<p>We trust that you, the Supreme Court justices, will listen carefully to the facts and make the right decision. Thank you.</p>`;
+
+            html += '</div>';
+            text.innerHTML = html;
         }
         container.style.display = 'block';
         container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function copyOpeningToClipboard() {
+        const text = document.getElementById('opening-assembled-text');
+        if (!text) return;
+
+        // Create a range and select the content
+        const range = document.createRange();
+        range.selectNodeContents(text);
+        const selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+
+        // Copy to clipboard
+        try {
+            document.execCommand('copy');
+            // Show success feedback
+            const btn = event.target;
+            const originalText = btn.textContent;
+            btn.textContent = '✓ Copied!';
+            btn.style.background = '#10b981';
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.style.background = '#059669';
+            }, 2000);
+        } catch (err) {
+            alert('Copy failed. Please select the text manually and copy.');
+        }
+
+        selection.removeAllRanges();
     }
 
     function assembleClosing() {
@@ -2349,6 +2491,12 @@
 
         const data = {};
 
+        // Student info fields
+        ['student-names', 'class-period'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) data[id] = el.value;
+        });
+
         // Opening fields
         ['opening-intro', 'opening-background', 'opening-claims', 'opening-significance', 'opening-preview'].forEach(id => {
             const el = document.getElementById(id);
@@ -2422,6 +2570,12 @@
             if (!saved) return;
             data = JSON.parse(saved);
         } catch(e) { return; }
+
+        // Student info fields
+        ['student-names', 'class-period'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el && data[id]) el.value = data[id];
+        });
 
         // Opening fields
         ['opening-intro', 'opening-background', 'opening-claims', 'opening-significance', 'opening-preview'].forEach(id => {
