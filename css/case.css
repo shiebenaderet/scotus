@@ -1184,7 +1184,7 @@ a:hover {
 /* Flip card container */
 .source-flip-card {
     perspective: 800px;
-    min-height: 220px;
+    min-height: 280px;
 }
 
 .source-flip-inner {
@@ -1211,7 +1211,7 @@ a:hover {
     backface-visibility: hidden;
     border-radius: 12px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-    overflow: hidden;
+    overflow-y: auto;
 }
 
 /* Front of card */
@@ -1400,10 +1400,10 @@ a:hover {
         grid-template-columns: 1fr;
     }
     .source-flip-card {
-        min-height: 200px;
+        min-height: 260px;
     }
     .source-flip-inner {
-        min-height: 200px;
+        min-height: 260px;
     }
 }
 
