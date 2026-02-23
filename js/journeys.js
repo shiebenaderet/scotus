@@ -255,44 +255,44 @@ const caseData = {
         ]
     },
     arizona: {
-        name: "Arizona v. Gant",
+        name: "Arizona v. United States",
         shortName: "Arizona",
         events: [
             {
-                date: "August 1999",
+                date: "April 23, 2010",
                 type: "incident",
-                title: "Police Search Car After Arrest",
+                title: "Arizona Passes S.B. 1070",
                 ruling: null,
-                standard: "Rodney Gant was arrested for driving with a suspended license in Tucson, Arizona. After handcuffing him and placing him in a patrol car, officers searched his vehicle and found cocaine in a jacket pocket. Gant was charged with drug possession based on evidence from this search.",
-                simplified: "Police arrested Rodney Gant for driving without a valid license. After they handcuffed him and put him in a police car, they searched his car and found drugs in a jacket. They charged him with having drugs because of what they found.",
+                standard: "Governor Jan Brewer signed S.B. 1070, known as the \"Support Our Law Enforcement and Safe Neighborhoods Act.\" The law required police to check immigration status during stops, made it a state crime to not carry immigration papers, and banned undocumented immigrants from seeking work. Arizona said the federal government wasn't doing enough about illegal immigration.",
+                simplified: "Arizona's governor signed a law called S.B. 1070. It said police had to check if people were in the country legally when they stopped them. Arizona said the federal government wasn't doing enough to stop illegal immigration, so the state needed its own rules.",
                 reasoning: null
             },
             {
-                date: "2002",
+                date: "July 2010",
                 type: "district",
-                title: "Trial Court Allows Evidence",
+                title: "Federal Court Blocks Key Parts of the Law",
                 ruling: "favor-respondent",
-                standard: "The trial court denied Gant's motion to suppress the cocaine, relying on New York v. Belton (1981), which had been interpreted to allow police to search a vehicle's passenger compartment whenever they arrested a recent occupant, regardless of the circumstances.",
-                simplified: "The first court said police could use the drugs as evidence. They followed an old rule that said police can always search a car after arresting someone from it. Gant was found guilty.",
-                reasoning: "Courts had broadly interpreted the Belton rule to permit vehicle searches incident to any arrest."
+                standard: "U.S. District Judge Susan Bolton issued an injunction blocking the most controversial parts of S.B. 1070 before they could take effect. The federal government had sued Arizona, arguing that immigration law is exclusively a federal power under the Supremacy Clause of the Constitution.",
+                simplified: "A federal judge stopped the biggest parts of Arizona's law from going into effect. The U.S. government sued Arizona, saying only the federal government — not individual states — gets to make immigration rules.",
+                reasoning: "The court found the federal government was likely to succeed in proving that federal immigration law preempted Arizona's law."
             },
             {
-                date: "2006",
+                date: "April 2011",
                 type: "appeals",
-                title: "Arizona Supreme Court Reverses",
-                ruling: "favor-petitioner",
-                standard: "The Arizona Supreme Court reversed, holding that the search violated the Fourth Amendment. The court found that once Gant was secured in the patrol car, he could not access his vehicle, so the justification for a search incident to arrest (officer safety and evidence preservation) did not apply.",
-                simplified: "Arizona's highest court said the search was wrong. They said once Gant was locked in the police car, he couldn't reach anything in his own car. So police had no good reason to search it without a warrant.",
-                reasoning: "The state court returned to the original purposes behind the search-incident-to-arrest exception."
+                title: "9th Circuit Court Upholds the Block",
+                ruling: "favor-respondent",
+                standard: "The U.S. Court of Appeals for the Ninth Circuit affirmed the lower court's decision, agreeing that key provisions of S.B. 1070 were likely preempted by federal immigration law. The court held that states cannot set their own immigration enforcement policies that conflict with federal priorities.",
+                simplified: "The next court agreed that Arizona's law should stay blocked. They said states can't make their own immigration rules when those rules go against what the federal government has decided.",
+                reasoning: "The appeals court applied federal preemption doctrine, finding that Congress intended immigration enforcement to be a federal responsibility."
             },
             {
-                date: "April 21, 2009",
+                date: "June 25, 2012",
                 type: "scotus",
-                title: "Supreme Court Affirms for Gant (5-4)",
-                ruling: "favor-petitioner",
-                standard: "The Supreme Court ruled 5-4 that police may search a vehicle incident to arrest only if the arrestee is unsecured and within reaching distance of the passenger compartment, OR if it's reasonable to believe evidence of the crime of arrest might be found in the vehicle. Since Gant was secured and arrested for a license violation (no evidence to find), the search was unconstitutional.",
-                simplified: "The Supreme Court agreed with Gant, 5 to 4. They said police can only search a car after an arrest if the person can still reach inside OR if there might be evidence of the crime inside. Since Gant was locked up and there was no evidence of his crime to find, the search was illegal.",
-                reasoning: "Justice Stevens clarified Belton, limiting vehicle searches to situations with genuine safety or evidentiary justifications."
+                title: "Supreme Court Issues a Split Decision (5-3)",
+                ruling: "mixed",
+                standard: "The Supreme Court struck down three of four challenged provisions but upheld the \"show me your papers\" requirement allowing police to check immigration status during lawful stops. The Court ruled 5-3 that states cannot create their own immigration crimes or penalties because federal law is supreme, but left open the question of whether the status-check provision might lead to racial profiling.",
+                simplified: "The Supreme Court made a split decision — partly for Arizona, partly for the U.S. They struck down 3 parts of the law, saying states can't make their own immigration crimes. But they kept the part that lets police check if someone is in the country legally during a stop. The vote was 5 to 3.",
+                reasoning: "Justice Kennedy wrote that the federal government has broad power over immigration. States can help enforce federal law but cannot create their own immigration policies that conflict with federal priorities."
             }
         ]
     }
