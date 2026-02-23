@@ -255,7 +255,7 @@ const caseData = {
         ]
     },
     arizona: {
-        name: "Arizona v. Gant",
+        name: "Arizona v. United States",
         shortName: "Arizona",
         events: [
             {
