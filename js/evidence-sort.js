@@ -244,16 +244,9 @@ var evidenceSortData = {
                 source: null
             },
             {
-                text: 'In 1955, one year after Brown, 3 of Topeka\'s formerly all-Black elementary schools were still 100% Black, and only 1% of Black children attended formerly white schools.',
-                petitionerFeedback: 'Even after the Supreme Court ruled, almost nothing changed. This shows how deep the problem was.',
-                respondentFeedback: 'Gradual change was expected. The Court itself said integration should happen "with all deliberate speed," not immediately.',
-                canBeBoth: true,
-                source: 'https://www.archives.gov/publications/prologue/2004/spring/brown-v-board-1.html'
-            },
-            {
-                text: '13 of 18 white elementary schools in Topeka were located in racially mixed neighborhoods but remained all-white.',
+                text: '13 of 18 white elementary schools in Topeka were in racially mixed neighborhoods — yet Black children were bused past them to attend distant all-Black schools.',
                 petitionerFeedback: 'Even in mixed neighborhoods, Black children were bused away. Geography didn\'t determine school — race did.',
-                respondentFeedback: 'The district maintained orderly neighborhood assignments as had been the established practice.',
+                respondentFeedback: 'The district maintained orderly assignments as had been the established practice under state law.',
                 canBeBoth: false,
                 source: 'https://www.archives.gov/publications/prologue/2004/spring/brown-v-board-1.html'
             },
