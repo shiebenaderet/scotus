@@ -202,6 +202,20 @@ var evidenceSortData = {
                 source: null
             },
             {
+                text: 'In 1950, Topeka had only 4 Black elementary schools with average enrollment of 165 students, while 18 white schools averaged 342 students each.',
+                petitionerFeedback: 'Black students were crammed into fewer schools while white schools had more space. This proves "separate" was never "equal."',
+                respondentFeedback: 'The district was providing separate facilities for both races as the law required.',
+                canBeBoth: false,
+                source: 'https://www.archives.gov/publications/prologue/2004/spring/brown-v-board-1.html'
+            },
+            {
+                text: 'Black schools had 143 empty seats on average, while overcrowded white schools had only 28 — but Topeka refused to reassign students.',
+                petitionerFeedback: 'The district let white schools stay crowded rather than send white children to Black schools. Race mattered more than education.',
+                respondentFeedback: 'School assignments were made according to existing state law and established neighborhood patterns.',
+                canBeBoth: false,
+                source: 'https://www.archives.gov/publications/prologue/2004/spring/brown-v-board-1.html'
+            },
+            {
                 text: 'Linda walked through a dangerous railroad switchyard to reach her designated school.',
                 petitionerFeedback: 'Segregation imposed physical danger on Black children. The system put them at real risk.',
                 respondentFeedback: 'Routing and safety issues existed for students of all races and could be addressed without ending segregation.',
@@ -230,9 +244,9 @@ var evidenceSortData = {
                 source: null
             },
             {
-                text: 'Many Southern states would resist desegregation for years after the ruling.',
-                petitionerFeedback: 'The legal ruling was correct even if implementation was difficult. Justice shouldn\'t wait for convenience.',
-                respondentFeedback: 'The resistance shows the social and cultural complexity. Forcing rapid change can create more problems.',
+                text: '13 of 18 white elementary schools in Topeka were in racially mixed neighborhoods — yet Black children were bused past them to attend distant all-Black schools.',
+                petitionerFeedback: 'Even in mixed neighborhoods, Black children were bused away. Geography didn\'t determine school — race did.',
+                respondentFeedback: 'The district maintained orderly assignments as had been the established practice under state law.',
                 canBeBoth: false,
                 source: 'https://www.archives.gov/publications/prologue/2004/spring/brown-v-board-1.html'
             },
