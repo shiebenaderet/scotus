@@ -40,13 +40,13 @@ var CASE_PREP_DATA = {
         weighing: {
             petitioner: [
                 'Armbands are silent symbolic speech protected like other non-verbal expression.',
-                'Almost no one wore them; classes went on; a lower court found no interference with schoolwork.',
-                'The school allowed campaign buttons and other symbols, but banned only anti-war armbands.',
+                'Only a few of about 18,000 students wore them. There were no fights, threats, or walkouts.',
+                'The school allowed campaign buttons and Iron Crosses, but banned only the anti-war armbands.',
                 'Students do not give up constitutional rights when they walk into a public school.'
             ],
             respondent: [
                 'The Vietnam War split the country; a former student had been killed; officials feared conflict.',
-                'A math lesson was interrupted by talk of the armbands; some students made hostile remarks.',
+                'Officials said they reasonably expected argument and classroom distraction — they did not have to wait for a riot.',
                 'Teachers and principals know their buildings better than judges and should get deference.',
                 'Schools exist to educate, and they may teach when and where political protest is appropriate.'
             ]
@@ -56,7 +56,7 @@ var CASE_PREP_DATA = {
             { q: 'If we rule for the students, what happens when a student wears a swastika or a Klan symbol?', tip: 'Distinguish political protest from speech that targets other students or threatens safety.' },
             { q: 'The school did not wait for a riot. Why should it have to wait?', tip: 'Ask what facts, if any, made disruption more than a guess.' },
             { q: 'Why isn’t a two-inch cloth strip a classroom distraction by itself?', tip: 'Compare armbands to buttons, jewelry, or sports logos the school already allowed.' },
-            { q: 'Does it matter that only five students of 18,000 wore armbands?', tip: 'Small numbers cut both ways: low disruption risk, or a ban that singled out a tiny unpopular group.' },
+            { q: 'Does it matter that only a few of 18,000 students wore armbands, and five were suspended?', tip: 'Small numbers cut both ways: low disruption risk, or a ban that singled out a tiny unpopular group.' },
             { q: 'If principals may ban speech they think will cause trouble, what speech is safe?', tip: 'Unpopular speech is the speech that most needs a clear legal test.' },
             { q: 'The students knew the rule and broke it. Why shouldn’t that end the case?', tip: 'A rule cannot make an unconstitutional ban legal just because students were warned.' },
             { q: 'Should middle-schoolers have the same speech rights as adults downtown?', tip: 'You can admit some school authority without giving up all political speech.' },
@@ -82,8 +82,8 @@ var CASE_PREP_DATA = {
             },
             {
                 type: 'court', typeLabel: 'Lower court',
-                title: 'No interference found',
-                excerpt: 'The federal district court found “no evidence of interference with school work or discipline” from the armbands, but still sided with the school on a forecast of disturbance.',
+                title: 'District court sided with the school',
+                excerpt: 'Judge Stephenson held that schools need not wait for a “material or substantial” disruption. If disturbance is reasonably to be anticipated, a ban meant to prevent it can stand. He upheld the armband rule on that forecast.',
                 citation: 'Tinker v. Des Moines Indep. Cmty. Sch. Dist., 258 F. Supp. 971 (S.D. Iowa 1966).'
             },
             {
@@ -107,8 +107,8 @@ var CASE_PREP_DATA = {
             {
                 type: 'historical', typeLabel: 'Case fact',
                 title: 'Scale of the protest',
-                excerpt: 'About five students wore armbands in a district of roughly 18,000. Mary Beth wore hers most of the school day before she was sent home.',
-                citation: 'Tinker case record; Oyez, Tinker v. Des Moines (1969).'
+                excerpt: 'Only a few of the district’s roughly 18,000 students wore armbands. Five students were suspended. Mary Beth wore hers through morning classes; in afternoon mathematics she was sent to the office and then home. John Tinker wore his the next day, December 17.',
+                citation: 'Tinker case record (Dec. 16–17, 1965); U.S. Courts, Facts and Case Summary — Tinker v. Des Moines.'
             },
             {
                 type: 'news', typeLabel: 'Context',
@@ -198,13 +198,13 @@ var CASE_PREP_DATA = {
                 type: 'historical', typeLabel: 'Case fact',
                 title: 'The restroom report',
                 excerpt: 'A teacher found T.L.O. and another student in a school restroom; smoking was allowed in designated areas of Piscataway High but not in restrooms. One student admitted smoking; T.L.O. denied smoking at all.',
-                citation: 'New Jersey v. T.L.O., case record (incident of March 1980).'
+                citation: 'T.L.O. case record (incident of March 7, 1980).'
             },
             {
                 type: 'historical', typeLabel: 'Case fact',
                 title: 'What the purse contained',
                 excerpt: 'The search found cigarettes, rolling papers, a small amount of marijuana, a pipe, empty bags, a substantial amount of one-dollar bills, an index card of names owing money, and two letters suggesting marijuana sales.',
-                citation: 'New Jersey v. T.L.O., 469 U.S. 325 (1985) (statement of facts).'
+                citation: 'T.L.O. case record (Piscataway High School search, March 7, 1980).'
             },
             {
                 type: 'precedent', typeLabel: 'Earlier case',
@@ -341,8 +341,8 @@ var CASE_PREP_DATA = {
             {
                 type: 'statute', typeLabel: 'State law',
                 title: 'Kansas segregation statute',
-                excerpt: 'Kansas law allowed cities of a certain size to operate separate elementary schools for Black and white children. Topeka used that authority.',
-                citation: 'Kan. Gen. Stat. (segregation authorization applicable to Topeka elementary schools).'
+                excerpt: 'Kansas law allowed cities of the first class (in practice, cities over 15,000 people) to maintain separate elementary schools for white and Black children. Topeka used that authority for grades 1–6. Its junior and senior high schools were not segregated.',
+                citation: 'Kan. Gen. Stat. § 72-1724 (1949); Brown v. Board of Education, 98 F. Supp. 797 (D. Kan. 1951).'
             },
             {
                 type: 'academic', typeLabel: 'Social science',
@@ -440,8 +440,8 @@ var CASE_PREP_DATA = {
             {
                 type: 'historical', typeLabel: 'Case fact',
                 title: 'The 7:30 a.m. entry',
-                excerpt: 'Six officers went to Payton’s Bronx apartment about 7:30 a.m. No one answered. They used a crowbar, entered, and found a shell casing in plain view. Payton was not there.',
-                citation: 'Payton v. New York, case record (January 1970 entry).'
+                excerpt: 'On January 15, 1970, about 7:30 a.m., six officers went to Payton’s Bronx apartment. No one answered. After waiting, they used crowbars, entered, and found a .30-caliber shell casing in plain view. Payton was not there.',
+                citation: 'Payton v. New York, case record (entry of January 15, 1970, about 7:30 a.m.).'
             },
             {
                 type: 'historical', typeLabel: 'Companion case',
@@ -481,7 +481,7 @@ var CASE_PREP_DATA = {
         petitioner: { name: 'Mahanoy Area School District', legal: 'Petitioner' },
         respondent: { name: 'B.L. (the student)', legal: 'Respondent' },
         amendment: 'First Amendment — off-campus speech',
-        question: 'May a school punish a student for a vulgar Snapchat posted off campus, on a weekend, that never names a person but slams school and cheer?',
+        question: 'May a school punish a student for a vulgar Snapchat posted off campus, on a weekend, that slams school and cheer?',
         drivingFrame: 'This case tests whether Tinker’s disruption idea follows students home onto their phones.',
         tests: {
             petitioner: {
@@ -504,7 +504,7 @@ var CASE_PREP_DATA = {
             ],
             respondent: [
                 'B.L., a 14-year-old student speaking on her own time, off school property.',
-                'She posted a short, frustrated Snap using profanity after not making varsity. It was Saturday. She did not threaten anyone or name a student.',
+                'She posted a short, frustrated Snap using profanity after not making varsity. It was Saturday. She did not threaten anyone.',
                 'Does the First Amendment allow a year-long team ban for off-campus venting that is rude but not a true disruption of class?',
                 'Tinker protects student speech unless it substantially disrupts school. Parents, not principals, police Saturday speech.',
                 'The Court should hold that ordinary off-campus, non-threatening speech on a personal phone is beyond school punishment.',
@@ -545,8 +545,8 @@ var CASE_PREP_DATA = {
             {
                 type: 'historical', typeLabel: 'The speech',
                 title: 'The Snapchat posts',
-                excerpt: 'From a convenience store on a Saturday, B.L. posted images with captions using profanity about “school,” “softball,” and “cheer,” plus a second post about being told she did not need to attend extra cheer events. She did not name a classmate or threaten harm.',
-                citation: 'Mahanoy Area Sch. Dist. v. B.L., case record (2017 posts).'
+                excerpt: 'On Saturday at the Cocoa Hut convenience store, B.L. posted two Snaps to about 250 friends. The first showed her and a friend with middle fingers raised and the caption “Fuck school fuck softball fuck cheer fuck everything.” The second mentioned another student who also did not make varsity. Neither post threatened violence.',
+                citation: 'Mahanoy Area Sch. Dist. v. B.L., case record (May 2017 posts).'
             },
             {
                 type: 'historical', typeLabel: 'Case fact',
@@ -607,7 +607,7 @@ var CASE_PREP_DATA = {
             },
             respondent: {
                 title: 'Endorsement and student pressure',
-                text: 'A coach in school gear at the 50-yard line is still on duty in students’ eyes. Players may join to get playing time. That looks like school-sponsored prayer, which the Establishment Clause forbids.'
+                text: 'A coach in school gear at the 50-yard line is still on duty in students’ eyes. The district says players may join to protect playing time. That looks like school-sponsored prayer, which the Establishment Clause forbids.'
             }
         },
         theorySamples: {
@@ -621,7 +621,7 @@ var CASE_PREP_DATA = {
             ],
             respondent: [
                 'Bremerton School District, a public employer responsible for not endorsing religion.',
-                'Kennedy prayed at the most visible spot on the field, in coaching clothes, while students were still around. Crowds and media later rushed the field. A parent reported a player felt he had to join to get playing time.',
+                'Kennedy prayed at the most visible spot on the field, in coaching clothes, while students were still around. After he publicized that he would keep praying, a crowd and media rushed the field on October 16. A parent told the principal a son felt he had to join to get playing time.',
                 'When a coach prays at midfield, is that private worship — or a school event students cannot easily avoid?',
                 'The Establishment Clause forbids government from putting its weight behind a religion. Coaches are government employees at school events.',
                 'The Court should hold that the district may require employees not to lead or appear to lead prayer on the field, while still allowing truly private prayer out of view of students.',
@@ -638,7 +638,7 @@ var CASE_PREP_DATA = {
             respondent: [
                 'Midfield, school logo, players in uniform: a reasonable spectator would think this is a school ritual.',
                 'Santa Fe v. Doe (2000) struck down school-sponsored prayer at football games, even when labeled student-led.',
-                'A parent said a player felt playing-time pressure. Coaches control who gets in the game.',
+                'A parent told the principal a son felt playing-time pressure. Coaches control who gets in the game.',
                 'On October 16, 2015, a crowd rushed the field after publicity; the district had a safety and control problem, not only a theology problem.'
             ]
         },
@@ -689,20 +689,20 @@ var CASE_PREP_DATA = {
             {
                 type: 'historical', typeLabel: 'Case fact',
                 title: 'Where and how he prayed',
-                excerpt: 'Kennedy knelt at the 50-yard line after games, usually for 15–30 seconds, often still in Bremerton coaching clothes, sometimes joined by players. The district offered off-field options; he insisted on the field.',
+                excerpt: 'Kennedy knelt at the 50-yard line after games, usually for about 30 seconds, often still in Bremerton coaching clothes. Over his years as coach, players sometimes joined; the parties disagree about how often Bremerton students joined the later games the district focused on. The district offered off-field options; he insisted on the field.',
                 citation: 'Kennedy v. Bremerton Sch. Dist., case record.'
             },
             {
                 type: 'historical', typeLabel: 'Case fact',
                 title: 'Pressure and playing time',
-                excerpt: 'A parent told the district a son felt he needed to participate in the prayers to get playing time. Coaches decide who plays. That fact is central to the coercion argument.',
-                citation: 'District correspondence / record in Kennedy v. Bremerton Sch. Dist.'
+                excerpt: 'Principal John Polm testified that a parent said a son felt compelled to join the prayers, even though he was an atheist, because he feared losing playing time. Kennedy denied requiring anyone to participate. Coaches decide who plays, so the district treats that report as evidence of pressure.',
+                citation: 'District correspondence and Polm testimony, Kennedy v. Bremerton Sch. Dist. record.'
             },
             {
                 type: 'historical', typeLabel: 'Case fact',
                 title: 'October 16, 2015',
-                excerpt: 'After Kennedy publicized that he would pray, media and a crowd came onto the field. The district described students being moved for safety and at least one player knocked down.',
-                citation: 'Kennedy v. Bremerton Sch. Dist., statement of facts (Oct. 16, 2015 game).'
+                excerpt: 'After Kennedy announced he would pray at the October 16, 2015 homecoming game, spectators and media came onto the field. The district reported that in the rush, some band members and cheerleaders were knocked down. Bremerton players were singing the fight song at the time; people from the crowd and the opposing team reached Kennedy at midfield.',
+                citation: 'Kennedy v. Bremerton Sch. Dist., case record (Oct. 16, 2015 homecoming game).'
             },
             {
                 type: 'legal', typeLabel: 'Legal idea',

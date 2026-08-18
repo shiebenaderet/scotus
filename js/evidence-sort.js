@@ -119,22 +119,22 @@ var evidenceSortData = {
                 source: null
             },
             {
-                text: 'Students were suspended the moment they arrived at school wearing the armbands.',
+                text: 'Students were sent home after arriving at school wearing the armbands — Mary Beth during afternoon math class, John the following day.',
                 petitionerFeedback: 'Students were punished for peaceful expression before any disruption could even occur.',
                 respondentFeedback: 'The school was enforcing rules that had been established and communicated before the violation.',
                 canBeBoth: false,
                 source: 'https://landmarkcases.org/cases/tinker-v-des-moines/'
             },
             {
-                text: 'The school allowed students to wear other political symbols, including buttons and armbands supporting the war.',
-                petitionerFeedback: 'The school treated viewpoints unequally\u2014allowing pro-war symbols but banning anti-war ones. This is viewpoint discrimination.',
+                text: 'The school allowed other political symbols, including campaign buttons and Iron Crosses, but banned the black anti-war armbands.',
+                petitionerFeedback: 'The school allowed other controversial symbols but banned only the anti-war armbands. That looks like viewpoint discrimination.',
                 respondentFeedback: 'Schools sometimes need to make content-based decisions about which symbols might cause disruption.',
                 canBeBoth: false,
                 source: null
             },
             {
-                text: 'No actual disruption occurred at school as a result of students wearing armbands.',
-                petitionerFeedback: 'The armbands caused zero disruption. The school punished speech that was completely peaceful.',
+                text: 'There were no fights, threats, or halted classes. A few students made hostile remarks outside class.',
+                petitionerFeedback: 'The students did not fight, shout, or stop class. Hostile remarks outside class are not a disrupted school day.',
                 respondentFeedback: 'The potential for disruption may justify preventive action, even if disruption hasn\'t happened yet.',
                 canBeBoth: true,
                 source: 'https://constitutioncenter.org/the-constitution/supreme-court-case-library/tinker-v-des-moines-independent-community-school-district'
@@ -299,9 +299,9 @@ var evidenceSortData = {
                 source: 'https://www.oyez.org/cases/2020/20-255'
             },
             {
-                text: 'Snapchat automatically deletes content sent to friends after it is viewed.',
-                respondentFeedback: 'The content was ephemeral\u2014meant to be temporary and private, not a permanent public statement.',
-                petitionerFeedback: 'Screenshots can preserve content permanently. Temporary platforms don\'t guarantee temporary impact.',
+                text: 'B.L. posted the images to her Snapchat story, which friends could view for 24 hours.',
+                respondentFeedback: 'The posts were meant to vanish in a day, not stay up as a public statement.',
+                petitionerFeedback: 'Screenshots can preserve content permanently. A 24-hour story can still spread through the school.',
                 canBeBoth: false,
                 source: 'https://www.supremecourt.gov/opinions/20pdf/20-255_g3bi.pdf'
             },
@@ -355,8 +355,8 @@ var evidenceSortData = {
                 source: 'https://www.oyez.org/cases/2020/20-255'
             },
             {
-                text: 'No actual disruption occurred at school as a result of the Snapchat post.',
-                respondentFeedback: 'The speech didn\'t affect school functioning at all. There was no disruption to punish.',
+                text: 'There was no walkout or canceled class. Some cheerleaders were upset, and a coach described a few minutes of talk about the posts in Algebra.',
+                respondentFeedback: 'Hurt feelings and a short classroom conversation are not the substantial disruption Tinker requires.',
                 petitionerFeedback: 'Potential disruption to team cohesion justifies action even if classroom disruption didn\'t occur.',
                 canBeBoth: true,
                 source: 'https://www.law.cornell.edu/supct/cert/20-255'
@@ -375,7 +375,7 @@ var evidenceSortData = {
                 source: 'https://www.oyez.org/cases/2021/21-418'
             },
             {
-                text: 'Kennedy initially prayed alone after games; students voluntarily joined over time.',
+                text: 'Kennedy initially prayed alone after games; over time some players joined. He said they asked to join and he never required it.',
                 petitionerFeedback: 'No coercion\u2014students chose to participate on their own. Kennedy never required anyone to join.',
                 respondentFeedback: 'Students may have felt implicit pressure to join their coach, a figure of authority over their playing time.',
                 canBeBoth: true,
