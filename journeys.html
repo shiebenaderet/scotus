@@ -24,6 +24,7 @@
                         <a href="review.html">Review</a>
                         <a href="journeys.html" class="active">Case Journeys</a>
                         <a href="debate.html">Debate Prep</a>
+                        <a href="compare.html">Compare Cases</a>
                     </div>
                 </div>
                 <a href="teacher.html" id="teacher-nav-link" style="display:none;">Teacher</a>
@@ -47,6 +48,14 @@
                     <span class="toggle-label">Reading Level:</span>
                     <button class="level-btn active" data-level="standard" aria-pressed="true">Standard</button>
                     <button class="level-btn" data-level="simplified" aria-pressed="false">Simplified</button>
+                </div>
+
+                <div class="journey-mode" role="group" aria-label="Prep or debrief">
+                    <p class="selector-instruction">Use <strong>Prep mode</strong> while you are still arguing the case. It hides how the Supreme Court voted so you can treat the question as undecided.</p>
+                    <div class="case-buttons" style="margin-bottom: 1rem;">
+                        <button type="button" class="mode-btn active" id="mode-prep">Prep mode — hide the holding</button>
+                        <button type="button" class="mode-btn" id="mode-debrief">Debrief mode — show what the Court did</button>
+                    </div>
                 </div>
 
                 <!-- Case Selector -->
@@ -101,12 +110,14 @@
 
     <footer class="site-footer">
         <div class="container">
-            <p>&copy; 2025 SCOTUS Debate Project. Educational use only.</p>
-            <p class="site-version">v1.18.0</p>
+            <p>&copy; 2026 SCOTUS Debate Project. Educational use only.</p>
+            <p class="site-version">v1.19.0</p>
         </div>
     </footer>
 
     <script src="js/firebase-init.js"></script>
     <script src="js/journeys.js"></script>
+    <script src="js/case-prep-data.js"></script>
+    <script src="js/case-prep.js"></script>
 </body>
 </html>

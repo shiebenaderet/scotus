@@ -387,6 +387,7 @@
                         <a href="review.html">Review</a>
                         <a href="journeys.html">Case Journeys</a>
                         <a href="debate.html">Debate Prep</a>
+                        <a href="compare.html">Compare Cases</a>
                     </div>
                 </div>
                 <a href="teacher.html" id="teacher-nav-link" style="color: var(--accent);">Teacher</a>
@@ -445,12 +446,14 @@
                 <div class="overview-section">
                     <h3>Current Features</h3>
                     <ul>
-                        <li><strong>Case Pages:</strong> Each case includes background information, constitutional questions, arguments for both sides, and an Evidence Vault with primary sources</li>
-                        <li><strong>Argument Sorting:</strong> Students categorize arguments by side to understand both perspectives before choosing their position</li>
-                        <li><strong>Evidence Sorting:</strong> Interactive activity where students match evidence to the side it supports</li>
-                        <li><strong>Debate Prep Workspace:</strong> Guided writing environment with sentence starters, where students select their strongest arguments and prepare rebuttals</li>
+                        <li><strong>Case Pages:</strong> Each case includes a case-specific constitutional question, competing tests (the rule each side wants), background, arguments, and an Evidence Vault of primary excerpts</li>
+                        <li><strong>Argument Sorting + Weighing:</strong> Students sort arguments, then rank them, steelman the other side, and explain how both sides could use the same fact</li>
+                        <li><strong>Speak tab:</strong> A six-line oral case theory and hot-bench judge questions so prep is not only typing</li>
+                        <li><strong>Evidence Vault:</strong> Short primary excerpts (constitutional text, statutes, earlier cases, the record). Students decide who can use each source — the card does not announce a winner</li>
+                        <li><strong>Debate Prep Workspace:</strong> Case theory, competing tests, openings, arguments that end with “under our test…”, rebuttals, sources, hot bench</li>
+                        <li><strong>Case Journeys:</strong> Prep mode hides the Supreme Court holding until after the debate; Debrief mode reveals it</li>
+                        <li><strong>Compare Cases:</strong> Pair Tinker/Mahanoy, T.L.O./Payton, Kennedy/Tinker, and Brown/Arizona to build nuance</li>
                         <li><strong>Review Mode:</strong> Vocabulary flashcards and multiple choice practice to reinforce key concepts</li>
-                        <li><strong>Case Journeys:</strong> Visual timelines showing the path each case took to the Supreme Court</li>
                         <li><strong>Progress Saving:</strong> Student work saves automatically (locally or with Google sign-in for cloud sync)</li>
                     </ul>
                 </div>
@@ -509,20 +512,24 @@
 
                     <h4><span class="week-label">Week 3</span> Become a Lawyer</h4>
                     <ul>
-                        <li><strong>Research:</strong> Read case materials and understand both sides</li>
-                        <li><strong>Prepare:</strong> Organize arguments, plan questions, write opening statements</li>
-                        <li><strong>Practice:</strong> Get ready to present your side convincingly</li>
+                        <li><strong>Assign case and side first</strong> so students read with a job. Keep Journeys on Prep mode (holding hidden).</li>
+                        <li><strong>Background:</strong> Facts, people, the amendment, and the two competing tests</li>
+                        <li><strong>Sort &amp; weigh:</strong> Classify arguments, then rank, steelman, and explain dual-use facts</li>
+                        <li><strong>Evidence Vault:</strong> Primary excerpts — students write how each side could use them</li>
+                        <li><strong>Speak:</strong> 60-second case theory out loud, then hot-bench questions with a partner</li>
+                        <li><strong>Write:</strong> Debate Prep opening, arguments (“under our test…”), sources, rebuttals</li>
                     </ul>
 
-                    <h4><span class="week-label">Week 4</span> Debate</h4>
+                    <h4><span class="week-label">Week 4</span> Debate, then debrief</h4>
                     <ul>
-                        <li><strong>Debate:</strong> Present your case to the class (2 cases per day)</li>
+                        <li><strong>Debate:</strong> Present as if the Court has not spoken (2 cases per day)</li>
+                        <li><strong>Debrief:</strong> Switch Journeys to Debrief mode. Reveal the holding, dissents, and Connecting to Today. Compare paired cases.</li>
                     </ul>
                 </div>
 
                 <div class="overview-section">
                     <h3>Student Role</h3>
-                    <p>Students are constitutional lawyers representing either the petitioner or respondent in a real Supreme Court case. Their job is to:</p>
+                    <p>Students are constitutional lawyers representing either the petitioner or respondent in a real Supreme Court case. Petitioner/respondent is a legal label only — in <em>T.L.O.</em> the State is petitioner and the student is respondent. Their job is to:</p>
                     <ul>
                         <li>Understand the facts of their case</li>
                         <li>Know the constitutional issues at stake</li>
@@ -561,6 +568,18 @@
                     <ul>
                         <li><strong>Brown v. Board of Education</strong> — Can states force students to attend separate schools based on race?</li>
                     </ul>
+                </div>
+
+                <div class="overview-section">
+                    <h3>Coaching the hard sides</h3>
+                    <h4>Brown — Board of Education</h4>
+                    <p>Give respondents a historically real theory: <em>Plessy</em> is precedent; Topeka’s schools were found substantially equal in facilities; education is a state function. Ban arguments that any race is inferior. Debrief after: why a unanimous Court rejected even the “polite” version of separate-but-equal.</p>
+                    <h4>Kennedy — both sides</h4>
+                    <p>Coach: short prayer, after the whistle, Free Exercise. District: 50-yard line, school gear, playing-time pressure, October 16 crowd, <em>Santa Fe v. Doe</em>. Do not let this become “religion is good/bad.”</p>
+                    <h4>Arizona</h4>
+                    <p>The issue is preemption — who writes immigration rules — not whether immigration is good or bad. “Helping enforce federal law” vs. “a second immigration code.”</p>
+                    <h4>Holdings stay hidden until debrief</h4>
+                    <p>Prep materials use earlier precedent and the case record, not this Court’s vote. Case Journeys has a Prep/Debrief toggle. Review quizzes that mention holdings are for after the debate.</p>
                 </div>
 
                 <!-- RESOURCE FILES -->
@@ -647,10 +666,12 @@
     <footer>
         <div class="container">
             <p>SCOTUS Debate Project — A Student Resource for Understanding the Supreme Court</p>
-            <p class="site-version">v1.18.0</p>
+            <p class="site-version">v1.19.0</p>
         </div>
     </footer>
 
+    <script src="js/case-prep-data.js"></script>
+    <script src="js/case-prep.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>

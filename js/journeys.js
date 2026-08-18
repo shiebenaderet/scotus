@@ -11,8 +11,8 @@ const caseData = {
                 type: "incident",
                 title: "Students Wear Black Armbands",
                 ruling: null,
-                standard: "John Tinker (15), Mary Beth Tinker (13), and Christopher Eckhardt (16) wore black armbands to their Des Moines public schools to protest the Vietnam War. School officials had recently adopted a policy banning armbands, and all three students were suspended until they agreed to return without the armbands.",
-                simplified: "Three students wore black armbands to school to show they disagreed with the Vietnam War. The school had just made a rule saying no armbands. All three kids were sent home and couldn't come back until they took off the armbands.",
+                standard: "Mary Beth Tinker (13) and Christopher Eckhardt (16) wore black armbands to their Des Moines public schools on December 16, 1965, to protest the Vietnam War. John Tinker (15) wore his the next day. School officials had recently adopted a policy banning the armbands, and the students were suspended until they agreed to return without them.",
+                simplified: "Two students wore black armbands on December 16, 1965, to show they disagreed with the Vietnam War. John Tinker wore his the next day. The school had just made a rule saying no armbands. The students were sent home and could not come back until they took the armbands off.",
                 reasoning: null
             },
             {
@@ -20,8 +20,8 @@ const caseData = {
                 type: "district",
                 title: "U.S. District Court Rules for School",
                 ruling: "favor-respondent",
-                standard: "The U.S. District Court for the Southern District of Iowa ruled in favor of the school district. The court found that the school's actions were reasonable to prevent disturbance of school discipline, even though no actual disruption had occurred.",
-                simplified: "The first court said the school was right. The judge said schools can make rules to keep things calm, even if nothing bad actually happened when the kids wore armbands.",
+                standard: "The U.S. District Court for the Southern District of Iowa ruled in favor of the school district. Judge Stephenson held that officials did not have to wait for a material or substantial disruption: if a disturbance was reasonably to be anticipated, a preventive ban could stand.",
+                simplified: "The first court said the school was right. The judge said schools can make rules to prevent trouble they reasonably see coming — they do not have to wait until a class is already disrupted.",
                 reasoning: "The court applied the reasonable forecast standard, allowing schools to restrict speech if they reasonably anticipate disruption."
             },
             {
@@ -49,7 +49,7 @@ const caseData = {
         shortName: "T.L.O.",
         events: [
             {
-                date: "March 1980",
+                date: "March 7, 1980",
                 type: "incident",
                 title: "Student Caught Smoking",
                 ruling: null,
@@ -61,16 +61,16 @@ const caseData = {
                 date: "1980",
                 type: "district",
                 title: "Juvenile Court Finds Delinquent",
-                ruling: "favor-respondent",
+                ruling: "favor-petitioner",
                 standard: "The Juvenile Court found T.L.O. delinquent based on the evidence from the search. T.L.O. appealed, arguing the search violated her Fourth Amendment rights and the evidence should be excluded.",
                 simplified: "The juvenile court said T.L.O. broke the law based on what they found in her purse. T.L.O. said the search wasn't fair and the evidence shouldn't count.",
                 reasoning: "The juvenile court allowed the evidence and found T.L.O. guilty of the charges against her."
             },
             {
-                date: "1982",
+                date: "1983",
                 type: "appeals",
                 title: "New Jersey Supreme Court Rules for Student",
-                ruling: "favor-petitioner",
+                ruling: "favor-respondent",
                 standard: "The New Jersey Supreme Court reversed the lower court, holding that the search was unreasonable. The court ruled that the Fourth Amendment applies to school searches and that the assistant principal did not have reasonable grounds to search the purse.",
                 simplified: "New Jersey's highest state court said the search was wrong. They said the vice principal didn't have a good enough reason to look through T.L.O.'s purse. The evidence couldn't be used against her.",
                 reasoning: "The state supreme court applied traditional Fourth Amendment standards requiring probable cause for searches."
@@ -79,7 +79,7 @@ const caseData = {
                 date: "January 15, 1985",
                 type: "scotus",
                 title: "Supreme Court Rules for School (6-3)",
-                ruling: "favor-respondent",
+                ruling: "favor-petitioner",
                 standard: "The Supreme Court ruled 6-3 that school officials do not need a warrant or probable cause to search students. Instead, searches are legal if they are \"reasonable under all the circumstances.\" The Court found the search of T.L.O.'s purse was reasonable.",
                 simplified: "The Supreme Court said schools can search students without the same rules police have to follow. Schools just need a good reason to think a student broke a rule. The search of T.L.O.'s purse was okay because the vice principal had a reason to look.",
                 reasoning: "Justice White wrote that schools need flexibility to maintain order, creating the \"reasonable suspicion\" standard for school searches."
@@ -133,11 +133,11 @@ const caseData = {
         shortName: "Payton",
         events: [
             {
-                date: "January 1970",
+                date: "January 15, 1970",
                 type: "incident",
                 title: "Police Enter Home Without Warrant",
                 ruling: null,
-                standard: "New York City police had probable cause to arrest Theodore Payton for murder. Without obtaining an arrest warrant, officers went to his apartment, used a crowbar to break open the door, and entered. Payton wasn't home, but police found evidence (a shell casing) in plain view that was used against him at trial.",
+                standard: "New York City police had probable cause to arrest Theodore Payton for murder. Without an arrest warrant, six officers went to his Bronx apartment about 7:30 a.m. on January 15, 1970. After no one answered, they used crowbars, entered, and found a .30-caliber shell casing in plain view. Payton was not home. The casing was used against him at trial.",
                 simplified: "Police believed Theodore Payton committed a murder. Instead of getting a warrant from a judge, they broke into his apartment. Payton wasn't there, but the police found a bullet shell that they used as evidence against him.",
                 reasoning: null
             },
@@ -179,7 +179,7 @@ const caseData = {
                 type: "incident",
                 title: "Student Posts Snapchat Rant",
                 ruling: null,
-                standard: "B.L., a 14-year-old sophomore, was upset about not making the varsity cheerleading squad. On a Saturday, from off campus, she posted a Snapchat showing herself with her middle finger raised and the caption \"F*** school f*** softball f*** cheer f*** everything.\" A screenshot reached school coaches, and B.L. was suspended from the junior varsity squad for a year.",
+                standard: "B.L., a 14-year-old freshman, was upset about not making the varsity cheerleading squad. On a Saturday, from the Cocoa Hut convenience store, she posted two Snaps: one with middle fingers raised and the caption \"F*** school f*** softball f*** cheer f*** everything,\" and a second that mentioned another student who also did not make varsity. A screenshot reached school coaches, and B.L. was suspended from the junior varsity squad for a year.",
                 simplified: "A 14-year-old girl was upset she didn't make the varsity cheerleading team. That weekend, away from school, she posted an angry message on Snapchat with bad words about school and cheerleading. Someone showed it to the coaches, and she was kicked off the JV team for a whole year.",
                 reasoning: null
             },
@@ -187,7 +187,7 @@ const caseData = {
                 date: "2017",
                 type: "district",
                 title: "District Court Rules for Student",
-                ruling: "favor-petitioner",
+                ruling: "favor-respondent",
                 standard: "The U.S. District Court ruled in favor of B.L., finding that her off-campus speech was protected by the First Amendment. The court held that the school could not discipline her for speech made outside of school that did not cause substantial disruption.",
                 simplified: "The first court said B.L. was right. The judge said schools can't punish students for things they say outside of school, especially when it didn't cause any real problems at school.",
                 reasoning: "The court applied Tinker's substantial disruption test and found no evidence of disruption."
@@ -196,16 +196,16 @@ const caseData = {
                 date: "June 2020",
                 type: "appeals",
                 title: "3rd Circuit Affirms for Student",
-                ruling: "favor-petitioner",
+                ruling: "favor-respondent",
                 standard: "The Third Circuit Court of Appeals affirmed, going further to hold that Tinker does not apply to off-campus student speech at all. The court ruled that schools generally cannot regulate what students say when they're not at school.",
-                simplified: "The appeals court agreed with B.L. and went even further. They said schools have no power to punish students for anything they say outside of school. The school appealed to the Supreme Court.",
+                simplified: "The appeals court agreed with B.L. and went even further. They said Tinker's disruption test does not cover speech made off campus. The school asked the Supreme Court to take the case.",
                 reasoning: "The appeals court created a bright-line rule that off-campus speech is beyond school authority."
             },
             {
                 date: "June 23, 2021",
                 type: "scotus",
                 title: "Supreme Court Rules for Student (8-1)",
-                ruling: "favor-petitioner",
+                ruling: "favor-respondent",
                 standard: "The Supreme Court ruled 8-1 that the school violated B.L.'s First Amendment rights. However, the Court declined to adopt a bright-line rule, holding that schools may sometimes regulate off-campus speech, but features of off-campus speech (speaking as private citizens, 24/7 school control concerns, parents' role) diminish schools' regulatory interest.",
                 simplified: "The Supreme Court said B.L.'s punishment was wrong, with 8 justices agreeing. But they didn't say schools can never punish off-campus speech. They said schools usually shouldn't, but might be able to in some cases like severe bullying.",
                 reasoning: "Justice Breyer wrote that while Tinker can apply off-campus, schools have a diminished interest in regulating speech made away from school."
@@ -301,6 +301,7 @@ const caseData = {
 // DOM Elements
 let selectedCases = [];
 let currentReadingLevel = 'standard';
+let journeyMode = 'prep';
 
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize dropdown
@@ -311,7 +312,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initialize case buttons
     initCaseButtons();
+
+    initJourneyMode();
 });
+
+function initJourneyMode() {
+    var prepBtn = document.getElementById('mode-prep');
+    var debriefBtn = document.getElementById('mode-debrief');
+    if (!prepBtn || !debriefBtn) return;
+    function setMode(mode) {
+        journeyMode = mode;
+        prepBtn.classList.toggle('active', mode === 'prep');
+        debriefBtn.classList.toggle('active', mode === 'debrief');
+        try { localStorage.setItem('scotus-journey-mode', mode); } catch (e) {}
+        renderTimeline();
+    }
+    try {
+        var saved = localStorage.getItem('scotus-journey-mode');
+        if (saved === 'debrief' || saved === 'prep') setMode(saved);
+    } catch (e) {}
+    prepBtn.addEventListener('click', function() { setMode('prep'); });
+    debriefBtn.addEventListener('click', function() { setMode('debrief'); });
+}
 
 function initDropdown() {
     const dropdown = document.querySelector('.nav-dropdown');
@@ -364,7 +386,7 @@ function initReadingLevel() {
 }
 
 function initCaseButtons() {
-    const caseButtons = document.querySelectorAll('.case-btn');
+    const caseButtons = document.querySelectorAll('.case-btn[data-case]');
     const clearAllBtn = document.getElementById('clear-all');
 
     caseButtons.forEach(btn => {
@@ -417,6 +439,9 @@ function renderTimeline() {
     selectedCases.forEach(caseId => {
         const caseInfo = caseData[caseId];
         caseInfo.events.forEach(event => {
+            if (journeyMode === 'prep' && event.type === 'scotus') {
+                return;
+            }
             allEvents.push({
                 ...event,
                 caseId: caseId,
@@ -431,6 +456,13 @@ function renderTimeline() {
 
     // Render events
     timeline.innerHTML = allEvents.map(event => createEventHTML(event)).join('');
+    if (journeyMode === 'prep' && selectedCases.length > 0) {
+        timeline.insertAdjacentHTML('beforeend',
+            '<div class="timeline-event scotus-hidden">' +
+            '<div class="card-content"><strong>Supreme Court — hidden in Prep mode</strong>' +
+            '<p>The Court agreed to hear the case. How it voted is hidden so you can argue as if the justices have not spoken yet. Switch to Debrief after your debate.</p></div></div>'
+        );
+    }
 }
 
 function parseDateForSort(dateStr) {
@@ -466,6 +498,7 @@ function createEventHTML(event) {
     const content = currentReadingLevel === 'simplified' ? event.simplified : event.standard;
 
     let rulingHTML = '';
+    // Colors follow the Supreme Court caption: petitioner/respondent as the case was named at SCOTUS.
     if (event.ruling) {
         const rulingLabels = {
             'favor-petitioner': 'Ruled for Petitioner',
