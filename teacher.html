@@ -368,6 +368,78 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        .whats-new {
+            background: #fff8e8;
+            border: 2px solid #e6c15a;
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-bottom: 24px;
+        }
+
+        .whats-new ul {
+            margin: 8px 0 0 20px;
+        }
+
+        .whats-new li {
+            margin-bottom: 6px;
+            line-height: 1.55;
+        }
+
+        .hold-banner {
+            background: #fff5f6;
+            border-left: 5px solid var(--accent);
+            border-radius: 8px;
+            padding: 14px 18px;
+            margin: 12px 0 0;
+        }
+
+        .site-map {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 12px;
+            margin: 12px 0;
+        }
+
+        .site-map a,
+        .site-map > div {
+            background: var(--bg-warm);
+            border-radius: 10px;
+            padding: 14px 16px;
+            text-decoration: none;
+            color: inherit;
+            border: 2px solid transparent;
+            display: block;
+        }
+
+        .site-map a:hover {
+            border-color: var(--primary-dark);
+        }
+
+        .site-map h4 {
+            margin: 0 0 6px;
+            font-size: 0.95em;
+            color: var(--primary-dark);
+        }
+
+        .site-map p {
+            margin: 0;
+            font-size: 0.88em;
+            color: #555;
+            line-height: 1.45;
+        }
+
+        .case-q {
+            font-size: 0.92em;
+            color: #444;
+            margin: 2px 0 0;
+        }
+
+        .case-sides-note {
+            font-size: 0.88em;
+            color: #666;
+            margin: 0 0 8px;
+        }
     </style>
 </head>
 <body>
@@ -413,7 +485,7 @@
                 <div class="teacher-hero">
                     <span class="teacher-badge">Teacher Resources</span>
                     <h1>Supreme Court Debate Project</h1>
-                    <p>Everything you need to run the project in your classroom</p>
+                    <p>Everything you need to run the mock trial in your classroom — including the current student path, hidden holdings, and fact-checked case pages</p>
                 </div>
 
                 <!-- MOTIVATION -->
@@ -423,38 +495,84 @@
 
                 <div class="motivation-box">
                     <h3>Why I Built This</h3>
-                    <p>This project is designed to be a fun, engaging version of the <strong>OSPI Classroom-Based Assessment (CBA)</strong> for middle school civics — specifically the "Constitutional Issues" CBA. It meets the <strong>presentation requirement</strong> through the structured debate format, where students take on the role of constitutional lawyers arguing real Supreme Court cases.</p>
-                    <p>The website provides scaffolded support at every step — from learning vocabulary to sorting arguments to writing opening statements — so students can focus on thinking deeply about constitutional questions rather than getting lost in the format. Interactive activities help students organize their thinking before they start writing.</p>
-                    <p>My goal was to take what can feel like a dry assessment and turn it into something students actually look forward to. The debate format gives them a clear purpose for their research and a real audience for their arguments.</p>
+                    <p>This project is designed to be a fun, engaging version of the <strong>OSPI Classroom-Based Assessment (CBA)</strong> for middle school civics — specifically the "Constitutional Issues" CBA. It meets the <strong>presentation requirement</strong> through a structured mock trial / debate: students take one side of a real Supreme Court case and argue as if the Court has <em>not</em> decided yet.</p>
+                    <p>The website scaffolds every step — vocabulary, case-specific questions, competing legal tests, argument sorting, primary excerpts, a 60-second oral theory, and a writing workspace — so students spend their energy on the constitutional fight rather than on format. Interactive activities help them organize thinking before they write or speak.</p>
+                    <p>The debate gives them a clear purpose for research and a real audience. After they argue, you debrief the actual holding, dissents, and how the case still shows up today.</p>
                 </div>
 
                 <div class="cba-links">
                     <a class="cba-link" href="https://ospi.k12.wa.us/sites/default/files/2023-08/middleschcivics-constitutionalissues-cba.pdf" target="_blank" rel="noopener">
-                        <span>📄</span> CBA Assessment (PDF)
+                        <span>📄</span> Middle School Constitutional Issues CBA (PDF)
                     </a>
-                    <a class="cba-link" href="https://ospi.k12.wa.us/sites/default/files/2023-08/middleschcivics-constitutionalissues-cba.pdf" target="_blank" rel="noopener">
-                        <span>🌐</span> OSPI CBA Overview
+                    <a class="cba-link" href="https://ospi.k12.wa.us/student-success/resources-subject-area/social-studies/ospi-developed-social-studies-assessments" target="_blank" rel="noopener">
+                        <span>🌐</span> OSPI social studies assessments
                     </a>
                 </div>
 
                 <!-- WHAT'S NEW -->
                 <div class="section-head">
-                    <h2>Website Features</h2>
-                    <p>Interactive tools to support student learning</p>
+                    <h2>What's on the site now</h2>
+                    <p>Matches the student site as of v1.19 — including the latest fact-checked case materials</p>
+                </div>
+
+                <div class="whats-new">
+                    <h3>If you used this last year, start here</h3>
+                    <ul>
+                        <li>Students should <strong>argue one side</strong> as if the Supreme Court has not spoken. Hide this case’s holding, vote, and opinion quotes until debrief.</li>
+                        <li>Each case now has a <strong>case-specific constitutional question</strong> and two <strong>competing tests</strong> (the rule each side wants the Court to write).</li>
+                        <li>The home page has a <strong>6-step path</strong>: Background → Sort &amp; weigh → Evidence Vault → Speak → Debate Prep → classroom debate.</li>
+                        <li><strong>Case Journeys</strong> has Prep mode (holding hidden) and Debrief mode (vote and reasoning). Keep students on Prep until after they argue.</li>
+                        <li><strong>Review</strong> multiple-choice items often mention holdings. Use vocab anytime; save case quizzes and <a href="https://play.blooket.com/play?hwId=699e72ac5db83b482a747f78" target="_blank" rel="noopener">Blooket</a> for after the debate.</li>
+                        <li>The website case pages and Evidence Vault are the <strong>fact-checked source of truth</strong>. Google Docs (case readings, prep organizers) may lag — if they conflict, trust the site.</li>
+                    </ul>
                 </div>
 
                 <div class="overview-section">
-                    <h3>Current Features</h3>
+                    <h3>Where students click</h3>
+                    <div class="site-map">
+                        <a href="index.html">
+                            <h4>Home</h4>
+                            <p>Driving question (with a note that it does not fit every case), 6-step path, cases grouped by theme with amendment, question, and two sides.</p>
+                        </a>
+                        <a href="index.html#cases">
+                            <h4>Case page — Background</h4>
+                            <p>Facts, people, the amendment, the case question, and the two competing tests. Party badges name who you represent, then Petitioner/Respondent.</p>
+                        </a>
+                        <a href="debate.html">
+                            <h4>Debate Prep</h4>
+                            <p>Pick case and side. Case theory, competing tests, opening, arguments that end with “under our test…”, sources, rebuttals, hot bench, closing.</p>
+                        </a>
+                        <a href="journeys.html">
+                            <h4>Case Journeys</h4>
+                            <p>Prep mode: incident and lower courts only. Debrief mode: Supreme Court vote and reasoning. Standard / Simplified reading toggle.</p>
+                        </a>
+                        <a href="compare.html">
+                            <h4>Compare Cases</h4>
+                            <p>Four pairs for debrief: Tinker/Mahanoy, T.L.O./Payton, Kennedy/Tinker, Brown/Arizona. Students apply tests across facts, not “who won.”</p>
+                        </a>
+                        <a href="review.html">
+                            <h4>Review</h4>
+                            <p>Vocabulary flashcards (safe anytime). Multiple choice, short answer, and Blooket often leak holdings — after the debate.</p>
+                        </a>
+                        <a href="resources.html">
+                            <h4>Resources</h4>
+                            <p>What the Court is, how a case gets there, debate tips. Standard / Simplified toggle. Week 1 material lives here.</p>
+                        </a>
+                        <a href="cases/tinker.html">
+                            <h4>On every case page</h4>
+                            <p>Argument Sort + Weigh, Evidence Vault, Speak tab (60-second theory and hot bench), and a pair prompt on the Today tab.</p>
+                        </a>
+                    </div>
+                    <p class="hold-banner"><strong>Holdings stay hidden until debrief.</strong> Prep materials use earlier precedent and the case record. Students may not quote this Court’s opinion, vote, or “the Court held…” until you switch Journeys to Debrief mode.</p>
+                </div>
+
+                <div class="overview-section">
+                    <h3>Other features</h3>
                     <ul>
-                        <li><strong>Case Pages:</strong> Each case includes a case-specific constitutional question, competing tests (the rule each side wants), background, arguments, and an Evidence Vault of primary excerpts</li>
-                        <li><strong>Argument Sorting + Weighing:</strong> Students sort arguments, then rank them, steelman the other side, and explain how both sides could use the same fact</li>
-                        <li><strong>Speak tab:</strong> A six-line oral case theory and hot-bench judge questions so prep is not only typing</li>
-                        <li><strong>Evidence Vault:</strong> Short primary excerpts (constitutional text, statutes, earlier cases, the record). Students decide who can use each source — the card does not announce a winner</li>
-                        <li><strong>Debate Prep Workspace:</strong> Case theory, competing tests, openings, arguments that end with “under our test…”, rebuttals, sources, hot bench</li>
-                        <li><strong>Case Journeys:</strong> Prep mode hides the Supreme Court holding until after the debate; Debrief mode reveals it</li>
-                        <li><strong>Compare Cases:</strong> Pair Tinker/Mahanoy, T.L.O./Payton, Kennedy/Tinker, and Brown/Arizona to build nuance</li>
-                        <li><strong>Review Mode:</strong> Vocabulary flashcards and multiple choice practice to reinforce key concepts</li>
-                        <li><strong>Progress Saving:</strong> Student work saves automatically (locally or with Google sign-in for cloud sync)</li>
+                        <li><strong>Reading levels:</strong> Standard and Simplified on case pages, Journeys, and Resources. Simplified is meant to be 8th-grade civics, not baby talk.</li>
+                        <li><strong>Hard-side coaching:</strong> On Brown (Board), Kennedy, and Arizona the case page tells students what a historically real argument looks like — and what they may not argue.</li>
+                        <li><strong>Progress saving:</strong> Work in sort/weigh, Speak, vault, Debate Prep, and Compare autosaves in the browser. Google sign-in (@edmonds.wednet.edu) syncs to the cloud when it is available.</li>
+                        <li><strong>Mobile:</strong> A menu button (☰) opens navigation on phones.</li>
                     </ul>
                 </div>
 
@@ -488,7 +606,8 @@
                 <div class="overview-section">
                     <h3>The Driving Question</h3>
                     <p><em>When, if ever, should the government be allowed to limit a person's constitutional rights in order to protect the community?</em></p>
-                    <p>This is one of the most important questions in American democracy. Students become constitutional lawyers, analyzing real Supreme Court cases and debating whether individual rights or community safety should come first.</p>
+                    <p>This is the unit’s big question — and it fits some cases better than others. <em>Tinker</em>, <em>T.L.O.</em>, <em>Payton</em>, and <em>Mahanoy</em> are genuine rights-versus-order fights. <em>Kennedy</em> is two religion clauses colliding. <em>Brown</em> is equal protection. <em>Arizona</em> is federal versus state power.</p>
+                    <p>Tell students: use the unit question when it fits, and use <strong>each case’s own constitutional question</strong> (on the case card and Background tab) when it does not. Do not mash Brown or Arizona into “community safety.”</p>
                 </div>
 
                 <div class="overview-section">
@@ -497,89 +616,110 @@
                     <h4><span class="week-label">Week 1</span> Building Your Foundation</h4>
                     <ul>
                         <li><strong>Launch:</strong> Play "Do I Have a Right?" to see how courts protect our freedoms</li>
-                        <li><strong>Learn the Language:</strong> Master key legal vocabulary needed for debates</li>
+                        <li><strong>Learn the Language:</strong> Review vocabulary flashcards (safe before debate — they do not reveal holdings)</li>
                         <li><strong>Real Story:</strong> Discover how Wong Kim Ark fought for his rights all the way to the Supreme Court</li>
-                        <li><strong>How It Works:</strong> Learn how cases actually reach the Supreme Court</li>
+                        <li><strong>How It Works:</strong> Resources page — what the Court is and how a case gets there</li>
                     </ul>
 
                     <h4><span class="week-label">Week 2</span> Choose Your Case &amp; Get Creative</h4>
                     <ul>
-                        <li><strong>Meet the Cases:</strong> Explore 7 landmark Supreme Court cases</li>
-                        <li><strong>Rank Your Choices:</strong> Pick which case you want to argue</li>
+                        <li><strong>Meet the Cases:</strong> Home page cards — amendment, question, and two sides. Students explore without opening Journeys Debrief or Review quizzes.</li>
+                        <li><strong>Rank Your Choices:</strong> Case Selection Google Form</li>
                         <li><strong>Design Time:</strong> Create a movie-style poster introducing your case to the class</li>
-                        <li><strong>Think Deep:</strong> Discuss real dilemmas about individual rights vs. community good</li>
+                        <li><strong>Think Deep:</strong> Discuss which cases fit the unit driving question and which need their own frame</li>
                     </ul>
 
                     <h4><span class="week-label">Week 3</span> Become a Lawyer</h4>
                     <ul>
-                        <li><strong>Assign case and side first</strong> so students read with a job. Keep Journeys on Prep mode (holding hidden).</li>
-                        <li><strong>Background:</strong> Facts, people, the amendment, and the two competing tests</li>
+                        <li><strong>Assign case and side first</strong> so students read with a job. Keep Journeys on <strong>Prep mode</strong> (holding hidden).</li>
+                        <li><strong>Background:</strong> Facts, people, the amendment, the case question, and the two competing tests</li>
                         <li><strong>Sort &amp; weigh:</strong> Classify arguments, then rank, steelman, and explain dual-use facts</li>
                         <li><strong>Evidence Vault:</strong> Primary excerpts — students write how each side could use them</li>
                         <li><strong>Speak:</strong> 60-second case theory out loud, then hot-bench questions with a partner</li>
-                        <li><strong>Write:</strong> Debate Prep opening, arguments (“under our test…”), sources, rebuttals</li>
+                        <li><strong>Write:</strong> Debate Prep workspace (opening, arguments that end “under our test…”, sources, rebuttals). Google Case Prep Files are optional paper/offline backup.</li>
                     </ul>
 
                     <h4><span class="week-label">Week 4</span> Debate, then debrief</h4>
                     <ul>
                         <li><strong>Debate:</strong> Present as if the Court has not spoken (2 cases per day)</li>
-                        <li><strong>Debrief:</strong> Switch Journeys to Debrief mode. Reveal the holding, dissents, and Connecting to Today. Compare paired cases.</li>
+                        <li><strong>Debrief:</strong> Switch Journeys to <strong>Debrief mode</strong>. Reveal the holding, dissents, and Connecting to Today.</li>
+                        <li><strong>Compare:</strong> Use the Compare Cases page (or the pair box on the Today tab) so students can see how a test travels to different facts.</li>
+                        <li><strong>Review:</strong> Now it is safe to use case multiple choice, short answer, and Blooket.</li>
                     </ul>
                 </div>
 
                 <div class="overview-section">
                     <h3>Student Role</h3>
-                    <p>Students are constitutional lawyers representing either the petitioner or respondent in a real Supreme Court case. Petitioner/respondent is a legal label only — in <em>T.L.O.</em> the State is petitioner and the student is respondent. Their job is to:</p>
+                    <p>Students are constitutional lawyers representing either the petitioner or respondent in a real Supreme Court case. <strong>Petitioner/respondent is a legal label only</strong> — it is not “the kid” vs. “the school.” In <em>T.L.O.</em> the State of New Jersey is petitioner and the student is respondent. In <em>Mahanoy</em> the school is petitioner and B.L. is respondent. Badges on the case page show the party name first, then the legal role.</p>
+                    <p>Their job is to:</p>
                     <ul>
-                        <li>Understand the facts of their case</li>
-                        <li>Know the constitutional issues at stake</li>
-                        <li>Build strong arguments using evidence</li>
-                        <li>Anticipate and respond to opposing arguments</li>
-                        <li>Convince others that their side protects what matters most</li>
+                        <li>Know the facts of the record (not the later holding)</li>
+                        <li>State the constitutional question and the clause at issue</li>
+                        <li>Name the <strong>test</strong> their side wants the Court to adopt</li>
+                        <li>Build arguments that end with “under our test, this fact matters because…”</li>
+                        <li>Anticipate the other side’s strongest point (steelman) and answer hot-bench questions</li>
+                        <li>Speak a 60-second theory without notes, then write it in Debate Prep</li>
                     </ul>
                 </div>
 
                 <div class="overview-section">
                     <h3>The 7 Cases</h3>
+                    <p>Questions and sides match the home page. Assign a case <em>and</em> a side.</p>
 
-                    <p class="case-group-label">Student Rights &amp; Free Speech</p>
+                    <p class="case-group-label">Student speech</p>
                     <ul>
-                        <li><strong>Tinker v. Des Moines</strong> — Can students wear armbands to protest war?</li>
-                        <li><strong>Mahanoy v. B.L.</strong> — Can schools punish students for social media posts made off campus?</li>
+                        <li><strong>Tinker v. Des Moines</strong> (1969) — First Amendment<br>
+                            <span class="case-q">May a public school ban silent political armbands because officials fear disruption?</span><br>
+                            <span class="case-sides-note">Students vs. Des Moines schools</span></li>
+                        <li><strong>Mahanoy v. B.L.</strong> (2021) — First Amendment<br>
+                            <span class="case-q">May a school punish a student for a vulgar weekend Snapchat about cheer and school?</span><br>
+                            <span class="case-sides-note">Mahanoy schools (petitioner) vs. B.L. (respondent)</span></li>
                     </ul>
 
-                    <p class="case-group-label">Religion &amp; Schools</p>
+                    <p class="case-group-label">Search, privacy, and the home</p>
                     <ul>
-                        <li><strong>Kennedy v. Bremerton</strong> — Can a coach pray on the field after games?</li>
+                        <li><strong>New Jersey v. T.L.O.</strong> (1985) — Fourth Amendment<br>
+                            <span class="case-q">May a school official search a student’s purse without a warrant?</span><br>
+                            <span class="case-sides-note">New Jersey, the State (petitioner) vs. T.L.O., the student (respondent)</span></li>
+                        <li><strong>Payton v. New York</strong> (1980) — Fourth Amendment<br>
+                            <span class="case-q">May police enter a home to make a routine felony arrest without a warrant?</span><br>
+                            <span class="case-sides-note">Payton vs. New York</span></li>
                     </ul>
 
-                    <p class="case-group-label">Privacy &amp; Search</p>
+                    <p class="case-group-label">Religion in public schools</p>
                     <ul>
-                        <li><strong>New Jersey v. T.L.O.</strong> — Can schools search students without a warrant?</li>
-                        <li><strong>Payton v. New York</strong> — Can police enter your home without a warrant to arrest you?</li>
+                        <li><strong>Kennedy v. Bremerton</strong> (2022) — First Amendment (Free Exercise and Establishment)<br>
+                            <span class="case-q">May a public school stop a coach from praying at midfield after games?</span><br>
+                            <span class="case-sides-note">Coach Kennedy vs. Bremerton schools. This is two clauses colliding, not “community safety.”</span></li>
                     </ul>
 
-                    <p class="case-group-label">Immigration &amp; Federalism</p>
+                    <p class="case-group-label">Equal protection</p>
                     <ul>
-                        <li><strong>Arizona v. United States</strong> — Can states enforce their own immigration laws?</li>
+                        <li><strong>Brown v. Board of Education</strong> (1954) — Fourteenth Amendment<br>
+                            <span class="case-q">May a state require racially separate public schools if it claims the buildings are equal?</span><br>
+                            <span class="case-sides-note">Brown family vs. Topeka school board. Not a safety-vs-rights case.</span></li>
                     </ul>
 
-                    <p class="case-group-label">Civil Rights</p>
+                    <p class="case-group-label">Federalism — who writes the rules?</p>
                     <ul>
-                        <li><strong>Brown v. Board of Education</strong> — Can states force students to attend separate schools based on race?</li>
+                        <li><strong>Arizona v. United States</strong> (2012) — Supremacy Clause<br>
+                            <span class="case-q">May a state add its own immigration crimes and police duties when Congress already occupies that field?</span><br>
+                            <span class="case-sides-note">Arizona vs. United States. Federal vs. state power, not “is immigration good.”</span></li>
                     </ul>
                 </div>
 
                 <div class="overview-section">
                     <h3>Coaching the hard sides</h3>
                     <h4>Brown — Board of Education</h4>
-                    <p>Give respondents a historically real theory: <em>Plessy</em> is precedent; Topeka’s schools were found substantially equal in facilities; education is a state function. Ban arguments that any race is inferior. Debrief after: why a unanimous Court rejected even the “polite” version of separate-but-equal.</p>
+                    <p>Give respondents a historically real theory: <em>Plessy</em> is precedent; Topeka’s elementary schools were found substantially equal in facilities; education is a state function. Ban arguments that any race is inferior. Debrief after: why a unanimous Court rejected even the “polite” version of separate-but-equal.</p>
                     <h4>Kennedy — both sides</h4>
-                    <p>Coach: short prayer, after the whistle, Free Exercise. District: 50-yard line, school gear, playing-time pressure, October 16 crowd, <em>Santa Fe v. Doe</em>. Do not let this become “religion is good/bad.”</p>
+                    <p><strong>Coach:</strong> short personal prayer after the whistle; Free Exercise and private speech. <strong>District:</strong> 50-yard line, school gear, a parent’s report to Principal Polm that a son felt playing-time pressure, the October 16 crowd (the district said band members and cheerleaders were knocked down), and <em>Santa Fe v. Doe</em>. Treat playing-time pressure and the crowd injuries as <em>the district’s claims</em>, not as undisputed facts. Do not let this become “religion is good/bad.”</p>
                     <h4>Arizona</h4>
                     <p>The issue is preemption — who writes immigration rules — not whether immigration is good or bad. “Helping enforce federal law” vs. “a second immigration code.”</p>
+                    <h4>T.L.O. — party labels</h4>
+                    <p>Students mix this up. New Jersey (the State) asked the Supreme Court to hear the case, so the State is petitioner. T.L.O. is respondent. “Petitioner” does not mean the student.</p>
                     <h4>Holdings stay hidden until debrief</h4>
-                    <p>Prep materials use earlier precedent and the case record, not this Court’s vote. Case Journeys has a Prep/Debrief toggle. Review quizzes that mention holdings are for after the debate.</p>
+                    <p>Prep materials use earlier precedent and the case record, not this Court’s vote. Case Journeys has a Prep/Debrief toggle. Review quizzes and Blooket that mention holdings are for after the debate.</p>
                 </div>
 
                 <!-- RESOURCE FILES -->
@@ -620,12 +760,12 @@
                     <a class="resource-card" href="https://docs.google.com/document/d/1PyVMpSDT-t1adgyFgI41ZkkL8qDc_CfpbjqkWcfBLC4/copy" target="_blank" rel="noopener">
                         <div class="resource-card-icon">⚔️</div>
                         <h3>Case Prep Files</h3>
-                        <p>Background research notes, argument prep organizer, and opening/closing statement templates — all in one doc</p>
+                        <p>Background research notes, argument prep organizer, and opening/closing templates — optional paper/offline backup. The live Debate Prep workspace on this site is the up-to-date version.</p>
                         <span class="dl-hint">Click to copy to your Drive &rarr;</span>
                     </a>
                 </div>
 
-                <p style="font-size: 0.88em; color: #888; margin-top: 8px;">Each "/copy" link creates a fresh copy in your Google Drive. The case readings link opens a preview.</p>
+                <p style="font-size: 0.88em; color: #888; margin-top: 8px;">Each "/copy" link creates a fresh copy in your Google Drive. The case readings link opens a preview. If a Google Doc disagrees with the website (facts, dates, party labels), use the website — those pages were fact-checked against the case records.</p>
 
                 <!-- CONTACT -->
                 <div class="section-head">
