@@ -19,7 +19,7 @@ var evidenceSortData = {
                 petitionerFeedback: 'States can help enforce federal law more efficiently by involving local officers who know their communities.',
                 respondentFeedback: 'This expands state power into the federal domain. Immigration enforcement is a federal responsibility.',
                 canBeBoth: true,
-                source: 'https://en.wikipedia.org/wiki/Arizona_v._United_States'
+                source: 'https://www.oyez.org/cases/2011/11-182'
             },
             {
                 text: 'The law included three limitations: presume legal if driver\'s license shown, no consideration of race/origin, and must be consistent with federal law.',

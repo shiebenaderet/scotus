@@ -262,9 +262,24 @@ header .container h1,
     font-family: var(--font-heading);
 }
 
+.nav-toggle {
+    display: none;
+    background: rgba(255, 255, 255, 0.12);
+    color: var(--text-light);
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    border-radius: 8px;
+    min-height: 44px;
+    min-width: 44px;
+    font-size: 1.25rem;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+}
+
 .header-nav {
     display: flex;
     gap: 0.25rem;
+    align-items: center;
 }
 
 .header-nav a {
@@ -679,6 +694,77 @@ padding: 0.75rem 2rem;
     margin-bottom: 0.5rem;
 }
 
+.case-group {
+    margin-bottom: 1.75rem;
+}
+
+.case-group-title {
+    font-size: 1.05rem;
+    color: var(--primary-dark);
+    margin: 0 0 0.75rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 2px solid var(--border);
+}
+
+.case-card .case-amendment {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.35rem;
+}
+
+.case-card .case-question {
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    line-height: 1.45;
+    margin-bottom: 0.65rem;
+}
+
+.case-card .case-sides {
+    font-size: 0.8rem;
+    color: #555;
+    margin-bottom: 0.75rem;
+    line-height: 1.4;
+}
+
+.pair-pick {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin: 1rem 0 1.5rem;
+}
+
+.pair-pick button {
+    padding: 0.7rem 1rem;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    background: var(--bg-white);
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    color: var(--primary-dark);
+}
+
+.pair-pick button.active {
+    border-color: var(--accent);
+    background: #fff5f6;
+}
+
+.start-here {
+    background: var(--bg-white);
+    border: 2px dashed var(--border);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.25rem;
+    text-align: center;
+}
+
+.start-here strong {
+    color: var(--primary-dark);
+}
+
 .case-card h3 {
     margin-bottom: 0.5rem;
     color: var(--primary-dark);
@@ -804,13 +890,42 @@ footer a {
         font-size: 1.25rem;
     }
 
-    .header-nav {
-        gap: 0;
+    .nav-toggle {
+        display: inline-flex;
     }
 
-    .header-nav a {
-        padding: 0.4rem 0.75rem;
-        font-size: 0.9rem;
+    .header-nav {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        gap: 0;
+        background: var(--primary-light);
+        border-radius: 10px;
+        padding: 0.35rem;
+    }
+
+    .header-nav.open {
+        display: flex;
+    }
+
+    .header-nav a,
+    .header-nav .nav-dropdown-btn {
+        width: 100%;
+        justify-content: flex-start;
+        padding: 0.65rem 0.85rem;
+        font-size: 0.95rem;
+    }
+
+    .nav-dropdown {
+        width: 100%;
+    }
+
+    .nav-dropdown-content {
+        position: static;
+        box-shadow: none;
+        border: none;
+        background: transparent;
+        min-width: 0;
     }
 
     header:not(.site-header) h1 {

@@ -301,6 +301,7 @@ const caseData = {
 // DOM Elements
 let selectedCases = [];
 let currentReadingLevel = 'standard';
+let journeyMode = 'prep';
 
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize dropdown
@@ -311,7 +312,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initialize case buttons
     initCaseButtons();
+
+    initJourneyMode();
 });
+
+function initJourneyMode() {
+    var prepBtn = document.getElementById('mode-prep');
+    var debriefBtn = document.getElementById('mode-debrief');
+    if (!prepBtn || !debriefBtn) return;
+    function setMode(mode) {
+        journeyMode = mode;
+        prepBtn.classList.toggle('active', mode === 'prep');
+        debriefBtn.classList.toggle('active', mode === 'debrief');
+        try { localStorage.setItem('scotus-journey-mode', mode); } catch (e) {}
+        renderTimeline();
+    }
+    try {
+        var saved = localStorage.getItem('scotus-journey-mode');
+        if (saved === 'debrief' || saved === 'prep') setMode(saved);
+    } catch (e) {}
+    prepBtn.addEventListener('click', function() { setMode('prep'); });
+    debriefBtn.addEventListener('click', function() { setMode('debrief'); });
+}
 
 function initDropdown() {
     const dropdown = document.querySelector('.nav-dropdown');
@@ -364,7 +386,7 @@ function initReadingLevel() {
 }
 
 function initCaseButtons() {
-    const caseButtons = document.querySelectorAll('.case-btn');
+    const caseButtons = document.querySelectorAll('.case-btn[data-case]');
     const clearAllBtn = document.getElementById('clear-all');
 
     caseButtons.forEach(btn => {
@@ -417,6 +439,9 @@ function renderTimeline() {
     selectedCases.forEach(caseId => {
         const caseInfo = caseData[caseId];
         caseInfo.events.forEach(event => {
+            if (journeyMode === 'prep' && event.type === 'scotus') {
+                return;
+            }
             allEvents.push({
                 ...event,
                 caseId: caseId,
@@ -431,6 +456,13 @@ function renderTimeline() {
 
     // Render events
     timeline.innerHTML = allEvents.map(event => createEventHTML(event)).join('');
+    if (journeyMode === 'prep' && selectedCases.length > 0) {
+        timeline.insertAdjacentHTML('beforeend',
+            '<div class="timeline-event scotus-hidden">' +
+            '<div class="card-content"><strong>Supreme Court — hidden in Prep mode</strong>' +
+            '<p>The Court agreed to hear the case. How it voted is hidden so you can argue as if the justices have not spoken yet. Switch to Debrief after your debate.</p></div></div>'
+        );
+    }
 }
 
 function parseDateForSort(dateStr) {

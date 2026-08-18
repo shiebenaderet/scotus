@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Update section visibility
             document.querySelectorAll('.tabbed-content .case-section').forEach(section => {
                 section.classList.remove('active-tab');
-                if (section.id === tabId) {
+                if (section.id === tabId || (tabId === 'today' && section.id === 'resources')) {
                     section.classList.add('active-tab');
                 }
             });
@@ -450,17 +450,26 @@ document.addEventListener('DOMContentLoaded', function() {
             unlockVault();
             saveVaultUnlock();
 
-            // Add "Continue to Debate Prep" CTA if not already shown
+            // Next: case theory (Speak tab), then Debate Prep
             if (!buttonContainer.querySelector('.debate-prep-cta')) {
+                var ctaWrap = document.createElement('div');
+                ctaWrap.style.marginTop = '12px';
+                var nextBtn = document.createElement('button');
+                nextBtn.type = 'button';
+                nextBtn.className = 'debate-prep-cta';
+                nextBtn.textContent = 'Next: Build your case theory \u2192';
+                nextBtn.style.cssText = 'display: inline-block; margin: 8px 8px 0 0; padding: 12px 28px; background: #6366f1; color: #fff; border: none; border-radius: 8px; font-weight: 600; font-size: 1em; cursor: pointer;';
+                nextBtn.addEventListener('click', function() {
+                    if (typeof window.switchToTab === 'function') window.switchToTab('speak');
+                });
                 var ctaLink = document.createElement('a');
                 ctaLink.href = '../debate.html';
                 ctaLink.className = 'debate-prep-cta';
-                ctaLink.textContent = 'Continue to Debate Prep \u2192';
-                ctaLink.style.cssText = 'display: inline-block; margin-top: 12px; padding: 12px 28px; background: #6366f1; color: #fff; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 1em; transition: background 0.2s;';
-                ctaLink.addEventListener('mouseenter', function() { this.style.background = '#4f46e5'; });
-                ctaLink.addEventListener('mouseleave', function() { this.style.background = '#6366f1'; });
-                buttonContainer.appendChild(document.createElement('br'));
-                buttonContainer.appendChild(ctaLink);
+                ctaLink.textContent = 'Or skip to Debate Prep \u2192';
+                ctaLink.style.cssText = 'display: inline-block; margin-top: 8px; padding: 12px 20px; color: #6366f1; font-weight: 600;';
+                ctaWrap.appendChild(nextBtn);
+                ctaWrap.appendChild(ctaLink);
+                buttonContainer.appendChild(ctaWrap);
             }
         });
         
@@ -712,7 +721,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     var title = front.querySelector('h4') ? front.querySelector('h4').textContent : '';
                     var excerpt = front.querySelector('.source-excerpt') ? front.querySelector('.source-excerpt').textContent : '';
                     var sideLabel = front.querySelector('.source-side-label') ? front.querySelector('.source-side-label').textContent.trim() : '';
-                    var analysis = back && back.querySelector('.source-back-analysis') ? back.querySelector('.source-back-analysis').textContent : '';
+                    var analysisEl = back && back.querySelector('.source-back-analysis');
+                    var notes = back ? Array.from(back.querySelectorAll('.source-use-notes')).map(function(t) { return t.value; }).filter(Boolean).join(' | ') : '';
+                    var analysis = (analysisEl ? analysisEl.textContent : '') || notes;
                     var citation = back && back.querySelector('.source-citation') ? back.querySelector('.source-citation').textContent.replace(/^MLA:\s*/i, '') : '';
 
                     current[idx] = {

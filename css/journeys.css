@@ -182,6 +182,32 @@
     box-shadow: 0 4px 12px rgba(22, 33, 62, 0.3);
 }
 
+.mode-btn {
+    padding: 0.75rem 1.25rem;
+    background: var(--bg-white);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    color: var(--primary-dark);
+}
+
+.mode-btn.active {
+    background: var(--primary-dark);
+    color: #fff;
+    border-color: var(--primary-dark);
+}
+
+.scotus-hidden {
+    background: repeating-linear-gradient(45deg, #f5f3ef, #f5f3ef 10px, #efeae3 10px, #efeae3 20px);
+    border: 2px dashed var(--border);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    margin-top: 0.75rem;
+}
+
 /* Case-specific colors when selected */
 .case-btn[data-case="tinker"].selected { background: #1e3a5f; border-color: #1e3a5f; }
 .case-btn[data-case="tlo"].selected { background: #2d4a3e; border-color: #2d4a3e; }

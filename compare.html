@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compare Cases | SCOTUS Debate Project</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/case.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <header class="site-header" role="banner">
+        <div class="container header-inner">
+            <a href="index.html" class="site-logo">
+                <span class="logo-icon">⚖️</span>
+                <span class="logo-text">SCOTUS Debate Project</span>
+            </a>
+            <nav class="header-nav" role="navigation" aria-label="Main navigation">
+                <a href="index.html#cases">Cases</a>
+                <a href="resources.html">Resources</a>
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn" aria-expanded="false" aria-haspopup="true">Prepare <span class="dropdown-arrow">&#9662;</span></button>
+                    <div class="nav-dropdown-content">
+                        <a href="review.html">Review</a>
+                        <a href="journeys.html">Case Journeys</a>
+                        <a href="debate.html">Debate Prep</a>
+                        <a href="compare.html" class="active">Compare Cases</a>
+                    </div>
+                </div>
+                <a href="teacher.html" id="teacher-nav-link" style="display:none;">Teacher</a>
+            </nav>
+            <div id="auth-container"></div>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <section class="case-header">
+            <div class="container">
+                <h1>Compare cases</h1>
+                <p class="case-subtitle">Same amendment, different facts — that is where nuance lives</p>
+            </div>
+        </section>
+
+        <section class="case-section active-tab">
+            <div class="container" style="max-width:900px;">
+                <p>Pick a pair. Do not look up who won. Explain how the <strong>test</strong> each side wants would play out on the other case’s facts.</p>
+                <div class="pair-pick" id="pair-buttons"></div>
+                <div id="pair-panel"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 SCOTUS Debate Project</p>
+            <p class="site-version">v1.19.0</p>
+        </div>
+    </footer>
+
+    <script src="js/case-prep-data.js"></script>
+    <script src="js/case-prep.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+    <script src="js/firebase-init.js"></script>
+    <script>
+    var PAIRS = [
+        { a: 'tinker', b: 'mahanoy', title: 'Tinker + Mahanoy', prompt: 'Silent on-campus armbands vs. a vulgar off-campus Snap. What should “substantial disruption” mean in each place? What does B.L.’s Snap have that the armbands did not — and the reverse?' },
+        { a: 'tlo', b: 'payton', title: 'T.L.O. + Payton', prompt: 'A school purse vs. a locked apartment. Why might the Fourth Amendment treat those places differently? When is a warrant necessary, and when is “reasonableness” enough?' },
+        { a: 'kennedy', b: 'tinker', title: 'Kennedy + Tinker', prompt: 'Student political speech vs. employee religious speech. Who counts as “the government” in each case? Would Tinker’s disruption idea help either side in Kennedy?' },
+        { a: 'brown', b: 'arizona', title: 'Brown + Arizona', prompt: 'Equal protection vs. federalism. How is “local control” or “tradition” different from a real public-safety limit on a right? Don’t mash both into the unit slogan.' }
+    ];
+
+    function renderPair(pair) {
+        var A = CASE_PREP_DATA[pair.a];
+        var B = CASE_PREP_DATA[pair.b];
+        var panel = document.getElementById('pair-panel');
+        function col(id, d) {
+            return '<div class="test-card"><h4>' + d.shortTitle + '</h4>' +
+                '<p><strong>Question:</strong> ' + d.question + '</p>' +
+                '<p><strong>' + d.petitioner.name + ' want:</strong> ' + d.tests.petitioner.title + ' — ' + d.tests.petitioner.text + '</p>' +
+                '<p><strong>' + d.respondent.name + ' want:</strong> ' + d.tests.respondent.title + ' — ' + d.tests.respondent.text + '</p>' +
+                '<p><a href="cases/' + id + '.html">Open case →</a></p></div>';
+        }
+        panel.innerHTML = '<div class="case-pair-box"><h3>' + pair.title + '</h3><p>' + pair.prompt + '</p></div>' +
+            '<div class="tests-grid">' + col(pair.a, A) + col(pair.b, B) + '</div>' +
+            '<div class="weigh-prompts" style="margin-top:1.25rem;">' +
+            '<label>Write 4–6 sentences answering the prompt. Use the competing tests, not who you think won.</label>' +
+            '<textarea id="pair-notes" placeholder="In Tinker / T.L.O. / … the test would … On these other facts …"></textarea></div>';
+        var key = 'scotus-compare-' + pair.a + '-' + pair.b;
+        var ta = document.getElementById('pair-notes');
+        try { var saved = localStorage.getItem(key); if (saved) ta.value = saved; } catch (e) {}
+        ta.addEventListener('input', function() {
+            localStorage.setItem(key, ta.value);
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var wrap = document.getElementById('pair-buttons');
+        PAIRS.forEach(function(pair, i) {
+            var b = document.createElement('button');
+            b.type = 'button';
+            b.className = '';
+            b.textContent = pair.title;
+            b.addEventListener('click', function() {
+                wrap.querySelectorAll('button').forEach(function(x) { x.classList.remove('active'); });
+                b.classList.add('active');
+                renderPair(pair);
+            });
+            wrap.appendChild(b);
+            if (i === 0) { b.classList.add('active'); renderPair(pair); }
+        });
+        var dropdown = document.querySelector('.nav-dropdown');
+        var btn = dropdown ? dropdown.querySelector('.nav-dropdown-btn') : null;
+        if (dropdown && btn) {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                dropdown.classList.toggle('open');
+            });
+            document.addEventListener('click', function(e) {
+                if (!dropdown.contains(e.target)) dropdown.classList.remove('open');
+            });
+        }
+    });
+    </script>
+</body>
+</html>

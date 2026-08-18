@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Debate Prep | SCOTUS Debate Project</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/case.css">
     <style>
         .debate-content {
             max-width: 900px;
@@ -1174,6 +1175,7 @@
                         <a href="review.html">Review</a>
                         <a href="journeys.html">Case Journeys</a>
                         <a href="debate.html" class="active">Debate Prep</a>
+                        <a href="compare.html">Compare Cases</a>
                     </div>
                 </div>
                 <a href="teacher.html" id="teacher-nav-link" style="display:none;">Teacher</a>
@@ -1230,6 +1232,10 @@
                         <div>Your Evidence</div>
                         <div class="tab-sub">Review &amp; rank</div>
                     </button>
+                    <button class="debate-tab" onclick="showDebateTab('theory')">
+                        <div>Case Theory</div>
+                        <div class="tab-sub">60-second rule</div>
+                    </button>
                     <button class="debate-tab" onclick="showDebateTab('arguments')">
                         <div>Arguments</div>
                         <div class="tab-sub">Pick your top 3</div>
@@ -1250,10 +1256,50 @@
                         <div>Rebuttals</div>
                         <div class="tab-sub">Counter the other side</div>
                     </button>
+                    <button class="debate-tab" onclick="showDebateTab('oral')">
+                        <div>Hot Bench</div>
+                        <div class="tab-sub">Practice answering</div>
+                    </button>
                 </div>
 
                 <!-- ========== YOUR EVIDENCE ========== -->
                 <div class="debate-section active" id="tab-evidence"></div>
+
+                <div class="debate-section" id="tab-theory">
+                    <div id="debate-tests-box" class="competing-tests"></div>
+                    <div class="alert-info">Write a six-line theory you can say out loud. Argue as if this case is still undecided — do not quote this Court’s holding.</div>
+                    <div class="builder-card">
+                        <span class="builder-part-label" style="background:#1d4ed8;">1. Who I represent</span>
+                        <textarea class="debate-textarea" id="theory-who" data-field="theory-who" placeholder="Name the client." style="min-height:70px;"></textarea>
+                    </div>
+                    <div class="builder-card">
+                        <span class="builder-part-label" style="background:#dc2626;">2. What happened (3 facts)</span>
+                        <textarea class="debate-textarea" id="theory-facts" data-field="theory-facts" placeholder="No adjectives. Just what happened."></textarea>
+                    </div>
+                    <div class="builder-card">
+                        <span class="builder-part-label" style="background:#f59e0b;">3. The constitutional question</span>
+                        <textarea class="debate-textarea" id="theory-q" data-field="theory-q" placeholder="One sentence." style="min-height:70px;"></textarea>
+                    </div>
+                    <div class="builder-card">
+                        <span class="builder-part-label" style="background:#0d6986;">4. The clause and what it says</span>
+                        <textarea class="debate-textarea" id="theory-clause" data-field="theory-clause" style="min-height:70px;"></textarea>
+                    </div>
+                    <div class="builder-card">
+                        <span class="builder-part-label" style="background:#6d28d9;">5. The rule we need the Court to adopt</span>
+                        <p class="instruction">Start with “Under our test…”</p>
+                        <textarea class="debate-textarea" id="theory-rule" data-field="theory-rule" placeholder="Under our test, the Court should hold that…" style="min-height:70px;"></textarea>
+                    </div>
+                    <div class="builder-card">
+                        <span class="builder-part-label" style="background:#9a3412;">6. Why their rule is dangerous</span>
+                        <textarea class="debate-textarea" id="theory-danger" data-field="theory-danger" style="min-height:70px;"></textarea>
+                    </div>
+                    <details class="theory-sample" id="debate-theory-sample"><summary>If you get stuck — sample theory for your side</summary><ol id="debate-theory-sample-list"></ol></details>
+                </div>
+
+                <div class="debate-section" id="tab-oral">
+                    <div class="alert-info">A partner or teacher plays the justice. Answer out loud first. Then jot a sentence. Hostile questions are how you find holes in your own rule.</div>
+                    <div id="debate-hot-bench"></div>
+                </div>
 
                 <!-- ========== OPENING STATEMENT ========== -->
                 <div class="debate-section" id="tab-opening">
@@ -1377,7 +1423,7 @@
                         <div class="check-item"><input type="checkbox" id="ac1"><label for="ac1">Include at least 3 arguments?</label></div>
                         <div class="check-item"><input type="checkbox" id="ac2"><label for="ac2">Use specific facts and evidence from the case?</label></div>
                         <div class="check-item"><input type="checkbox" id="ac3"><label for="ac3">Explain how the Constitution supports your side?</label></div>
-                        <div class="check-item"><input type="checkbox" id="ac4"><label for="ac4">Use your own words (not just copied text)?</label></div>
+                        <div class="check-item"><input type="checkbox" id="ac5"><label for="ac5">End with “Under our test, this fact matters because…”?</label></div>
                     </div>
                 </div>
 
@@ -1568,10 +1614,12 @@
     <footer>
         <div class="container">
             <p>SCOTUS Debate Project — A Student Resource for Understanding the Supreme Court</p>
-            <p class="site-version">v1.18.0</p>
+            <p class="site-version">v1.19.0</p>
         </div>
     </footer>
 
+    <script src="js/case-prep-data.js"></script>
+    <script src="js/case-prep.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
@@ -1586,42 +1634,49 @@
     const debateCases = {
         "Tinker v. Des Moines (1969)": {
             amendment: "First Amendment",
+            prepId: "tinker",
             petitioner: { name: "Tinker Family", desc: "Students don't lose their First Amendment rights at school. Peaceful, non-disruptive expression is protected speech." },
             respondent: { name: "Des Moines School District", desc: "Schools need authority to prevent disruptions and maintain order." },
             caseLink: "cases/tinker.html"
         },
         "New Jersey v. T.L.O. (1985)": {
             amendment: "Fourth Amendment",
+            prepId: "tlo",
             petitioner: { name: "New Jersey (the State)", desc: "School officials should be able to search students to maintain safety without needing a warrant." },
             respondent: { name: "T.L.O. (the Student)", desc: "Students have Fourth Amendment rights. Searches without warrants violate their privacy." },
             caseLink: "cases/tlo.html"
         },
         "Brown v. Board of Education (1954)": {
             amendment: "Fourteenth Amendment",
+            prepId: "brown",
             petitioner: { name: "Oliver Brown and families", desc: "Segregated schools are inherently unequal and violate the Equal Protection Clause." },
             respondent: { name: "Board of Education of Topeka", desc: "Separate facilities are equal and within the state's authority to manage schools." },
             caseLink: "cases/brown.html"
         },
         "Payton v. New York (1980)": {
             amendment: "Fourth Amendment",
+            prepId: "payton",
             petitioner: { name: "Theodore Payton", desc: "Police cannot enter a home to make an arrest without a warrant. The home has special constitutional protection." },
             respondent: { name: "New York (the State)", desc: "Police with probable cause should be able to enter a home to arrest a dangerous suspect." },
             caseLink: "cases/payton.html"
         },
         "Mahanoy v. B.L. (2021)": {
             amendment: "First Amendment",
+            prepId: "mahanoy",
             petitioner: { name: "Mahanoy Area School District", desc: "Schools should be able to discipline students for speech that targets the school, even off campus." },
             respondent: { name: "B.L. (the Student)", desc: "Off-campus speech on personal social media is fully protected by the First Amendment." },
             caseLink: "cases/mahanoy.html"
         },
         "Kennedy v. Bremerton (2022)": {
             amendment: "First Amendment",
+            prepId: "kennedy",
             petitioner: { name: "Joseph Kennedy (the Coach)", desc: "The coach's post-game prayer is private religious expression protected by the First Amendment." },
             respondent: { name: "Bremerton School District", desc: "A coach praying at midfield could appear as government endorsement of religion." },
             caseLink: "cases/kennedy.html"
         },
         "Arizona v. United States (2012)": {
             amendment: "Tenth Amendment / Supremacy Clause",
+            prepId: "arizona",
             petitioner: { name: "Arizona (the State)", desc: "States have the right to enforce immigration laws to protect their residents." },
             respondent: { name: "United States (Federal Government)", desc: "Immigration is a federal responsibility. State laws interfere with federal authority." },
             caseLink: "cases/arizona.html"
@@ -1732,6 +1787,8 @@
             caseInfoFloat.classList.add('visible');
         }
 
+        fillDebatePrepPanels(c);
+
         // Init evidence panel (Your Evidence tab)
         initEvidencePanel(selectedCase, selectedSide);
 
@@ -1817,6 +1874,51 @@
         if (caseInfoFloat) caseInfoFloat.classList.remove('visible');
     }
 
+    function fillDebatePrepPanels(c) {
+        var prep = (typeof CASE_PREP_DATA !== 'undefined' && c.prepId) ? CASE_PREP_DATA[c.prepId] : null;
+        var box = document.getElementById('debate-tests-box');
+        var sampleList = document.getElementById('debate-theory-sample-list');
+        var bench = document.getElementById('debate-hot-bench');
+        if (!prep) {
+            if (box) box.innerHTML = '';
+            if (bench) bench.innerHTML = '<p>Open your case page Speak tab for judge questions.</p>';
+            return;
+        }
+        var myTest = prep.tests[selectedSide];
+        var theirSide = selectedSide === 'petitioner' ? 'respondent' : 'petitioner';
+        var theirTest = prep.tests[theirSide];
+        if (box) {
+            box.innerHTML = '<h3>Competing tests</h3>' +
+                '<p class="tests-lead">' + prep.question + '</p>' +
+                '<div class="tests-grid">' +
+                '<div class="test-card ' + selectedSide + '"><div class="test-side">Your rule</div><h4>' + myTest.title + '</h4><p>' + myTest.text + '</p></div>' +
+                '<div class="test-card ' + theirSide + '"><div class="test-side">Their rule</div><h4>' + theirTest.title + '</h4><p>' + theirTest.text + '</p></div>' +
+                '</div>';
+        }
+        if (sampleList) {
+            sampleList.innerHTML = prep.theorySamples[selectedSide].map(function(s) { return '<li>' + s + '</li>'; }).join('');
+        }
+        if (bench) {
+            bench.innerHTML = prep.hotBench.map(function(item, i) {
+                return '<div class="hot-bench-item"><h4>Q' + (i + 1) + '. ' + item.q + '</h4>' +
+                    '<p class="bench-tip">Coach: ' + item.tip + '</p>' +
+                    '<textarea class="debate-textarea" id="oral-q-' + i + '" data-field="oral-q-' + i + '" placeholder="Answer out loud, then jot a sentence…"></textarea></div>';
+            }).join('');
+            bench.querySelectorAll('textarea').forEach(function(ta) {
+                ta.addEventListener('input', autoSave);
+            });
+        }
+        if (prep.hardSide) {
+            var existing = document.getElementById('debate-hard-side');
+            if (existing) existing.remove();
+            var hs = document.createElement('div');
+            hs.id = 'debate-hard-side';
+            hs.className = 'hard-side-box';
+            hs.innerHTML = '<h3>' + prep.hardSide.title + '</h3>' + prep.hardSide.html;
+            if (box) box.parentNode.insertBefore(hs, box.nextSibling);
+        }
+    }
+
     function toggleCaseInfoFloat() {
         var panel = document.getElementById('case-info-float');
         if (panel) {
@@ -1828,7 +1930,7 @@
     // TAB NAVIGATION
     // ==========================================
     function showDebateTab(tabName) {
-        var tabs = ['evidence', 'arguments', 'opening', 'sources', 'closing', 'rebuttals'];
+        var tabs = ['evidence', 'theory', 'arguments', 'opening', 'sources', 'closing', 'rebuttals', 'oral'];
 
         // Show helpful tips (non-blocking) if earlier sections aren't complete
         if (tabName === 'opening') {
@@ -2039,10 +2141,10 @@
                 '<div class="arg-write-section" style="display:none;">' +
                     '<div class="starters-list">' +
                         '<p>Sentence starters:</p>' +
+                        '<button class="starter-option" onclick="useDebateStarter(this, \'arg-' + num + '\')">Under our test, this fact matters because _____. The evidence shows that _____.</button>' +
                         '<button class="starter-option" onclick="useDebateStarter(this, \'arg-' + num + '\')">This argument supports our case because _____. The evidence shows that _____.</button>' +
-                        '<button class="starter-option" onclick="useDebateStarter(this, \'arg-' + num + '\')">This is important because _____. It proves that _____.</button>' +
                     '</div>' +
-                    '<textarea class="debate-textarea" id="arg-' + num + '" data-field="arg-' + num + '" placeholder="Explain how this argument supports your side using evidence from the case..."></textarea>' +
+                    '<textarea class="debate-textarea" id="arg-' + num + '" data-field="arg-' + num + '" placeholder="Explain how this argument supports your side. End with: Under our test, this fact matters because…"></textarea>' +
                 '</div>' +
             '</div>';
         }
@@ -2491,6 +2593,14 @@
 
         const data = {};
 
+        ['theory-who', 'theory-facts', 'theory-q', 'theory-clause', 'theory-rule', 'theory-danger'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) data[id] = el.value;
+        });
+        document.querySelectorAll('#debate-hot-bench textarea').forEach(function(ta) {
+            if (ta.id) data[ta.id] = ta.value;
+        });
+
         // Student info fields
         ['student-names', 'class-period'].forEach(id => {
             const el = document.getElementById(id);
@@ -2570,6 +2680,15 @@
             if (!saved) return;
             data = JSON.parse(saved);
         } catch(e) { return; }
+
+        // Student info fields
+        ['theory-who', 'theory-facts', 'theory-q', 'theory-clause', 'theory-rule', 'theory-danger'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el && data[id]) el.value = data[id];
+        });
+        document.querySelectorAll('#debate-hot-bench textarea').forEach(function(ta) {
+            if (ta.id && data[ta.id]) ta.value = data[ta.id];
+        });
 
         // Student info fields
         ['student-names', 'class-period'].forEach(id => {

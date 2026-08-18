@@ -9,9 +9,11 @@ An interactive educational tool to help 8th-grade students prepare for Supreme C
 This project provides comprehensive resources for seven landmark Supreme Court cases, each featuring:
 - Background information at two reading levels (Standard and Simplified)
 - Key People sections introducing major figures in each case
-- Argument sorting activities
-- Evidence vaults with primary sources
-- Connections to modern issues
+- Case-specific constitutional questions and competing tests (the rule each side wants the Court to adopt)
+- 60-second oral case theory, argument weighing, and hot-bench judge questions
+- Evidence vault with primary excerpts (students decide who can use each source)
+- Case Journeys Prep mode (holding hidden) vs Debrief mode
+- Compare-cases activity for paired nuance (Tinker/Mahanoy, T.L.O./Payton, etc.)
 
 ## Cases Covered
 
@@ -34,7 +36,7 @@ This project provides comprehensive resources for seven landmark Supreme Court c
 
 ## Version
 
-Current version: v1.18.0
+Current version: v1.19.0
 
 ## License
 
