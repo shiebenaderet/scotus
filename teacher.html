@@ -152,7 +152,7 @@
 
         .resource-card p {
             font-size: 0.88em;
-            color: #888;
+            color: #3d3d3d;
             margin: 0;
             line-height: 1.4;
         }
@@ -251,7 +251,7 @@
 
         .contact-info .contact-pronouns {
             font-size: 0.85em;
-            color: #888;
+            color: #3d3d3d;
             font-weight: 400;
         }
 
@@ -459,7 +459,7 @@
                         <a href="review.html">Review</a>
                         <a href="journeys.html">Case Journeys</a>
                         <a href="debate.html">Debate Prep</a>
-                        <a href="compare.html">Compare Cases</a>
+                        <a href="compare.html">Compare (debrief)</a>
                     </div>
                 </div>
                 <a href="teacher.html" id="teacher-nav-link" style="color: var(--accent);">Teacher</a>
@@ -520,7 +520,7 @@
                     <ul>
                         <li>Students should <strong>argue one side</strong> as if the Supreme Court has not spoken. Hide this case’s holding, vote, and opinion quotes until debrief.</li>
                         <li>Each case now has a <strong>case-specific constitutional question</strong> and two <strong>competing tests</strong> (the rule each side wants the Court to write).</li>
-                        <li>The home page has a <strong>6-step path</strong>: Background → Sort &amp; weigh → Evidence Vault → Speak → Debate Prep → classroom debate.</li>
+                        <li>The home page has a <strong>clickable 6-step path</strong>: Background → Sort &amp; weigh → Evidence Vault → Speak → Debate Prep → classroom debate. Each case card has <strong>Explore case</strong> and <strong>Pick a side</strong> (opens Debate Prep for that case).</li>
                         <li><strong>Case Journeys</strong> has Prep mode (holding hidden) and Debrief mode (vote and reasoning). Keep students on Prep until after they argue.</li>
                         <li><strong>Review</strong> multiple-choice items often mention holdings. Use vocab anytime; save case quizzes and <a href="https://play.blooket.com/play?hwId=699e72ac5db83b482a747f78" target="_blank" rel="noopener">Blooket</a> for after the debate.</li>
                         <li>The website case pages and Evidence Vault are the <strong>fact-checked source of truth</strong>. Google Docs (case readings, prep organizers) may lag — if they conflict, trust the site.</li>
@@ -532,7 +532,7 @@
                     <div class="site-map">
                         <a href="index.html">
                             <h4>Home</h4>
-                            <p>Driving question (with a note that it does not fit every case), 6-step path, cases grouped by theme with amendment, question, and two sides.</p>
+                            <p>Driving question (with a note that it does not fit every case), clickable 6-step path, cases grouped by theme with Explore / Pick a side.</p>
                         </a>
                         <a href="index.html#cases">
                             <h4>Case page — Background</h4>
@@ -547,7 +547,7 @@
                             <p>Prep mode: incident and lower courts only. Debrief mode: Supreme Court vote and reasoning. Standard / Simplified reading toggle.</p>
                         </a>
                         <a href="compare.html">
-                            <h4>Compare Cases</h4>
+                            <h4>Compare (debrief)</h4>
                             <p>Four pairs for debrief: Tinker/Mahanoy, T.L.O./Payton, Kennedy/Tinker, Brown/Arizona. Students apply tests across facts, not “who won.”</p>
                         </a>
                         <a href="review.html">
@@ -560,7 +560,7 @@
                         </a>
                         <a href="cases/tinker.html">
                             <h4>On every case page</h4>
-                            <p>Argument Sort + Weigh, Evidence Vault, Speak tab (60-second theory and hot bench), and a pair prompt on the Today tab.</p>
+                            <p>Argument Sort + Weigh (stacked cards on phones), Evidence Vault with Flip buttons, Speak tab (60-second theory and hot bench), a progress strip, and a pair prompt on the Today tab (after debate).</p>
                         </a>
                     </div>
                     <p class="hold-banner"><strong>Holdings stay hidden until debrief.</strong> Prep materials use earlier precedent and the case record. Students may not quote this Court’s opinion, vote, or “the Court held…” until you switch Journeys to Debrief mode.</p>
@@ -571,8 +571,8 @@
                     <ul>
                         <li><strong>Reading levels:</strong> Standard and Simplified on case pages, Journeys, and Resources. Simplified is meant to be 8th-grade civics, not baby talk.</li>
                         <li><strong>Hard-side coaching:</strong> On Brown (Board), Kennedy, and Arizona the case page tells students what a historically real argument looks like — and what they may not argue.</li>
-                        <li><strong>Progress saving:</strong> Work in sort/weigh, Speak, vault, Debate Prep, and Compare autosaves in the browser. Google sign-in (@edmonds.wednet.edu) syncs to the cloud when it is available.</li>
-                        <li><strong>Mobile:</strong> A menu button (☰) opens navigation on phones.</li>
+                        <li><strong>Progress saving:</strong> Work in sort/weigh, Speak, vault, Debate Prep, and Compare autosaves. A chip says “Saved on this device” or “Saved to your account” after Google sign-in (@edmonds.wednet.edu).</li>
+                        <li><strong>Mobile:</strong> A <strong>Menu</strong> button opens navigation on phones. Press Escape to close the menu or Prepare dropdown.</li>
                     </ul>
                 </div>
 
@@ -765,7 +765,7 @@
                     </a>
                 </div>
 
-                <p style="font-size: 0.88em; color: #888; margin-top: 8px;">Each "/copy" link creates a fresh copy in your Google Drive. The case readings link opens a preview. If a Google Doc disagrees with the website (facts, dates, party labels), use the website — those pages were fact-checked against the case records.</p>
+                <p style="font-size: 0.88em; color: #3d3d3d; margin-top: 8px;">Each "/copy" link creates a fresh copy in your Google Drive. The case readings link opens a preview. If a Google Doc disagrees with the website (facts, dates, party labels), use the website — those pages were fact-checked against the case records.</p>
 
                 <!-- CONTACT -->
                 <div class="section-head">
@@ -806,10 +806,11 @@
     <footer>
         <div class="container">
             <p>SCOTUS Debate Project — A Student Resource for Understanding the Supreme Court</p>
-            <p class="site-version">v1.19.0</p>
+            <p class="site-version">v1.20.0</p>
         </div>
     </footer>
 
+    <script src="js/site-chrome.js"></script>
     <script src="js/case-prep-data.js"></script>
     <script src="js/case-prep.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
@@ -837,25 +838,6 @@
             main.style.display = 'none';
         }
     }
-
-    // Dropdown navigation
-    document.addEventListener('DOMContentLoaded', function() {
-        var dropdown = document.querySelector('.nav-dropdown');
-        var btn = dropdown ? dropdown.querySelector('.nav-dropdown-btn') : null;
-        if (dropdown && btn) {
-            btn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                dropdown.classList.toggle('open');
-                btn.setAttribute('aria-expanded', dropdown.classList.contains('open'));
-            });
-            document.addEventListener('click', function(e) {
-                if (!dropdown.contains(e.target)) {
-                    dropdown.classList.remove('open');
-                    btn.setAttribute('aria-expanded', 'false');
-                }
-            });
-        }
-    });
     </script>
 </body>
 </html>

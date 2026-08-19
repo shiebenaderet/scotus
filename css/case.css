@@ -1700,7 +1700,7 @@ a:hover {
 
 .esort-progress {
     font-size: 0.85rem;
-    color: #888;
+    color: #3d3d3d;
     font-weight: 600;
 }
 
@@ -2600,4 +2600,109 @@ a:hover {
     .theory-side-pick {
         grid-template-columns: 1fr;
     }
+
+    .argument-sorting-table table,
+    .argument-sorting-table thead,
+    .argument-sorting-table tbody,
+    .argument-sorting-table th,
+    .argument-sorting-table td,
+    .argument-sorting-table tr {
+        display: block;
+        width: 100%;
+    }
+
+    .argument-sorting-table thead {
+        display: none;
+    }
+
+    .argument-sorting-table tr {
+        background: var(--bg-white);
+        border: 2px solid var(--border);
+        border-radius: 10px;
+        margin-bottom: 0.85rem;
+        padding: 0.85rem;
+    }
+
+    .argument-sorting-table td:last-child {
+        margin-top: 0.65rem;
+        padding-top: 0.65rem;
+        border-top: 1px solid var(--border);
+    }
+
+    .argument-sorting-table td:last-child::before {
+        content: "Who does this help?";
+        display: block;
+        font-size: 0.75rem;
+        font-weight: 700;
+        margin-bottom: 0.4rem;
+        color: #3d3d3d;
+    }
+
+    .argument-sorting-table td:last-child select {
+        width: 100%;
+        min-height: 44px;
+        font-size: 1rem;
+    }
+}
+
+.case-progress {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    width: 100%;
+    margin-top: 0.35rem;
+}
+
+.case-progress a {
+    color: var(--text-light);
+    text-decoration: none;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 0.35rem 0.55rem;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    min-height: 36px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.case-progress a.current,
+.case-progress a:hover {
+    background: var(--accent);
+}
+
+.case-progress .after-debate {
+    font-weight: 500;
+    opacity: 0.85;
+    margin-left: 0.25rem;
+}
+
+.flip-btn {
+    margin-top: auto;
+    align-self: flex-start;
+    background: var(--primary-dark);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 0.8rem;
+    min-height: 44px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.source-back .flip-btn {
+    background: #fff;
+    color: var(--primary-dark);
+    margin-top: 0.75rem;
+}
+
+.speak-write-split {
+    margin-top: 1.25rem;
+    font-size: 0.95rem;
+}
+
+.vault-section-header p,
+.source-citation {
+    color: #3d3d3d;
 }

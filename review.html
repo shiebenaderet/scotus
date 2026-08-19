@@ -1132,7 +1132,7 @@
                         <a href="review.html" class="active">Review</a>
                         <a href="journeys.html">Case Journeys</a>
                         <a href="debate.html">Debate Prep</a>
-                        <a href="compare.html">Compare Cases</a>
+                        <a href="compare.html">Compare (debrief)</a>
                     </div>
                 </div>
                 <a href="teacher.html" id="teacher-nav-link" style="display:none;">Teacher</a>
@@ -1152,7 +1152,7 @@
             <!-- HOME / DASHBOARD -->
             <div id="home" class="section active">
                 <h2>Review Dashboard</h2>
-                <p style="margin: 10px 0 20px; color: #666;">Use vocabulary and the Amendments Challenge anytime. Save multiple-choice items that reveal how the Court ruled until <strong>after</strong> your classroom debate — argue the case as if it is still undecided.</p>
+                <p style="margin: 10px 0 20px; color: #3d3d3d;">Use vocabulary and the Amendments Challenge anytime. Save multiple-choice items that reveal how the Court ruled until <strong>after</strong> your classroom debate — argue the case as if it is still undecided.</p>
 
                 <div class="stats-grid">
                     <div class="stat-card">
@@ -1181,7 +1181,7 @@
                 </div>
 
                 <div class="alert info">
-                    <span>This review covers key concepts from the SCOTUS cases and the Bill of Rights. Complete each section to track your progress.</span>
+                    <span><strong>Vocabulary and the Amendments Challenge are safe anytime.</strong> Multiple choice, short answer, and Blooket often mention who won. Use those <em>after</em> your classroom debate.</span>
                 </div>
 
                 <div class="save-load-section">
@@ -1199,6 +1199,7 @@
                 <button class="btn btn-secondary" onclick="showSection('home')">Back to Dashboard</button>
 
                 <h2 style="margin: 20px 0;">Vocabulary Flashcards</h2>
+                <p class="anytime-banner">Safe before the debate. These cards teach words; they do not tell you who won the case.</p>
 
                 <div class="progress-bar">
                     <div class="progress-fill" id="vocabProgressBar" style="width: 0%"></div>
@@ -1237,6 +1238,7 @@
                 </div>
 
                 <div id="mc-case-picker">
+                    <p class="holding-banner">These questions often include the holding. Use them after you have already argued the case.</p>
                     <p style="margin-bottom: 15px; color: #666;">Choose a case to test yourself on, or try all cases at once.</p>
                     <div class="nav-buttons" id="mc-case-buttons"></div>
                     <div style="margin-top: 12px;">
@@ -1266,6 +1268,7 @@
                 </div>
 
                 <div id="sa-case-picker">
+                    <p class="holding-banner">Write after you have argued. You may use what you now know about the holding, but do not skip the debate.</p>
                     <p style="margin-bottom: 15px; color: #666;">Choose a project case. You'll decide what you think the Court should rule, reflect on which side you argued in the debate, and build a response using the guided framework.</p>
                     <div class="nav-buttons" id="sa-case-buttons"></div>
                 </div>
@@ -1279,6 +1282,8 @@
                     <h2>Amendments Challenge</h2>
                     <button class="btn btn-secondary" onclick="showSection('home')">Back</button>
                 </div>
+
+                <p class="anytime-banner">Safe before the debate. This is Bill of Rights matching — it does not use case holdings.</p>
 
                 <div class="amend-level-tabs">
                     <button class="amend-level-tab active" id="round1-tab" onclick="showRound(1)">
@@ -1381,10 +1386,11 @@
         <div class="container">
             <p><a href="index.html">Back to Home</a></p>
             <p>&copy; 2026 SCOTUS Debate Project | Educational Resource</p>
-            <p class="site-version">v1.19.0</p>
+            <p class="site-version">v1.20.0</p>
         </div>
     </footer>
 
+    <script src="js/site-chrome.js"></script>
     <script src="js/case-prep-data.js"></script>
     <script src="js/case-prep.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
@@ -3304,23 +3310,6 @@
                     break;
             }
         });
-
-        // Dropdown navigation
-        var dropdown = document.querySelector('.nav-dropdown');
-        var btn = dropdown ? dropdown.querySelector('.nav-dropdown-btn') : null;
-        if (dropdown && btn) {
-            btn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                dropdown.classList.toggle('open');
-                btn.setAttribute('aria-expanded', dropdown.classList.contains('open'));
-            });
-            document.addEventListener('click', function(e) {
-                if (!dropdown.contains(e.target)) {
-                    dropdown.classList.remove('open');
-                    btn.setAttribute('aria-expanded', 'false');
-                }
-            });
-        }
     });
     </script>
 </body>

@@ -51,6 +51,7 @@
                 if (name) data[name] = field.value;
             });
             saveJSON(key, data);
+            if (typeof window.showSaveStatus === 'function') window.showSaveStatus();
         }
     }
 
@@ -58,39 +59,28 @@
         return window.location.pathname.indexOf('/cases/') !== -1 ? '../' : '';
     }
 
-    function injectNavCompareLink() {
-        var menus = document.querySelectorAll('.nav-dropdown-content');
-        menus.forEach(function (menu) {
-            if (menu.querySelector('[data-nav="compare"]') || menu.querySelector('a[href*="compare.html"]')) return;
-            var a = document.createElement('a');
-            a.href = relPrefix() + 'compare.html';
-            a.setAttribute('data-nav', 'compare');
-            a.textContent = 'Compare Cases';
-            menu.appendChild(a);
-        });
-    }
-
-    function injectHamburger() {
-        var inner = document.querySelector('.site-header .header-inner');
-        var nav = document.querySelector('.site-header .header-nav');
-        if (!inner || !nav || document.querySelector('.nav-toggle')) return;
-        var btn = document.createElement('button');
-        btn.className = 'nav-toggle';
-        btn.type = 'button';
-        btn.setAttribute('aria-label', 'Open menu');
-        btn.setAttribute('aria-expanded', 'false');
-        btn.textContent = '☰';
-        inner.insertBefore(btn, nav);
-        btn.addEventListener('click', function (e) {
-            e.stopPropagation();
-            var open = nav.classList.toggle('open');
-            btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-        });
-        document.addEventListener('click', function (e) {
-            if (!nav.contains(e.target) && e.target !== btn) {
-                nav.classList.remove('open');
-                btn.setAttribute('aria-expanded', 'false');
-            }
+    function injectProgressStrip() {
+        var header = document.querySelector('.case-header .container');
+        if (!header || document.querySelector('.case-progress')) return;
+        var strip = el(
+            '<nav class="case-progress" aria-label="Prep steps">' +
+                '<a href="#background" data-step="background">1 Background</a>' +
+                '<a href="#activity" data-step="activity">2 Sort &amp; weigh</a>' +
+                '<a href="#evidence-vault" data-step="evidence-vault">3 Vault</a>' +
+                '<a href="#speak" data-step="speak">4 Speak</a>' +
+                '<a href="' + relPrefix() + 'debate.html?case=' + caseIdFromPath() + '">5 Debate Prep</a>' +
+                '<a href="#today" data-step="today">6 Today <span class="after-debate">(after debate)</span></a>' +
+            '</nav>'
+        );
+        header.appendChild(strip);
+        strip.querySelectorAll('a[data-step]').forEach(function (a) {
+            a.addEventListener('click', function (e) {
+                var id = a.getAttribute('data-step');
+                if (typeof window.switchToTab === 'function' && document.getElementById(id)) {
+                    e.preventDefault();
+                    window.switchToTab(id);
+                }
+            });
         });
     }
 
@@ -253,7 +243,7 @@
                             '<li><strong>Hot bench:</strong> Answer these judge questions. Hostile questions are the point.</li>' +
                         '</ol>' +
                         '<div class="hot-bench-list">' + bench + '</div>' +
-                        '<p style="margin-top:1.25rem;"><a class="case-link" href="' + relPrefix() + 'debate.html">Then write it up in Debate Prep →</a></p>' +
+                        '<p class="speak-write-split">Say it here. Then write the same theory in <a href="' + relPrefix() + 'debate.html?case=' + id + '">Debate Prep</a> so you have a script for class.</p>' +
                     '</div>' +
                 '</div>' +
             '</section>'
@@ -319,7 +309,7 @@
                         '</div>' +
                         '<h4>' + escapeHtml(src.title) + '</h4>' +
                         '<div class="source-excerpt">' + escapeHtml(src.excerpt) + '</div>' +
-                        '<div class="source-flip-cta">Flip — who can use this?</div>' +
+                        '<button type="button" class="flip-btn" aria-expanded="false">Flip — who can use this?</button>' +
                     '</div>' +
                     '<div class="source-back">' +
                         '<div class="source-back-label">Who can use this?</div>' +
@@ -332,17 +322,31 @@
                             '<textarea class="source-use-notes" data-field="src-' + i + '-r"></textarea>' +
                         '</div>' +
                         '<div class="source-citation">' + escapeHtml(src.citation) + '</div>' +
-                        '<div class="source-back-cta">Click the card edge to flip back</div>' +
+                        '<button type="button" class="flip-btn">Flip back</button>' +
                     '</div>' +
                 '</div></div>';
         }).join('');
 
         bindAutosave(grid, saveKey('sources'));
 
+        function toggleCard(card, force) {
+            var on = typeof force === 'boolean' ? force : !card.classList.contains('flipped');
+            card.classList.toggle('flipped', on);
+            card.querySelectorAll('.flip-btn').forEach(function (b) {
+                b.setAttribute('aria-expanded', on ? 'true' : 'false');
+            });
+        }
+
         grid.querySelectorAll('.source-flip-card').forEach(function (card) {
             card.addEventListener('click', function (e) {
-                if (e.target.closest('textarea, button, input, label, a')) return;
-                card.classList.toggle('flipped');
+                if (e.target.closest('textarea, input, label, a, button')) return;
+                toggleCard(card);
+            });
+            card.querySelectorAll('.flip-btn').forEach(function (b) {
+                b.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    toggleCard(card);
+                });
             });
         });
     }
@@ -356,9 +360,6 @@
     }
 
     function init() {
-        injectHamburger();
-        injectNavCompareLink();
-
         var found = currentData();
         if (!found) return;
         updatePartyLabels(found.data);
@@ -367,6 +368,12 @@
         injectSpeakTab(found.id, found.data);
         injectPair(found.data);
         replaceSources(found.data);
+        injectProgressStrip();
+        document.querySelectorAll('.case-tab[data-tab="today"]').forEach(function (tab) {
+            if (tab.textContent.indexOf('after') === -1) {
+                tab.textContent = 'Today (after debate)';
+            }
+        });
     }
 
     if (document.readyState === 'loading') {
