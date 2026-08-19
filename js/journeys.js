@@ -39,7 +39,7 @@ const caseData = {
                 title: "Supreme Court Rules for Students (7-2)",
                 ruling: "favor-petitioner",
                 standard: "The Supreme Court ruled 7-2 that students do not \"shed their constitutional rights to freedom of speech or expression at the schoolhouse gate.\" The Court held that student speech can only be restricted if it causes substantial disruption or invades the rights of others.",
-                simplified: "The Supreme Court said students still have free speech rights at school! They ruled 7 to 2 that schools can only stop students from expressing themselves if it really causes big problems or hurts other people's rights.",
+                simplified: "The Supreme Court said students do not shed free-speech rights at the schoolhouse gate. The vote was 7-2. Schools may restrict student speech only if it causes a substantial disruption or invades others’ rights.",
                 reasoning: "Justice Fortas wrote that silent, passive expression of opinion that doesn't disrupt school activities is protected by the First Amendment."
             }
         ]
@@ -96,7 +96,7 @@ const caseData = {
                 title: "Oliver Brown Sues Topeka Schools",
                 ruling: null,
                 standard: "Oliver Brown, along with twelve other parents in Topeka, Kansas, tried to enroll their children in nearby white schools but were denied. The NAACP helped file a lawsuit challenging school segregation. Similar cases were filed in South Carolina, Virginia, Delaware, and Washington D.C.",
-                simplified: "Oliver Brown wanted his daughter Linda to go to a school close to home, but she couldn't because it was for white kids only. He and other parents sued, saying this wasn't fair. Other families in different states did the same thing.",
+                simplified: "Oliver Brown and other Topeka parents tried to enroll their children in nearby schools designated for white students. Kansas law allowed that racial assignment in elementary grades. With NAACP lawyers they sued, arguing separate-by-law violates equal protection. Similar suits were filed in other states.",
                 reasoning: null
             },
             {
@@ -105,7 +105,7 @@ const caseData = {
                 title: "District Court Rules for School Board",
                 ruling: "favor-respondent",
                 standard: "The U.S. District Court ruled against the Browns. While the court acknowledged that segregation harmed Black children psychologically, it upheld the \"separate but equal\" doctrine from Plessy v. Ferguson (1896), finding that Topeka's Black and white schools were substantially equal in facilities.",
-                simplified: "The court said the school board could keep schools separate. Even though the judges agreed that separation hurt Black kids' feelings about themselves, they said the law allowed it as long as the Black schools were just as good as white schools.",
+                simplified: "The district court kept Plessy in place. Judges agreed segregation harmed Black students, but they found Topeka’s Black and white elementary schools substantially equal in facilities, so separate-but-equal still controlled.",
                 reasoning: "The court followed the 1896 Plessy v. Ferguson ruling that allowed 'separate but equal' facilities."
             },
             {
@@ -123,7 +123,7 @@ const caseData = {
                 title: "Supreme Court Rules Segregation Unconstitutional (9-0)",
                 ruling: "favor-petitioner",
                 standard: "In a unanimous decision, the Supreme Court ruled that \"separate educational facilities are inherently unequal\" and violate the Equal Protection Clause of the 14th Amendment. Chief Justice Warren wrote that segregation generates feelings of inferiority that may affect children's hearts and minds in ways unlikely to ever be undone.",
-                simplified: "All nine Supreme Court justices agreed: separating kids by race in schools is always unfair and against the Constitution. The Chief Justice said making Black children go to separate schools makes them feel like they're not as good as white children, and that's wrong.",
+                simplified: "All nine justices agreed: racially separate public schools are inherently unequal and violate equal protection. Chief Justice Warren wrote that the classification itself generates a sense of inferiority that may never be undone.",
                 reasoning: "Chief Justice Warren's opinion overturned Plessy v. Ferguson, finding that separate schools can never truly be equal."
             }
         ]
@@ -352,23 +352,13 @@ function restoreJourneySelection() {
 }
 
 function initReadingLevel() {
-    const levelBtns = document.querySelectorAll('.level-btn');
-
-    levelBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            levelBtns.forEach(b => {
-                b.classList.remove('active');
-                b.setAttribute('aria-pressed', 'false');
-            });
-            this.classList.add('active');
-            this.setAttribute('aria-pressed', 'true');
-
-            currentReadingLevel = this.dataset.level;
-            document.body.classList.toggle('reading-simplified', currentReadingLevel === 'simplified');
-
-            // Re-render timeline with new reading level
-            renderTimeline();
-        });
+    if (typeof window.getReadingLevel === 'function') {
+        currentReadingLevel = window.getReadingLevel();
+    }
+    document.body.classList.toggle('reading-simplified', currentReadingLevel === 'simplified');
+    document.addEventListener('scotus:reading-level', function (e) {
+        currentReadingLevel = e.detail === 'simplified' ? 'simplified' : 'standard';
+        renderTimeline();
     });
 }
 

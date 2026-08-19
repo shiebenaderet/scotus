@@ -176,9 +176,10 @@ function initEvidencePanel(caseName, side) {
     if (argSort && args.length) {
         for (var i = 0; i < args.length; i++) {
             var translatedSide = codeMap[argSort[i]] || argSort[i];
-            if (translatedSide === side) {
+            if (translatedSide === side || translatedSide === 'BOTH') {
                 myArgs.push({ index: i, text: args[i] });
-            } else if (translatedSide === otherSide) {
+            }
+            if (translatedSide === otherSide || translatedSide === 'BOTH') {
                 otherArgs.push({ index: i, text: args[i] });
             }
         }

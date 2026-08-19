@@ -243,7 +243,7 @@
                             '<li><strong>Hot bench:</strong> Answer these judge questions. Hostile questions are the point.</li>' +
                         '</ol>' +
                         '<div class="hot-bench-list">' + bench + '</div>' +
-                        '<p class="speak-write-split">Say it here. Then write the same theory in <a href="' + relPrefix() + 'debate.html?case=' + id + '">Debate Prep</a> so you have a script for class.</p>' +
+                        '<p class="speak-write-split">This is the only 60-second theory. Say it here, then write opening, arguments, and rebuttals in <a href="' + relPrefix() + 'debate.html?case=' + id + '">Debate Prep</a> — do not start a second theory there.</p>' +
                     '</div>' +
                 '</div>' +
             '</section>'
