@@ -6,7 +6,7 @@ An interactive site to help 8th-grade students prepare for Supreme Court mock-tr
 
 ## How students should use it
 
-1. **Background** — Facts, people, the case question, and two competing tests (the rule each side wants).
+1. **Background** — Facts, people, Know the law (the clause in plain English), the case question, and two competing tests (the rule each side wants). Tap a dotted word for a short definition, or use Prepare → Law words.
 2. **Sort & weigh** — Choose which side you would use for each argument (including Both). There is no score. Then rank and steelman.
 3. **Evidence Vault** — Flip primary excerpts. Decide how each side could use them.
 4. **Speak** — The only 60-second oral theory and hot-bench practice. Argue as if this Court has not decided yet.
@@ -31,6 +31,7 @@ The unit driving question (rights vs. community safety) fits Tinker, T.L.O., Pay
 
 ## Features
 
+- Know the law: a clause-and-issue box on every case, clickable term tips, and a Law words glossary that does not reveal holdings.
 - Standard and Simplified reading levels (same argument, shorter sentences). The choice is saved in the browser and follows the student.
 - Case Journeys: Prep mode hides the Supreme Court vote; Debrief mode shows it.
 - Compare (debrief): paired cases so students apply tests across facts.
@@ -42,7 +43,7 @@ The website case pages and Evidence Vault are the fact-checked source of truth. 
 
 ## Version
 
-Current version: v1.21.0
+Current version: v1.22.0
 
 ## License
 

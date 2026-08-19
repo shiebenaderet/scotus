@@ -1237,6 +1237,7 @@
                 <div id="speak-recap" class="alert-info" style="margin-bottom:20px;">
                     <p><strong>Your 60-second theory lives on the case page Speak tab</strong> — not here. Say it there. This page is the written speech (opening, arguments, sources, rebuttals, closing).</p>
                     <p><a id="speak-recap-link" href="index.html">Open Speak tab →</a></p>
+                    <div id="debate-law-box"></div>
                     <div id="debate-tests-box" class="competing-tests"></div>
                     <ol id="speak-recap-lines" style="margin:12px 0 0 1.2em;"></ol>
                 </div>
@@ -1625,6 +1626,7 @@
     <script src="js/site-chrome.js"></script>
     <script src="js/case-prep-data.js"></script>
     <script src="js/case-prep.js"></script>
+    <script src="js/legal-glossary.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
@@ -1917,10 +1919,17 @@
         var sampleList = document.getElementById('debate-theory-sample-list');
         var bench = document.getElementById('debate-hot-bench');
         renderSpeakRecap();
+        var lawHost = document.getElementById('debate-law-box');
         if (!prep) {
             if (box) box.innerHTML = '';
+            if (lawHost) lawHost.innerHTML = '';
             if (bench) bench.innerHTML = '<p>Open your case page Speak tab for judge questions.</p>';
             return;
+        }
+        if (lawHost) {
+            lawHost.innerHTML = (typeof window.scotusLawBoxHtml === 'function' && prep.law)
+                ? window.scotusLawBoxHtml(prep, { compact: true, prefix: '' })
+                : '';
         }
         var myTest = prep.tests[selectedSide];
         var theirSide = selectedSide === 'petitioner' ? 'respondent' : 'petitioner';
@@ -1954,6 +1963,10 @@
             hs.className = 'hard-side-box';
             hs.innerHTML = '<h3>' + prep.hardSide.title + '</h3>' + prep.hardSide.html;
             if (box) box.parentNode.insertBefore(hs, box.nextSibling);
+        }
+        var recap = document.getElementById('speak-recap');
+        if (recap && typeof window.enhanceLegalTips === 'function') {
+            window.enhanceLegalTips(recap);
         }
     }
 

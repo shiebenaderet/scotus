@@ -9,6 +9,17 @@ var CASE_PREP_DATA = {
         amendment: 'First Amendment — Freedom of Speech',
         question: 'May a public school ban silent political armbands because officials fear disruption?',
         drivingFrame: 'This case is about whether a school may limit student free speech to keep order — even when the speech is silent and no disruption has happened yet.',
+        law: {
+            issue: 'May a public school punish silent protest armbands that have not actually disrupted class?',
+            clause: 'Congress shall make no law … abridging the freedom of speech.',
+            clauseCite: 'First Amendment',
+            plain: 'Public schools are the government, so the First Amendment applies. Tinker is about symbolic speech — a message sent by clothing, not yelling. The legal fight is whether schools need proof of real disruption (or a well-founded forecast of it) before they ban a silent political message, or whether they may act earlier to keep controversy out of the building.',
+            terms: [
+                { term: 'symbolic speech', meaning: 'A message sent by action or clothing — here, black armbands against the Vietnam War.' },
+                { term: 'substantial disruption', meaning: 'The students’ proposed line: the school must show the speech would actually interfere with teaching or operations, not just that officials dislike the topic.' },
+                { term: 'public school as government', meaning: 'Principals and teachers are state actors. Private opinions are not the issue; government limits on student speech are.' }
+            ]
+        },
         tests: {
             petitioner: {
                 title: 'Proven substantial disruption',
@@ -126,6 +137,18 @@ var CASE_PREP_DATA = {
         amendment: 'Fourth Amendment — Search and Seizure',
         question: 'May a school official search a student’s purse without a warrant, and if so, how much suspicion is enough?',
         drivingFrame: 'This case is about whether student privacy must yield so schools can enforce rules and keep drugs out of the building.',
+        law: {
+            issue: 'What does the Fourth Amendment require before a public-school official searches a student’s purse?',
+            clause: 'The right of the people to be secure in their persons, houses, papers, and effects, against unreasonable searches and seizures, shall not be violated…',
+            clauseCite: 'Fourth Amendment',
+            plain: 'The Fourth Amendment bans unreasonable searches by government. A vice principal is government. On the street, police often need a warrant and probable cause. Schools argue they need a lower school-specific bar — reasonable suspicion — because they stand in loco parentis and must keep a crowded building safe. The student’s side argues a purse is still private “papers and effects,” so the usual warrant and probable-cause rules should apply.',
+            terms: [
+                { term: 'warrant', meaning: 'A judge’s written permission to search, usually based on probable cause. Schools say requiring this would make hallway discipline impossible.' },
+                { term: 'probable cause', meaning: 'Facts that would make a reasonable person believe a crime (or evidence of one) is here. Higher bar than reasonable suspicion.' },
+                { term: 'reasonable suspicion', meaning: 'Specific facts — not a hunch — that a student broke a rule or the law. The school’s proposed test in this case.' },
+                { term: 'in loco parentis', meaning: '“In the place of a parent.” Used to argue staff may search with more leeway than police, still within the Constitution.' }
+            ]
+        },
         tests: {
             petitioner: {
                 title: 'Reasonableness in school',
@@ -246,6 +269,17 @@ var CASE_PREP_DATA = {
         amendment: 'Fourteenth Amendment — Equal Protection',
         question: 'May a state require racially separate public schools if it claims the buildings and books are equal?',
         drivingFrame: 'This case is not mainly “safety vs. rights.” It asks whether “equal protection of the laws” allows a state to separate children by race.',
+        law: {
+            issue: 'Do racially segregated public schools violate the Fourteenth Amendment even when buildings and budgets look similar?',
+            clause: 'No State shall … deny to any person within its jurisdiction the equal protection of the laws.',
+            clauseCite: 'Fourteenth Amendment — Equal Protection Clause',
+            plain: 'Kansas law required separate schools for Black and white children. Topeka said the buildings and pay were comparable, so Plessy’s “separate but equal” idea still fits. The Brown families say public education is a government service, and splitting children by race is itself unequal — it stamps one group as inferior — even if the brick and mortar match. The legal issue is the meaning of equal protection, not whether the families “want better schools” in a generic sense.',
+            terms: [
+                { term: 'Equal Protection Clause', meaning: 'The Fourteenth Amendment rule that states may not deny any person equal protection of the laws. The fight is whether race-separated schools can ever satisfy it.' },
+                { term: 'Plessy v. Ferguson', meaning: '1896 precedent that allowed racial segregation if facilities were “equal.” Kansas relies on it; the families ask this Court not to treat it as the last word for public schools.' },
+                { term: 'separate but equal', meaning: 'Plessy’s formula. One side says Topeka met it. The other says separation by race in schooling cannot be equal.' }
+            ]
+        },
         tests: {
             petitioner: {
                 title: 'Separate is unequal',
@@ -366,6 +400,17 @@ var CASE_PREP_DATA = {
         amendment: 'Fourth Amendment — the home',
         question: 'May police enter a home to make a routine felony arrest without a warrant if they have probable cause?',
         drivingFrame: 'This case asks when community safety (catching a dangerous suspect) may override the special privacy of the home.',
+        law: {
+            issue: 'May police enter a suspect’s home to make a routine arrest without a warrant?',
+            clause: 'The right of the people to be secure in their persons, houses, papers, and effects, against unreasonable searches and seizures, shall not be violated, and no Warrants shall issue, but upon probable cause…',
+            clauseCite: 'Fourth Amendment',
+            plain: 'The Fourth Amendment specially names houses. Police had probable cause that Payton committed a felony, but no arrest warrant, and no emergency at the door. One side says the home is at the core of the Amendment: knock-and-enter for a routine arrest needs a magistrate’s warrant. The other side says once officers have probable cause, delaying at the door lets suspects destroy evidence or flee — a warrant should not be an extra hurdle for a felony arrest at the person’s own house.',
+            terms: [
+                { term: 'warrant', meaning: 'A judge’s approval before police cross the threshold of a home for a planned arrest — not a snap judgment by officers on the porch.' },
+                { term: 'probable cause', meaning: 'Facts that would lead a reasonable person to believe this person committed the crime. Both sides agree police had it; they fight over whether that is enough to enter the home.' },
+                { term: 'routine arrest vs. emergency', meaning: 'If someone inside is in danger or evidence is being destroyed right now, the emergency (exigent-circumstances) idea may allow entry. Payton’s entry was planned, not a 911-in-progress scene.' }
+            ]
+        },
         tests: {
             petitioner: {
                 title: 'Warrant to cross the threshold',
@@ -483,6 +528,17 @@ var CASE_PREP_DATA = {
         amendment: 'First Amendment — off-campus speech',
         question: 'May a school punish a student for a vulgar Snapchat posted off campus, on a weekend, that slams school and cheer?',
         drivingFrame: 'This case tests whether Tinker’s disruption idea follows students home onto their phones.',
+        law: {
+            issue: 'May a public school punish a student’s vulgar off-campus social-media speech about the cheer team?',
+            clause: 'Congress shall make no law … abridging the freedom of speech.',
+            clauseCite: 'First Amendment',
+            plain: 'B.L.’s Snap was sent off campus, on a weekend, using her own phone. Schools are still government. Tinker allows schools to limit on-campus speech that substantially disrupts class. The legal fight is whether that disruption idea follows a student home — so a coach may discipline weekend snaps that hit team tryouts — or whether off-campus speech stays with parents and, if needed, ordinary civic limits, not the student-handbook.',
+            terms: [
+                { term: 'off-campus speech', meaning: 'Words or posts created outside school time and property. The school still felt the effects at tryouts; B.L. says geography and the weekend should matter.' },
+                { term: 'substantial disruption', meaning: 'Borrowed from Tinker: would this speech actually interfere with school operations? The school says tryouts and coaching were hit; B.L. says disappointment is not disruption.' },
+                { term: 'in loco parentis', meaning: 'The school’s claim that coaches stand in for parents on team issues even after the bell. B.L.’s side says that idea stops at the campus gate.' }
+            ]
+        },
         tests: {
             petitioner: {
                 title: 'School-related speech, even off campus',
@@ -600,6 +656,17 @@ var CASE_PREP_DATA = {
         amendment: 'First Amendment — Free Exercise and Establishment',
         question: 'May a public school stop a coach from kneeling to pray at midfield after games because it looks like the school is endorsing religion?',
         drivingFrame: 'This case is a clash inside the First Amendment: the coach’s right to practice religion vs. the school’s duty not to establish religion or pressure students.',
+        law: {
+            issue: 'May a public-school football coach kneel in prayer at midfield after games where students can see him?',
+            clause: 'Congress shall make no law respecting an establishment of religion, or prohibiting the free exercise thereof…',
+            clauseCite: 'First Amendment — Free Exercise and Establishment Clauses',
+            plain: 'Two religion clauses sit in the same sentence. Free Exercise protects Kennedy’s own prayer. Establishment limits the school from appearing to sponsor religion. Because he is a paid coach on the school field, right after a school game, the district says players will feel pressure to join if they want playing time. Kennedy says a quiet personal prayer is his speech, not a school sermon, and that punishing it targets religion.',
+            terms: [
+                { term: 'Free Exercise', meaning: 'The First Amendment protection for practicing your religion. Kennedy’s main hook: the district punished him because the conduct was prayer.' },
+                { term: 'Establishment Clause', meaning: 'The First Amendment limit on government endorsement of religion. The district’s main hook: a coach at the 50-yard line looks like the school is backing Christianity.' },
+                { term: 'coercion', meaning: 'Pressure that makes joining the prayer feel required — especially for students who need the coach’s approval. Not the same as a private adult praying alone at home.' }
+            ]
+        },
         tests: {
             petitioner: {
                 title: 'Private religious speech',
@@ -720,6 +787,17 @@ var CASE_PREP_DATA = {
         amendment: 'Supremacy Clause / federalism — not a Bill of Rights “safety vs. rights” case',
         question: 'May a state copy or add its own immigration crimes and police duties when Congress already occupies immigration law?',
         drivingFrame: 'This case is about who gets to write immigration rules — states or the national government — not about whether immigration is “good” or “bad.”',
+        law: {
+            issue: 'May Arizona add its own police-enforced immigration rules on top of federal immigration law?',
+            clause: 'This Constitution, and the Laws of the United States which shall be made in Pursuance thereof … shall be the supreme Law of the Land…',
+            clauseCite: 'Article VI — Supremacy Clause',
+            plain: 'Congress, not a state legislature, writes the national immigration system. Federalism still lets states police ordinary crime. S.B. 1070 tries to have Arizona officers enforce extra immigration checks and state crimes tied to status. The United States argues those pieces are preempted — they clash with, or get in the way of, the federal scheme. Arizona argues it is helping enforce the same federal rules and protecting residents the federal government has not. The issue is who gets to write the rules, not whether immigration is “good” or “bad.”',
+            terms: [
+                { term: 'Supremacy Clause', meaning: 'Article VI: valid federal law beats conflicting state law. If S.B. 1070 collides with Congress’s immigration statutes, the state provisions fall.' },
+                { term: 'preemption', meaning: 'The doctrine that implements supremacy. Field preemption (federal law occupies the subject) and conflict preemption (state law stands in the way) are both in play.' },
+                { term: 'federalism', meaning: 'The Constitution’s split of power. States run local police; the national government generally sets immigration status rules. Arizona is a border-line case in that split.' }
+            ]
+        },
         tests: {
             petitioner: {
                 title: 'Cooperative enforcement',

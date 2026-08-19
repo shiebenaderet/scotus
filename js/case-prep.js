@@ -59,6 +59,29 @@
         return window.location.pathname.indexOf('/cases/') !== -1 ? '../' : '';
     }
 
+    function lawBoxHtml(data, opts) {
+        opts = opts || {};
+        if (!data || !data.law) return '';
+        var terms = (data.law.terms || []).map(function (t) {
+            return '<button type="button" class="legal-tip law-term-chip" aria-expanded="false">' +
+                '<span class="legal-tip-word">' + escapeHtml(t.term) + '</span>' +
+                '<span class="legal-tip-pop" hidden>' + escapeHtml(t.meaning) + '</span></button>';
+        }).join('');
+        var more = opts.compact
+            ? ''
+            : '<p class="law-box-more">Dotted words on this page are clickable. Full glossary: <a href="' + relPrefix() + 'resources.html#law-words">Law words</a>.</p>';
+        return '<div class="law-box' + (opts.compact ? ' law-box-compact' : '') + '">' +
+            '<h3>Know the law</h3>' +
+            '<p class="law-issue"><strong>The fight:</strong> ' + escapeHtml(data.law.issue) + '</p>' +
+            '<blockquote class="law-clause"><p>' + escapeHtml(data.law.clause) + '</p><cite>' + escapeHtml(data.law.clauseCite) + '</cite></blockquote>' +
+            '<p class="law-plain">' + escapeHtml(data.law.plain) + '</p>' +
+            (terms ? '<div class="law-terms">' + terms + '</div>' : '') +
+            more +
+        '</div>';
+    }
+
+    window.scotusLawBoxHtml = lawBoxHtml;
+
     function injectProgressStrip() {
         var header = document.querySelector('.case-header .container');
         if (!header || document.querySelector('.case-progress')) return;
@@ -126,12 +149,16 @@
             '</div>'
         );
 
+        var law = data.law ? el(lawBoxHtml(data, { compact: false })) : null;
+
         if (hook) {
             hook.parentNode.insertBefore(qbox, hook.nextSibling);
-            hook.parentNode.insertBefore(tests, qbox.nextSibling);
+            if (law) hook.parentNode.insertBefore(law, qbox.nextSibling);
+            hook.parentNode.insertBefore(tests, (law || qbox).nextSibling);
         } else {
             bg.insertBefore(tests, bg.firstChild);
-            bg.insertBefore(qbox, tests);
+            if (law) bg.insertBefore(law, tests);
+            bg.insertBefore(qbox, law || tests);
         }
 
         if (data.hardSide) {
@@ -147,6 +174,9 @@
             if (inner) {
                 inner.querySelectorAll('.section-header h2').forEach(function (h) {
                     h.textContent = 'Words you will need';
+                });
+                inner.querySelectorAll('.section-subtitle').forEach(function (p) {
+                    p.textContent = 'Click a dotted word on this tab for a short definition, or open Law words in the Prepare menu.';
                 });
                 bg.appendChild(inner);
             }
@@ -218,6 +248,7 @@
                         '<div class="section-header"><h2>Your 60-second case theory</h2>' +
                         '<p class="section-subtitle">Fill this in, then say it without notes. This is what you must be able to explain.</p></div>' +
                         '<div class="prep-banner">Argue as if the Supreme Court has <strong>not</strong> decided yet. Do not quote this case’s holding or vote.</div>' +
+                        (data.law ? lawBoxHtml(data, { compact: true }) : '') +
                         '<p>Choose your side, then complete the six lines. Practice with a partner who argues the other side.</p>' +
                         '<div class="theory-side-pick">' +
                             '<button type="button" class="theory-side-btn" data-side="petitioner" data-field="side-p">' + escapeHtml(data.petitioner.name) + '</button>' +

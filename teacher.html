@@ -512,7 +512,7 @@
                 <!-- WHAT'S NEW -->
                 <div class="section-head">
                     <h2>What's on the site now</h2>
-                    <p>Matches the student site as of v1.21 — one theory, unscored sort, persisted reading level</p>
+                    <p>Matches the student site as of v1.22 — Know the law boxes, clickable law-word tips, Law words resource</p>
                 </div>
 
                 <div class="whats-new">
@@ -522,6 +522,7 @@
                         <li>Each case now has a <strong>case-specific constitutional question</strong> and two <strong>competing tests</strong> (the rule each side wants the Court to write).</li>
                         <li>The home page has a <strong>clickable 6-step path</strong>: Background → Sort &amp; weigh → Evidence Vault → Speak (the only 60-second theory) → Debate Prep (written speech) → classroom debate. Each case card has <strong>Explore case</strong> and <strong>Pick a side</strong>.</li>
                         <li><strong>Argument Sort has no score.</strong> Students choose which side they would use — including “Both.” Ranking and steelmanning happen in Weigh.</li>
+                        <li><strong>Know the law:</strong> Every case Background (and Speak / Debate Prep) has a box with the clause, a plain-English frame, and clickable term chips. Dotted words on the page open a short definition (tap, not hover — Chromebooks and phones). Full glossary: Prepare → Law words. None of this reveals the holding.</li>
                         <li><strong>Reading level</strong> (Standard / Simplified) is saved in the browser and follows the student. Simplified is the same argument in shorter sentences. Set it on Home or any case page.</li>
                         <li><strong>Case Journeys</strong> has Prep mode (holding hidden) and Debrief mode (vote and reasoning). Keep students on Prep until after they argue.</li>
                         <li><strong>Review</strong> multiple-choice items often mention holdings. Use vocab anytime; save case quizzes and <a href="https://play.blooket.com/play?hwId=699e72ac5db83b482a747f78" target="_blank" rel="noopener">Blooket</a> for after the debate.</li>
@@ -538,7 +539,7 @@
                         </a>
                         <a href="index.html#cases">
                             <h4>Case page — Background</h4>
-                            <p>Facts, people, the amendment, the case question, and the two competing tests. Party badges name who you represent, then Petitioner/Respondent.</p>
+                            <p>Facts, people, Know the law (clause + plain frame + term chips), the case question, and the two competing tests. Party badges name who you represent, then Petitioner/Respondent.</p>
                         </a>
                         <a href="debate.html">
                             <h4>Debate Prep</h4>
@@ -558,7 +559,7 @@
                         </a>
                         <a href="resources.html">
                             <h4>Resources</h4>
-                            <p>What the Court is, how a case gets there, debate tips. Standard / Simplified toggle. Week 1 material lives here.</p>
+                            <p>What the Court is, how a case gets there, Law words (glossary + each case’s legal fight), debate tips. Standard / Simplified toggle. Week 1 material lives here.</p>
                         </a>
                         <a href="cases/tinker.html">
                             <h4>On every case page</h4>
@@ -620,7 +621,7 @@
                         <li><strong>Launch:</strong> Play "Do I Have a Right?" to see how courts protect our freedoms</li>
                         <li><strong>Learn the Language:</strong> Review vocabulary flashcards (safe before debate — they do not reveal holdings)</li>
                         <li><strong>Real Story:</strong> Discover how Wong Kim Ark fought for his rights all the way to the Supreme Court</li>
-                        <li><strong>How It Works:</strong> Resources page — what the Court is and how a case gets there</li>
+                        <li><strong>How It Works:</strong> Resources page — what the Court is, how a case gets there, and <a href="resources.html#law-words">Law words</a> (amendments, tests, petitioner/respondent). Safe before any holding is revealed.</li>
                     </ul>
 
                     <h4><span class="week-label">Week 2</span> Choose Your Case &amp; Get Creative</h4>
@@ -634,7 +635,7 @@
                     <h4><span class="week-label">Week 3</span> Become a Lawyer</h4>
                     <ul>
                         <li><strong>Assign case and side first</strong> so students read with a job. Keep Journeys on <strong>Prep mode</strong> (holding hidden).</li>
-                        <li><strong>Background:</strong> Facts, people, the amendment, the case question, and the two competing tests</li>
+                        <li><strong>Background:</strong> Facts, people, <strong>Know the law</strong> (the clause and what the fight is actually about), the case question, and the two competing tests. Students who miss a term can tap a dotted word or open Law words.</li>
                         <li><strong>Sort &amp; weigh:</strong> No score. Students choose which side they would use (or Both), then rank, steelman, and explain dual-use facts in Weigh.</li>
                         <li><strong>Evidence Vault:</strong> Primary excerpts — students write how each side could use them</li>
                         <li><strong>Speak:</strong> The only 60-second case theory. Out loud, then hot-bench questions with a partner. Do not assign a second theory in Debate Prep.</li>
@@ -656,7 +657,7 @@
                     <p>Their job is to:</p>
                     <ul>
                         <li>Know the facts of the record (not the later holding)</li>
-                        <li>State the constitutional question and the clause at issue</li>
+                        <li>State the constitutional question and the clause at issue (Know the law / Law words if they freeze on the vocabulary)</li>
                         <li>Name the <strong>test</strong> their side wants the Court to adopt</li>
                         <li>Build arguments that end with “under our test, this fact matters because…”</li>
                         <li>Anticipate the other side’s strongest point (steelman) and answer hot-bench questions</li>
@@ -808,13 +809,14 @@
     <footer>
         <div class="container">
             <p>SCOTUS Debate Project — A Student Resource for Understanding the Supreme Court</p>
-            <p class="site-version">v1.21.0</p>
+            <p class="site-version">v1.22.0</p>
         </div>
     </footer>
 
     <script src="js/site-chrome.js"></script>
     <script src="js/case-prep-data.js"></script>
     <script src="js/case-prep.js"></script>
+    <script src="js/legal-glossary.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>

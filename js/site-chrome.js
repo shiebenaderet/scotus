@@ -1,6 +1,6 @@
 // Shared header, footer, save status, and keyboard behavior for every page.
 (function () {
-    var VERSION = 'v1.21.0';
+    var VERSION = 'v1.22.0';
     var READING_KEY = 'scotus-reading-level';
 
     function relPrefix() {
@@ -87,6 +87,21 @@
             a.setAttribute('data-nav', 'compare');
             a.textContent = 'Compare (debrief)';
             menu.appendChild(a);
+        });
+    }
+
+    function ensureLawWordsLink() {
+        var menus = document.querySelectorAll('.nav-dropdown-content');
+        menus.forEach(function (menu) {
+            if (menu.querySelector('a[href*="resources.html#law-words"]')) return;
+            var a = document.createElement('a');
+            a.href = relPrefix() + 'resources.html#law-words';
+            a.setAttribute('data-nav', 'law-words');
+            a.textContent = 'Law words';
+            var debate = menu.querySelector('a[href*="debate.html"]');
+            if (debate && debate.nextSibling) menu.insertBefore(a, debate.nextSibling);
+            else if (debate) menu.appendChild(a);
+            else menu.appendChild(a);
         });
     }
 
@@ -188,6 +203,7 @@
         initHamburger();
         initDropdowns();
         ensureCompareLink();
+        ensureLawWordsLink();
         labelCompareLinks();
         unifyFooter();
         ensureSaveChip();
