@@ -304,16 +304,10 @@ let currentReadingLevel = 'standard';
 let journeyMode = 'prep';
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize dropdown
-    initDropdown();
-
-    // Initialize reading level toggle
     initReadingLevel();
-
-    // Initialize case buttons
     initCaseButtons();
-
     initJourneyMode();
+    restoreJourneySelection();
 });
 
 function initJourneyMode() {
@@ -335,32 +329,25 @@ function initJourneyMode() {
     debriefBtn.addEventListener('click', function() { setMode('debrief'); });
 }
 
-function initDropdown() {
-    const dropdown = document.querySelector('.nav-dropdown');
-    const btn = dropdown?.querySelector('.nav-dropdown-btn');
+function persistJourneyCases() {
+    try { localStorage.setItem('scotus-journey-cases', JSON.stringify(selectedCases)); } catch (e) {}
+}
 
-    if (!dropdown || !btn) return;
-
-    btn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        dropdown.classList.toggle('open');
-        btn.setAttribute('aria-expanded', dropdown.classList.contains('open'));
-    });
-
-    // Close when clicking outside
-    document.addEventListener('click', function(e) {
-        if (!dropdown.contains(e.target)) {
-            dropdown.classList.remove('open');
-            btn.setAttribute('aria-expanded', 'false');
-        }
-    });
-
-    // Close on escape
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            dropdown.classList.remove('open');
-            btn.setAttribute('aria-expanded', 'false');
-        }
+function restoreJourneySelection() {
+    var params = new URLSearchParams(window.location.search);
+    var fromUrl = params.get('case');
+    var saved = null;
+    try {
+        var raw = localStorage.getItem('scotus-journey-cases');
+        if (raw) saved = JSON.parse(raw);
+    } catch (e) {}
+    var toSelect;
+    if (fromUrl) toSelect = [fromUrl];
+    else if (Array.isArray(saved)) toSelect = saved;
+    else toSelect = ['tinker'];
+    toSelect.forEach(function (id) {
+        var btn = document.querySelector('.case-btn[data-case="' + id + '"]');
+        if (btn && !btn.classList.contains('selected')) btn.click();
     });
 }
 
@@ -405,8 +392,7 @@ function initCaseButtons() {
 
             // Show/hide clear button
             clearAllBtn.style.display = selectedCases.length > 0 ? 'inline-block' : 'none';
-
-            // Render timeline
+            persistJourneyCases();
             renderTimeline();
         });
     });
@@ -415,6 +401,7 @@ function initCaseButtons() {
         selectedCases = [];
         caseButtons.forEach(btn => btn.classList.remove('selected'));
         this.style.display = 'none';
+        persistJourneyCases();
         renderTimeline();
     });
 }
@@ -428,6 +415,7 @@ function renderTimeline() {
         timeline.innerHTML = '';
         emptyState.style.display = 'block';
         legend.style.display = 'none';
+        updatePartyLegend();
         return;
     }
 
@@ -456,6 +444,7 @@ function renderTimeline() {
 
     // Render events
     timeline.innerHTML = allEvents.map(event => createEventHTML(event)).join('');
+    updatePartyLegend();
     if (journeyMode === 'prep' && selectedCases.length > 0) {
         timeline.insertAdjacentHTML('beforeend',
             '<div class="timeline-event scotus-hidden">' +
@@ -463,6 +452,27 @@ function renderTimeline() {
             '<p>The Court agreed to hear the case. How it voted is hidden so you can argue as if the justices have not spoken yet. Switch to Debrief after your debate.</p></div></div>'
         );
     }
+}
+
+function updatePartyLegend() {
+    var box = document.getElementById('party-legend');
+    if (!box) return;
+    if (!selectedCases.length) {
+        box.hidden = true;
+        box.innerHTML = '';
+        return;
+    }
+    box.hidden = false;
+    box.innerHTML = selectedCases.map(function (id) {
+        var prep = window.CASE_PREP_DATA && CASE_PREP_DATA[id];
+        var info = caseData[id];
+        if (prep) {
+            return '<p><strong>' + info.shortName + ':</strong> ' +
+                '<span class="legend-petitioner">Petitioner — ' + prep.petitioner.name + '</span> · ' +
+                '<span class="legend-respondent">Respondent — ' + prep.respondent.name + '</span></p>';
+        }
+        return '<p><strong>' + info.shortName + '</strong> — colors follow petitioner / respondent as the case was named at the Supreme Court.</p>';
+    }).join('');
 }
 
 function parseDateForSort(dateStr) {

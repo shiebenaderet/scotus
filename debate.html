@@ -119,6 +119,11 @@
             gap: 8px;
             margin-bottom: 24px;
             flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 25;
+            background: var(--bg-light);
+            padding: 8px 0;
         }
 
         .debate-tab {
@@ -1175,7 +1180,7 @@
                         <a href="review.html">Review</a>
                         <a href="journeys.html">Case Journeys</a>
                         <a href="debate.html" class="active">Debate Prep</a>
-                        <a href="compare.html">Compare Cases</a>
+                        <a href="compare.html">Compare (debrief)</a>
                     </div>
                 </div>
                 <a href="teacher.html" id="teacher-nav-link" style="display:none;">Teacher</a>
@@ -1267,7 +1272,7 @@
 
                 <div class="debate-section" id="tab-theory">
                     <div id="debate-tests-box" class="competing-tests"></div>
-                    <div class="alert-info">Write a six-line theory you can say out loud. Argue as if this case is still undecided — do not quote this Court’s holding.</div>
+                    <div class="alert-info">Say the six lines out loud first on your case page <strong>Speak</strong> tab. Then write the same theory here so you have a script for class. Argue as if this case is still undecided — do not quote this Court’s holding.</div>
                     <div class="builder-card">
                         <span class="builder-part-label" style="background:#1d4ed8;">1. Who I represent</span>
                         <textarea class="debate-textarea" id="theory-who" data-field="theory-who" placeholder="Name the client." style="min-height:70px;"></textarea>
@@ -1614,10 +1619,11 @@
     <footer>
         <div class="container">
             <p>SCOTUS Debate Project — A Student Resource for Understanding the Supreme Court</p>
-            <p class="site-version">v1.19.0</p>
+            <p class="site-version">v1.20.0</p>
         </div>
     </footer>
 
+    <script src="js/site-chrome.js"></script>
     <script src="js/case-prep-data.js"></script>
     <script src="js/case-prep.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
@@ -1707,25 +1713,30 @@
         });
         grid.innerHTML = html;
 
+        var params = new URLSearchParams(window.location.search);
+        var fromUrl = params.get('case');
+        var urlName = fromUrl && Object.keys(debateCases).find(function(k) { return debateCases[k].prepId === fromUrl; });
+
         // Restore saved selection
         try {
             const saved = localStorage.getItem('scotus-debate-selection');
-            if (saved) {
-                const sel = JSON.parse(saved);
-                if (sel.caseName && debateCases[sel.caseName]) {
-                    selectCase(document.querySelector(`[data-case="${sel.caseName}"]`), sel.caseName);
-                    if (sel.side) {
-                        setTimeout(() => {
-                            const sideCard = document.querySelector(`[data-side="${sel.side}"]`);
-                            if (sideCard) selectSide(sideCard, sel.side);
-                        }, 50);
-                    }
+            var sel = saved ? JSON.parse(saved) : {};
+            var caseName = urlName || sel.caseName;
+            if (caseName && debateCases[caseName]) {
+                var card = document.querySelector('[data-case="' + caseName + '"]');
+                if (card) selectCase(card, caseName);
+                if (!urlName && sel.side) {
+                    setTimeout(() => {
+                        const sideCard = document.querySelector(`[data-side="${sel.side}"]`);
+                        if (sideCard) selectSide(sideCard, sel.side);
+                    }, 50);
                 }
             }
         } catch(e) {}
     }
 
     function selectCase(el, caseName) {
+        if (!el || !debateCases[caseName]) return;
         selectedCase = caseName;
         document.querySelectorAll('.case-select-card').forEach(c => c.classList.remove('selected'));
         el.classList.add('selected');
@@ -1736,13 +1747,13 @@
         sideArea.style.display = 'block';
         document.getElementById('side-select-grid').innerHTML = `
             <div class="side-select-card petitioner" data-side="petitioner" onclick="selectSide(this, 'petitioner')">
-                <span class="side-label pet">Petitioner</span>
                 <h4>${c.petitioner.name}</h4>
+                <span class="side-label pet">Petitioner</span>
                 <p>${c.petitioner.desc}</p>
             </div>
             <div class="side-select-card respondent" data-side="respondent" onclick="selectSide(this, 'respondent')">
-                <span class="side-label res">Respondent</span>
                 <h4>${c.respondent.name}</h4>
+                <span class="side-label res">Respondent</span>
                 <p>${c.respondent.desc}</p>
             </div>
         `;
@@ -2586,6 +2597,7 @@
 
     function autoSave() {
         saveAllWork(true);
+        if (typeof window.showSaveStatus === 'function') window.showSaveStatus();
     }
 
     function saveAllWork(silent) {
@@ -2826,25 +2838,6 @@
     document.addEventListener('DOMContentLoaded', function() {
         initCaseSelect();
         tryAutoRestore();
-    });
-
-    // Dropdown navigation
-    document.addEventListener('DOMContentLoaded', function() {
-        var dropdown = document.querySelector('.nav-dropdown');
-        var btn = dropdown ? dropdown.querySelector('.nav-dropdown-btn') : null;
-        if (dropdown && btn) {
-            btn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                dropdown.classList.toggle('open');
-                btn.setAttribute('aria-expanded', dropdown.classList.contains('open'));
-            });
-            document.addEventListener('click', function(e) {
-                if (!dropdown.contains(e.target)) {
-                    dropdown.classList.remove('open');
-                    btn.setAttribute('aria-expanded', 'false');
-                }
-            });
-        }
     });
     </script>
 </body>

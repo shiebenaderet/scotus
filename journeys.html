@@ -24,7 +24,7 @@
                         <a href="review.html">Review</a>
                         <a href="journeys.html" class="active">Case Journeys</a>
                         <a href="debate.html">Debate Prep</a>
-                        <a href="compare.html">Compare Cases</a>
+                        <a href="compare.html">Compare (debrief)</a>
                     </div>
                 </div>
                 <a href="teacher.html" id="teacher-nav-link" style="display:none;">Teacher</a>
@@ -44,6 +44,7 @@
         <div class="journeys-content">
             <div class="container">
                 <!-- Reading Level Toggle -->
+                <div class="journey-toolbar">
                 <div class="reading-level-toggle" role="group" aria-label="Reading level selection">
                     <span class="toggle-label">Reading Level:</span>
                     <button class="level-btn active" data-level="standard" aria-pressed="true">Standard</button>
@@ -56,6 +57,7 @@
                         <button type="button" class="mode-btn active" id="mode-prep">Prep mode — hide the holding</button>
                         <button type="button" class="mode-btn" id="mode-debrief">Debrief mode — show what the Court did</button>
                     </div>
+                </div>
                 </div>
 
                 <!-- Case Selector -->
@@ -103,6 +105,7 @@
                             <span>Supreme Court</span>
                         </div>
                     </div>
+                    <div class="party-legend" id="party-legend" hidden></div>
                 </div>
             </div>
         </div>
@@ -111,13 +114,17 @@
     <footer class="site-footer">
         <div class="container">
             <p>&copy; 2026 SCOTUS Debate Project. Educational use only.</p>
-            <p class="site-version">v1.19.0</p>
+            <p class="site-version">v1.20.0</p>
         </div>
     </footer>
 
-    <script src="js/firebase-init.js"></script>
-    <script src="js/journeys.js"></script>
+    <script src="js/site-chrome.js"></script>
     <script src="js/case-prep-data.js"></script>
+    <script src="js/journeys.js"></script>
     <script src="js/case-prep.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+    <script src="js/firebase-init.js"></script>
 </body>
 </html>

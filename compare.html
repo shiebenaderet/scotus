@@ -24,7 +24,7 @@
                         <a href="review.html">Review</a>
                         <a href="journeys.html">Case Journeys</a>
                         <a href="debate.html">Debate Prep</a>
-                        <a href="compare.html" class="active">Compare Cases</a>
+                        <a href="compare.html" class="active">Compare (debrief)</a>
                     </div>
                 </div>
                 <a href="teacher.html" id="teacher-nav-link" style="display:none;">Teacher</a>
@@ -43,7 +43,8 @@
 
         <section class="case-section active-tab">
             <div class="container" style="max-width:900px;">
-                <p>Pick a pair. Do not look up who won. Explain how the <strong>test</strong> each side wants would play out on the other case’s facts.</p>
+                <p>Pick a pair <strong>after your debate</strong>. Do not look up who won. Explain how the <strong>test</strong> each side wants would play out on the other case’s facts.</p>
+                <p class="debrief-banner" id="compare-prep-note">This page is for debrief. If you have not argued yet, stay on your case page and Debate Prep.</p>
                 <div class="pair-pick" id="pair-buttons"></div>
                 <div id="pair-panel"></div>
             </div>
@@ -53,10 +54,11 @@
     <footer>
         <div class="container">
             <p>&copy; 2026 SCOTUS Debate Project</p>
-            <p class="site-version">v1.19.0</p>
+            <p class="site-version">v1.20.0</p>
         </div>
     </footer>
 
+    <script src="js/site-chrome.js"></script>
     <script src="js/case-prep-data.js"></script>
     <script src="js/case-prep.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
@@ -92,6 +94,8 @@
         try { var saved = localStorage.getItem(key); if (saved) ta.value = saved; } catch (e) {}
         ta.addEventListener('input', function() {
             localStorage.setItem(key, ta.value);
+            if (typeof saveToCloud === 'function') saveToCloud(key, ta.value);
+            if (typeof window.showSaveStatus === 'function') window.showSaveStatus();
         });
     }
 
@@ -110,17 +114,6 @@
             wrap.appendChild(b);
             if (i === 0) { b.classList.add('active'); renderPair(pair); }
         });
-        var dropdown = document.querySelector('.nav-dropdown');
-        var btn = dropdown ? dropdown.querySelector('.nav-dropdown-btn') : null;
-        if (dropdown && btn) {
-            btn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                dropdown.classList.toggle('open');
-            });
-            document.addEventListener('click', function(e) {
-                if (!dropdown.contains(e.target)) dropdown.classList.remove('open');
-            });
-        }
     });
     </script>
 </body>

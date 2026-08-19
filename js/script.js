@@ -10,23 +10,6 @@ var flipCardHeightFns = [];
 
 // Reading Level Toggle
 document.addEventListener('DOMContentLoaded', function() {
-    // Navigation Dropdown
-    var dropdown = document.querySelector('.nav-dropdown');
-    var dropdownBtn = dropdown ? dropdown.querySelector('.nav-dropdown-btn') : null;
-    if (dropdown && dropdownBtn) {
-        dropdownBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            dropdown.classList.toggle('open');
-            dropdownBtn.setAttribute('aria-expanded', dropdown.classList.contains('open'));
-        });
-        document.addEventListener('click', function(e) {
-            if (!dropdown.contains(e.target)) {
-                dropdown.classList.remove('open');
-                dropdownBtn.setAttribute('aria-expanded', 'false');
-            }
-        });
-    }
-
     const levelButtons = document.querySelectorAll('.level-btn');
 
     if (levelButtons.length > 0) {
@@ -135,7 +118,16 @@ document.addEventListener('DOMContentLoaded', function() {
             progress.lastTab = tabId;
             saveCaseProgress(progress);
 
-            // Scroll to top of content
+            if (history.replaceState) {
+                history.replaceState(null, '', '#' + tabId);
+            } else {
+                window.location.hash = tabId;
+            }
+
+            document.querySelectorAll('.case-progress a[data-step]').forEach(function (a) {
+                a.classList.toggle('current', a.getAttribute('data-step') === tabId);
+            });
+
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -176,17 +168,28 @@ document.addEventListener('DOMContentLoaded', function() {
         if (hash && document.getElementById(hash)) {
             switchToTab(hash);
         } else if (progress.lastTab && document.getElementById(progress.lastTab)) {
-            // Restore last viewed tab
             switchToTab(progress.lastTab);
         }
+
+        window.addEventListener('hashchange', function () {
+            var next = window.location.hash.replace('#', '');
+            if (next && document.getElementById(next)) switchToTab(next);
+        });
     }
 
     // Smooth scroll for navigation
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
+            const href = this.getAttribute('href');
+            const id = href && href.length > 1 ? href.slice(1) : '';
+            if (id && typeof window.switchToTab === 'function' && document.getElementById(id) && document.querySelector('.tabbed-content')) {
+                e.preventDefault();
+                window.switchToTab(id);
+                return;
+            }
+            const target = document.querySelector(href);
             if (target) {
+                e.preventDefault();
                 target.scrollIntoView({
                     behavior: 'smooth',
                     block: 'start'
