@@ -502,6 +502,7 @@ padding: 0.75rem 2rem;
     background-color: rgba(255, 255, 255, 0.08);
     border-radius: 12px;
     border: 2px solid rgba(255, 255, 255, 0.15);
+    overflow: visible;
 }
 
 .guiding-question-label {
@@ -520,6 +521,7 @@ padding: 0.75rem 2rem;
     line-height: 1.4;
     margin-bottom: 1.25rem;
     max-width: 100%;
+    overflow-wrap: break-word;
 }
 
 .learn-more-btn {
@@ -560,7 +562,8 @@ padding: 0.75rem 2rem;
 }
 
 .guiding-question-details.expanded {
-    max-height: 300px;
+    max-height: none;
+    overflow: visible;
     opacity: 1;
     margin-top: 1.25rem;
 }
@@ -576,6 +579,7 @@ padding: 0.75rem 2rem;
     border-left: 4px solid var(--accent);
     max-width: 100%;
     text-align: left;
+    overflow-wrap: break-word;
 }
 
 .guiding-question-subtitle {
@@ -583,7 +587,8 @@ padding: 0.75rem 2rem;
     opacity: 0.9;
     line-height: 1.6;
     max-width: 100%;
-    text-align: center;
+    text-align: left;
+    overflow-wrap: break-word;
 }
 
 /* LEARNING PATH */
@@ -761,6 +766,7 @@ padding: 0.75rem 2rem;
     padding: 1rem 1.25rem;
     margin-bottom: 1.25rem;
     text-align: center;
+    overflow-wrap: break-word;
 }
 
 .start-here strong {
@@ -1292,7 +1298,8 @@ footer a {
     left: 0;
     top: calc(100% + 8px);
     z-index: 80;
-    width: min(22rem, 78vw);
+    width: min(22rem, calc(100vw - 2rem));
+    max-width: calc(100vw - 2rem);
     padding: 0.7rem 0.85rem;
     background: #1e293b;
     color: #f8fafc;
@@ -1305,6 +1312,7 @@ footer a {
     text-transform: none;
     border-radius: 8px;
     box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+    overflow-wrap: break-word;
 }
 
 .legal-tip-pop[hidden] {
@@ -1328,6 +1336,8 @@ footer a {
     border-radius: 12px;
     padding: 1rem 1.2rem 1.05rem;
     margin: 0 0 1.25rem;
+    overflow: visible;
+    overflow-wrap: break-word;
 }
 
 .law-box h3 {

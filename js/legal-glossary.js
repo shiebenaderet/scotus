@@ -297,8 +297,38 @@
       if (btn === except) return;
       btn.setAttribute("aria-expanded", "false");
       var pop = btn.querySelector(".legal-tip-pop");
-      if (pop) pop.hidden = true;
+      if (pop) {
+        pop.hidden = true;
+        pop.style.left = "";
+        pop.style.right = "";
+        pop.style.top = "";
+        pop.style.bottom = "";
+      }
     });
+  }
+
+  function keepPopOnScreen(pop) {
+    if (!pop) return;
+    pop.style.left = "0";
+    pop.style.right = "auto";
+    pop.style.top = "calc(100% + 8px)";
+    pop.style.bottom = "auto";
+    var r = pop.getBoundingClientRect();
+    var pad = 8;
+    if (r.right > window.innerWidth - pad) {
+      pop.style.left = "auto";
+      pop.style.right = "0";
+    }
+    r = pop.getBoundingClientRect();
+    if (r.left < pad) {
+      pop.style.left = "0";
+      pop.style.right = "auto";
+    }
+    r = pop.getBoundingClientRect();
+    if (r.bottom > window.innerHeight - pad) {
+      pop.style.top = "auto";
+      pop.style.bottom = "calc(100% + 8px)";
+    }
   }
 
   function onDocClick(e) {
@@ -314,7 +344,10 @@
     if (!open) {
       tip.setAttribute("aria-expanded", "true");
       var pop = tip.querySelector(".legal-tip-pop");
-      if (pop) pop.hidden = false;
+      if (pop) {
+        pop.hidden = false;
+        keepPopOnScreen(pop);
+      }
     }
   }
 

@@ -53,12 +53,10 @@
         <script>
         function toggleQuestionDetails(btn) {
             var details = document.getElementById('question-details');
-            var isExpanded = btn.getAttribute('aria-expanded') === 'true';
-            btn.setAttribute('aria-expanded', !isExpanded);
-            btn.classList.toggle('expanded');
-            details.classList.toggle('expanded');
-            var arrow = btn.querySelector('.arrow');
-            if (arrow) arrow.textContent = isExpanded ? '▼' : '▲';
+            var opening = btn.getAttribute('aria-expanded') !== 'true';
+            btn.setAttribute('aria-expanded', opening ? 'true' : 'false');
+            btn.classList.toggle('expanded', opening);
+            details.classList.toggle('expanded', opening);
         }
         </script>
 
