@@ -1,42 +1,48 @@
 # SCOTUS Debate Project
 
-An interactive educational tool to help 8th-grade students prepare for Supreme Court debates aligned with Washington State's OSPI CBA (Classroom-Based Assessment).
+An interactive site to help 8th-grade students prepare for Supreme Court mock-trial debates aligned with Washington State’s OSPI Constitutional Issues CBA.
 
-**Live Site:** [https://scotus.mrbsocialstudies.org](https://scotus.mrbsocialstudies.org)
+**Live site:** [https://scotus.mrbsocialstudies.org](https://scotus.mrbsocialstudies.org)
 
-## Overview
+## How students should use it
 
-This project provides comprehensive resources for seven landmark Supreme Court cases, each featuring:
-- Background information at two reading levels (Standard and Simplified)
-- Key People sections introducing major figures in each case
-- Case-specific constitutional questions and competing tests (the rule each side wants the Court to adopt)
-- 60-second oral case theory, argument weighing, and hot-bench judge questions
-- Evidence vault with primary excerpts (students decide who can use each source)
-- Case Journeys Prep mode (holding hidden) vs Debrief mode
-- Compare-cases activity for paired nuance (Tinker/Mahanoy, T.L.O./Payton, etc.)
+1. **Background** — Facts, people, the case question, and two competing tests (the rule each side wants).
+2. **Sort & weigh** — Choose which side you would use for each argument (including Both). There is no score. Then rank and steelman.
+3. **Evidence Vault** — Flip primary excerpts. Decide how each side could use them.
+4. **Speak** — The only 60-second oral theory and hot-bench practice. Argue as if this Court has not decided yet.
+5. **Debate Prep** — The written speech: opening, arguments, sources, rebuttals, closing. It recaps Speak; it does not ask for a second theory.
+6. **Classroom debate, then debrief** — Journeys Debrief mode, Compare (debrief), and Review quizzes that mention holdings.
 
-## Cases Covered
+Hide this case’s holding, vote, and opinion quotes until debrief. Earlier precedent and the case record are fair game.
 
-- **Tinker v. Des Moines (1969)** - Student free speech rights
-- **Brown v. Board of Education (1954)** - School desegregation
-- **New Jersey v. T.L.O. (1985)** - Student search and seizure
-- **Payton v. New York (1980)** - Warrantless home arrests
-- **Mahanoy v. B.L. (2021)** - Off-campus student speech
-- **Kennedy v. Bremerton (2022)** - School employee religious expression
-- **Arizona v. United States (2012)** - State vs. federal immigration authority
+**Petitioner / respondent** are legal roles, not “student vs. school.” In *T.L.O.* the State is petitioner. In *Mahanoy* the school is petitioner.
+
+## Cases
+
+- **Tinker v. Des Moines (1969)** — Student speech (armbands)
+- **Mahanoy v. B.L. (2021)** — Off-campus student speech
+- **New Jersey v. T.L.O. (1985)** — School search of a purse
+- **Payton v. New York (1980)** — Warrantless home arrest
+- **Kennedy v. Bremerton (2022)** — Coach prayer (Free Exercise vs. Establishment)
+- **Brown v. Board of Education (1954)** — Equal protection / segregated schools
+- **Arizona v. United States (2012)** — Federalism / immigration preemption
+
+The unit driving question (rights vs. community safety) fits Tinker, T.L.O., Payton, and Mahanoy. Use each case’s own question for Kennedy, Brown, and Arizona.
 
 ## Features
 
-- Reading level toggle for accessibility
-- Interactive argument sorting activities
-- Evidence vault with flip cards showing primary sources
-- Guiding question connections for each case
-- Key People sections with standard and simplified descriptions
-- Progress saving via Firebase authentication
+- Standard and Simplified reading levels (same argument, shorter sentences). The choice is saved in the browser and follows the student.
+- Case Journeys: Prep mode hides the Supreme Court vote; Debrief mode shows it.
+- Compare (debrief): paired cases so students apply tests across facts.
+- Review: vocab anytime; multiple choice, short answer, and Blooket after the debate.
+- Progress autosave on this device; school Google sign-in syncs to an account when available.
+- Teacher guide (staff @edmonds.wednet.edu): [teacher.html](teacher.html)
+
+The website case pages and Evidence Vault are the fact-checked source of truth. Google Docs may lag.
 
 ## Version
 
-Current version: v1.19.0
+Current version: v1.21.0
 
 ## License
 

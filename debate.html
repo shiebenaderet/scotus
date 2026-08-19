@@ -157,6 +157,8 @@
 
         .debate-section { display: none; }
         .debate-section.active { display: block; }
+        #tab-theory, #tab-oral { display: none !important; }
+        #tab-theory, #tab-oral { display: none !important; }
 
         /* BUILDER CARDS */
         .builder-card {
@@ -1232,14 +1234,16 @@
                     <span class="saved-indicator" id="auto-save-indicator">Saved</span>
                 </div>
 
+                <div id="speak-recap" class="alert-info" style="margin-bottom:20px;">
+                    <p><strong>Your 60-second theory lives on the case page Speak tab</strong> — not here. Say it there. This page is the written speech (opening, arguments, sources, rebuttals, closing).</p>
+                    <p><a id="speak-recap-link" href="index.html">Open Speak tab →</a></p>
+                    <div id="debate-tests-box" class="competing-tests"></div>
+                    <ol id="speak-recap-lines" style="margin:12px 0 0 1.2em;"></ol>
+                </div>
                 <div class="debate-tabs">
                     <button class="debate-tab active" onclick="showDebateTab('evidence')">
                         <div>Your Evidence</div>
                         <div class="tab-sub">Review &amp; rank</div>
-                    </button>
-                    <button class="debate-tab" onclick="showDebateTab('theory')">
-                        <div>Case Theory</div>
-                        <div class="tab-sub">60-second rule</div>
                     </button>
                     <button class="debate-tab" onclick="showDebateTab('arguments')">
                         <div>Arguments</div>
@@ -1261,18 +1265,13 @@
                         <div>Rebuttals</div>
                         <div class="tab-sub">Counter the other side</div>
                     </button>
-                    <button class="debate-tab" onclick="showDebateTab('oral')">
-                        <div>Hot Bench</div>
-                        <div class="tab-sub">Practice answering</div>
-                    </button>
                 </div>
 
                 <!-- ========== YOUR EVIDENCE ========== -->
                 <div class="debate-section active" id="tab-evidence"></div>
 
                 <div class="debate-section" id="tab-theory">
-                    <div id="debate-tests-box" class="competing-tests"></div>
-                    <div class="alert-info">Say the six lines out loud first on your case page <strong>Speak</strong> tab. Then write the same theory here so you have a script for class. Argue as if this case is still undecided — do not quote this Court’s holding.</div>
+                    <div class="alert-info">Theory and hot bench live on the Speak tab. This hidden section only keeps older saved drafts.</div>
                     <div class="builder-card">
                         <span class="builder-part-label" style="background:#1d4ed8;">1. Who I represent</span>
                         <textarea class="debate-textarea" id="theory-who" data-field="theory-who" placeholder="Name the client." style="min-height:70px;"></textarea>
@@ -1822,8 +1821,8 @@
         if (hasArgSort) {
             for (var i = 0; i < args.length; i++) {
                 var tSide = codeMap[argSort[i]] || argSort[i];
-                if (tSide === selectedSide) myArgs.push({ index: i, text: args[i] });
-                else if (tSide === otherSideKey) otherArgs.push({ index: i, text: args[i] });
+                if (tSide === selectedSide || tSide === 'BOTH') myArgs.push({ index: i, text: args[i] });
+                if (tSide === otherSideKey || tSide === 'BOTH') otherArgs.push({ index: i, text: args[i] });
             }
             console.log('[DebatePrep] myArgs indices:', myArgs.map(function(a) { return a.index; }));
             console.log('[DebatePrep] otherArgs indices:', otherArgs.map(function(a) { return a.index; }));
@@ -1885,11 +1884,39 @@
         if (caseInfoFloat) caseInfoFloat.classList.remove('visible');
     }
 
+    function renderSpeakRecap() {
+        var c = debateCases[selectedCase];
+        if (!c) return;
+        var link = document.getElementById('speak-recap-link');
+        if (link) link.href = 'cases/' + c.prepId + '.html#speak';
+        var speak = {};
+        try { speak = JSON.parse(localStorage.getItem('scotus-prep-' + c.prepId + '-speak') || '{}'); } catch (e) {}
+        var fields = [
+            ['Who I represent', speak.who],
+            ['What happened', speak.facts],
+            ['The question', speak.question],
+            ['The clause', speak.clause],
+            ['Our rule', speak.rule],
+            ['Why their rule is dangerous', speak.danger]
+        ];
+        var filled = fields.filter(function(pair) { return pair[1] && String(pair[1]).trim(); });
+        var ol = document.getElementById('speak-recap-lines');
+        if (!ol) return;
+        if (!filled.length) {
+            ol.innerHTML = '<li>No theory saved yet. Open Speak, say the six lines, then come back — they will show here.</li>';
+            return;
+        }
+        ol.innerHTML = filled.map(function(pair) {
+            return '<li><strong>' + pair[0] + ':</strong> ' + pair[1].replace(/</g,'&lt;') + '</li>';
+        }).join('');
+    }
+
     function fillDebatePrepPanels(c) {
         var prep = (typeof CASE_PREP_DATA !== 'undefined' && c.prepId) ? CASE_PREP_DATA[c.prepId] : null;
         var box = document.getElementById('debate-tests-box');
         var sampleList = document.getElementById('debate-theory-sample-list');
         var bench = document.getElementById('debate-hot-bench');
+        renderSpeakRecap();
         if (!prep) {
             if (box) box.innerHTML = '';
             if (bench) bench.innerHTML = '<p>Open your case page Speak tab for judge questions.</p>';
@@ -1941,7 +1968,7 @@
     // TAB NAVIGATION
     // ==========================================
     function showDebateTab(tabName) {
-        var tabs = ['evidence', 'theory', 'arguments', 'opening', 'sources', 'closing', 'rebuttals', 'oral'];
+        var tabs = ['evidence', 'arguments', 'opening', 'sources', 'closing', 'rebuttals'];
 
         // Show helpful tips (non-blocking) if earlier sections aren't complete
         if (tabName === 'opening') {

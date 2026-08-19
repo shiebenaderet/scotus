@@ -1,6 +1,7 @@
 // Shared header, footer, save status, and keyboard behavior for every page.
 (function () {
-    var VERSION = 'v1.20.0';
+    var VERSION = 'v1.21.0';
+    var READING_KEY = 'scotus-reading-level';
 
     function relPrefix() {
         return window.location.pathname.indexOf('/cases/') !== -1 ? '../' : '';
@@ -142,6 +143,47 @@
         main.insertBefore(p, main.firstChild);
     }
 
+    function getReadingLevel() {
+        try {
+            var v = localStorage.getItem(READING_KEY);
+            if (v === 'simplified' || v === 'standard') return v;
+        } catch (e) {}
+        return 'standard';
+    }
+
+    function applyReadingLevel(level, persist) {
+        if (level !== 'simplified') level = 'standard';
+        if (persist !== false) {
+            try { localStorage.setItem(READING_KEY, level); } catch (e) {}
+        }
+        document.querySelectorAll('.level-btn').forEach(function (btn) {
+            var on = btn.getAttribute('data-level') === level;
+            btn.classList.toggle('active', on);
+            btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+        });
+        document.querySelectorAll('.content-block, .two-sides-summary').forEach(function (block) {
+            var match = block.classList.contains(level);
+            block.classList.toggle('hidden', !match);
+            block.classList.toggle('active', match);
+        });
+        document.body.classList.toggle('reading-simplified', level === 'simplified');
+        document.dispatchEvent(new CustomEvent('scotus:reading-level', { detail: level }));
+    }
+
+    function initReadingLevel() {
+        document.querySelectorAll('.level-btn').forEach(function (btn) {
+            if (btn.getAttribute('data-chrome-level') === '1') return;
+            btn.setAttribute('data-chrome-level', '1');
+            btn.addEventListener('click', function () {
+                applyReadingLevel(btn.getAttribute('data-level'), true);
+            });
+        });
+        applyReadingLevel(getReadingLevel(), false);
+    }
+
+    window.getReadingLevel = getReadingLevel;
+    window.applyReadingLevel = applyReadingLevel;
+
     function init() {
         initHamburger();
         initDropdowns();
@@ -150,6 +192,7 @@
         unifyFooter();
         ensureSaveChip();
         addSaveHint();
+        initReadingLevel();
     }
 
     if (document.readyState === 'loading') {
