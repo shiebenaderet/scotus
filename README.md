@@ -43,7 +43,7 @@ The website case pages and Evidence Vault are the fact-checked source of truth. 
 
 ## Version
 
-Current version: v1.22.1
+Current version: v1.22.2
 
 ## License
 

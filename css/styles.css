@@ -1305,7 +1305,9 @@ footer a {
     max-width: calc(100vw - 2rem);
     padding: 0.7rem 0.85rem;
     background: #1e293b;
+    background-color: #1e293b;
     color: #f8fafc;
+    -webkit-text-fill-color: #f8fafc;
     font-size: 0.86rem;
     line-height: 1.45;
     font-weight: 400;
@@ -1316,6 +1318,7 @@ footer a {
     border-radius: 8px;
     box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
     overflow-wrap: break-word;
+    color-scheme: dark;
 }
 
 .legal-tip-pop[hidden] {
@@ -1516,6 +1519,17 @@ footer a {
 .law-glossary-list dd .content-block {
     display: block;
     margin: 0;
+    padding: 0;
+    background: transparent;
+    background-color: transparent;
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+}
+
+.legal-tip-pop .content-block {
+    color: #f8fafc;
+    -webkit-text-fill-color: #f8fafc;
 }
 
 .legal-tip-pop .content-block.hidden,
