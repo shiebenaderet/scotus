@@ -31,7 +31,7 @@ The unit driving question (rights vs. community safety) fits Tinker, T.L.O., Pay
 
 ## Features
 
-- Know the law: a clause-and-issue box on every case (Standard paragraph or Simplified step-by-step), clickable term tips, and a Law words glossary. All of it follows the reading-level toggle and does not reveal holdings.
+- Know the law: a clause-and-issue box on every case (Standard paragraph or Simplified step-by-step), tap-to-open term tips that stay on screen, and a Law words glossary. All of it follows the reading-level toggle and does not reveal holdings.
 - Standard and Simplified reading levels (same argument, shorter sentences). The choice is saved in the browser and follows the student.
 - Case Journeys: Prep mode hides the Supreme Court vote; Debrief mode shows it.
 - Compare (debrief): paired cases so students apply tests across facts.
@@ -43,7 +43,7 @@ The website case pages and Evidence Vault are the fact-checked source of truth. 
 
 ## Version
 
-Current version: v1.22.0
+Current version: v1.22.1
 
 ## License
 

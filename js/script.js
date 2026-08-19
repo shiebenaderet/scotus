@@ -5,9 +5,6 @@ function isTeacher(user) {
 
 // Global vault unlock function (will be set up after DOM loads)
 var globalUnlockVault = null;
-// Collected setHeight functions for flip cards (called after vault unlock)
-var flipCardHeightFns = [];
-
 document.addEventListener('DOMContentLoaded', function() {
     // Reading level is handled in site-chrome.js and persists across pages.
 
@@ -97,6 +94,16 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            if (tabId === 'evidence-vault') {
+                requestAnimationFrame(function () {
+                    requestAnimationFrame(function () {
+                        if (typeof window.syncFlipCardHeights === 'function') {
+                            window.syncFlipCardHeights();
+                        }
+                    });
+                });
+            }
         }
 
         // Mark current section as complete
@@ -183,30 +190,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Guiding Question Expand/Collapse
-    const learnMoreBtn = document.querySelector('.learn-more-btn');
-    const questionDetails = document.getElementById('question-details');
-
-    if (learnMoreBtn && questionDetails) {
-        learnMoreBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            const isExpanded = this.getAttribute('aria-expanded') === 'true';
-
-            // Toggle state
-            this.setAttribute('aria-expanded', String(!isExpanded));
-            this.classList.toggle('expanded');
-            questionDetails.classList.toggle('expanded');
-
-            // Update button text
-            const arrow = this.querySelector('.arrow');
-            if (arrow) {
-                arrow.textContent = isExpanded ? '▼' : '▲';
-            }
-        });
-    }
-
     // Evidence Vault unlock logic (independent of sorting table)
     const pagePath = window.location.pathname;
     const pageFile = pagePath.substring(pagePath.lastIndexOf('/') + 1).replace('.html', '');
@@ -221,7 +204,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (vaultNavLink) vaultNavLink.classList.add('unlocked');
         // Recalculate flip card heights now that vault is visible
         setTimeout(function() {
-            flipCardHeightFns.forEach(function(fn) { fn(); });
+            if (typeof window.syncFlipCardHeights === 'function') window.syncFlipCardHeights();
         }, 50);
     }
 
@@ -402,32 +385,32 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Flip-card height matching: set container height to taller of front/back
-    document.querySelectorAll('.source-flip-card').forEach(function(card) {
-        var inner = card.querySelector('.source-flip-inner');
-        var front = card.querySelector('.source-front');
-        var back = card.querySelector('.source-back');
-        if (!inner || !front || !back) return;
-
-        function setHeight() {
-            // Skip if vault is hidden — heights will be 0
-            if (vaultContent && !vaultContent.classList.contains('unlocked')) return;
-            // Temporarily make both visible to measure
+    // Flip-card height matching: set container height to taller of front/back.
+    // Must re-run when the vault tab becomes visible — hidden tabs measure as 0.
+    function syncFlipCardHeights() {
+        document.querySelectorAll('.source-flip-card').forEach(function(card) {
+            var inner = card.querySelector('.source-flip-inner');
+            var front = card.querySelector('.source-front');
+            var back = card.querySelector('.source-back');
+            if (!inner || !front || !back) return;
+            if (card.offsetWidth === 0) return;
             inner.style.height = 'auto';
             front.style.position = 'relative';
             back.style.position = 'relative';
             back.style.transform = 'none';
-            var h = Math.max(front.offsetHeight, back.offsetHeight);
+            var h = Math.max(front.offsetHeight, back.offsetHeight, 220);
             front.style.position = '';
             back.style.position = '';
             back.style.transform = '';
-            inner.style.height = h + 'px';
-            card.style.minHeight = h + 'px';
-        }
-        flipCardHeightFns.push(setHeight);
-        setHeight();
-        window.addEventListener('resize', setHeight);
-    });
+            if (h > 0) {
+                inner.style.height = h + 'px';
+                card.style.minHeight = h + 'px';
+            }
+        });
+    }
+    window.syncFlipCardHeights = syncFlipCardHeights;
+    syncFlipCardHeights();
+    window.addEventListener('resize', syncFlipCardHeights);
 
     // ================================================
     // SOURCE CARD STARRING — Save sources to evidence collection

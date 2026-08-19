@@ -558,13 +558,12 @@
             background: #f0f4ff;
         }
 
-        /* Tooltip showing description on hover */
+        /* Tooltip — JS pins it with position:fixed so top-row chips are not clipped */
         .amend-btn .amend-tooltip {
             display: none;
-            position: absolute;
-            bottom: calc(100% + 8px);
-            left: 50%;
-            transform: translateX(-50%);
+            position: fixed;
+            left: 0;
+            top: 0;
             background: var(--primary-dark);
             color: #fff;
             padding: 8px 12px;
@@ -572,25 +571,41 @@
             font-size: 0.8em;
             line-height: 1.4;
             white-space: normal;
-            width: 240px;
+            width: min(240px, calc(100vw - 2rem));
             text-align: left;
-            z-index: 20;
+            z-index: 4000;
             box-shadow: 0 4px 12px rgba(0,0,0,0.2);
             pointer-events: none;
+            overflow-wrap: break-word;
+        }
+
+        .amend-btn .amend-tooltip.is-open {
+            display: block;
         }
 
         .amend-btn .amend-tooltip::after {
             content: '';
             position: absolute;
-            top: 100%;
-            left: 50%;
+            left: var(--arrow-left, 50%);
+            top: -6px;
             transform: translateX(-50%);
             border: 6px solid transparent;
-            border-top-color: var(--primary-dark);
+            border-bottom-color: var(--primary-dark);
+            border-top-width: 0;
         }
 
-        .amend-btn:hover .amend-tooltip {
-            display: block;
+        .amend-btn .amend-tooltip.scotus-pop--above::after {
+            top: auto;
+            bottom: -6px;
+            border-bottom-color: transparent;
+            border-top-color: var(--primary-dark);
+            border-top-width: 6px;
+            border-bottom-width: 0;
+        }
+
+        .amend-btn:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
         }
 
         /* Drawer for viewing placed items */
@@ -972,10 +987,15 @@
             border-radius: 16px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
             padding: 30px;
             text-align: center;
+            overflow-y: auto;
+            overflow-wrap: break-word;
+            word-break: break-word;
+            -webkit-overflow-scrolling: touch;
+            box-sizing: border-box;
         }
 
         .flashcard-front {
@@ -988,6 +1008,7 @@
         .flashcard-front h3 {
             font-size: 1.6em;
             margin-bottom: 10px;
+            margin-top: auto;
         }
 
         .flashcard-back {
@@ -1001,6 +1022,8 @@
             font-size: 1.15em;
             line-height: 1.6;
             color: var(--text-dark);
+            margin-top: auto;
+            margin-bottom: auto;
         }
 
         .flashcard-back .card-label {
@@ -1306,7 +1329,7 @@
                     <ol id="comp-gate-steps">
                         <li><strong>Pick a right</strong> from the "Rights &amp; Protections" list below.</li>
                         <li>The amendment chips will start <strong>pulsing</strong> — click the <strong>amendment</strong> it belongs to.</li>
-                        <li><strong>Hover</strong> over any chip to read what that amendment protects.</li>
+                        <li><strong>Tap or hover</strong> any chip to read what that amendment protects. The drawer under the chips also shows the description.</li>
                         <li>Click a chip anytime to open its drawer and <strong>review or remove</strong> what you've placed.</li>
                         <li>When you've matched them all, hit <strong>Check Answers</strong>.</li>
                     </ol>
@@ -2527,16 +2550,16 @@
             // Update gate step text for round context
             const stepsEl = document.getElementById('comp-gate-steps');
             if (currentMatchRound === 1) {
-                stepsEl.innerHTML = '<li><strong>Pick a right</strong> from the "Rights &amp; Protections" list below — each amendment gets <strong>one</strong> core right.</li><li>The amendment chips will start <strong>pulsing</strong> — click the <strong>amendment</strong> it belongs to.</li><li><strong>Hover</strong> over any chip to read what that amendment protects.</li><li>Click a chip anytime to open its drawer and <strong>review or remove</strong> what you\'ve placed.</li><li>When you\'ve matched them all, hit <strong>Check Answers</strong>.</li>';
+                stepsEl.innerHTML = '<li><strong>Pick a right</strong> from the "Rights &amp; Protections" list below — each amendment gets <strong>one</strong> core right.</li><li>The amendment chips will start <strong>pulsing</strong> — click the <strong>amendment</strong> it belongs to.</li><li><strong>Tap or hover</strong> any chip to read what that amendment protects. The drawer under the chips also shows the description.</li><li>Click a chip anytime to open its drawer and <strong>review or remove</strong> what you\'ve placed.</li><li>When you\'ve matched them all, hit <strong>Check Answers</strong>.</li>';
             } else {
-                stepsEl.innerHTML = '<li><strong>Pick a right</strong> from the list below — now some amendments get <strong>multiple</strong> rights!</li><li>The amendment chips will start <strong>pulsing</strong> — click the <strong>amendment</strong> it belongs to.</li><li><strong>Hover</strong> over any chip to read what that amendment protects.</li><li>Click a chip anytime to open its drawer and <strong>review or remove</strong> what you\'ve placed.</li><li>When you\'ve matched them all, hit <strong>Check Answers</strong>.</li>';
+                stepsEl.innerHTML = '<li><strong>Pick a right</strong> from the list below — now some amendments get <strong>multiple</strong> rights!</li><li>The amendment chips will start <strong>pulsing</strong> — click the <strong>amendment</strong> it belongs to.</li><li><strong>Tap or hover</strong> any chip to read what that amendment protects. The drawer under the chips also shows the description.</li><li>Click a chip anytime to open its drawer and <strong>review or remove</strong> what you\'ve placed.</li><li>When you\'ve matched them all, hit <strong>Check Answers</strong>.</li>';
             }
         }
 
         // Update the short in-activity reminder
         const reminderEl = document.getElementById('match-round-reminder');
         if (currentMatchRound === 1) {
-            reminderEl.innerHTML = '<strong>Reminder:</strong> Click a <b>right</b> first, then click the <b>amendment</b> it belongs to. Hover chips for descriptions.';
+            reminderEl.innerHTML = '<strong>Reminder:</strong> Click a <b>right</b> first, then click the <b>amendment</b> it belongs to. Tap a chip (or hover on a computer) for its description.';
         } else {
             reminderEl.innerHTML = '<strong>Reminder:</strong> Click a <b>right</b> first, then click the <b>amendment</b>. Some amendments get <b>multiple</b> rights this round!';
         }
@@ -2588,13 +2611,54 @@
         document.getElementById('match-round-feedback').innerHTML = '';
     }
 
+    function finePointerHover() {
+        return window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    }
+
+    function hideAmendTips() {
+        document.querySelectorAll('.amend-tooltip').forEach(function (tip) {
+            tip.classList.remove('is-open');
+            tip.hidden = true;
+        });
+    }
+
+    function showAmendTip(el) {
+        hideAmendTips();
+        const tip = el.querySelector('.amend-tooltip');
+        if (!tip) return;
+        tip.hidden = false;
+        tip.classList.add('is-open');
+        tip.style.visibility = 'hidden';
+        if (typeof window.scotusPlacePopover === 'function') {
+            requestAnimationFrame(function () { window.scotusPlacePopover(el, tip); });
+        }
+    }
+
     function createAmendChip(a) {
         const el = document.createElement('div');
         el.className = 'amend-btn';
         el.dataset.amendId = a.id;
+        el.tabIndex = 0;
+        el.setAttribute('role', 'button');
+        el.setAttribute('aria-label', a.name);
         const shortName = a.name.replace(' Amendment', '');
-        el.innerHTML = `<span class="amend-name">${shortName}</span><span class="amend-count" style="display:none;" id="count-${a.id}">0</span><div class="amend-tooltip"><strong>${a.name}</strong><br>${a.description}</div>`;
+        el.innerHTML = `<span class="amend-name">${shortName}</span><span class="amend-count" style="display:none;" id="count-${a.id}">0</span><div class="amend-tooltip" hidden><strong>${a.name}</strong><br>${a.description}</div>`;
+        el.addEventListener('pointerenter', function () {
+            if (finePointerHover()) showAmendTip(el);
+        });
+        el.addEventListener('pointerleave', hideAmendTips);
+        el.addEventListener('focus', function () {
+            if (el.matches(':focus-visible')) showAmendTip(el);
+        });
+        el.addEventListener('blur', hideAmendTips);
+        el.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                el.click();
+            }
+        });
         el.addEventListener('click', (e) => {
+            hideAmendTips();
             if (selectedItem) {
                 assignToAmendment(a.id);
             } else {

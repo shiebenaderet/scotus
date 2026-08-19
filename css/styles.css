@@ -1268,8 +1268,9 @@ footer a {
    ============================================================ */
 
 .legal-tip {
-    display: inline;
+    display: inline-block;
     position: relative;
+    max-width: 100%;
     padding: 0;
     margin: 0;
     border: 0;
@@ -1280,6 +1281,8 @@ footer a {
     border-radius: 0;
     text-align: inherit;
     line-height: inherit;
+    overflow: visible;
+    vertical-align: baseline;
 }
 
 .legal-tip-word {
@@ -1294,10 +1297,10 @@ footer a {
 
 .legal-tip-pop {
     display: block;
-    position: absolute;
+    position: fixed;
     left: 0;
-    top: calc(100% + 8px);
-    z-index: 80;
+    top: 0;
+    z-index: 4000;
     width: min(22rem, calc(100vw - 2rem));
     max-width: calc(100vw - 2rem);
     padding: 0.7rem 0.85rem;
@@ -1322,11 +1325,21 @@ footer a {
 .legal-tip-pop::before {
     content: "";
     position: absolute;
-    left: 12px;
+    left: var(--arrow-left, 12px);
     top: -6px;
+    transform: translateX(-50%);
     border: 6px solid transparent;
     border-bottom-color: #1e293b;
     border-top-width: 0;
+}
+
+.legal-tip-pop.scotus-pop--above::before {
+    top: auto;
+    bottom: -6px;
+    border-bottom-color: transparent;
+    border-top-color: #1e293b;
+    border-top-width: 6px;
+    border-bottom-width: 0;
 }
 
 .law-box {

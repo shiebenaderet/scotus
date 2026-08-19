@@ -292,6 +292,20 @@
     });
   }
 
+  function resetPopStyle(pop) {
+    if (!pop) return;
+    pop.style.left = "";
+    pop.style.right = "";
+    pop.style.top = "";
+    pop.style.bottom = "";
+    pop.style.maxHeight = "";
+    pop.style.overflowY = "";
+    pop.style.visibility = "";
+    pop.style.transform = "";
+    pop.classList.remove("scotus-pop--above");
+    pop.style.removeProperty("--arrow-left");
+  }
+
   function closeAll(except) {
     document.querySelectorAll(".legal-tip").forEach(function (btn) {
       if (btn === except) return;
@@ -299,39 +313,89 @@
       var pop = btn.querySelector(".legal-tip-pop");
       if (pop) {
         pop.hidden = true;
-        pop.style.left = "";
-        pop.style.right = "";
-        pop.style.top = "";
-        pop.style.bottom = "";
+        resetPopStyle(pop);
       }
     });
   }
 
-  function keepPopOnScreen(pop) {
-    if (!pop) return;
-    pop.style.left = "0";
+  /**
+   * Pin a popover to the viewport so overflow:hidden ancestors (vault cards,
+   * collapsed panels, nav) cannot clip it. Prefer below the trigger; flip
+   * above or scroll inside the pop if there is not enough room.
+   */
+  function placePopover(anchor, pop) {
+    if (!anchor || !pop) return;
+    pop.style.position = "fixed";
     pop.style.right = "auto";
-    pop.style.top = "calc(100% + 8px)";
     pop.style.bottom = "auto";
-    var r = pop.getBoundingClientRect();
+    pop.style.transform = "none";
+    pop.style.left = "0px";
+    pop.style.top = "0px";
+    pop.style.maxHeight = "";
+    pop.style.overflowY = "";
+    pop.style.visibility = "hidden";
+    pop.classList.remove("scotus-pop--above");
+
     var pad = 8;
-    if (r.right > window.innerWidth - pad) {
-      pop.style.left = "auto";
-      pop.style.right = "0";
+    var gap = 8;
+    var ar = anchor.getBoundingClientRect();
+    var pr = pop.getBoundingClientRect();
+    var width = pr.width || Math.min(352, window.innerWidth - pad * 2);
+    var height = pr.height || 0;
+
+    var left = ar.left;
+    if (left + width > window.innerWidth - pad) {
+      left = window.innerWidth - pad - width;
     }
-    r = pop.getBoundingClientRect();
-    if (r.left < pad) {
-      pop.style.left = "0";
-      pop.style.right = "auto";
+    if (left < pad) left = pad;
+
+    var belowTop = ar.bottom + gap;
+    var roomBelow = window.innerHeight - pad - belowTop;
+    var roomAbove = ar.top - gap - pad;
+    var above = false;
+    var top;
+
+    if (height <= roomBelow || roomBelow >= roomAbove) {
+      top = belowTop;
+      if (height > roomBelow) {
+        pop.style.maxHeight = Math.max(96, roomBelow) + "px";
+        pop.style.overflowY = "auto";
+      }
+    } else {
+      above = true;
+      if (height > roomAbove) {
+        pop.style.maxHeight = Math.max(96, roomAbove) + "px";
+        pop.style.overflowY = "auto";
+        top = pad;
+      } else {
+        top = ar.top - gap - height;
+      }
     }
-    r = pop.getBoundingClientRect();
-    if (r.bottom > window.innerHeight - pad) {
-      pop.style.top = "auto";
-      pop.style.bottom = "calc(100% + 8px)";
-    }
+
+    pop.style.left = Math.round(left) + "px";
+    pop.style.top = Math.round(top) + "px";
+    if (above) pop.classList.add("scotus-pop--above");
+    var arrow = ar.left + ar.width / 2 - left;
+    pop.style.setProperty("--arrow-left", Math.round(Math.max(12, Math.min(width - 12, arrow))) + "px");
+    pop.style.visibility = "";
+  }
+
+  function showTip(tip) {
+    tip.setAttribute("aria-expanded", "true");
+    var pop = tip.querySelector(".legal-tip-pop");
+    if (!pop) return;
+    pop.hidden = false;
+    pop.style.visibility = "hidden";
+    requestAnimationFrame(function () {
+      placePopover(tip, pop);
+    });
   }
 
   function onDocClick(e) {
+    if (e.target.closest && e.target.closest(".legal-tip-pop")) {
+      e.stopPropagation();
+      return;
+    }
     var tip = e.target.closest && e.target.closest(".legal-tip");
     if (!tip) {
       closeAll(null);
@@ -341,15 +405,32 @@
     e.stopPropagation();
     var open = tip.getAttribute("aria-expanded") === "true";
     closeAll(null);
-    if (!open) {
-      tip.setAttribute("aria-expanded", "true");
-      var pop = tip.querySelector(".legal-tip-pop");
-      if (pop) {
-        pop.hidden = false;
-        keepPopOnScreen(pop);
-      }
+    if (!open) showTip(tip);
+  }
+
+  function onScrollOrResize(e) {
+    var open = document.querySelector('.legal-tip[aria-expanded="true"]');
+    var openAmend = document.querySelector(".amend-tooltip.is-open");
+    if (e.type === "scroll") {
+      var t = e.target;
+      if (t && t.closest && t.closest(".legal-tip-pop, .amend-tooltip")) return;
+      closeAll(null);
+      document.querySelectorAll(".amend-tooltip.is-open").forEach(function (tip) {
+        tip.classList.remove("is-open");
+        tip.hidden = true;
+      });
+      return;
+    }
+    if (open) {
+      var pop = open.querySelector(".legal-tip-pop");
+      if (pop && !pop.hidden) placePopover(open, pop);
+    }
+    if (openAmend && openAmend.parentElement && typeof placePopover === "function") {
+      placePopover(openAmend.parentElement, openAmend);
     }
   }
+
+  window.scotusPlacePopover = placePopover;
 
   function renderResourcesLaw() {
     var list = document.getElementById("law-glossary-list");
@@ -417,8 +498,16 @@
 
   document.addEventListener("click", onDocClick);
   document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape") closeAll(null);
+    if (e.key === "Escape") {
+      closeAll(null);
+      document.querySelectorAll(".amend-tooltip.is-open").forEach(function (tip) {
+        tip.classList.remove("is-open");
+        tip.hidden = true;
+      });
+    }
   });
+  window.addEventListener("scroll", onScrollOrResize, true);
+  window.addEventListener("resize", onScrollOrResize);
   document.addEventListener("scotus:reading-level", function () {
     ["background", "speak", "activity", "today", "speak-recap", "law-words"].forEach(function (id) {
       var n = document.getElementById(id);
@@ -426,6 +515,15 @@
       n.removeAttribute("data-legal-enhanced");
       enhance(n);
     });
+    var open = document.querySelector('.legal-tip[aria-expanded="true"]');
+    if (open) {
+      var pop = open.querySelector(".legal-tip-pop");
+      if (pop && !pop.hidden) {
+        requestAnimationFrame(function () {
+          placePopover(open, pop);
+        });
+      }
+    }
   });
 
   function syncReadingLevel() {

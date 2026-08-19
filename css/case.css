@@ -1478,6 +1478,7 @@ a:hover {
 
 /* Collapsible body */
 .esort-collapsible {
+    max-height: none;
     overflow: visible;
     opacity: 1;
     transition: max-height 0.4s ease, opacity 0.3s ease;
@@ -2494,6 +2495,7 @@ a:hover {
     padding: 0.85rem 1rem;
     margin: 0.5rem 0 1.25rem;
     font-size: 0.9rem;
+    overflow: visible;
 }
 
 .theory-sample summary {
