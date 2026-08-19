@@ -2708,3 +2708,22 @@ a:hover {
 .source-citation {
     color: #3d3d3d;
 }
+
+/* Term tips: never inherit the white .content-block card (iOS contrast) */
+.legal-tip-pop {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    color: #1a1a2e !important;
+    -webkit-text-fill-color: #1a1a2e !important;
+    border: 2px solid #1a1a2e;
+}
+.legal-tip-copy {
+    background: transparent !important;
+    color: inherit !important;
+    -webkit-text-fill-color: inherit !important;
+    box-shadow: none !important;
+}
+.legal-tip-copy.hidden {
+    display: none !important;
+}
+

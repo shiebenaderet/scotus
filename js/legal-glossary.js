@@ -221,9 +221,9 @@
   function popInnerHtml(t) {
     var simple = t.simple || t.meaning;
     return (
-      '<span class="content-block standard">' +
+      '<span class="legal-tip-copy standard">' +
       escapeHtml(t.meaning) +
-      '</span><span class="content-block simplified">' +
+      '</span><span class="legal-tip-copy simplified">' +
       escapeHtml(simple) +
       "</span>"
     );
@@ -306,14 +306,35 @@
     pop.style.removeProperty("--arrow-left");
   }
 
+  function getPop(tip) {
+    return tip && (tip._scotusPop || tip.querySelector(".legal-tip-pop"));
+  }
+
+  function parkPop(tip, pop) {
+    if (!tip || !pop) return;
+    tip._scotusPop = pop;
+    pop._scotusTip = tip;
+    if (pop.parentNode !== document.body) {
+      document.body.appendChild(pop);
+    }
+  }
+
+  function returnPop(tip, pop) {
+    if (!tip || !pop) return;
+    if (pop.parentNode !== tip) {
+      tip.appendChild(pop);
+    }
+  }
+
   function closeAll(except) {
     document.querySelectorAll(".legal-tip").forEach(function (btn) {
       if (btn === except) return;
       btn.setAttribute("aria-expanded", "false");
-      var pop = btn.querySelector(".legal-tip-pop");
+      var pop = getPop(btn);
       if (pop) {
         pop.hidden = true;
         resetPopStyle(pop);
+        returnPop(btn, pop);
       }
     });
   }
@@ -382,8 +403,9 @@
 
   function showTip(tip) {
     tip.setAttribute("aria-expanded", "true");
-    var pop = tip.querySelector(".legal-tip-pop");
+    var pop = getPop(tip);
     if (!pop) return;
+    parkPop(tip, pop);
     pop.hidden = false;
     pop.style.visibility = "hidden";
     requestAnimationFrame(function () {
@@ -422,7 +444,7 @@
       return;
     }
     if (open) {
-      var pop = open.querySelector(".legal-tip-pop");
+      var pop = getPop(open);
       if (pop && !pop.hidden) placePopover(open, pop);
     }
     if (openAmend && openAmend.parentElement && typeof placePopover === "function") {
@@ -509,21 +531,13 @@
   window.addEventListener("scroll", onScrollOrResize, true);
   window.addEventListener("resize", onScrollOrResize);
   document.addEventListener("scotus:reading-level", function () {
+    closeAll(null);
     ["background", "speak", "activity", "today", "speak-recap", "law-words"].forEach(function (id) {
       var n = document.getElementById(id);
       if (!n) return;
       n.removeAttribute("data-legal-enhanced");
       enhance(n);
     });
-    var open = document.querySelector('.legal-tip[aria-expanded="true"]');
-    if (open) {
-      var pop = open.querySelector(".legal-tip-pop");
-      if (pop && !pop.hidden) {
-        requestAnimationFrame(function () {
-          placePopover(open, pop);
-        });
-      }
-    }
   });
 
   function syncReadingLevel() {

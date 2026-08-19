@@ -1,6 +1,6 @@
 // Shared header, footer, save status, and keyboard behavior for every page.
 (function () {
-    var VERSION = 'v1.22.2';
+    var VERSION = 'v1.22.3';
     var READING_KEY = 'scotus-reading-level';
 
     function relPrefix() {
@@ -176,7 +176,7 @@
             btn.classList.toggle('active', on);
             btn.setAttribute('aria-pressed', on ? 'true' : 'false');
         });
-        document.querySelectorAll('.content-block, .two-sides-summary').forEach(function (block) {
+        document.querySelectorAll('.content-block, .two-sides-summary, .legal-tip-copy').forEach(function (block) {
             var match = block.classList.contains(level);
             block.classList.toggle('hidden', !match);
             block.classList.toggle('active', match);

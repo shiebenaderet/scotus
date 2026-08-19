@@ -75,8 +75,8 @@
         return '<button type="button" class="legal-tip law-term-chip" aria-expanded="false">' +
             '<span class="legal-tip-word">' + escapeHtml(t.term) + '</span>' +
             '<span class="legal-tip-pop" hidden>' +
-                '<span class="content-block standard">' + escapeHtml(t.meaning) + '</span>' +
-                '<span class="content-block simplified">' + escapeHtml(simple) + '</span>' +
+                '<span class="legal-tip-copy standard">' + escapeHtml(t.meaning) + '</span>' +
+                '<span class="legal-tip-copy simplified">' + escapeHtml(simple) + '</span>' +
             '</span></button>';
     }
 
