@@ -1467,3 +1467,39 @@ footer a {
         grid-template-columns: 1fr;
     }
 }
+
+.case-question-box .driving-frame {
+    margin: 0.75rem 0 0;
+    font-size: 0.92rem;
+    line-height: 1.55;
+}
+
+.law-steps {
+    margin: 0 0 0.35rem;
+    padding-left: 1.2rem;
+}
+
+.law-steps li {
+    margin: 0.45rem 0;
+    font-size: 0.94rem;
+    line-height: 1.5;
+}
+
+.law-steps li strong {
+    color: #2d4a2b;
+}
+
+.legal-tip-pop .content-block,
+.law-glossary-list dd .content-block {
+    display: block;
+    margin: 0;
+}
+
+.legal-tip-pop .content-block.hidden,
+.law-glossary-list dd .content-block.hidden,
+.law-box .content-block.hidden,
+.competing-tests .content-block.hidden,
+.case-question-box .content-block.hidden {
+    display: none;
+}
+

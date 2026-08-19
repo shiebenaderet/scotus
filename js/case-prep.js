@@ -59,25 +59,64 @@
         return window.location.pathname.indexOf('/cases/') !== -1 ? '../' : '';
     }
 
+    function currentLevel() {
+        return (typeof window.getReadingLevel === 'function' && window.getReadingLevel() === 'simplified')
+            ? 'simplified' : 'standard';
+    }
+
+    function levelPair(stdInner, simpInner) {
+        var simp = currentLevel() === 'simplified';
+        return '<div class="content-block standard' + (simp ? ' hidden' : ' active') + '">' + stdInner + '</div>' +
+            '<div class="content-block simplified' + (simp ? ' active' : ' hidden') + '">' + simpInner + '</div>';
+    }
+
+    function termChipHtml(t) {
+        var simple = t.simple || t.meaning;
+        return '<button type="button" class="legal-tip law-term-chip" aria-expanded="false">' +
+            '<span class="legal-tip-word">' + escapeHtml(t.term) + '</span>' +
+            '<span class="legal-tip-pop" hidden>' +
+                '<span class="content-block standard">' + escapeHtml(t.meaning) + '</span>' +
+                '<span class="content-block simplified">' + escapeHtml(simple) + '</span>' +
+            '</span></button>';
+    }
+
+    function lawStepsHtml(law) {
+        var steps = law.steps || [];
+        if (!steps.length) {
+            return '<p class="law-plain">' + escapeHtml(law.plain) + '</p>';
+        }
+        return '<ol class="law-steps">' + steps.map(function (s) {
+            return '<li><strong>' + escapeHtml(s.label) + '</strong> ' + escapeHtml(s.text) + '</li>';
+        }).join('') + '</ol>';
+    }
+
     function lawBoxHtml(data, opts) {
         opts = opts || {};
         if (!data || !data.law) return '';
-        var terms = (data.law.terms || []).map(function (t) {
-            return '<button type="button" class="legal-tip law-term-chip" aria-expanded="false">' +
-                '<span class="legal-tip-word">' + escapeHtml(t.term) + '</span>' +
-                '<span class="legal-tip-pop" hidden>' + escapeHtml(t.meaning) + '</span></button>';
-        }).join('');
+        var law = data.law;
+        var chips = (law.terms || []).map(termChipHtml).join('');
         var more = opts.compact
             ? ''
             : '<p class="law-box-more">Dotted words on this page are clickable. Full glossary: <a href="' + relPrefix() + 'resources.html#law-words">Law words</a>.</p>';
+        var stdBody = '<p class="law-issue"><strong>The fight:</strong> ' + escapeHtml(law.issue) + '</p>' +
+            '<p class="law-plain">' + escapeHtml(law.plain) + '</p>';
+        var simpBody = '<p class="law-issue"><strong>The fight:</strong> ' + escapeHtml(law.issueSimple || law.issue) + '</p>' +
+            lawStepsHtml(law);
         return '<div class="law-box' + (opts.compact ? ' law-box-compact' : '') + '">' +
             '<h3>Know the law</h3>' +
-            '<p class="law-issue"><strong>The fight:</strong> ' + escapeHtml(data.law.issue) + '</p>' +
-            '<blockquote class="law-clause"><p>' + escapeHtml(data.law.clause) + '</p><cite>' + escapeHtml(data.law.clauseCite) + '</cite></blockquote>' +
-            '<p class="law-plain">' + escapeHtml(data.law.plain) + '</p>' +
-            (terms ? '<div class="law-terms">' + terms + '</div>' : '') +
+            '<blockquote class="law-clause"><p>' + escapeHtml(law.clause) + '</p><cite>' + escapeHtml(law.clauseCite) + '</cite></blockquote>' +
+            levelPair(stdBody, simpBody) +
+            (chips ? '<div class="law-terms">' + chips + '</div>' : '') +
             more +
         '</div>';
+    }
+
+    function testCardBody(test) {
+        var simple = test.textSimple || test.text;
+        return levelPair(
+            '<p>' + escapeHtml(test.text) + '</p>',
+            '<p>' + escapeHtml(simple) + '</p>'
+        );
     }
 
     window.scotusLawBoxHtml = lawBoxHtml;
@@ -126,24 +165,30 @@
                 '<span class="label">Constitutional question for this case</span>' +
                 '<h3>' + escapeHtml(data.question) + '</h3>' +
                 '<span class="amendment-chip">' + escapeHtml(data.amendment) + '</span>' +
-                '<p style="margin-top:0.75rem;margin-bottom:0;font-size:0.92rem;line-height:1.55;">' + escapeHtml(data.drivingFrame) + '</p>' +
+                levelPair(
+                    '<p class="driving-frame">' + escapeHtml(data.drivingFrame) + '</p>',
+                    '<p class="driving-frame">' + escapeHtml(data.drivingFrameSimple || data.drivingFrame) + '</p>'
+                ) +
             '</div>'
         );
 
         var tests = el(
             '<div class="competing-tests">' +
                 '<h3>Competing tests — what each side wants the Court to adopt</h3>' +
-                '<p class="tests-lead">Do not just say your side is “right.” Name the <strong>rule</strong> you want. Every argument should end with: “Under our test, this fact matters because…”</p>' +
+                levelPair(
+                    '<p class="tests-lead">Do not just say your side is “right.” Name the <strong>rule</strong> you want. Every argument should end with: “Under our test, this fact matters because…”</p>',
+                    '<p class="tests-lead">Do not just say you are right. Name the <strong>rule</strong> you want the Court to write. Then say: “Under our test, this fact matters because…”</p>'
+                ) +
                 '<div class="tests-grid">' +
                     '<div class="test-card petitioner">' +
                         '<div class="test-side">' + escapeHtml(data.petitioner.name) + '</div>' +
                         '<h4>' + escapeHtml(data.tests.petitioner.title) + '</h4>' +
-                        '<p>' + escapeHtml(data.tests.petitioner.text) + '</p>' +
+                        testCardBody(data.tests.petitioner) +
                     '</div>' +
                     '<div class="test-card respondent">' +
                         '<div class="test-side">' + escapeHtml(data.respondent.name) + '</div>' +
                         '<h4>' + escapeHtml(data.tests.respondent.title) + '</h4>' +
-                        '<p>' + escapeHtml(data.tests.respondent.text) + '</p>' +
+                        testCardBody(data.tests.respondent) +
                     '</div>' +
                 '</div>' +
             '</div>'
@@ -405,6 +450,9 @@
                 tab.textContent = 'Today (after debate)';
             }
         });
+        if (typeof window.applyReadingLevel === 'function') {
+            window.applyReadingLevel(currentLevel(), false);
+        }
     }
 
     if (document.readyState === 'loading') {

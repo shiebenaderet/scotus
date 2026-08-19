@@ -1934,12 +1934,17 @@
         var myTest = prep.tests[selectedSide];
         var theirSide = selectedSide === 'petitioner' ? 'respondent' : 'petitioner';
         var theirTest = prep.tests[theirSide];
+        function testParas(test) {
+            var simple = test.textSimple || test.text;
+            return '<div class="content-block standard"><p>' + test.text.replace(/</g,'&lt;') + '</p></div>' +
+                '<div class="content-block simplified"><p>' + simple.replace(/</g,'&lt;') + '</p></div>';
+        }
         if (box) {
             box.innerHTML = '<h3>Competing tests</h3>' +
                 '<p class="tests-lead">' + prep.question + '</p>' +
                 '<div class="tests-grid">' +
-                '<div class="test-card ' + selectedSide + '"><div class="test-side">Your rule</div><h4>' + myTest.title + '</h4><p>' + myTest.text + '</p></div>' +
-                '<div class="test-card ' + theirSide + '"><div class="test-side">Their rule</div><h4>' + theirTest.title + '</h4><p>' + theirTest.text + '</p></div>' +
+                '<div class="test-card ' + selectedSide + '"><div class="test-side">Your rule</div><h4>' + myTest.title + '</h4>' + testParas(myTest) + '</div>' +
+                '<div class="test-card ' + theirSide + '"><div class="test-side">Their rule</div><h4>' + theirTest.title + '</h4>' + testParas(theirTest) + '</div>' +
                 '</div>';
         }
         if (sampleList) {
