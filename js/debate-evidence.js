@@ -42,13 +42,13 @@ var argumentData = {
         "Separating people by race automatically suggests that one race is inferior to another.",
         "Education is too important to allow racial discrimination in public schools.",
         "The Fourteenth Amendment was not originally intended to require integrated schools.",
-        "\"Separate but equal\" has worked effectively for nearly 60 years without major problems.",
+        "Courts have accepted \"separate but equal\" for nearly 60 years, so judges should follow that precedent.",
         "Research shows that segregation causes psychological harm to Black children.",
-        "Both Black and white schools have similar buildings, teachers, and educational materials.",
+        "In Topeka, a court found the Black and white schools had similar buildings, teachers, and materials.",
         "Even when facilities look equal, segregated schools are inferior in reputation and opportunities.",
         "The Fourteenth Amendment requires that all people be treated equally under the law.",
         "Forcing integration could cause social problems and conflicts in communities.",
-        "The \"separate but equal\" rule has been the law since 1896 and has worked for many years."
+        "The \"separate but equal\" rule has been the law since 1896, and courts have followed it ever since."
     ],
     payton: [
         "The Fourth Amendment protects people's homes from unreasonable government searches.",
@@ -72,7 +72,7 @@ var argumentData = {
         "With online learning, there is no clear separation between on-campus and off-campus activities.",
         "Allowing schools to punish off-campus speech gives them too much control over students' lives.",
         "The First Amendment protects students' right to express frustration and criticism.",
-        "Most federal courts have ruled that schools can regulate student speech that affects the school, even when made off-campus.",
+        "Several federal appeals courts had ruled that schools can regulate student speech that affects the school, even when made off-campus.",
         "Schools need authority to maintain discipline and positive culture in their programs.",
         "B.L. made her posts on a weekend, away from school property, using her personal social media account.",
         "Snapchat posts disappear quickly and are not permanent like other social media.",
@@ -85,9 +85,9 @@ var argumentData = {
         "A reasonable observer would think the school was endorsing Christianity when they saw the coach praying.",
         "Students might feel pressured to join prayer to stay on the team or please their coach.",
         "The Free Exercise Clause protects his right to pray according to his faith.",
-        "Kennedy's refusal to compromise created safety issues when media and crowds rushed the field.",
+        "After Kennedy publicized his plan to pray, crowds and media rushed the field.",
         "The government cannot force religious people to hide their faith or pray only in private.",
-        "The school offered reasonable alternatives - Kennedy could pray privately in his office.",
+        "The school offered reasonable alternatives - Kennedy could pray in a private place.",
         "Schools have a special responsibility to avoid even the appearance of religious endorsement.",
         "His prayers were personal, brief, and quiet - not attempts to convert students or promote religion.",
         "The Establishment Clause requires schools to remain neutral on religious matters.",
@@ -96,10 +96,10 @@ var argumentData = {
         "He never required, asked, or pressured students to join his prayers."
     ],
     arizona: [
-        "The Constitution gives Congress the exclusive power to make immigration laws.",
+        "The Constitution gives the federal government broad power over immigration and naturalization.",
         "States have always helped enforce federal laws within their borders.",
         "Federal immigration law is so complete that it leaves no room for state laws.",
-        "Arizona's law only copies existing federal requirements and doesn't create new crimes.",
+        "Arizona argued its law mostly matched federal rules instead of creating a new immigration system.",
         "The federal government doesn't have enough resources to enforce immigration law everywhere.",
         "State immigration enforcement could interfere with America's relationships with other countries.",
         "Arizona faces special problems from illegal immigration because it borders Mexico.",
@@ -107,7 +107,7 @@ var argumentData = {
         "The Supremacy Clause makes federal law more important than conflicting state laws.",
         "States have the right to protect their borders and citizens from harm.",
         "State enforcement of immigration law could lead to racial profiling and discrimination.",
-        "Federal immigration priorities focus on dangerous criminals, not all undocumented immigrants.",
+        "In 2011, federal immigration officials told agents to focus on serious criminals and security threats, not on every undocumented immigrant.",
         "Arizona taxpayers pay high costs for illegal immigration in schools, hospitals, and police services."
     ]
 };

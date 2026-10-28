@@ -60,14 +60,19 @@
     }
 
     function currentLevel() {
-        return (typeof window.getReadingLevel === 'function' && window.getReadingLevel() === 'simplified')
-            ? 'simplified' : 'standard';
+        return typeof window.getReadingLevel === 'function' ? window.getReadingLevel() : 'standard';
     }
 
-    function levelPair(stdInner, simpInner) {
-        var simp = currentLevel() === 'simplified';
-        return '<div class="content-block standard' + (simp ? ' hidden' : ' active') + '">' + stdInner + '</div>' +
-            '<div class="content-block simplified' + (simp ? ' active' : ' hidden') + '">' + simpInner + '</div>';
+    /* Full (standard), Clear (simplified) and, when the data has one, Quick.
+       site-chrome.js picks which to show and falls back when one is missing. */
+    function levelPair(stdInner, simpInner, quickInner) {
+        var lvl = currentLevel();
+        var shown = lvl === 'quick' && quickInner == null ? 'simplified' : lvl;
+        function block(name, inner) {
+            return '<div class="content-block ' + name + (shown === name ? ' active' : ' hidden') + '">' + inner + '</div>';
+        }
+        return block('standard', stdInner) + block('simplified', simpInner) +
+            (quickInner == null ? '' : block('quick', quickInner));
     }
 
     function termChipHtml(t) {
@@ -77,11 +82,12 @@
             '<span class="legal-tip-pop" hidden>' +
                 '<span class="legal-tip-copy standard">' + escapeHtml(t.meaning) + '</span>' +
                 '<span class="legal-tip-copy simplified">' + escapeHtml(simple) + '</span>' +
+                (t.quick ? '<span class="legal-tip-copy quick">' + escapeHtml(t.quick) + '</span>' : '') +
             '</span></button>';
     }
 
-    function lawStepsHtml(law) {
-        var steps = law.steps || [];
+    function lawStepsHtml(law, quick) {
+        var steps = (quick ? law.stepsQuick : law.steps) || [];
         if (!steps.length) {
             return '<p class="law-plain">' + escapeHtml(law.plain) + '</p>';
         }
@@ -102,10 +108,13 @@
             '<p class="law-plain">' + escapeHtml(law.plain) + '</p>';
         var simpBody = '<p class="law-issue"><strong>The fight:</strong> ' + escapeHtml(law.issueSimple || law.issue) + '</p>' +
             lawStepsHtml(law);
+        var quickBody = law.stepsQuick
+            ? '<p class="law-issue"><strong>The fight:</strong> ' + escapeHtml(law.issueQuick || law.issueSimple || law.issue) + '</p>' + lawStepsHtml(law, true)
+            : null;
         return '<div class="law-box' + (opts.compact ? ' law-box-compact' : '') + '">' +
             '<h3>Know the law</h3>' +
             '<blockquote class="law-clause"><p>' + escapeHtml(law.clause) + '</p><cite>' + escapeHtml(law.clauseCite) + '</cite></blockquote>' +
-            levelPair(stdBody, simpBody) +
+            levelPair(stdBody, simpBody, quickBody) +
             (chips ? '<div class="law-terms">' + chips + '</div>' : '') +
             more +
         '</div>';
@@ -115,7 +124,8 @@
         var simple = test.textSimple || test.text;
         return levelPair(
             '<p>' + escapeHtml(test.text) + '</p>',
-            '<p>' + escapeHtml(simple) + '</p>'
+            '<p>' + escapeHtml(simple) + '</p>',
+            test.textQuick ? '<p>' + escapeHtml(test.textQuick) + '</p>' : null
         );
     }
 
@@ -167,7 +177,8 @@
                 '<span class="amendment-chip">' + escapeHtml(data.amendment) + '</span>' +
                 levelPair(
                     '<p class="driving-frame">' + escapeHtml(data.drivingFrame) + '</p>',
-                    '<p class="driving-frame">' + escapeHtml(data.drivingFrameSimple || data.drivingFrame) + '</p>'
+                    '<p class="driving-frame">' + escapeHtml(data.drivingFrameSimple || data.drivingFrame) + '</p>',
+                    data.drivingFrameQuick ? '<p class="driving-frame">' + escapeHtml(data.drivingFrameQuick) + '</p>' : null
                 ) +
             '</div>'
         );

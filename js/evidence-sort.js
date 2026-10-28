@@ -57,7 +57,7 @@ var evidenceSortData = {
                 source: null
             },
             {
-                text: 'The federal government sued in federal court immediately after the law was passed.',
+                text: 'The federal government sued Arizona in federal court in July 2010, before the law took effect.',
                 petitionerFeedback: 'The federal government chose courts over cooperation, showing it prioritized control over solving the problem.',
                 respondentFeedback: 'This shows federal supremacy in action\u2014the federal government enforcing its constitutional authority through proper channels.',
                 canBeBoth: false,
@@ -71,7 +71,7 @@ var evidenceSortData = {
                 source: null
             },
             {
-                text: 'Arizona\'s law didn\'t create new immigration crimes but mirrored existing federal requirements.',
+                text: 'Arizona argued its law mirrored existing federal requirements instead of creating a new immigration system.',
                 petitionerFeedback: 'The state is copying federal law, not creating new law. It\'s reinforcing what Congress already decided.',
                 respondentFeedback: 'Even mirroring federal law, the state is still legislating in a federal area where it has no authority.',
                 canBeBoth: true,
@@ -174,7 +174,7 @@ var evidenceSortData = {
         respondent: 'Board of Education',
         facts: [
             {
-                text: 'Five cases were consolidated from Kansas, South Carolina, Virginia, Washington D.C., and Delaware.',
+                text: 'The Court heard five school cases together: four from Kansas, South Carolina, Virginia, and Delaware, and one from Washington, D.C., decided the same day.',
                 petitionerFeedback: 'This shows segregation was a nationwide problem, not an isolated local issue. It required a national solution.',
                 respondentFeedback: 'Each state has different local circumstances. One ruling shouldn\'t override all local decisions at once.',
                 canBeBoth: false,
@@ -195,9 +195,9 @@ var evidenceSortData = {
                 source: 'https://www.britannica.com/event/Plessy-v-Ferguson-1896'
             },
             {
-                text: 'Linda Brown lived 6 blocks from Monroe Elementary (Black school). Sumner School (white) was 7 blocks from her home.',
+                text: 'Linda Brown walked six blocks to a bus stop to ride to Monroe Elementary (Black school), about a mile away. Sumner School (white) was seven blocks from her home.',
                 petitionerFeedback: 'The law forced her to attend a specific school based solely on her race, regardless of distance or convenience.',
-                respondentFeedback: 'Similar distances suggest roughly equal physical access to education under existing arrangements.',
+                respondentFeedback: 'The trial court found Topeka\'s Black and white schools substantially equal in buildings, teachers, and courses.',
                 canBeBoth: false,
                 source: null
             },
@@ -244,7 +244,7 @@ var evidenceSortData = {
                 source: null
             },
             {
-                text: '13 of 18 white elementary schools in Topeka were in racially mixed neighborhoods — yet Black children were bused past them to attend distant all-Black schools.',
+                text: '13 of 18 white elementary schools in Topeka were in racially mixed neighborhoods — yet Black children from all over the city were assigned to the four all-Black schools.',
                 petitionerFeedback: 'Even in mixed neighborhoods, Black children were bused away. Geography didn\'t determine school — race did.',
                 respondentFeedback: 'The district maintained orderly assignments as had been the established practice under state law.',
                 canBeBoth: false,
@@ -313,15 +313,15 @@ var evidenceSortData = {
                 source: 'https://www.oyez.org/cases/2020/20-255'
             },
             {
-                text: 'A teammate took screenshots and showed them to the cheerleading coach.',
+                text: 'A student took pictures of the posts with a separate phone and shared them; another student showed them to her mother, a cheerleading coach.',
                 respondentFeedback: 'Someone else distributed the content beyond B.L.\'s control. She didn\'t bring it to school\u2014another student did.',
                 petitionerFeedback: 'The content reached the school community through a team member, bringing it within the school\'s interest.',
                 canBeBoth: true,
                 source: 'https://harvardlawreview.org/print/vol-135/mahanoy-v-b-l/'
             },
             {
-                text: 'B.L. had signed a code of conduct for cheerleaders requiring respect for school and coaches.',
-                respondentFeedback: 'She signed a school code, but her speech was private and off campus. The code can\'t control her entire life.',
+                text: 'B.L. had acknowledged team rules for cheerleaders requiring respect for school and coaches.',
+                respondentFeedback: 'She agreed to team rules, but her speech was private and off campus. The code can\'t control her entire life.',
                 petitionerFeedback: 'Extracurricular participation is voluntary. She agreed to the rules as a condition of being on the team.',
                 canBeBoth: true,
                 source: 'https://harvardlawreview.org/print/vol-135/mahanoy-v-b-l/'
@@ -334,7 +334,7 @@ var evidenceSortData = {
                 source: 'https://harvardlawreview.org/print/vol-135/mahanoy-v-b-l/'
             },
             {
-                text: 'B.L. apologized to the coaches after they approached her about the post.',
+                text: 'B.L. apologized, but school officials kept her suspension in place.',
                 respondentFeedback: 'Her apology shows understanding and maturity, not defiance. This wasn\'t a pattern of behavior.',
                 petitionerFeedback: 'An apology doesn\'t erase the rule violation or its impact on the team.',
                 canBeBoth: false,
@@ -368,7 +368,7 @@ var evidenceSortData = {
         respondent: 'Bremerton School District',
         facts: [
             {
-                text: 'Joseph Kennedy prayed on the 50-yard line immediately after games for 15\u201330 seconds.',
+                text: 'Joseph Kennedy prayed on the 50-yard line immediately after games for about 30 seconds.',
                 petitionerFeedback: 'A brief personal expression of faith in a public space. Quick and quiet\u2014not a sermon or ceremony.',
                 respondentFeedback: 'The 50-yard line is a highly visible location on school property. This isn\'t private prayer.',
                 canBeBoth: false,
@@ -382,7 +382,7 @@ var evidenceSortData = {
                 source: 'https://supreme.justia.com/cases/federal/us/597/21-418/'
             },
             {
-                text: 'Kennedy had a long-standing and well-known history of leading students in prayer.',
+                text: 'For years Kennedy also led locker-room prayers and gave postgame talks with religious references. He stopped both after the district\'s September 2015 letter.',
                 petitionerFeedback: 'A personal religious practice maintained consistently over years\u2014shows genuine personal conviction.',
                 respondentFeedback: 'A pattern of leading prayer suggests this was more than a private personal exercise.',
                 canBeBoth: true,
@@ -396,11 +396,11 @@ var evidenceSortData = {
                 source: 'https://www.oyez.org/cases/2021/21-418'
             },
             {
-                text: 'Kennedy refused to stop praying on the field; his contract was not renewed.',
+                text: 'Kennedy refused to stop praying on the field. He was placed on paid leave, his evaluation recommended against rehiring him, and he did not apply to coach the next season.',
                 petitionerFeedback: 'He stood firm on his religious convictions. The school punished him for exercising his faith.',
                 respondentFeedback: 'He defied his employer\'s reasonable directives. Insubordination has consequences.',
                 canBeBoth: true,
-                source: 'https://en.wikipedia.org/wiki/Kennedy_v._Bremerton_School_District'
+                source: 'https://www.scotusblog.com/2022/04/in-the-case-of-the-praying-football-coach-both-sides-invoke-religious-freedom/'
             },
             {
                 text: 'The district permitted other coaches to make personal calls and visit friends after games.',
@@ -410,7 +410,7 @@ var evidenceSortData = {
                 source: 'https://supreme.justia.com/cases/federal/us/597/21-418/'
             },
             {
-                text: 'On October 16, 2015, the final prayer drew media coverage. Crowds rushed the field and students had to be moved to safety.',
+                text: 'On October 16, 2015, the final prayer drew media coverage. People jumped fences to reach the field and knocked over student band members.',
                 petitionerFeedback: 'The media spectacle was caused by outside attention, not by the prayer itself.',
                 respondentFeedback: 'The prayer attracted attention that created genuine safety concerns for students on the field.',
                 canBeBoth: true,
@@ -486,7 +486,7 @@ var evidenceSortData = {
                 source: 'https://www.uscourts.gov/about-federal-courts/educational-resources/educational-activities/fourth-amendment-activities/new-jersey-v-tlo/facts-and-case-summary-new-jersey-v-tlo'
             },
             {
-                text: 'T.L.O. denied smoking and claimed she "didn\'t smoke at all."',
+                text: 'T.L.O. denied smoking and said she did not smoke at all.',
                 respondentFeedback: 'She exercised her right to deny the accusation. Denial alone shouldn\'t trigger a search.',
                 petitionerFeedback: 'Her false denial gave the administrator reason to doubt her credibility and investigate further.',
                 canBeBoth: false,
@@ -507,7 +507,7 @@ var evidenceSortData = {
                 source: 'https://www.uscourts.gov/data-news/judiciary-news/2015/05/14/judge-recalls-1985-case-still-shapes-students-rights'
             },
             {
-                text: 'Continuing the search found: rolling papers, marijuana, a pipe, cash, and a list of students who owed money.',
+                text: 'After seeing rolling papers, the administrator kept searching and found marijuana, a pipe, cash, a list of students who owed T.L.O. money, and two letters.',
                 respondentFeedback: 'The evidence found went far beyond the initial suspicion of smoking. The search scope was not justified.',
                 petitionerFeedback: 'Each new discovery expanded the reasonable suspicion, justifying the continued search.',
                 canBeBoth: true,
@@ -569,7 +569,7 @@ var evidenceSortData = {
                 source: 'https://legaldictionary.net/payton-v-new-york/'
             },
             {
-                text: 'The home is a place where "perfect and absolute privacy" is expected, according to court language.',
+                text: 'The Fourth Amendment names houses, and the saying "a man\'s house is his castle" goes back to English law.',
                 petitionerFeedback: 'The home has the highest expectation of privacy. This is the core of Fourth Amendment protection.',
                 respondentFeedback: 'Privacy expectations are not absolute. When a crime is involved, some intrusion may be justified.',
                 canBeBoth: false,
@@ -578,12 +578,12 @@ var evidenceSortData = {
             {
                 text: 'The Fourth Amendment text: "The right of the people to be secure in their persons, houses, papers, and effects."',
                 petitionerFeedback: '"Houses" is explicitly listed\u2014the Constitution singles out homes for protection.',
-                respondentFeedback: 'The Amendment also allows "reasonable searches and seizures," which this was.',
+                respondentFeedback: 'The Amendment bans only unreasonable searches and seizures. New York says this entry was reasonable.',
                 canBeBoth: false,
                 source: 'https://en.wikipedia.org/wiki/Payton_v._New_York'
             },
             {
-                text: 'Officers seized shell casings under the "plain view doctrine" after entering.',
+                text: 'Officers seized a shell casing under the "plain view doctrine" after entering.',
                 petitionerFeedback: 'The plain view doctrine doesn\'t cure an illegal entry. Evidence from an unlawful search can\'t be used.',
                 respondentFeedback: 'The evidence would have been seen legitimately if they had waited and obtained a warrant.',
                 canBeBoth: true,
@@ -618,7 +618,7 @@ var evidenceSortData = {
                 source: null
             },
             {
-                text: 'No "exigent circumstances" were reported\u2014no immediate threat to anyone and no evidence the suspect was fleeing.',
+                text: 'New York\'s highest court treated the arrest as routine, with ample time to get a warrant; no court relied on an emergency to justify the entry.',
                 petitionerFeedback: 'Without an emergency, standard procedures\u2014including getting a warrant\u2014were available and required.',
                 respondentFeedback: 'Courts have found that probable cause for serious crimes can be sufficient for home entry in some circumstances.',
                 canBeBoth: true,

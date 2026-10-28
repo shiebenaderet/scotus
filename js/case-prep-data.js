@@ -10,8 +10,10 @@ var CASE_PREP_DATA = {
         question: 'May a public school ban silent political armbands because officials fear disruption?',
         drivingFrame: 'This case is about whether a school may limit student free speech to keep order — even when the speech is silent and no disruption has happened yet.',
         drivingFrameSimple: 'A school banned silent armbands. Students say that is speech. The school says it must keep order. The fight is the rule: must the school wait for real disruption?',
+        drivingFrameQuick: 'A school banned quiet armbands. The students say the armbands are speech. The school says it must keep order. So must the school wait for a real problem first?',
         law: {
             issue: 'May a public school punish silent protest armbands that have not actually disrupted class?',
+            issueQuick: 'Can a school punish quiet armbands when class did not stop?',
             issueSimple: 'May a public school punish silent armbands when class has not actually been disrupted?',
             clause: 'Congress shall make no law … abridging the freedom of speech.',
             clauseCite: 'First Amendment',
@@ -23,22 +25,31 @@ var CASE_PREP_DATA = {
                 { label: 'The school says:', text: 'A principal who can see trouble coming should not have to wait for a fight.' },
                 { label: 'Your job:', text: 'Argue for one of those tests. Do not just say protest is good or bad.' }
             ],
+            stepsQuick: [
+                { label: 'The rule:', text: 'The government may not cut back free speech.' },
+                { label: 'Here:', text: 'A public school is part of the government. An armband is a kind of speech, even with no words.' },
+                { label: 'The students say:', text: 'The school must show a real problem first. A guess is not enough.' },
+                { label: 'The school says:', text: 'A principal who sees trouble coming should not have to wait for a fight.' },
+                { label: 'Your job:', text: 'Pick one of these rules and argue for it.' }
+            ],
             terms: [
-                { term: 'symbolic speech', meaning: 'A message sent by action or clothing — here, black armbands against the Vietnam War.', simple: 'Speech without talking. Here: black armbands that protest a war.' },
-                { term: 'substantial disruption', meaning: 'The students’ proposed line: the school must show the speech would actually interfere with teaching or operations, not just that officials dislike the topic.', simple: 'Real interference with class — not “we don’t like this message.”' },
-                { term: 'public school as government', meaning: 'Principals and teachers are state actors. Private opinions are not the issue; government limits on student speech are.', simple: 'Public-school staff are the government. The Constitution applies to what they do.' }
+                { term: 'symbolic speech', meaning: 'A message sent by action or clothing — here, black armbands against the Vietnam War.', simple: 'Speech without talking. Here: black armbands that protest a war.', quick: 'Speech without words. Here it is a black armband.' },
+                { term: 'substantial disruption', meaning: 'The students’ proposed line: the school must show the speech would actually interfere with teaching or operations, not just that officials dislike the topic.', simple: 'Real interference with class — not “we don’t like this message.”', quick: 'A big problem that stops class.' },
+                { term: 'public school as government', meaning: 'Principals and teachers are state actors. Private opinions are not the issue; government limits on student speech are.', simple: 'Public-school staff are the government. The Constitution applies to what they do.', quick: 'Principals and teachers at a public school work for the government. So the Constitution covers them.' }
             ]
         },
         tests: {
             petitioner: {
                 title: 'Proven substantial disruption',
                 text: 'Schools may punish student speech only if they can show it actually interferes with class, or that disruption is about to happen based on real facts — not a guess or a dislike of the message.',
-                textSimple: 'The students’ rule: prove class was really disrupted, or was about to be, based on facts. A guess or “we dislike this message” is not enough.'
+                textSimple: 'The students’ rule: prove class was really disrupted, or was about to be, based on facts. A guess or “we dislike this message” is not enough.',
+                textQuick: 'The students want this rule. The school must show a real problem with class. A guess is not enough.'
             },
             respondent: {
                 title: 'Reasonable forecast of disruption',
                 text: 'Educators who know their students should be able to step in before a protest explodes. If a reasonably careful principal can see conflict coming, the school may ban the symbol to protect learning.',
-                textSimple: 'The school’s rule: if a careful principal can see conflict coming, the school may ban the symbol before a fight starts.'
+                textSimple: 'The school’s rule: if a careful principal can see conflict coming, the school may ban the symbol before a fight starts.',
+                textQuick: 'The school wants this rule. If a careful principal can see trouble coming, the school may stop it early.'
             }
         },
         theorySamples: {
@@ -124,13 +135,13 @@ var CASE_PREP_DATA = {
                 type: 'historical', typeLabel: 'Case fact',
                 title: 'Other symbols were allowed',
                 excerpt: 'Students wore political campaign buttons and some wore Iron Crosses. The new rule targeted black armbands protesting the Vietnam War, not all political clothing.',
-                citation: 'Tinker case record; U.S. Courts, Facts and Case Summary — Tinker v. Des Moines.'
+                citation: 'Tinker case record.'
             },
             {
                 type: 'historical', typeLabel: 'Case fact',
                 title: 'Scale of the protest',
                 excerpt: 'Only a few of the district’s roughly 18,000 students wore armbands. Five students were suspended. Mary Beth wore hers through morning classes; in afternoon mathematics she was sent to the office and then home. John Tinker wore his the next day, December 17.',
-                citation: 'Tinker case record (Dec. 16–17, 1965); U.S. Courts, Facts and Case Summary — Tinker v. Des Moines.'
+                citation: 'Tinker case record (Dec. 16–17, 1965); Mary Beth Tinker’s account in Education Week, “Living History” (2005).'
             },
             {
                 type: 'news', typeLabel: 'Context',
@@ -291,16 +302,16 @@ var CASE_PREP_DATA = {
         amendment: 'Fourteenth Amendment — Equal Protection',
         question: 'May a state require racially separate public schools if it claims the buildings and books are equal?',
         drivingFrame: 'This case is not mainly “safety vs. rights.” It asks whether “equal protection of the laws” allows a state to separate children by race.',
-        drivingFrameSimple: 'Kansas required separate schools by race. Topeka said the buildings were similar. The fight is what “equal protection” means — not who wants nicer schools.',
+        drivingFrameSimple: 'Kansas let cities split elementary schools by race, and Topeka did. Topeka said the buildings were similar. The fight is what “equal protection” means — not who wants nicer schools.',
         law: {
             issue: 'Do racially segregated public schools violate the Fourteenth Amendment even when buildings and budgets look similar?',
             issueSimple: 'If a state splits public schools by race, is that still “equal protection” when the buildings look similar?',
             clause: 'No State shall … deny to any person within its jurisdiction the equal protection of the laws.',
             clauseCite: 'Fourteenth Amendment — Equal Protection Clause',
-            plain: 'Kansas law required separate schools for Black and white children. Topeka said the buildings and pay were comparable, so Plessy’s “separate but equal” idea still fits. The Brown families say public education is a government service, and splitting children by race is itself unequal — it stamps one group as inferior — even if the brick and mortar match. The legal issue is the meaning of equal protection, not whether the families “want better schools” in a generic sense.',
+            plain: 'Kansas law allowed some cities, including Topeka, to run separate elementary schools for Black and white children. Topeka said the buildings and pay were comparable, so Plessy’s “separate but equal” idea still fits. The Brown families say public education is a government service, and splitting children by race is itself unequal — it stamps one group as inferior — even if the brick and mortar match. The legal issue is the meaning of equal protection, not whether the families “want better schools” in a generic sense.',
             steps: [
                 { label: 'The rule:', text: 'The Fourteenth Amendment says no state may deny any person equal protection of the laws.' },
-                { label: 'What it means here:', text: 'Kansas required separate public schools by race. Topeka said the buildings were comparable.' },
+                { label: 'What it means here:', text: 'Kansas let Topeka run separate elementary schools by race. Topeka said the buildings were comparable.' },
                 { label: 'The families say:', text: 'Splitting children by race is itself unequal, even if the brick matches. It stamps one group as inferior.' },
                 { label: 'The Board says:', text: 'Plessy allowed “separate but equal.” Education is a state job. Matching facilities satisfy the Constitution.' },
                 { label: 'Your job:', text: 'Argue what equal protection means for race-separated schools — not “who wants better schools.”' }
@@ -357,7 +368,7 @@ var CASE_PREP_DATA = {
         },
         hardSide: {
             title: 'How to argue for the Board — and what you may not argue',
-            html: '<p>The Board’s real 1950s legal theory was <strong>precedent (Plessy), equal facilities, and local/state control of schools</strong> — not a claim that Black children are inferior. You may argue those legal points. You may <strong>not</strong> argue racism as a good idea, use slurs, or claim one race is smarter or more deserving.</p><p>After the debate, you will study why a unanimous Court rejected even the “polite” version of separate-but-equal. The point of taking this side is to understand how a harmful system defended itself in court — then to be able to defeat that defense.</p>'
+            html: '<p>The Board’s real 1950s legal theory was <strong>precedent (Plessy), equal facilities, and local/state control of schools</strong> — not a claim that Black children are inferior. You may argue those legal points. You may <strong>not</strong> argue racism as a good idea, use slurs, or claim one race is smarter or more deserving.</p><p>After the debate, you will study how the Court ruled and why. The point of taking this side is to understand how a harmful system defended itself in court — then to be able to defeat that defense.</p>'
         },
         hotBench: [
             { q: 'If the buildings are equal, where is the constitutional harm?', tip: 'Petitioners: harm is the message of the law. Respondents: the Clause is about facilities and legal rights, not feelings.' },
@@ -390,7 +401,7 @@ var CASE_PREP_DATA = {
             {
                 type: 'historical', typeLabel: 'Case fact',
                 title: 'Linda Brown’s route to school',
-                excerpt: 'Linda, age 9, walked through a railroad switchyard and rode a bus to Monroe Elementary (designated for Black children). Sumner Elementary, for white children, was about seven blocks from her home.',
+                excerpt: 'Linda, a third grader, walked through a railroad switchyard and rode a bus to Monroe Elementary (designated for Black children). Sumner Elementary, for white children, was about seven blocks from her home.',
                 citation: 'National Archives; Brown v. Board case history (Topeka facts).'
             },
             {
@@ -587,8 +598,8 @@ var CASE_PREP_DATA = {
                 { label: 'Your job:', text: 'Argue whether the school’s speech power stops at the campus gate.' }
             ],
             terms: [
-                { term: 'off-campus speech', meaning: 'Words or posts created outside school time and property. The school still felt the effects at tryouts; B.L. says geography and the weekend should matter.', simple: 'A post made off school grounds, not during school. Here: a weekend Snap on her own phone.' },
-                { term: 'substantial disruption', meaning: 'Borrowed from Tinker: would this speech actually interfere with school operations? The school says tryouts and coaching were hit; B.L. says disappointment is not disruption.', simple: 'Did this actually interfere with school? The school says tryouts suffered. B.L. says hurt feelings are not enough.' },
+                { term: 'off-campus speech', meaning: 'Words or posts created outside school time and property. The school says the effects reached the cheer team; B.L. says geography and the weekend should matter.', simple: 'A post made off school grounds, not during school. Here: a weekend Snap on her own phone.' },
+                { term: 'substantial disruption', meaning: 'Borrowed from Tinker: would this speech actually interfere with school operations? The school says team discipline and coaching were hit; B.L. says disappointment is not disruption.', simple: 'Did this actually interfere with school? The school says the team suffered. B.L. says hurt feelings are not enough.' },
                 { term: 'in loco parentis', meaning: 'The school’s claim that coaches stand in for parents on team issues even after the bell. B.L.’s side says that idea stops at the campus gate.', simple: '“In the place of a parent.” The school says coaches still have that role after the bell. B.L. says it stops at the campus gate.' }
             ]
         },
@@ -625,7 +636,7 @@ var CASE_PREP_DATA = {
         weighing: {
             petitioner: [
                 'The posts were about school and cheer, not a private family fight — they targeted the program.',
-                'Cheer rules required a good attitude; extracurriculars can demand more than the classroom (Vernonia).',
+                'Cheer rules required respect for the school and coaches and no foul language; extracurriculars can demand more than the classroom (Vernonia).',
                 'Teammates saw the Snaps; coaches described a team discipline problem, not just adult annoyance.',
                 'Other courts had allowed schools to punish online attacks that hit the school community.'
             ],
@@ -686,7 +697,7 @@ var CASE_PREP_DATA = {
             {
                 type: 'statute', typeLabel: 'Team rules',
                 title: 'Cheerleading expectations',
-                excerpt: 'The program expected cheerleaders to show respect and a positive attitude and to avoid behavior that reflected poorly on the school. B.L. had been told about those expectations.',
+                excerpt: 'The rules told cheerleaders to “have respect for your school, coaches, teachers, other cheerleaders and teams,” to avoid “foul language and inappropriate gestures,” and not to post “negative information regarding cheerleading, cheerleaders, or coaches” on the internet. B.L. had acknowledged the rules before joining the team.',
                 citation: 'Mahanoy cheerleading rules / handbook, as described in the case record.'
             },
             {
@@ -763,7 +774,7 @@ var CASE_PREP_DATA = {
         },
         weighing: {
             petitioner: [
-                'The prayers were short (about 15–30 seconds) and, Kennedy says, personal thanks — not a sermon from the school.',
+                'The prayers were short (about 30 seconds) and, Kennedy says, personal thanks — not a sermon from the school.',
                 'The Free Exercise Clause protects religious practice for government employees too, not only for students.',
                 'The district offered alternatives that would hide the prayer; Kennedy argues that is discrimination because of religion.',
                 'Students who joined did so, in his account, voluntarily after the game had ended.'

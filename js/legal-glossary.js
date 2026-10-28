@@ -17,7 +17,7 @@
     {
       term: "substantial disruption",
       meaning:
-        "Tinker’s test: schools may limit student speech if they can show the speech would actually interfere with class or school operations — not just because they dislike the message or fear a little controversy.",
+        "A test for student speech: schools may limit it only if they can show it would actually interfere with class or school operations — not just because they dislike the message or fear a little controversy. A 1966 appeals case, Burnside v. Byars, used this test, and the Tinker students ask the Court to adopt it.",
       simple:
         "Real interference with class or school — not “we don’t like this message” or “we fear a little controversy.”"
     },

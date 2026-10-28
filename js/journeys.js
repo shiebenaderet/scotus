@@ -53,12 +53,12 @@ const caseData = {
                 type: "incident",
                 title: "Student Caught Smoking",
                 ruling: null,
-                standard: "A teacher at Piscataway High School in New Jersey caught a 14-year-old freshman (known as T.L.O.) smoking in the bathroom. When brought to the assistant principal's office, T.L.O. denied smoking. The assistant principal searched her purse and found cigarettes, rolling papers, marijuana, a pipe, money, and a list of students who owed her money.",
+                standard: "A teacher at Piscataway High School in New Jersey caught a 14-year-old freshman (known as T.L.O.) smoking in the bathroom. When brought to the principal's office, T.L.O. denied smoking. The assistant vice principal searched her purse and found cigarettes, rolling papers, marijuana, a pipe, money, and a list of students who owed her money.",
                 simplified: "A teacher caught a 14-year-old girl smoking in the bathroom at her New Jersey high school. She said she wasn't smoking. The vice principal looked in her purse and found cigarettes, marijuana, and other things that showed she might be selling drugs.",
                 reasoning: null
             },
             {
-                date: "1980",
+                date: "March 1981",
                 type: "district",
                 title: "Juvenile Court Finds Delinquent",
                 ruling: "favor-petitioner",
@@ -73,7 +73,7 @@ const caseData = {
                 ruling: "favor-respondent",
                 standard: "The New Jersey Supreme Court reversed the lower court, holding that the search was unreasonable. The court ruled that the Fourth Amendment applies to school searches and that the assistant principal did not have reasonable grounds to search the purse.",
                 simplified: "New Jersey's highest state court said the search was wrong. They said the vice principal didn't have a good enough reason to look through T.L.O.'s purse. The evidence couldn't be used against her.",
-                reasoning: "The state supreme court applied traditional Fourth Amendment standards requiring probable cause for searches."
+                reasoning: "The state supreme court said a school official may search when there are reasonable grounds to believe a student has evidence of illegal activity or activity that would disrupt school order, but found this search unreasonable."
             },
             {
                 date: "January 15, 1985",
@@ -155,8 +155,8 @@ const caseData = {
                 type: "appeals",
                 title: "New York Court of Appeals Upholds Conviction",
                 ruling: "favor-respondent",
-                standard: "New York's highest court affirmed the conviction, ruling that the warrantless entry was constitutional under the Fourth Amendment. The court held that the common law tradition permitted such entries and that requiring warrants would unduly burden law enforcement.",
-                simplified: "New York's top state court said the police did nothing wrong. They said requiring warrants to enter homes for arrests would make it too hard for police to do their jobs.",
+                standard: "New York's highest court affirmed the conviction, ruling that the warrantless entry was constitutional under the Fourth Amendment. In a 4–3 decision, the court said entering a home to arrest someone intrudes less than entering to search it, and pointed to the historical acceptance of such arrests and New York's long-standing statute.",
+                simplified: "New York's top state court said the police did nothing wrong. They said going into a home to arrest someone is less of an intrusion than going in to search it.",
                 reasoning: "The state court relied on historical common law practices that allowed warrantless home arrests."
             },
             {
@@ -165,7 +165,7 @@ const caseData = {
                 title: "Supreme Court Rules for Payton (6-3)",
                 ruling: "favor-petitioner",
                 standard: "The Supreme Court ruled 6-3 that the Fourth Amendment prohibits police from making a warrantless, nonconsensual entry into a suspect's home to make a routine felony arrest. The Court held that the home receives special Fourth Amendment protection and physical entry requires a warrant absent exigent circumstances.",
-                simplified: "The Supreme Court said police must get a warrant before entering someone's home to arrest them, unless there's an emergency. The Court said people's homes deserve extra protection. The evidence found in Payton's apartment couldn't be used.",
+                simplified: "The Supreme Court said police must get a warrant before entering someone's home to arrest them, unless there's an emergency. The Court said people's homes deserve extra protection. The Court overturned the decisions against Payton and Riddick and sent their cases back to New York's courts.",
                 reasoning: "Justice Stevens wrote that the home is entitled to special protection, and routine arrests don't justify bypassing the warrant requirement."
             }
         ]
@@ -184,7 +184,7 @@ const caseData = {
                 reasoning: null
             },
             {
-                date: "2017",
+                date: "March 2019",
                 type: "district",
                 title: "District Court Rules for Student",
                 ruling: "favor-respondent",
@@ -226,7 +226,7 @@ const caseData = {
                 reasoning: null
             },
             {
-                date: "2017",
+                date: "2020",
                 type: "district",
                 title: "District Court Rules for School",
                 ruling: "favor-respondent",
@@ -263,8 +263,8 @@ const caseData = {
                 type: "incident",
                 title: "Arizona Passes S.B. 1070",
                 ruling: null,
-                standard: "Governor Jan Brewer signed S.B. 1070, known as the \"Support Our Law Enforcement and Safe Neighborhoods Act.\" The law required police to check immigration status during stops, made it a state crime to not carry immigration papers, and banned undocumented immigrants from seeking work. Arizona said the federal government wasn't doing enough about illegal immigration.",
-                simplified: "Arizona's governor signed a law called S.B. 1070. It said police had to check if people were in the country legally when they stopped them. Arizona said the federal government wasn't doing enough to stop illegal immigration, so the state needed its own rules.",
+                standard: "Governor Jan Brewer signed S.B. 1070, known as the \"Support Our Law Enforcement and Safe Neighborhoods Act.\" The law required police to check immigration status during some stops when they suspected a person was in the country unlawfully, made it a state crime to not carry federal immigration papers, and made it a state crime for undocumented immigrants to look for work. Arizona said the federal government wasn't doing enough about illegal immigration.",
+                simplified: "Arizona's governor signed a law called S.B. 1070. It said police had to check if people were in the country legally when they stopped them and had a reason to suspect they were not. Arizona said the federal government wasn't doing enough to stop illegal immigration, so the state needed its own rules.",
                 reasoning: null
             },
             {
@@ -272,7 +272,7 @@ const caseData = {
                 type: "district",
                 title: "Federal Court Blocks Key Parts of the Law",
                 ruling: "favor-respondent",
-                standard: "U.S. District Judge Susan Bolton issued an injunction blocking the most controversial parts of S.B. 1070 before they could take effect. The federal government had sued Arizona, arguing that immigration law is exclusively a federal power under the Supremacy Clause of the Constitution.",
+                standard: "U.S. District Judge Susan Bolton issued an injunction blocking the most controversial parts of S.B. 1070 before they could take effect. The federal government had sued Arizona, arguing that federal immigration law preempted Arizona's law under the Supremacy Clause of the Constitution.",
                 simplified: "A federal judge stopped the biggest parts of Arizona's law from going into effect. The U.S. government sued Arizona, saying only the federal government — not individual states — gets to make immigration rules.",
                 reasoning: "The court found the federal government was likely to succeed in proving that federal immigration law preempted Arizona's law."
             },
@@ -290,7 +290,7 @@ const caseData = {
                 type: "scotus",
                 title: "Supreme Court Issues a Split Decision (5-3)",
                 ruling: "mixed",
-                standard: "The Supreme Court struck down three of four challenged provisions but upheld the \"show me your papers\" requirement allowing police to check immigration status during lawful stops. The Court ruled 5-3 that states cannot create their own immigration crimes or penalties because federal law is supreme, but left open the question of whether the status-check provision might lead to racial profiling.",
+                standard: "The Supreme Court struck down three of four challenged provisions but let the \"show me your papers\" requirement take effect for now, allowing police to check immigration status during lawful stops. The Court ruled 5-3 that states cannot create their own immigration crimes or penalties because federal law is supreme, and said the status-check provision could still be challenged after it took effect.",
                 simplified: "The Supreme Court made a split decision — partly for Arizona, partly for the U.S. They struck down 3 parts of the law, saying states can't make their own immigration crimes. But they kept the part that lets police check if someone is in the country legally during a stop. The vote was 5 to 3.",
                 reasoning: "Justice Kennedy wrote that the federal government has broad power over immigration. States can help enforce federal law but cannot create their own immigration policies that conflict with federal priorities."
             }

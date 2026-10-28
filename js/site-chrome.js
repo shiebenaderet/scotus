@@ -1,6 +1,6 @@
 // Shared header, footer, save status, and keyboard behavior for every page.
 (function () {
-    var VERSION = 'v1.22.3';
+    var VERSION = 'v1.23.0';
     var READING_KEY = 'scotus-reading-level';
 
     function relPrefix() {
@@ -158,34 +158,93 @@
         main.insertBefore(p, main.firstChild);
     }
 
+    /* Reading versions (READING-LEVELS.md). The CSS classes and the saved value
+       keep their original names so saved choices and existing markup still work:
+         quick       -> "Quick"  (new; written for each case as it is rebuilt)
+         simplified  -> "Clear"  (the old Simplified text measures in the Clear band)
+         standard    -> "Full"
+       A block with no version at the chosen level shows the nearest one that
+       exists, so a page that has not been rebuilt yet still shows real text. */
+    var LEVELS = ['quick', 'simplified', 'standard'];
+    var LEVEL_LABEL = { quick: 'Quick', simplified: 'Clear', standard: 'Full' };
+    var FALLBACK = { quick: ['quick', 'simplified', 'standard'],
+                     simplified: ['simplified', 'standard'],
+                     standard: ['standard'] };
+    var LEVELED = '.content-block, .two-sides-summary, .legal-tip-copy';
+
     function getReadingLevel() {
         try {
             var v = localStorage.getItem(READING_KEY);
-            if (v === 'simplified' || v === 'standard') return v;
+            if (LEVELS.indexOf(v) !== -1) return v;
         } catch (e) {}
         return 'standard';
     }
 
+    function levelOf(el) {
+        for (var i = 0; i < LEVELS.length; i++) if (el.classList.contains(LEVELS[i])) return LEVELS[i];
+        return null;
+    }
+
+    /* Pages rebuilt with a Quick version get the three named buttons; pages that
+       still have only two versions keep "Standard" and "Simplified" until they
+       are measured and rebuilt, so no label promises a version that is not there. */
+    function upgradeButtons() {
+        if (!document.querySelector('.content-block.quick, .two-sides-summary.quick')) return;
+        document.querySelectorAll('.reading-toggle-inline, .reading-levels').forEach(function (wrap) {
+            if (wrap.getAttribute('data-three') === '1') return;
+            var std = wrap.querySelector('.level-btn[data-level="standard"]');
+            var simp = wrap.querySelector('.level-btn[data-level="simplified"]');
+            if (!std || !simp) return;
+            wrap.setAttribute('data-three', '1');
+            var quick = std.cloneNode(false);
+            quick.setAttribute('data-level', 'quick');
+            quick.removeAttribute('data-chrome-level');
+            quick.classList.remove('active');
+            [quick, simp, std].forEach(function (btn) {
+                wrap.appendChild(btn);
+                btn.textContent = LEVEL_LABEL[btn.getAttribute('data-level')];
+            });
+        });
+    }
+
     function applyReadingLevel(level, persist) {
-        if (level !== 'simplified') level = 'standard';
+        if (LEVELS.indexOf(level) === -1) level = 'standard';
         if (persist !== false) {
             try { localStorage.setItem(READING_KEY, level); } catch (e) {}
         }
+        var btnLevels = Array.prototype.map.call(document.querySelectorAll('.level-btn'), function (b) {
+            return b.getAttribute('data-level');
+        });
+        var lit = FALLBACK[level].filter(function (l) { return btnLevels.indexOf(l) !== -1; })[0];
         document.querySelectorAll('.level-btn').forEach(function (btn) {
-            var on = btn.getAttribute('data-level') === level;
+            var on = btn.getAttribute('data-level') === lit;
             btn.classList.toggle('active', on);
             btn.setAttribute('aria-pressed', on ? 'true' : 'false');
         });
-        document.querySelectorAll('.content-block, .two-sides-summary, .legal-tip-copy').forEach(function (block) {
-            var match = block.classList.contains(level);
-            block.classList.toggle('hidden', !match);
-            block.classList.toggle('active', match);
+        /* Siblings with level classes form one set; show the best match in each. */
+        var seen = [];
+        document.querySelectorAll(LEVELED).forEach(function (block) {
+            var parent = block.parentNode;
+            if (seen.indexOf(parent) !== -1) return;
+            seen.push(parent);
+            var set = Array.prototype.filter.call(parent.children, function (c) {
+                return c.matches(LEVELED) && levelOf(c);
+            });
+            var have = set.map(levelOf);
+            var show = FALLBACK[level].filter(function (l) { return have.indexOf(l) !== -1; })[0];
+            set.forEach(function (c) {
+                var match = levelOf(c) === show;
+                c.classList.toggle('hidden', !match);
+                c.classList.toggle('active', match);
+            });
         });
-        document.body.classList.toggle('reading-simplified', level === 'simplified');
+        document.body.classList.toggle('reading-simplified', level !== 'standard');
+        document.body.classList.toggle('reading-quick', level === 'quick');
         document.dispatchEvent(new CustomEvent('scotus:reading-level', { detail: level }));
     }
 
     function initReadingLevel() {
+        upgradeButtons();
         document.querySelectorAll('.level-btn').forEach(function (btn) {
             if (btn.getAttribute('data-chrome-level') === '1') return;
             btn.setAttribute('data-chrome-level', '1');
