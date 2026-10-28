@@ -921,35 +921,46 @@ var CASE_PREP_DATA = {
         question: 'May a state copy or add its own immigration crimes and police duties when Congress already occupies immigration law?',
         drivingFrame: 'This case is about who gets to write immigration rules — states or the national government — not about whether immigration is “good” or “bad.”',
         drivingFrameSimple: 'Congress writes national immigration law. Arizona added its own police rules. The fight is who gets to write the rules — not whether immigration is good or bad.',
+        drivingFrameQuick: 'This case is about who makes immigration rules. Is it the states or the U.S. government? It is not about whether immigration is good or bad.',
         law: {
             issue: 'May Arizona add its own police-enforced immigration rules on top of federal immigration law?',
             issueSimple: 'May Arizona add its own immigration police rules on top of federal immigration law?',
+            issueQuick: 'Can Arizona add its own immigration rules on top of U.S. law?',
             clause: 'This Constitution, and the Laws of the United States which shall be made in Pursuance thereof … shall be the supreme Law of the Land…',
             clauseCite: 'Article VI — Supremacy Clause',
             plain: 'Congress, not a state legislature, writes the national immigration system. Federalism still lets states police ordinary crime. S.B. 1070 tries to have Arizona officers enforce extra immigration checks and state crimes tied to status. The United States argues those pieces are preempted — they clash with, or get in the way of, the federal scheme. Arizona argues it is helping enforce the same federal rules and protecting residents the federal government has not. The issue is who gets to write the rules, not whether immigration is “good” or “bad.”',
             steps: [
-                { label: 'The rule:', text: 'The Supremacy Clause says valid federal law beats conflicting state law.' },
-                { label: 'What it means here:', text: 'Congress writes the national immigration system. States still run local police.' },
-                { label: 'The United States says:', text: 'S.B. 1070 is a second immigration code. Federal law already occupies that field, so the state rules are blocked.' },
+                { label: 'The rule:', text: 'The Supremacy Clause says valid federal law beats state law when the two conflict.' },
+                { label: 'What it means here:', text: 'Congress makes the rules about who may come and stay in the country. States still run their own police.' },
+                { label: 'The United States says:', text: 'S.B. 1070 is a second set of immigration rules. Federal law already covers this subject, so the state rules are blocked.' },
                 { label: 'Arizona says:', text: 'The law copies federal rules and helps enforce them. Helping is not replacing Congress.' },
                 { label: 'Your job:', text: 'Argue who gets to write the rules — not whether immigration is good or bad.' }
             ],
+            stepsQuick: [
+                { label: 'The rule:', text: 'When a U.S. law and a state law clash, the U.S. law wins.' },
+                { label: 'Here:', text: 'Congress makes the U.S. immigration rules. States still run their own police.' },
+                { label: 'The United States says:', text: 'Arizona made a second set of immigration rules. U.S. law already covers this, so Arizona’s rules must go.' },
+                { label: 'Arizona says:', text: 'Its law copies U.S. rules and helps enforce them. Helping is not the same as replacing Congress.' },
+                { label: 'Your job:', text: 'Argue about who makes the rules. Do not argue about whether immigration is good or bad.' }
+            ],
             terms: [
-                { term: 'Supremacy Clause', meaning: 'Article VI: valid federal law beats conflicting state law. If S.B. 1070 collides with Congress’s immigration statutes, the state provisions fall.', simple: 'When federal law and state law clash, valid federal law wins. If Arizona’s law collides with Congress, Arizona’s law falls.' },
-                { term: 'preemption', meaning: 'The doctrine that implements supremacy. Field preemption (federal law occupies the subject) and conflict preemption (state law stands in the way) are both in play.', simple: 'Federal law can block a state law. Either Congress already filled that subject, or the state rule gets in the way.' },
-                { term: 'federalism', meaning: 'The Constitution’s split of power. States run local police; the national government generally sets immigration status rules. Arizona is a border-line case in that split.', simple: 'Power is split: states run local police; the national government generally writes immigration status rules.' }
+                { term: 'Supremacy Clause', meaning: 'Article VI: valid federal law beats conflicting state law. If S.B. 1070 collides with Congress’s immigration statutes, the state provisions fall.', simple: 'When federal law and state law clash, valid federal law wins. If Arizona’s law collides with Congress, Arizona’s law falls.', quick: 'The part of the Constitution that makes U.S. law the highest law.' },
+                { term: 'preemption', meaning: 'The doctrine that implements supremacy. Field preemption (federal law occupies the subject) and conflict preemption (state law stands in the way) are both in play.', simple: 'Federal law can block a state law. Either Congress already filled that subject, or the state rule gets in the way.', quick: 'When U.S. law covers something, a state cannot make its own rules about it.' },
+                { term: 'federalism', meaning: 'The Constitution’s split of power. States run local police; the national government generally sets immigration status rules. Arizona is a border-line case in that split.', simple: 'Power is split. States run local police. The national government usually writes the rules about immigration status.', quick: 'Sharing power between the states and the U.S. government.' }
             ]
         },
         tests: {
             petitioner: {
                 title: 'Cooperative enforcement',
                 text: 'S.B. 1070 mirrors federal requirements and helps enforce them. States police their streets every day. Helping federal law is not the same as replacing it.',
-                textSimple: 'Arizona’s rule: the law copies federal rules and helps enforce them. Helping is not replacing Congress.'
+                textSimple: 'Arizona’s rule: the law copies federal rules and helps enforce them. Helping is not replacing Congress.',
+                textQuick: 'Arizona wants this rule. A state may help enforce U.S. immigration law. Helping is not replacing Congress.'
             },
             respondent: {
                 title: 'Field preemption',
                 text: 'The Constitution gives Congress naturalization and foreign-affairs power. A second, state-written immigration code — even one that copies federal rules — conflicts with a uniform national system.',
-                textSimple: 'The United States’ rule: immigration is a federal subject. A second state code — even a copy — conflicts with one national system.'
+                textSimple: 'The United States’ rule: immigration is a federal subject. A second set of state rules, even a copy, conflicts with one national system.',
+                textQuick: 'The United States wants this rule. Immigration is a job for the U.S. government. A state may not add its own set of rules, even a copy.'
             }
         },
         theorySamples: {
