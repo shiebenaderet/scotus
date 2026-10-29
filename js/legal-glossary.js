@@ -265,10 +265,10 @@
   function skipElement(el) {
     if (!el || el.nodeType !== 1) return true;
     var tag = el.tagName;
-    if (tag === "SCRIPT" || tag === "STYLE" || tag === "TEXTAREA" || tag === "INPUT" || tag === "BUTTON" || tag === "A" || tag === "LABEL" || tag === "CITE") {
+    if (tag === "SCRIPT" || tag === "STYLE" || tag === "TEXTAREA" || tag === "INPUT" || tag === "BUTTON" || tag === "A" || tag === "LABEL" || tag === "CITE" || tag === "SELECT" || tag === "OPTION" || tag === "OPTGROUP") {
       return true;
     }
-    if (el.closest && el.closest(".legal-tip, .law-box, .no-legal-tips, code, pre, .q-opt, .q-card, .nav-dropdown, .header-nav, .site-header, .content-block.hidden, .two-sides-summary.hidden")) {
+    if (el.closest && el.closest(".legal-tip, .law-box, .no-legal-tips, code, pre, .q-opt, .q-card, .nav-dropdown, .header-nav, .site-header, .content-block.hidden, .two-sides-summary.hidden, .brief-tab, .test-side, .person-side, .version-cue, .icard-head, .pick-side, .rp, .player")) {
       return true;
     }
     return false;
@@ -346,7 +346,36 @@
       var n = document.getElementById(id);
       if (n) enhance(n);
     });
+    enhanceCards();
   }
+
+  /* Word help on the single-version activity text: every Argument Sort card and
+     Evidence Vault card gets its own tips (first use of each term in that card),
+     so a Quick reader can tap a hard word there too. The text itself is unchanged. */
+  var CARD_SELECTOR = ".argument-sorting-table tbody td:not(.icard-head):not(.icard-pick), " +
+    "#evidence-vault .source-front, #evidence-vault .source-back-question, #evidence-vault .esort-fact";
+  function termsAlreadyTipped(root) {
+    var used = {};
+    root.querySelectorAll(".legal-tip-word").forEach(function (w) {
+      var text = w.textContent.replace(/\s+/g, " ").trim().toLowerCase();
+      TERMS.forEach(function (t) {
+        if (t.term.toLowerCase() === text) used[t.term] = true;
+      });
+    });
+    return used;
+  }
+  function enhanceCards() {
+    document.querySelectorAll(CARD_SELECTOR).forEach(function (card) {
+      if (card.querySelector("select")) return;
+      if (card.getAttribute("data-legal-card") === "1") return;
+      var used = termsAlreadyTipped(card);
+      TERMS.forEach(function (t) {
+        walk(card, t, used);
+      });
+      card.setAttribute("data-legal-card", "1");
+    });
+  }
+  window.scotusEnhanceCards = enhanceCards;
 
   function resetPopStyle(pop) {
     if (!pop) return;
@@ -598,6 +627,7 @@
       n.removeAttribute("data-legal-enhanced");
       enhance(n);
     });
+    enhanceCards();
   });
 
   function syncReadingLevel() {

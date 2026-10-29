@@ -3,6 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+    /* Reading settings before first paint (the panel is js/reading-panel.js). ?v=quick|clear|full sets the version. */
+    (function(){var d=document.documentElement,A={size:['normal','large','larger'],spacing:['normal','wide'],font:['atkinson','lexend','opendyslexic','verdana'],contrast:['standard','high'],motion:['system','reduce']},s={},L={quick:'quick',clear:'simplified',full:'standard'},V={quick:'quick',simplified:'clear',standard:'full'},q,v;
+    try{s=JSON.parse(localStorage.getItem('scotus:reading'))||{}}catch(e){}
+    for(var k in A)d.setAttribute('data-'+k,A[k].indexOf(s[k])>-1?s[k]:A[k][0]);
+    q=(location.search.match(/[?&]v=(quick|clear|full)(?:&|$)/)||[])[1];
+    try{if(q)localStorage.setItem('scotus-reading-level',L[q]);v=localStorage.getItem('scotus-reading-level')}catch(e){}
+    d.setAttribute('data-version',V[v]||q||'full')})();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;700&family=Libre+Baskerville:wght@400;700&display=swap">
     <title>Teacher Resources | SCOTUS Debate Project</title>
     <link rel="stylesheet" href="css/styles.css">
     <style>
@@ -24,14 +36,14 @@
         }
 
         .auth-gate p {
-            color: #666;
+            color: #5A554E;
             margin-bottom: 24px;
             max-width: 100%;
         }
 
         /* HERO */
         .teacher-hero {
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-light) 100%);
+            background: var(--primary-dark);
             color: var(--text-light);
             padding: 2.5rem 2rem;
             border-radius: 16px;
@@ -57,10 +69,8 @@
             color: #fff;
             padding: 4px 14px;
             border-radius: 20px;
-            font-size: 0.8em;
+            font-size: 1rem;
             font-weight: 600;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
             margin-bottom: 12px;
         }
 
@@ -78,8 +88,8 @@
         }
 
         .section-head p {
-            color: #666;
-            font-size: 0.92em;
+            color: #5A554E;
+            font-size: 1.125rem;
             margin-top: 4px;
         }
 
@@ -151,14 +161,14 @@
         }
 
         .resource-card p {
-            font-size: 0.88em;
-            color: #3d3d3d;
+            font-size: 1.125rem;
+            color: #1F2124;
             margin: 0;
             line-height: 1.4;
         }
 
         .resource-card .dl-hint {
-            font-size: 0.8em;
+            font-size: 1.125rem;
             color: var(--accent);
             font-weight: 600;
             margin-top: auto;
@@ -182,7 +192,7 @@
         .overview-section h4 {
             color: var(--primary-dark);
             margin: 16px 0 8px;
-            font-size: 0.95em;
+            font-size: 1rem;
         }
 
         .overview-section p, .overview-section li {
@@ -205,7 +215,7 @@
             color: #fff;
             padding: 2px 10px;
             border-radius: 4px;
-            font-size: 0.8em;
+            font-size: 1rem;
             font-weight: 600;
             margin-bottom: 4px;
         }
@@ -232,7 +242,7 @@
         .contact-avatar {
             width: 72px;
             height: 72px;
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-light) 100%);
+            background: var(--primary-dark);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -250,14 +260,14 @@
         }
 
         .contact-info .contact-pronouns {
-            font-size: 0.85em;
-            color: #3d3d3d;
+            font-size: 1rem;
+            color: #1F2124;
             font-weight: 400;
         }
 
         .contact-info .contact-role {
-            font-size: 0.92em;
-            color: #666;
+            font-size: 1rem;
+            color: #5A554E;
             margin-bottom: 10px;
         }
 
@@ -265,7 +275,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            font-size: 0.9em;
+            font-size: 1.125rem;
             color: var(--text-dark);
             margin-bottom: 4px;
         }
@@ -303,7 +313,7 @@
             border-radius: 8px;
             color: var(--text-dark);
             text-decoration: none;
-            font-size: 0.92em;
+            font-size: 1rem;
             font-weight: 500;
             transition: all 0.2s;
         }
@@ -315,7 +325,7 @@
 
         /* COLLABORATION CTA */
         .collab-cta {
-            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary-dark) 100%);
+            background: var(--primary-light);
             color: var(--text-light);
             border-radius: 14px;
             padding: 32px;
@@ -349,7 +359,7 @@
         .collab-cta a:hover {
             background: var(--accent-hover);
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(214, 56, 80, 0.35);
+            box-shadow: 0 4px 12px rgba(62, 95, 135, 0.35);
         }
 
         /* RESPONSIVE */
@@ -370,8 +380,8 @@
         }
 
         .whats-new {
-            background: #fff8e8;
-            border: 2px solid #e6c15a;
+            background: #F5F0E8;
+            border: 2px solid #3E5F87;
             border-radius: 12px;
             padding: 20px 24px;
             margin-bottom: 24px;
@@ -387,7 +397,7 @@
         }
 
         .hold-banner {
-            background: #fff5f6;
+            background: #E8EDF4;
             border-left: 5px solid var(--accent);
             border-radius: 8px;
             padding: 14px 18px;
@@ -418,29 +428,30 @@
 
         .site-map h4 {
             margin: 0 0 6px;
-            font-size: 0.95em;
+            font-size: 1rem;
             color: var(--primary-dark);
         }
 
         .site-map p {
             margin: 0;
-            font-size: 0.88em;
-            color: #555;
+            font-size: 1.125rem;
+            color: #1F2124;
             line-height: 1.45;
         }
 
         .case-q {
-            font-size: 0.92em;
-            color: #444;
+            font-size: 1rem;
+            color: #1F2124;
             margin: 2px 0 0;
         }
 
         .case-sides-note {
-            font-size: 0.88em;
-            color: #666;
+            font-size: 1rem;
+            color: #5A554E;
             margin: 0 0 8px;
         }
     </style>
+    <link rel="stylesheet" href="css/theme.css">
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -475,7 +486,7 @@
             <div id="teacher-gate" class="auth-gate">
                 <h2>Teacher Resources</h2>
                 <p>This page is available to teachers with an @edmonds.wednet.edu account. Please sign in to access project materials, handouts, and implementation guides.</p>
-                <button class="auth-btn auth-btn-in" style="font-size: 1.05em; padding: 12px 28px; border-radius: 8px; border: none; background: var(--accent); color: #fff; cursor: pointer;" onclick="signInWithGoogle()">Sign In with Google</button>
+                <button class="btn btn-solid auth-btn auth-btn-in" onclick="signInWithGoogle()">Sign In with Google</button>
             </div>
 
             <!-- TEACHER CONTENT: shown after teacher auth -->
@@ -485,7 +496,7 @@
                 <div class="teacher-hero">
                     <span class="teacher-badge">Teacher Resources</span>
                     <h1>Supreme Court Debate Project</h1>
-                    <p>Everything you need to run the mock trial in your classroom — including the current student path, hidden holdings, and fact-checked case pages</p>
+                    <p>Everything you need to run the mock trial in your classroom, including the current student path, hidden holdings, and fact-checked case pages</p>
                 </div>
 
                 <!-- MOTIVATION -->
@@ -511,8 +522,8 @@
 
                 <!-- WHAT'S NEW -->
                 <div class="section-head">
-                    <h2>What's on the site now</h2>
-                    <p>Matches the student site as of v1.22.3 — Know the law boxes, tap-to-open law-word tips, Law words resource</p>
+                    <h2>What's on the Site Now</h2>
+                    <p>Matches the student site as of v1.25.0: the Reading panel with Quick, Clear, and Full versions, Know the Law boxes, tap-to-open law-word tips, and the Law words resource</p>
                 </div>
 
                 <div class="whats-new">
@@ -522,8 +533,8 @@
                         <li>Each case now has a <strong>case-specific constitutional question</strong> and two <strong>competing tests</strong> (the rule each side wants the Court to write).</li>
                         <li>The home page has a <strong>clickable 6-step path</strong>: Background → Sort &amp; weigh → Evidence Vault → Speak (the only 60-second theory) → Debate Prep (written speech) → classroom debate. Each case card has <strong>Explore case</strong> and <strong>Pick a side</strong>.</li>
                         <li><strong>Argument Sort has no score.</strong> Students choose which side they would use — including “Both.” Ranking and steelmanning happen in Weigh.</li>
-                        <li><strong>Know the law:</strong> Every case Background (and Speak / Debate Prep) has a box with the clause, a plain-English frame, and clickable term chips. <strong>Standard</strong> is a short paragraph. <strong>Simplified</strong> is the same law in five labeled steps (the rule, what it means, each side, your job). Dotted-word tips and Law words also switch with reading level. Tips open on tap (not hover) and stay fully on screen. None of this reveals the holding.</li>
-                        <li><strong>Reading level</strong> (Standard / Simplified) is saved in the browser and follows the student. Simplified is the same argument in shorter sentences. Set it on Home or any case page.</li>
+                        <li><strong>Know the law:</strong> Every case Background (and Speak / Debate Prep) has a box with the clause, a plain-English frame, and clickable term chips. <strong>Full</strong> is a short paragraph. <strong>Clear</strong> is the same law in labeled steps (the rule, what it means, each side, your job), and <strong>Quick</strong> uses shorter steps where a case has them. Dotted-word tips and Law words also follow the reading version. Tips open on tap (not hover) and stay fully on screen. None of this reveals the holding.</li>
+                        <li><strong>Reading panel:</strong> one <strong>Reading</strong> button on every page sets the version (<strong>Quick</strong>, <strong>Clear</strong>, or <strong>Full</strong>), Listen, text size, line spacing, font, contrast, and motion. Case pages also have Quick / Clear / Full buttons in the case bar as a shortcut. Choices are saved in the browser and follow the student. A link can open a version directly with <code>?v=quick</code>, <code>?v=clear</code>, or <code>?v=full</code>.</li>
                         <li><strong>Case Journeys</strong> has Prep mode (holding hidden) and Debrief mode (vote and reasoning). Keep students on Prep until after they argue.</li>
                         <li><strong>Review</strong> multiple-choice items often mention holdings. Use vocab anytime; save case quizzes and <a href="https://play.blooket.com/play?hwId=699e72ac5db83b482a747f78" target="_blank" rel="noopener">Blooket</a> for after the debate.</li>
                         <li>The website case pages and Evidence Vault are the <strong>fact-checked source of truth</strong>. Google Docs (case readings, prep organizers) may lag — if they conflict, trust the site.</li>
@@ -535,11 +546,11 @@
                     <div class="site-map">
                         <a href="index.html">
                             <h4>Home</h4>
-                            <p>Driving question (with a note that it does not fit every case), clickable 6-step path, cases grouped by theme with Explore / Pick a side, and a reading-level toggle that follows the student.</p>
+                            <p>Driving question (with a note that it does not fit every case), clickable 6-step path, cases grouped by theme with Explore / Pick a side, and the Reading panel, whose version follows the student.</p>
                         </a>
                         <a href="index.html#cases">
-                            <h4>Case page — Background</h4>
-                            <p>Facts, people, Know the law (clause + Standard paragraph or Simplified step-by-step), the case question, and the two competing tests (both reading levels). Party badges name who you represent, then Petitioner/Respondent.</p>
+                            <h4>Case Page: Background</h4>
+                            <p>Facts, people, Know the law (clause + a Full paragraph or Clear and Quick steps), the case question, and the two competing tests (in every reading version). Party badges name who you represent, then Petitioner/Respondent.</p>
                         </a>
                         <a href="debate.html">
                             <h4>Debate Prep</h4>
@@ -547,7 +558,7 @@
                         </a>
                         <a href="journeys.html">
                             <h4>Case Journeys</h4>
-                            <p>Prep mode: incident and lower courts only. Debrief mode: Supreme Court vote and reasoning. Standard / Simplified reading toggle.</p>
+                            <p>Prep mode: incident and lower courts only. Debrief mode: Supreme Court vote and reasoning. Text follows the Reading panel version.</p>
                         </a>
                         <a href="compare.html">
                             <h4>Compare (debrief)</h4>
@@ -559,7 +570,7 @@
                         </a>
                         <a href="resources.html">
                             <h4>Resources</h4>
-                            <p>What the Court is, how a case gets there, Law words (glossary + each case’s legal fight), debate tips. Standard / Simplified toggle. Week 1 material lives here.</p>
+                            <p>What the Court is, how a case gets there, Law words (glossary + each case’s legal fight), debate tips. Text follows the Reading panel version. Week 1 material lives here.</p>
                         </a>
                         <a href="cases/tinker.html">
                             <h4>On every case page</h4>
@@ -572,10 +583,10 @@
                 <div class="overview-section">
                     <h3>Other features</h3>
                     <ul>
-                        <li><strong>Reading levels:</strong> Standard and Simplified follow the student across pages (saved in the browser). Simplified is the same argument in shorter sentences, not a different story. Set it on the home page or any case page.</li>
+                        <li><strong>Reading versions:</strong> Quick, Clear, and Full follow the student across pages (saved in the browser). Quick and Clear are the same argument in shorter sentences, not a different story. Set the version in the Reading panel on any page, or with the case bar buttons on a case page.</li>
                         <li><strong>Hard-side coaching:</strong> On Brown (Board), Kennedy, and Arizona the case page tells students what a historically real argument looks like — and what they may not argue.</li>
                         <li><strong>Progress saving:</strong> Work in sort/weigh, Speak, vault, Debate Prep, and Compare autosaves. A chip says “Saved on this device” or “Saved to your account” after Google sign-in (@edmonds.wednet.edu).</li>
-                        <li><strong>Mobile:</strong> A <strong>Menu</strong> button opens navigation on phones. Press Escape to close the menu or Prepare dropdown.</li>
+                        <li><strong>Mobile:</strong> Cases, Resources, and Prepare stay visible in the header on phones. Arrow keys move through the Prepare menu; Escape or moving focus away closes it.</li>
                     </ul>
                 </div>
 
@@ -603,14 +614,14 @@
                 <!-- PROJECT OVERVIEW -->
                 <div class="section-head">
                     <h2>Project Overview</h2>
-                    <p>A 4-week unit plan — adapt the pacing to fit your schedule</p>
+                    <p>A 4-week unit plan. Adapt the pacing to fit your schedule.</p>
                 </div>
 
                 <div class="overview-section">
                     <h3>The Driving Question</h3>
                     <p><em>When, if ever, should the government be allowed to limit a person's constitutional rights in order to protect the community?</em></p>
-                    <p>This is the unit’s big question — and it fits some cases better than others. <em>Tinker</em>, <em>T.L.O.</em>, <em>Payton</em>, and <em>Mahanoy</em> are genuine rights-versus-order fights. <em>Kennedy</em> is two religion clauses colliding. <em>Brown</em> is equal protection. <em>Arizona</em> is federal versus state power.</p>
-                    <p>Tell students: use the unit question when it fits, and use <strong>each case’s own constitutional question</strong> (on the case card and Background tab) when it does not. Do not mash Brown or Arizona into “community safety.”</p>
+                    <p>This is the unit’s big question, and it fits some cases better than others. <em>Jacobson</em> fits it most directly: one man’s liberty against a city fighting smallpox. <em>Tinker</em>, <em>T.L.O.</em>, <em>Payton</em>, <em>Mahanoy</em>, and <em>Morse</em> are also genuine rights-versus-order fights. <em>Kennedy</em> is two religion clauses colliding. <em>Brown</em> is equal protection. <em>Arizona</em> is federal versus state power. <em>Fishing Rights</em> asks what the treaties promised the tribes and whether a treaty outranks state law.</p>
+                    <p>Tell students: use the unit question when it fits, and use <strong>each case’s own constitutional question</strong> (on the case card and Background tab) when it does not. Do not mash Brown, Arizona, or Fishing Rights into “community safety.”</p>
                 </div>
 
                 <div class="overview-section">
@@ -713,7 +724,7 @@
                             <span class="case-sides-note">Brown family vs. Topeka school board. Not a safety-vs-rights case.</span></li>
                     </ul>
 
-                    <p class="case-group-label">Federalism — who writes the rules?</p>
+                    <p class="case-group-label">Federalism: who writes the rules?</p>
                     <ul>
                         <li><strong>Arizona v. United States</strong> (2012) — Supremacy Clause<br>
                             <span class="case-q">May a state add its own immigration crimes and police duties when Congress already occupies that field?</span><br>
@@ -730,13 +741,13 @@
 
                 <div class="overview-section">
                     <h3>Coaching the hard sides</h3>
-                    <h4>Brown — Board of Education</h4>
+                    <h4>Brown: Board of Education</h4>
                     <p>Give respondents a historically real theory: <em>Plessy</em> is precedent; Topeka’s elementary schools were found substantially equal in facilities; education is a state function. Ban arguments that any race is inferior. Debrief after: why a unanimous Court rejected even the “polite” version of separate-but-equal.</p>
-                    <h4>Kennedy — both sides</h4>
+                    <h4>Kennedy: Both Sides</h4>
                     <p><strong>Coach:</strong> short personal prayer after the whistle; Free Exercise and private speech. <strong>District:</strong> 50-yard line, school gear, a parent’s report to Principal Polm that a son felt playing-time pressure, the October 16 crowd (the district said band members and cheerleaders were knocked down), and <em>Santa Fe v. Doe</em>. Treat playing-time pressure and the crowd injuries as <em>the district’s claims</em>, not as undisputed facts. Do not let this become “religion is good/bad.”</p>
                     <h4>Arizona</h4>
                     <p>The issue is preemption — who writes immigration rules — not whether immigration is good or bad. “Helping enforce federal law” vs. “a second immigration code.”</p>
-                    <h4>T.L.O. — party labels</h4>
+                    <h4>T.L.O.: Party Labels</h4>
                     <p>Students mix this up. New Jersey (the State) asked the Supreme Court to hear the case, so the State is petitioner. T.L.O. is respondent. “Petitioner” does not mean the student.</p>
                     <h4>Holdings stay hidden until debrief</h4>
                     <p>Prep materials use earlier precedent and the case record, not this Court’s vote. Case Journeys has a Prep/Debrief toggle. Review quizzes and Blooket that mention holdings are for after the debate.</p>
@@ -772,8 +783,8 @@
 
                     <a class="resource-card" href="https://docs.google.com/document/d/1qEduVzhY4L-way0Pwu3DQAfpOv2rbmL3XMmRfDqRIR0/preview" target="_blank" rel="noopener">
                         <div class="resource-card-icon">📖</div>
-                        <h3>Case Readings — Two Levels</h3>
-                        <p>Two reading levels of text for each case. The website Simplified/Standard toggle is the up-to-date version; this Doc may lag.</p>
+                        <h3>Case Readings: Two Levels</h3>
+                        <p>Two reading levels of text for each case. The website’s Quick, Clear, and Full versions (Reading panel) are the up-to-date text; this Doc may lag.</p>
                         <span class="dl-hint">Click to preview &rarr;</span>
                     </a>
 
@@ -785,7 +796,7 @@
                     </a>
                 </div>
 
-                <p style="font-size: 0.88em; color: #3d3d3d; margin-top: 8px;">Each "/copy" link creates a fresh copy in your Google Drive. The case readings link opens a preview. If a Google Doc disagrees with the website (facts, dates, party labels), use the website — those pages were fact-checked against the case records.</p>
+                <p style="font-size: 1rem; color: #1F2124; margin-top: 8px;">Each "/copy" link creates a fresh copy in your Google Drive. The case readings link opens a preview. If a Google Doc disagrees with the website (facts, dates, party labels), use the website — those pages were fact-checked against the case records.</p>
 
                 <!-- CONTACT -->
                 <div class="section-head">
@@ -825,12 +836,13 @@
 
     <footer>
         <div class="container">
-            <p>SCOTUS Debate Project — A Student Resource for Understanding the Supreme Court</p>
-            <p class="site-version">v1.22.3</p>
+            <p>SCOTUS Debate Project: A Student Resource for Understanding the Supreme Court</p>
+            <p class="site-version">v1.25.0</p>
         </div>
     </footer>
 
     <script src="js/site-chrome.js"></script>
+    <script src="js/reading-panel.js"></script>
     <script src="js/case-prep-data.js"></script>
     <script src="js/case-prep.js"></script>
     <script src="js/legal-glossary.js"></script>

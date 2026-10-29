@@ -147,8 +147,8 @@ var CASE_PREP_DATA = {
             {
                 type: 'historical', typeLabel: 'Context',
                 title: 'The Boston outbreak',
-                excerpt: '“In Boston alone, 270 people died from smallpox during the extended 1901 to 1903 outbreak.”',
-                citation: 'Dave Roos, “When the Supreme Court Ruled a Vaccine Could Be Mandatory,” History.com, January 6, 2021.'
+                excerpt: 'Boston: “From 1901 to 1903, there were 1596 cases of smallpox, with 270 deaths, in a city with a population of approximately 560,900.”',
+                citation: 'Michael R. Albert, Kristen G. Ostheimer, and Joel G. Breman, “The Last Smallpox Epidemic in Boston and the Vaccination Controversy, 1901–1903,” New England Journal of Medicine 344, no. 5 (2001): 375–379.'
             }
         ]
     },

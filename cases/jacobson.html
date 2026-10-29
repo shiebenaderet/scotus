@@ -3,9 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+    /* Reading settings before first paint (the panel is js/reading-panel.js). ?v=quick|clear|full sets the version. */
+    (function(){var d=document.documentElement,A={size:['normal','large','larger'],spacing:['normal','wide'],font:['atkinson','lexend','opendyslexic','verdana'],contrast:['standard','high'],motion:['system','reduce']},s={},L={quick:'quick',clear:'simplified',full:'standard'},V={quick:'quick',simplified:'clear',standard:'full'},q,v;
+    try{s=JSON.parse(localStorage.getItem('scotus:reading'))||{}}catch(e){}
+    for(var k in A)d.setAttribute('data-'+k,A[k].indexOf(s[k])>-1?s[k]:A[k][0]);
+    q=(location.search.match(/[?&]v=(quick|clear|full)(?:&|$)/)||[])[1];
+    try{if(q)localStorage.setItem('scotus-reading-level',L[q]);v=localStorage.getItem('scotus-reading-level')}catch(e){}
+    d.setAttribute('data-version',V[v]||q||'full')})();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;700&family=Libre+Baskerville:wght@400;700&display=swap">
     <title>Jacobson v. Massachusetts (1905) | SCOTUS Debate Project</title>
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/case.css">
+    <link rel="stylesheet" href="../css/theme.css">
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -64,7 +77,7 @@
 
                 <!-- Guiding Question Connection -->
                 <div class="guiding-question-connection">
-                    <h3>🔗 Connecting to Our Guiding Question</h3>
+                    <h3>Connecting to Our Guiding Question</h3>
                     <p><strong>When, if ever, should the government be allowed to limit a person's constitutional rights in order to protect the community?</strong></p>
 
                     <!-- Standard Version -->
@@ -692,7 +705,7 @@
                                         <span class="source-side-label side-respondent">Massachusetts</span>
                                     </div>
                                     <h4>A Deadly Outbreak</h4>
-                                    <div class="source-excerpt">&ldquo;In Boston alone, 270 people died from smallpox during the extended 1901 to 1903 outbreak.&rdquo;</div>
+                                    <div class="source-excerpt">Boston: &ldquo;From 1901 to 1903, there were 1596 cases of smallpox, with 270 deaths, in a city with a population of approximately 560,900.&rdquo;</div>
                                     <div class="source-flip-cta">Click to analyze &rarr;</div>
                                 </div>
                                 <div class="source-back">
@@ -700,7 +713,7 @@
                                     <h4>A Deadly Outbreak</h4>
                                     <div class="source-back-question">What does this show &amp; who does it help?</div>
                                     <div class="source-back-analysis">This source helps <strong>Massachusetts</strong>. It shows how deadly the disease was in the cities around Cambridge at the time of the order.</div>
-                                    <div class="source-citation">Dave Roos, &ldquo;When the Supreme Court Ruled a Vaccine Could Be Mandatory,&rdquo; History.com, January 6, 2021.</div>
+                                    <div class="source-citation">Michael R. Albert, Kristen G. Ostheimer, and Joel G. Breman, &ldquo;The Last Smallpox Epidemic in Boston and the Vaccination Controversy, 1901&ndash;1903,&rdquo; <em>New England Journal of Medicine</em> 344, no. 5 (2001): 375&ndash;379.</div>
                                     <div class="source-back-cta">Click to flip back</div>
                                 </div>
                             </div>
@@ -877,12 +890,12 @@
 
                 <div class="resources-preview">
                     <div class="resource-item">
-                        <span class="resource-tag">📄 Summary</span>
+                        <span class="resource-tag">Summary</span>
                         <h3>Oyez Case Summary</h3>
                         <a href="https://www.oyez.org/cases/1900-1940/197us11" target="_blank" rel="noopener">Read Now →</a>
                     </div>
                     <div class="resource-item">
-                        <span class="resource-tag">📄 History</span>
+                        <span class="resource-tag">History</span>
                         <h3>History.com: When the Supreme Court Ruled on a Vaccine</h3>
                         <a href="https://www.history.com/articles/smallpox-vaccine-supreme-court" target="_blank" rel="noopener">Read Now →</a>
                     </div>
@@ -895,11 +908,12 @@
         <div class="container">
             <p><a href="../index.html">← Back to All Cases</a></p>
             <p>&copy; 2026 SCOTUS Debate Project</p>
-            <p class="site-version">v1.20.0</p>
+            <p class="site-version">v1.25.0</p>
         </div>
     </footer>
 
     <script src="../js/site-chrome.js"></script>
+    <script src="../js/reading-panel.js"></script>
     <script src="../js/case-prep-data.js"></script>
     <script src="../js/case-prep.js"></script>
     <script src="../js/legal-glossary.js"></script>

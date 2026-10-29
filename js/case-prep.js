@@ -45,7 +45,10 @@
             field.addEventListener('input', persist);
         });
         function persist() {
-            var data = {};
+            // Start from what is saved so values that are not form fields
+            // (like the chosen side on the Speak tab) are kept
+            var data = loadJSON(key, {});
+            if (!data || typeof data !== 'object' || Array.isArray(data)) data = {};
             container.querySelectorAll('textarea, select, input').forEach(function (field) {
                 var name = field.getAttribute('data-field');
                 if (name) data[name] = field.value;
@@ -112,7 +115,7 @@
             ? '<p class="law-issue"><strong>The fight:</strong> ' + escapeHtml(law.issueQuick || law.issueSimple || law.issue) + '</p>' + lawStepsHtml(law, true)
             : null;
         return '<div class="law-box' + (opts.compact ? ' law-box-compact' : '') + '">' +
-            '<h3>Know the law</h3>' +
+            '<h3>Know the Law</h3>' +
             '<blockquote class="law-clause"><p>' + escapeHtml(law.clause) + '</p><cite>' + escapeHtml(law.clauseCite) + '</cite></blockquote>' +
             levelPair(stdBody, simpBody, quickBody) +
             (chips ? '<div class="law-terms">' + chips + '</div>' : '') +
@@ -131,29 +134,29 @@
 
     window.scotusLawBoxHtml = lawBoxHtml;
 
-    function injectProgressStrip() {
-        var header = document.querySelector('.case-header .container');
-        if (!header || document.querySelector('.case-progress')) return;
-        var strip = el(
-            '<nav class="case-progress" aria-label="Prep steps">' +
-                '<a href="#background" data-step="background">1 Background</a>' +
-                '<a href="#activity" data-step="activity">2 Sort &amp; weigh</a>' +
-                '<a href="#evidence-vault" data-step="evidence-vault">3 Vault</a>' +
-                '<a href="#speak" data-step="speak">4 Speak</a>' +
-                '<a href="' + relPrefix() + 'debate.html?case=' + caseIdFromPath() + '">5 Debate Prep</a>' +
-                '<a href="#today" data-step="today">6 Today <span class="after-debate">(after debate)</span></a>' +
-            '</nav>'
-        );
-        header.appendChild(strip);
-        strip.querySelectorAll('a[data-step]').forEach(function (a) {
-            a.addEventListener('click', function (e) {
-                var id = a.getAttribute('data-step');
-                if (typeof window.switchToTab === 'function' && document.getElementById(id)) {
-                    e.preventDefault();
-                    window.switchToTab(id);
-                }
-            });
-        });
+    /* Brief tab for a competing-test card: shape + word, never color alone.
+       Square = petitioner, diamond = respondent. */
+    var SIDE_MARK = {
+        petitioner: '<svg class="mk mk-pet" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="1" y="1" width="14" height="14"/></svg>',
+        respondent: '<svg class="mk mk-res" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0 16 8 8 16 0 8z"/></svg>'
+    };
+    function sideTabHtml(side) {
+        return '<p class="brief-tab">' + SIDE_MARK[side] + (side === 'petitioner' ? 'Petitioner' : 'Respondent') + '</p>';
+    }
+    window.scotusSideTab = sideTabHtml;
+
+    /* The case bar's tabs already cover Background through Today; the one step that
+       lives on another page (Debate Prep) joins them as a link before Today. */
+    function injectDebatePrepTab() {
+        var nav = document.querySelector('.case-nav.tabbed');
+        if (!nav || nav.querySelector('.case-tab-link')) return;
+        var a = document.createElement('a');
+        a.className = 'case-tab-link';
+        a.href = relPrefix() + 'debate.html?case=' + caseIdFromPath();
+        a.textContent = 'Debate Prep';
+        var today = nav.querySelector('[data-tab="today"]');
+        if (today) nav.insertBefore(a, today);
+        else nav.appendChild(a);
     }
 
     function updatePartyLabels(data) {
@@ -184,20 +187,21 @@
         );
 
         var tests = el(
-            '<div class="competing-tests">' +
-                '<h3>Competing tests — what each side wants the Court to adopt</h3>' +
+            '<div class="competing-tests on-navy">' +
+                '<h3>Competing Tests</h3>' +
                 levelPair(
                     '<p class="tests-lead">Do not just say your side is “right.” Name the <strong>rule</strong> you want. Every argument should end with: “Under our test, this fact matters because…”</p>',
                     '<p class="tests-lead">Do not just say you are right. Name the <strong>rule</strong> you want the Court to write. Then say: “Under our test, this fact matters because…”</p>',
                     '<p class="tests-lead">Do not just say your side is right. Each side wants a <strong>rule</strong>, a test the Court will use. Pick one. Then say: “Under our test, this fact matters because…”</p>'
                 ) +
                 '<div class="tests-grid">' +
-                    '<div class="test-card petitioner">' +
+                    '<div class="test-card petitioner on-light">' + sideTabHtml('petitioner') +
                         '<div class="test-side">' + escapeHtml(data.petitioner.name) + '</div>' +
                         '<h4>' + escapeHtml(data.tests.petitioner.title) + '</h4>' +
                         testCardBody(data.tests.petitioner) +
                     '</div>' +
-                    '<div class="test-card respondent">' +
+                    '<span class="tests-vs" aria-hidden="true">vs.</span>' +
+                    '<div class="test-card respondent on-light">' + sideTabHtml('respondent') +
                         '<div class="test-side">' + escapeHtml(data.respondent.name) + '</div>' +
                         '<h4>' + escapeHtml(data.tests.respondent.title) + '</h4>' +
                         testCardBody(data.tests.respondent) +
@@ -319,8 +323,8 @@
                             '<li><label for="th-rule">The rule we need the Court to adopt</label><textarea id="th-rule" data-field="rule" placeholder="Under our test…"></textarea></li>' +
                             '<li><label for="th-danger">Why the other side’s rule is dangerous</label><textarea id="th-danger" data-field="danger"></textarea></li>' +
                         '</ol>' +
-                        '<details class="theory-sample" data-sample="petitioner"><summary>If you get stuck — sample for ' + escapeHtml(data.petitioner.name) + '</summary><ol>' + samplesP + '</ol></details>' +
-                        '<details class="theory-sample" data-sample="respondent"><summary>If you get stuck — sample for ' + escapeHtml(data.respondent.name) + '</summary><ol>' + samplesR + '</ol></details>' +
+                        '<details class="theory-sample" data-sample="petitioner"><summary>If you get stuck: sample for ' + escapeHtml(data.petitioner.name) + '</summary><ol>' + samplesP + '</ol></details>' +
+                        '<details class="theory-sample" data-sample="respondent"><summary>If you get stuck: sample for ' + escapeHtml(data.respondent.name) + '</summary><ol>' + samplesR + '</ol></details>' +
                     '</div>' +
                     '<div class="oral-practice">' +
                         '<div class="section-header"><h2>Oral practice</h2>' +
@@ -331,7 +335,7 @@
                             '<li><strong>Hot bench:</strong> Answer these judge questions. Hostile questions are the point.</li>' +
                         '</ol>' +
                         '<div class="hot-bench-list">' + bench + '</div>' +
-                        '<p class="speak-write-split">This is the only 60-second theory. Say it here, then write opening, arguments, and rebuttals in <a href="' + relPrefix() + 'debate.html?case=' + id + '">Debate Prep</a> — do not start a second theory there.</p>' +
+                        '<p class="speak-write-split">This is the only 60-second theory. Say it here, then write opening, arguments, and rebuttals in <a href="' + relPrefix() + 'debate.html?case=' + id + '">Debate Prep</a>. Do not start a second theory there.</p>' +
                     '</div>' +
                 '</div>' +
             '</section>'
@@ -345,10 +349,13 @@
 
         var saved = loadJSON(saveKey('speak'), {});
         section.querySelectorAll('.theory-side-btn').forEach(function (b) {
-            if (saved.side && b.getAttribute('data-side') === saved.side) b.classList.add('selected');
+            var isSaved = !!(saved.side && b.getAttribute('data-side') === saved.side);
+            b.classList.toggle('selected', isSaved);
+            b.setAttribute('aria-pressed', isSaved ? 'true' : 'false');
             b.addEventListener('click', function () {
-                section.querySelectorAll('.theory-side-btn').forEach(function (x) { x.classList.remove('selected'); });
+                section.querySelectorAll('.theory-side-btn').forEach(function (x) { x.classList.remove('selected'); x.setAttribute('aria-pressed', 'false'); });
                 b.classList.add('selected');
+                b.setAttribute('aria-pressed', 'true');
                 var store = loadJSON(saveKey('speak'), {});
                 store.side = b.getAttribute('data-side');
                 saveJSON(saveKey('speak'), store);
@@ -379,7 +386,7 @@
         if (!grid || !data.sources) return;
         if (header) {
             var p = header.querySelector('p');
-            if (p) p.textContent = 'These are short primary excerpts — not the holding of this case. Flip a card and decide how EACH side could use it.';
+            if (p) p.textContent = 'These are short primary excerpts, not the holding of this case. Flip a card and decide how EACH side could use it.';
             var h = header.querySelector('h3');
             if (h) h.textContent = 'Primary excerpts';
         }
@@ -397,7 +404,7 @@
                         '</div>' +
                         '<h4>' + escapeHtml(src.title) + '</h4>' +
                         '<div class="source-excerpt">' + escapeHtml(src.excerpt) + '</div>' +
-                        '<button type="button" class="flip-btn" aria-expanded="false">Flip — who can use this?</button>' +
+                        '<button type="button" class="flip-btn" aria-expanded="false">Flip: who can use this?</button>' +
                     '</div>' +
                     '<div class="source-back">' +
                         '<div class="source-back-label">Who can use this?</div>' +
@@ -456,7 +463,7 @@
         injectSpeakTab(found.id, found.data);
         injectPair(found.data);
         replaceSources(found.data);
-        injectProgressStrip();
+        injectDebatePrepTab();
         document.querySelectorAll('.case-tab[data-tab="today"]').forEach(function (tab) {
             if (tab.textContent.indexOf('after') === -1) {
                 tab.textContent = 'Today (after debate)';

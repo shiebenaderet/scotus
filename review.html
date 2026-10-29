@@ -3,6 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+    /* Reading settings before first paint (the panel is js/reading-panel.js). ?v=quick|clear|full sets the version. */
+    (function(){var d=document.documentElement,A={size:['normal','large','larger'],spacing:['normal','wide'],font:['atkinson','lexend','opendyslexic','verdana'],contrast:['standard','high'],motion:['system','reduce']},s={},L={quick:'quick',clear:'simplified',full:'standard'},V={quick:'quick',simplified:'clear',standard:'full'},q,v;
+    try{s=JSON.parse(localStorage.getItem('scotus:reading'))||{}}catch(e){}
+    for(var k in A)d.setAttribute('data-'+k,A[k].indexOf(s[k])>-1?s[k]:A[k][0]);
+    q=(location.search.match(/[?&]v=(quick|clear|full)(?:&|$)/)||[])[1];
+    try{if(q)localStorage.setItem('scotus-reading-level',L[q]);v=localStorage.getItem('scotus-reading-level')}catch(e){}
+    d.setAttribute('data-version',V[v]||q||'full')})();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;700&family=Libre+Baskerville:wght@400;700&display=swap">
     <title>Review | SCOTUS Debate Project</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/case.css">
@@ -24,7 +36,7 @@
 
         .nav-btn {
             padding: 20px;
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-light) 100%);
+            background: var(--primary-dark);
             color: var(--text-light);
             border: none;
             border-radius: 12px;
@@ -46,16 +58,16 @@
         }
 
         .nav-btn.secondary {
-            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
-            box-shadow: 0 3px 10px rgba(214, 56, 80, 0.3);
+            background: var(--accent);
+            box-shadow: 0 3px 10px rgba(62, 95, 135, 0.3);
         }
 
         .nav-btn.secondary:hover {
-            box-shadow: 0 8px 24px rgba(214, 56, 80, 0.4);
+            box-shadow: 0 8px 24px rgba(62, 95, 135, 0.4);
         }
 
         .nav-btn.success {
-            background: linear-gradient(135deg, #4facfe 0%, #00c6fb 100%);
+            background: #3E5F87;
             box-shadow: 0 3px 10px rgba(79, 172, 254, 0.3);
         }
 
@@ -80,11 +92,11 @@
         }
 
         .progress-fill {
-            background: linear-gradient(90deg, var(--accent) 0%, var(--accent-hover) 100%);
+            background: var(--accent);
             height: 100%;
             transition: width 0.5s ease;
             border-radius: 15px;
-            box-shadow: 0 1px 4px rgba(214, 56, 80, 0.3);
+            box-shadow: 0 1px 4px rgba(62, 95, 135, 0.3);
         }
 
         .progress-bar .progress-text {
@@ -105,7 +117,7 @@
         }
 
         .stat-card {
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-light) 100%);
+            background: var(--primary-dark);
             color: var(--text-light);
             padding: 20px;
             border-radius: 12px;
@@ -127,7 +139,7 @@
 
         .stat-card .label {
             font-weight: 700;
-            font-size: 0.95em;
+            font-size: 1rem;
         }
 
         /* QUESTION CARD */
@@ -148,11 +160,11 @@
 
         .question-card .question-topic {
             display: inline-block;
-            background: #fce7ea;
+            background: #E8EDF4;
             color: var(--accent);
             padding: 3px 10px;
             border-radius: 15px;
-            font-size: 0.8em;
+            font-size: 1.125rem;
             font-weight: 600;
             margin-bottom: 10px;
         }
@@ -178,25 +190,25 @@
 
         .option:hover {
             border-color: var(--accent);
-            background: #fef2f3;
+            background: #E8EDF4;
             transform: translateY(-1px);
             box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
         }
 
         .option.selected {
             border-color: var(--accent);
-            background: #fce7ea;
-            box-shadow: 0 2px 8px rgba(214, 56, 80, 0.15);
+            background: #E8EDF4;
+            box-shadow: 0 2px 8px rgba(62, 95, 135, 0.15);
         }
 
         .option.correct {
-            border-color: #10b981;
-            background: #d1fae5;
+            border-color: #3E5F87;
+            background: #F5F0E8;
         }
 
         .option.incorrect {
-            border-color: #ef4444;
-            background: #fee2e2;
+            border-color: #3E5F87;
+            background: #E8EDF4;
         }
 
         /* FEEDBACK */
@@ -210,13 +222,13 @@
         .feedback.show { display: block; }
 
         .feedback.correct {
-            background: #d1fae5;
-            border-left: 5px solid #10b981;
+            background: #F5F0E8;
+            border-left: 5px solid #3E5F87;
         }
 
         .feedback.incorrect {
-            background: #fee2e2;
-            border-left: 5px solid #ef4444;
+            background: #E8EDF4;
+            border-left: 5px solid #3E5F87;
         }
 
         .feedback h4 { margin-bottom: 10px; }
@@ -243,11 +255,9 @@
             display: inline-block;
             color: #fff;
             font-weight: 700;
-            font-size: 0.75em;
-            letter-spacing: 0.08em;
+            font-size: 1rem;
             padding: 3px 10px;
             border-radius: 4px;
-            text-transform: uppercase;
         }
 
         .sa-starters-list {
@@ -256,9 +266,9 @@
 
         .sa-starter-option {
             display: block;
-            font-size: 0.9em;
+            font-size: 1rem;
             color: var(--primary-dark);
-            background: #f0f4ff;
+            background: #E8EDF4;
             border: 1px solid var(--border);
             border-radius: 6px;
             padding: 8px 12px;
@@ -268,12 +278,12 @@
         }
 
         .sa-starter-option:hover {
-            background: #e0e7ff;
+            background: #E8EDF4;
             border-color: var(--primary-dark);
         }
 
         .btn-success {
-            background: #10b981;
+            background: #3E5F87;
             color: #fff;
             border: none;
             border-radius: 10px;
@@ -284,7 +294,7 @@
         }
 
         .btn-success:hover {
-            background: #059669;
+            background: #3E5F87;
         }
 
         .sa-part-card {
@@ -292,7 +302,7 @@
         }
 
         .exemplar {
-            background: #f0f4ff;
+            background: #E8EDF4;
             border-left: 4px solid var(--primary-dark);
             padding: 15px 20px;
             border-radius: 0 10px 10px 0;
@@ -375,24 +385,24 @@
             border-radius: 8px;
             background: var(--bg-white);
             cursor: pointer;
-            font-size: 0.95em;
+            font-size: 1rem;
             transition: all 0.2s;
         }
 
         .comp-gate-option:hover {
             border-color: var(--primary-dark);
-            background: #f0f0f8;
+            background: #E8EDF4;
         }
 
         .comp-gate-option.correct-answer {
-            border-color: #10b981;
-            background: #d1fae5;
+            border-color: #3E5F87;
+            background: #F5F0E8;
             font-weight: 600;
         }
 
         .comp-gate-option.wrong-answer {
-            border-color: #ef4444;
-            background: #fee2e2;
+            border-color: #3E5F87;
+            background: #E8EDF4;
         }
 
         .comp-gate-feedback {
@@ -400,13 +410,13 @@
             padding: 10px 14px;
             border-radius: 8px;
             font-weight: 500;
-            font-size: 0.9em;
+            font-size: 1.125rem;
             display: none;
         }
 
         .comp-gate-feedback.show { display: block; }
-        .comp-gate-feedback.wrong { background: #fee2e2; color: #991b1b; }
-        .comp-gate-feedback.right { background: #d1fae5; color: #065f46; }
+        .comp-gate-feedback.wrong { background: #E8EDF4; color: #1B2D45; }
+        .comp-gate-feedback.right { background: #F5F0E8; color: #1B2D45; }
 
         /* AMENDMENTS ACTIVITY */
         .amend-level-tabs {
@@ -425,7 +435,7 @@
             text-align: center;
             transition: all 0.25s;
             font-weight: 600;
-            font-size: 0.95em;
+            font-size: 1rem;
         }
 
         .amend-level-tab:hover:not(.locked) {
@@ -435,7 +445,7 @@
         }
 
         .amend-level-tab.active {
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-light) 100%);
+            background: var(--primary-dark);
             color: var(--text-light);
             border-color: var(--primary-dark);
         }
@@ -446,7 +456,7 @@
         }
 
         .amend-level-tab .tab-subtitle {
-            font-size: 0.8em;
+            font-size: 1rem;
             font-weight: 400;
             opacity: 0.8;
             margin-top: 3px;
@@ -478,10 +488,8 @@
         }
 
         .amend-group-label {
-            font-size: 0.78em;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            color: #888;
+            font-size: 1rem;
+            color: #5A554E;
             font-weight: 700;
             margin: 10px 0 6px;
         }
@@ -508,24 +516,24 @@
 
         .amend-btn:hover:not(.has-item) {
             border-color: var(--primary-dark);
-            background: #e0e7ff;
+            background: #E8EDF4;
         }
 
         .amend-btn.waiting {
             border-color: var(--accent);
-            background: #fff0f2;
+            background: #E8EDF4;
             animation: pulse-border 1.5s infinite;
         }
 
         @keyframes pulse-border {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(214, 56, 80, 0.3); }
-            50% { box-shadow: 0 0 0 6px rgba(214, 56, 80, 0); }
+            0%, 100% { box-shadow: 0 0 0 0 rgba(62, 95, 135, 0.3); }
+            50% { box-shadow: 0 0 0 6px rgba(62, 95, 135, 0); }
         }
 
         .amend-btn .amend-name {
             font-weight: 700;
             color: var(--primary-dark);
-            font-size: 0.85em;
+            font-size: 1rem;
             white-space: nowrap;
         }
 
@@ -541,7 +549,7 @@
             width: 18px;
             height: 18px;
             line-height: 18px;
-            font-size: 0.72em;
+            font-size: 1rem;
             font-weight: 700;
             text-align: center;
             margin-left: 5px;
@@ -555,7 +563,7 @@
         /* Expanded amendment (when it has items or on hover to show description) */
         .amend-btn.has-items {
             border-color: var(--primary-dark);
-            background: #f0f4ff;
+            background: #E8EDF4;
         }
 
         /* Tooltip — JS pins it with position:fixed so top-row chips are not clipped */
@@ -568,7 +576,7 @@
             color: #fff;
             padding: 8px 12px;
             border-radius: 8px;
-            font-size: 0.8em;
+            font-size: 1.125rem;
             line-height: 1.4;
             white-space: normal;
             width: min(240px, calc(100vw - 2rem));
@@ -624,14 +632,14 @@
 
         .amend-drawer-title {
             font-weight: 700;
-            font-size: 0.9em;
+            font-size: 1rem;
             color: var(--primary-dark);
             margin-bottom: 4px;
         }
 
         .amend-drawer-desc {
-            font-size: 0.82em;
-            color: #666;
+            font-size: 1.125rem;
+            color: #5A554E;
             margin-bottom: 8px;
             line-height: 1.4;
         }
@@ -643,11 +651,11 @@
         }
 
         .amend-drawer .placed-tag {
-            background: #f0f4ff;
+            background: #E8EDF4;
             border: 2px solid var(--primary-dark);
             border-radius: 6px;
             padding: 5px 10px;
-            font-size: 0.85em;
+            font-size: 1rem;
             color: var(--primary-dark);
             font-weight: 500;
             display: flex;
@@ -659,22 +667,22 @@
             cursor: pointer;
             font-weight: 700;
             margin-left: 8px;
-            color: #999;
+            color: #5A554E;
             font-size: 1.1em;
         }
 
-        .amend-drawer .placed-tag .remove-x:hover { color: #ef4444; }
+        .amend-drawer .placed-tag .remove-x:hover { color: #3E5F87; }
 
         .amend-drawer .placed-tag.correct-tag {
-            background: #d1fae5;
-            border-color: #10b981;
-            color: #065f46;
+            background: #F5F0E8;
+            border-color: #3E5F87;
+            color: #1B2D45;
         }
 
         .amend-drawer .placed-tag.incorrect-tag {
-            background: #fee2e2;
-            border-color: #ef4444;
-            color: #991b1b;
+            background: #E8EDF4;
+            border-color: #3E5F87;
+            color: #1B2D45;
         }
 
         /* Rights panel below */
@@ -705,7 +713,7 @@
             cursor: pointer;
             transition: all 0.2s;
             user-select: none;
-            font-size: 0.92em;
+            font-size: 1rem;
             line-height: 1.4;
         }
 
@@ -717,8 +725,8 @@
 
         .match-item.selected {
             border-color: var(--accent);
-            background: #fff0f2;
-            box-shadow: 0 0 0 2px rgba(214, 56, 80, 0.2);
+            background: #E8EDF4;
+            box-shadow: 0 0 0 2px rgba(62, 95, 135, 0.2);
         }
 
         .match-item.placed {
@@ -728,15 +736,15 @@
         }
 
         .match-item.correct {
-            border-color: #10b981;
-            background: #d1fae5;
+            border-color: #3E5F87;
+            background: #F5F0E8;
             opacity: 1;
             text-decoration: none;
         }
 
         .match-item.incorrect {
-            border-color: #ef4444;
-            background: #fee2e2;
+            border-color: #3E5F87;
+            background: #E8EDF4;
             opacity: 1;
             text-decoration: none;
         }
@@ -752,9 +760,7 @@
         }
 
         .case-challenge .case-label {
-            font-size: 0.8em;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-size: 1rem;
             color: var(--accent);
             font-weight: 700;
             margin-bottom: 8px;
@@ -768,9 +774,9 @@
         }
 
         .case-challenge .case-desc {
-            font-size: 0.95em;
+            font-size: 1.125rem;
             line-height: 1.6;
-            color: #444;
+            color: #1F2124;
             margin-bottom: 18px;
         }
 
@@ -789,13 +795,13 @@
             cursor: pointer;
             transition: all 0.2s;
             font-weight: 600;
-            font-size: 0.92em;
+            font-size: 1rem;
             text-align: center;
         }
 
         .case-challenge .amend-choice:hover:not(.chosen) {
             border-color: var(--primary-dark);
-            background: #e0e7ff;
+            background: #E8EDF4;
             transform: translateY(-1px);
         }
 
@@ -806,21 +812,21 @@
         }
 
         .case-challenge .amend-choice.correct-choice {
-            border-color: #10b981;
-            background: #d1fae5;
-            color: #065f46;
+            border-color: #3E5F87;
+            background: #F5F0E8;
+            color: #1B2D45;
         }
 
         .case-challenge .amend-choice.incorrect-choice {
-            border-color: #ef4444;
-            background: #fee2e2;
-            color: #991b1b;
+            border-color: #3E5F87;
+            background: #E8EDF4;
+            color: #1B2D45;
         }
 
         .case-challenge .case-feedback {
             padding: 12px 16px;
             border-radius: 10px;
-            font-size: 0.9em;
+            font-size: 1.125rem;
             line-height: 1.5;
             display: none;
         }
@@ -828,21 +834,21 @@
         .case-challenge .case-feedback.show { display: block; }
 
         .case-challenge .case-feedback.correct-fb {
-            background: #d1fae5;
-            border: 2px solid #10b981;
-            color: #065f46;
+            background: #F5F0E8;
+            border: 2px solid #3E5F87;
+            color: #1B2D45;
         }
 
         .case-challenge .case-feedback.incorrect-fb {
-            background: #fee2e2;
-            border: 2px solid #ef4444;
-            color: #991b1b;
+            background: #E8EDF4;
+            border: 2px solid #3E5F87;
+            color: #1B2D45;
         }
 
         .case-challenge .oyez-link {
             display: inline-block;
             margin-top: 10px;
-            font-size: 0.88em;
+            font-size: 1rem;
             color: var(--primary-dark);
             font-weight: 600;
             text-decoration: underline;
@@ -863,21 +869,21 @@
         .level-progress .progress-bar-outer {
             flex: 1;
             height: 12px;
-            background: #e0e0e0;
+            background: #D6CFC3;
             border-radius: 6px;
             overflow: hidden;
         }
 
         .level-progress .progress-bar-inner {
             height: 100%;
-            background: linear-gradient(90deg, var(--accent), #e85d75);
+            background: var(--accent);
             border-radius: 6px;
             transition: width 0.4s ease;
         }
 
         .level-progress .progress-text {
             font-weight: 700;
-            font-size: 0.95em;
+            font-size: 1rem;
             white-space: nowrap;
             color: var(--primary-dark);
         }
@@ -897,18 +903,18 @@
         .btn-primary {
             background: var(--accent);
             color: var(--text-light);
-            box-shadow: 0 2px 8px rgba(214, 56, 80, 0.25);
+            box-shadow: 0 2px 8px rgba(62, 95, 135, 0.25);
         }
 
         .btn-primary:hover {
             background: var(--accent-hover);
             transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(214, 56, 80, 0.35);
+            box-shadow: 0 6px 16px rgba(62, 95, 135, 0.35);
         }
 
         .btn-primary:active {
             transform: translateY(0);
-            box-shadow: 0 2px 4px rgba(214, 56, 80, 0.25);
+            box-shadow: 0 2px 4px rgba(62, 95, 135, 0.25);
         }
 
         .btn-secondary {
@@ -919,18 +925,18 @@
         }
 
         .btn-secondary:hover {
-            background: #eae7e1;
+            background: #F5F0E8;
             transform: translateY(-1px);
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
         }
 
         .btn-danger {
-            background: #fee2e2;
-            color: #991b1b;
+            background: #E8EDF4;
+            color: #1B2D45;
         }
 
         .btn-danger:hover {
-            background: #fecaca;
+            background: #E8EDF4;
             transform: translateY(-1px);
         }
 
@@ -952,9 +958,9 @@
         }
 
         .review-content .alert.success {
-            background: #d1fae5;
-            border-left: 5px solid #10b981;
-            color: #065f46;
+            background: #F5F0E8;
+            border-left: 5px solid #3E5F87;
+            color: #1B2D45;
         }
 
         /* FLASHCARDS */
@@ -999,7 +1005,7 @@
         }
 
         .flashcard-front {
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-light) 100%);
+            background: var(--primary-dark);
             color: var(--text-light);
             border: 3px solid var(--primary-light);
             box-shadow: 0 6px 20px rgba(26, 26, 46, 0.25);
@@ -1027,17 +1033,17 @@
         }
 
         .flashcard-back .card-label {
-            font-size: 0.8em;
+            font-size: 1rem;
             font-weight: 700;
             color: var(--primary-dark);
-            background: #dbeafe;
+            background: #E8EDF4;
             padding: 4px 12px;
             border-radius: 15px;
             margin-bottom: 15px;
         }
 
         .flashcard.known .flashcard-front {
-            border-color: #10b981;
+            border-color: #3E5F87;
         }
 
         .flashcard.known .flashcard-front::after {
@@ -1045,11 +1051,11 @@
             position: absolute;
             top: 12px;
             right: 12px;
-            background: #10b981;
+            background: #3E5F87;
             color: white;
             padding: 3px 10px;
             border-radius: 10px;
-            font-size: 0.75em;
+            font-size: 1rem;
             font-weight: 600;
         }
 
@@ -1063,9 +1069,9 @@
 
         .flip-indicator {
             text-align: center;
-            color: #999;
+            color: #5A554E;
             font-style: italic;
-            font-size: 0.9em;
+            font-size: 1rem;
             margin: 10px 0;
         }
 
@@ -1075,18 +1081,18 @@
             gap: 20px;
             flex-wrap: wrap;
             margin: 15px 0;
-            font-size: 0.85em;
-            color: #888;
+            font-size: 1.125rem;
+            color: #5A554E;
         }
 
         .keyboard-hint .key {
             display: inline-block;
-            background: #e0e0e0;
-            border: 1px solid #ccc;
+            background: #D6CFC3;
+            border: 1px solid #D6CFC3;
             border-radius: 4px;
             padding: 2px 8px;
             font-family: monospace;
-            font-size: 0.9em;
+            font-size: 1.125rem;
             min-width: 24px;
             text-align: center;
         }
@@ -1094,15 +1100,15 @@
         .reset-btn {
             background: none;
             border: none;
-            color: #ef4444;
+            color: #3E5F87;
             cursor: pointer;
-            font-size: 0.9em;
+            font-size: 1rem;
             text-decoration: underline;
             margin-top: 10px;
         }
 
         .reset-btn:hover {
-            color: #dc2626;
+            color: #3E5F87;
         }
 
         /* SAVE/LOAD */
@@ -1114,8 +1120,8 @@
         }
 
         .save-load-section p {
-            color: #666;
-            font-size: 0.9em;
+            color: #5A554E;
+            font-size: 1.125rem;
             margin-bottom: 15px;
         }
 
@@ -1137,6 +1143,7 @@
             .amend-level-tabs { flex-direction: column; }
         }
     </style>
+    <link rel="stylesheet" href="css/theme.css">
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -1175,7 +1182,7 @@
             <!-- HOME / DASHBOARD -->
             <div id="home" class="section active">
                 <h2>Review Dashboard</h2>
-                <p style="margin: 10px 0 20px; color: #3d3d3d;">Use vocabulary and the Amendments Challenge anytime. Save multiple-choice items that reveal how the Court ruled until <strong>after</strong> your classroom debate — argue the case as if it is still undecided.</p>
+                <p style="margin: 10px 0 20px; color: #1F2124;">Use vocabulary and the Amendments Challenge anytime. Save multiple-choice items that reveal how the Court ruled until <strong>after</strong> your classroom debate — argue the case as if it is still undecided.</p>
 
                 <div class="stats-grid">
                     <div class="stat-card">
@@ -1187,7 +1194,7 @@
                         <div class="label">Multiple Choice</div>
                     </div>
                     <div class="stat-card">
-                        <div class="number" id="sa-score">0/7</div>
+                        <div class="number" id="sa-score">0/10</div>
                         <div class="label">Short Answer</div>
                     </div>
                     <div class="stat-card">
@@ -1262,7 +1269,7 @@
 
                 <div id="mc-case-picker">
                     <p class="holding-banner">These questions often include the holding. Use them after you have already argued the case.</p>
-                    <p style="margin-bottom: 15px; color: #666;">Choose a case to test yourself on, or try all cases at once.</p>
+                    <p style="margin-bottom: 15px; color: #5A554E;">Choose a case to test yourself on, or try all cases at once.</p>
                     <div class="nav-buttons" id="mc-case-buttons"></div>
                     <div style="margin-top: 12px;">
                         <a href="https://play.blooket.com/play?hwId=699e72ac5db83b482a747f78" target="_blank" rel="noopener" class="btn btn-secondary" style="display: inline-flex; align-items: center; gap: 6px; text-decoration: none;">Review on Blooket</a>
@@ -1292,7 +1299,7 @@
 
                 <div id="sa-case-picker">
                     <p class="holding-banner">Write after you have argued. You may use what you now know about the holding, but do not skip the debate.</p>
-                    <p style="margin-bottom: 15px; color: #666;">Choose a project case. You'll decide what you think the Court should rule, reflect on which side you argued in the debate, and build a response using the guided framework.</p>
+                    <p style="margin-bottom: 15px; color: #5A554E;">Choose a project case. You'll decide what you think the Court should rule, reflect on which side you argued in the debate, and build a response using the guided framework.</p>
                     <div class="nav-buttons" id="sa-case-buttons"></div>
                 </div>
 
@@ -1325,7 +1332,7 @@
 
                 <!-- COMPREHENSION GATE (shown before activity) -->
                 <div id="comp-gate" class="comp-gate">
-                    <h3>Before you begin — read the instructions:</h3>
+                    <h3>Before You Begin: Read the Instructions</h3>
                     <ol id="comp-gate-steps">
                         <li><strong>Pick a right</strong> from the "Rights &amp; Protections" list below.</li>
                         <li>The amendment chips will start <strong>pulsing</strong> — click the <strong>amendment</strong> it belongs to.</li>
@@ -1344,7 +1351,7 @@
 
                 <!-- MATCH ROUND (shared by Round 1 and Round 2) -->
                 <div id="amend-match-round" style="display:none;">
-                    <div class="alert info" id="match-round-instructions" style="padding:12px 18px; font-size:0.92em;">
+                    <div class="alert info" id="match-round-instructions" style="padding:12px 18px; font-size: 1rem;">
                         <span id="match-round-reminder"></span>
                     </div>
 
@@ -1357,7 +1364,7 @@
 
                     <div class="match-grid">
                         <div class="match-amendments-panel">
-                            <h3>Amendments <span style="font-weight:400;font-size:0.85em;color:#888;">(hover for description, click to assign)</span></h3>
+                            <h3>Amendments <span style="font-weight:400;font-size: 1rem;color:#5A554E;">(hover for description, click to assign)</span></h3>
                             <div id="match-amendments-list"></div>
                             <div id="amend-drawer" class="amend-drawer">
                                 <div class="amend-drawer-title" id="drawer-title"></div>
@@ -1383,7 +1390,7 @@
                 <div id="amend-round3" style="display: none;">
                     <div class="alert info">
                         <strong style="display:block; margin-bottom:6px;">How it works:</strong>
-                        <span>Each card describes a real Supreme Court case. Read the summary, then pick the amendment at the center of the dispute. You'll get instant feedback — <span style="color:#10b981;font-weight:600;">green</span> means correct, <span style="color:#ef4444;font-weight:600;">red</span> reveals the right answer. Your studied project cases come first, then landmark cases from across American history.</span>
+                        <span>Each card describes a real Supreme Court case. Read the summary, then pick the amendment at the center of the dispute. You'll get instant feedback — <span style="color:#3E5F87;font-weight:600;">green</span> means correct, <span style="color:#3E5F87;font-weight:600;">red</span> reveals the right answer. Your studied project cases come first, then landmark cases from across American history.</span>
                     </div>
 
                     <div class="level-progress">
@@ -1409,11 +1416,12 @@
         <div class="container">
             <p><a href="index.html">Back to Home</a></p>
             <p>&copy; 2026 SCOTUS Debate Project | Educational Resource</p>
-            <p class="site-version">v1.20.0</p>
+            <p class="site-version">v1.25.0</p>
         </div>
     </footer>
 
     <script src="js/site-chrome.js"></script>
+    <script src="js/reading-panel.js"></script>
     <script src="js/case-prep-data.js"></script>
     <script src="js/case-prep.js"></script>
     <script src="js/legal-glossary.js"></script>
@@ -1659,10 +1667,107 @@
                 correct: 1,
                 explanation: "The school argued that B.L.'s posts undermined team morale and the coach's authority, and that schools need the ability to discipline students for speech that affects the school environment, even if posted off campus."
             }
+        ],
+        "Morse v. Frederick (2007)": [
+            {
+                question: "What did Joseph Frederick's banner say?",
+                options: ["\"Free Speech Now\"", "\"BONG HiTS 4 JESUS\"", "\"Stop the War\"", "\"Go Juneau!\""],
+                correct: 1,
+                explanation: "As the Olympic Torch Relay passed Juneau-Douglas High School on January 24, 2002, Frederick and his friends unfurled a 14-foot banner reading \"BONG HiTS 4 JESUS.\""
+            },
+            {
+                question: "Which constitutional right was at the center of Morse v. Frederick?",
+                options: ["First Amendment: freedom of speech", "Fourth Amendment: search and seizure", "Fourteenth Amendment: equal protection", "Fifth Amendment: due process"],
+                correct: 0,
+                explanation: "Frederick argued that punishing him for his banner violated his First Amendment right to free speech."
+            },
+            {
+                question: "Frederick stood across the street from the school. Why did the school say his banner still counted as speech at school?",
+                options: ["He was standing on school property the whole time", "He was wearing a school uniform", "Students were let out of class for the relay, a school-approved event during school hours with teachers supervising", "He made the banner in art class"],
+                correct: 2,
+                explanation: "The principal let students leave class to watch the relay, and teachers and administrators supervised them. The superintendent said Frederick could not \"stand in the midst of his fellow students, during school hours, at a school-sanctioned activity and claim he is not at school,\" and the Supreme Court agreed."
+            },
+            {
+                question: "What did Frederick say about his banner?",
+                options: ["It was a serious call to legalize marijuana", "The words were nonsense meant to get the attention of TV cameras", "A friend made it and he only held it", "The principal never asked him to take it down"],
+                correct: 1,
+                explanation: "Frederick said the words were \"just nonsense meant to attract television cameras.\" The Ninth Circuit ruled for him because the school had not shown a risk of substantial disruption, the test from Tinker."
+            },
+            {
+                question: "How did the Supreme Court rule in Morse v. Frederick?",
+                options: ["9-0 for Frederick: all student speech is protected", "6-3 for Frederick: the relay was not a school event", "5-4 for the school: schools may punish any student speech they disagree with", "5-4 for the school: schools may restrict student speech at a school event that can reasonably be seen as encouraging illegal drug use"],
+                correct: 3,
+                explanation: "Chief Justice Roberts wrote for five justices that \"schools may take steps to safeguard those entrusted to their care from speech that can reasonably be regarded as encouraging illegal drug use.\" The Court said the banner was not political speech, so the ruling did not let schools punish any message they dislike."
+            }
+        ],
+        "Jacobson v. Massachusetts (1905)": [
+            {
+                question: "What did the Cambridge Board of Health order on February 27, 1902?",
+                options: ["Everyone not successfully vaccinated since March 1, 1897, had to be vaccinated or revaccinated", "All schools had to close until the outbreak ended", "Only children had to be vaccinated before school", "Anyone with smallpox had to leave the city"],
+                correct: 0,
+                explanation: "The board said smallpox had been \"prevalent to some extent\" in Cambridge and \"still continues to increase.\" It required vaccination or revaccination of everyone not successfully vaccinated since March 1, 1897, and the city offered the vaccine for free."
+            },
+            {
+                question: "What penalty did the Massachusetts law set for an adult who refused to be vaccinated?",
+                options: ["One year in prison", "A $5 fine", "Losing the right to vote", "Being forced to leave the state"],
+                correct: 1,
+                explanation: "The law said an adult over 21 who refused \"shall forfeit $5.\" Jacobson was found guilty and sentenced to pay the $5 fine."
+            },
+            {
+                question: "Which part of the Constitution did Jacobson say the law violated?",
+                options: ["The Second Amendment", "The Fourth Amendment's warrant requirement", "The Tenth Amendment", "The Fourteenth Amendment, which says no state may take away liberty without due process of law"],
+                correct: 3,
+                explanation: "Jacobson argued the law took away his liberty in violation of the Fourteenth Amendment. He said every free person has a right to care for his own body and health in the way that seems best to him."
+            },
+            {
+                question: "What did Jacobson try to prove to the jury at his trial?",
+                options: ["That he had already had smallpox", "That vaccination often caused serious harm, and that it had harmed him as a child", "That there was no smallpox in Cambridge", "That the vaccine cost too much"],
+                correct: 1,
+                explanation: "Jacobson offered to prove that vaccination \"quite often\" caused serious and permanent injury, and that his own vaccination as a child had caused him \"great and extreme suffering.\" The trial judge did not let the jury hear this evidence."
+            },
+            {
+                question: "How did the Supreme Court rule in Jacobson v. Massachusetts?",
+                options: ["9-0 for Jacobson: no state may require vaccination", "5-4 for Jacobson: the $5 fine was cruel and unusual", "7-2 for Massachusetts: a state may require vaccination to protect public health during an outbreak", "7-2 for Massachusetts: a state has unlimited power over people's bodies"],
+                correct: 2,
+                explanation: "Justice Harlan wrote: \"There are manifold restraints to which every person is necessarily subject for the common good.\" But the power had limits: courts could step in if a health law had \"no real or substantial relation\" to public health or was \"a plain, palpable invasion\" of rights."
+            }
+        ],
+        "Washington v. Fishing Vessel Ass'n (1979)": [
+            {
+                question: "In the treaties of 1854 and 1855, what fishing right did the tribes keep?",
+                options: ["The right to fish only on their reservations", "Ownership of every river in Washington", "The \"right of taking fish at usual and accustomed grounds and stations . . . in common with all citizens of the Territory\"", "None; the treaties paid money in place of fishing rights"],
+                correct: 2,
+                explanation: "In treaties negotiated by Isaac Stevens, the first governor of Washington Territory, the tribes gave up most of their land but kept the right to take fish at their usual and accustomed places \"in common with all citizens of the Territory.\""
+            },
+            {
+                question: "How did Washington's side read the words \"in common with all citizens\"?",
+                options: ["The tribes get all the fish in their rivers", "The tribes get the same chance to try to catch fish as any other citizen, not a set share", "The tribes may fish only for ceremonies", "The treaties ended when Washington became a state"],
+                correct: 1,
+                explanation: "Washington's Game Department and the Washington Supreme Court read the treaties to give the tribes no guaranteed share of the fish, only an equal opportunity to fish alongside everyone else."
+            },
+            {
+                question: "Which part of the Constitution makes a treaty outrank a state law?",
+                options: ["The Supremacy Clause in Article VI", "The First Amendment", "The Tenth Amendment", "The Commerce Clause"],
+                correct: 0,
+                explanation: "Article VI says treaties made under the authority of the United States are \"the supreme Law of the Land.\" The Court said a state-law ban on obeying the federal court's order \"cannot survive the command of the Supremacy Clause.\""
+            },
+            {
+                question: "What happened after Judge George Boldt ruled for the tribes in 1974?",
+                options: ["Washington followed the ruling right away", "Congress canceled the treaties", "The tribes stopped fishing", "The Washington Supreme Court held that the State's Fisheries Department could not obey the federal order, so the federal court took over much of the fishery's management"],
+                correct: 3,
+                explanation: "When the State's courts blocked the State's Fisheries Department from following the federal order, the federal District Court took over a large share of managing the State's fishery to enforce its decree."
+            },
+            {
+                question: "How did the Supreme Court rule in the fishing rights case?",
+                options: ["9-0 for Washington: the tribes get only an equal chance to fish", "6-3 for the tribes: the treaties secure a share of the fish, with 50 percent as the most the tribes may receive", "5-4 for the tribes: the tribes get all the fish that pass their fishing places", "6-3 for Washington: treaties do not outrank state law"],
+                correct: 1,
+                explanation: "Justice Stevens wrote that the treaties secure the tribes \"a right to harvest a share of each run\" of fish passing through tribal fishing areas, not just an equal opportunity. Fifty percent is a ceiling: the share can be smaller if less would give the tribes a \"moderate living.\""
+            }
         ]
     };
 
     const caseList = Object.keys(mcQuestionsByCase);
+    const mcTotalQuestions = caseList.reduce(function(n, c) { return n + mcQuestionsByCase[c].length; }, 0);
 
     let currentMCQuestion = 0;
     let mcAnswers = {};
@@ -1677,7 +1782,7 @@
             const cls = i % 3 === 0 ? '' : i % 3 === 1 ? ' secondary' : ' success';
             html += `<button class="nav-btn${cls}" onclick="startMCForCase('${caseName.replace(/'/g, "\\'")}')">${caseName}</button>`;
         });
-        html += `<button class="nav-btn secondary" onclick="startMCAllCases()">All Cases (35 Questions)</button>`;
+        html += `<button class="nav-btn secondary" onclick="startMCAllCases()">All Cases (${mcTotalQuestions} Questions)</button>`;
         container.innerHTML = html;
     }
 
@@ -1722,9 +1827,9 @@
 
         let html = `<div class="question-card">`;
         if (q.topic) html += `<span class="question-topic">${q.topic}</span>`;
-        html += `<h3>${q.question}</h3><div class="options">`;
+        html += `<h3 id="mc-q-text">${q.question}</h3><div class="options" role="radiogroup" aria-labelledby="mc-q-text">`;
         q.options.forEach((opt, i) => {
-            html += `<div class="option" onclick="selectMCOption(${i})" id="mc-opt-${i}">${opt}</div>`;
+            html += `<div class="option" role="radio" aria-checked="false" tabindex="0" onclick="selectMCOption(${i})" id="mc-opt-${i}">${opt}</div>`;
         });
         html += `</div></div>`;
         html += `<div id="mc-feedback" class="feedback"></div>`;
@@ -1735,10 +1840,29 @@
         document.getElementById('mc-question-area').innerHTML = html;
     }
 
+    // Options are role="radio": Enter or Space picks one; arrow keys move between them
+    document.addEventListener('keydown', function(e) {
+        var opt = e.target.closest && e.target.closest('#mc-question-area .option[role="radio"]');
+        if (!opt || opt.getAttribute('aria-disabled') === 'true') return;
+        var all = Array.prototype.slice.call(document.querySelectorAll('#mc-question-area .option[role="radio"]'));
+        var i = all.indexOf(opt);
+        if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+            e.preventDefault();
+            selectMCOption(i);
+        } else if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+            e.preventDefault();
+            var step = (e.key === 'ArrowDown' || e.key === 'ArrowRight') ? 1 : -1;
+            var next = (i + step + all.length) % all.length;
+            all[next].focus();
+            selectMCOption(next);
+        }
+    });
+
     function selectMCOption(index) {
         mcSelected = index;
         document.querySelectorAll('#mc-question-area .option').forEach((el, i) => {
             el.classList.toggle('selected', i === index);
+            el.setAttribute('aria-checked', i === index ? 'true' : 'false');
         });
         document.getElementById('mc-check-btn').disabled = false;
     }
@@ -1750,6 +1874,8 @@
 
         document.querySelectorAll('#mc-question-area .option').forEach((el, i) => {
             el.style.pointerEvents = 'none';
+            el.setAttribute('aria-disabled', 'true');
+            el.setAttribute('tabindex', '-1');
             if (i === q.correct) el.classList.add('correct');
             if (i === mcSelected && !isCorrect) el.classList.add('incorrect');
         });
@@ -1768,6 +1894,7 @@
             renderMCQuestion();
         };
         document.getElementById('mc-check-btn').parentNode.appendChild(nextBtn);
+        nextBtn.focus();
     }
 
     function showMCResults() {
@@ -2217,6 +2344,183 @@
                 "The response uses specific facts or reasoning from the case or debate",
                 "The response directly answers the driving question about when the government should be allowed to limit rights"
             ]
+        },
+        "Morse v. Frederick (2007)": {
+            amendment: "First Amendment: Student Speech at a School Event",
+            context: "During the 2002 Olympic Torch Relay, a school let students out of class to watch. Across the street from the school, senior Joseph Frederick unfurled a 14-foot banner reading \"BONG HiTS 4 JESUS.\" The principal took the banner and suspended him.",
+            parts: [
+                {
+                    label: "CONTEXT",
+                    instruction: "Introduce the case and explain how it connects to the driving question: When, if ever, should the government be allowed to limit a person's constitutional rights in order to protect the community?",
+                    starters: [
+                        "In Morse v. Frederick, the government limited a person's constitutional rights by _____.",
+                        "This case raises the question of whether a school should be allowed to limit student speech at a school event when _____.",
+                        "Morse v. Frederick is an example of the government restricting First Amendment rights because _____."
+                    ]
+                },
+                {
+                    label: "CLAIM",
+                    instruction: "State a clear position: should the principal have been allowed to punish Frederick for his banner? Connect it to the bigger question of when rights can be limited.",
+                    starters: [
+                        "The principal should / should not have been allowed to punish Frederick for his banner because _____.",
+                        "The Court should rule that the school _____ because _____.",
+                        "Based on this case, the government should / should not be allowed to limit constitutional rights when _____."
+                    ]
+                },
+                {
+                    label: "REASONING",
+                    instruction: "Explain the thinking behind this position. Which side has the stronger argument, and why? If the debate side was different from this position, acknowledge that.",
+                    starters: [
+                        "This side has the stronger argument because _____.",
+                        "Although the _____ side was argued in the debate, the stronger position is _____ because _____.",
+                        "The school's reason for limiting the banner, _____, is / is not strong enough because _____."
+                    ]
+                },
+                {
+                    label: "EVIDENCE",
+                    instruction: "Provide at least two specific arguments that support this position. Use facts from the case, arguments from the debate, or constitutional reasoning. Click multiple starters to build your evidence.",
+                    starters: [
+                        "One argument that supports this position is _____.",
+                        "Additionally, _____ shows that _____.",
+                        "A strong point raised during the debate was _____.",
+                        "The facts of the case support this because _____."
+                    ]
+                },
+                {
+                    label: "CONCLUSION",
+                    instruction: "Wrap up by directly answering the driving question. Based on this case, when, if ever, should the government be allowed to limit a person's constitutional rights to protect the community?",
+                    starters: [
+                        "Based on Morse v. Frederick, the government should only be allowed to limit constitutional rights when _____.",
+                        "This case demonstrates that limiting student speech to protect the community is / is not justified when _____.",
+                        "Ultimately, schools should / should not have the power to punish speech at school events because _____."
+                    ]
+                }
+            ],
+            checklist: [
+                "The response clearly states which side the Court should rule for",
+                "The response reflects on which side was argued in the debate vs. which side is actually stronger",
+                "The response includes at least two arguments that support the position",
+                "The response uses specific facts or reasoning from the case or debate",
+                "The response directly answers the driving question about when the government should be allowed to limit rights"
+            ]
+        },
+        "Jacobson v. Massachusetts (1905)": {
+            amendment: "Fourteenth Amendment: Liberty and Public Health",
+            context: "During a smallpox outbreak in 1902, the Cambridge Board of Health ordered everyone who had not been vaccinated since 1897 to be vaccinated. Henning Jacobson refused, was found guilty, and was fined $5 under state law.",
+            parts: [
+                {
+                    label: "CONTEXT",
+                    instruction: "Introduce the case and explain how it connects to the driving question: When, if ever, should the government be allowed to limit a person's constitutional rights in order to protect the community?",
+                    starters: [
+                        "In Jacobson v. Massachusetts, the government limited a person's constitutional rights by _____.",
+                        "This case raises the question of whether the government should be allowed to limit a person's liberty over his own body when _____.",
+                        "Jacobson v. Massachusetts is an example of the government limiting individual liberty to protect public health because _____."
+                    ]
+                },
+                {
+                    label: "CLAIM",
+                    instruction: "State a clear position: should Massachusetts have been allowed to fine Jacobson for refusing the vaccine? Connect it to the bigger question of when rights can be limited.",
+                    starters: [
+                        "Massachusetts should / should not have been allowed to fine Jacobson because _____.",
+                        "The Court should rule that the state _____ because _____.",
+                        "Based on this case, the government should / should not be allowed to limit constitutional rights when _____."
+                    ]
+                },
+                {
+                    label: "REASONING",
+                    instruction: "Explain the thinking behind this position. Which side has the stronger argument, and why? If the debate side was different from this position, acknowledge that.",
+                    starters: [
+                        "This side has the stronger argument because _____.",
+                        "Although the _____ side was argued in the debate, the stronger position is _____ because _____.",
+                        "The state's reason for limiting Jacobson's liberty, _____, is / is not strong enough because _____."
+                    ]
+                },
+                {
+                    label: "EVIDENCE",
+                    instruction: "Provide at least two specific arguments that support this position. Use facts from the case, arguments from the debate, or constitutional reasoning. Click multiple starters to build your evidence.",
+                    starters: [
+                        "One argument that supports this position is _____.",
+                        "Additionally, _____ shows that _____.",
+                        "A strong point raised during the debate was _____.",
+                        "The facts of the case support this because _____."
+                    ]
+                },
+                {
+                    label: "CONCLUSION",
+                    instruction: "Wrap up by directly answering the driving question. Based on this case, when, if ever, should the government be allowed to limit a person's constitutional rights to protect the community?",
+                    starters: [
+                        "Based on Jacobson v. Massachusetts, the government should only be allowed to limit constitutional rights when _____.",
+                        "This case demonstrates that limiting one person's liberty to protect the community is / is not justified when _____.",
+                        "Ultimately, the government should / should not have the power to require a medical treatment during an outbreak because _____."
+                    ]
+                }
+            ],
+            checklist: [
+                "The response clearly states which side the Court should rule for",
+                "The response reflects on which side was argued in the debate vs. which side is actually stronger",
+                "The response includes at least two arguments that support the position",
+                "The response uses specific facts or reasoning from the case or debate",
+                "The response directly answers the driving question about when the government should be allowed to limit rights"
+            ]
+        },
+        "Washington v. Fishing Vessel Ass'n (1979)": {
+            amendment: "Treaty Rights and the Supremacy Clause",
+            context: "In treaties from 1854 and 1855, Northwest tribes gave up most of their land but kept the \"right of taking fish\" at their usual places \"in common with all citizens.\" Washington State said that meant only an equal chance to fish. The tribes and the United States said it meant a share of the fish.",
+            parts: [
+                {
+                    label: "CONTEXT",
+                    instruction: "Introduce the case and explain how it connects to the driving question: When, if ever, should the government be allowed to limit a person's constitutional rights in order to protect the community?",
+                    starters: [
+                        "In the fishing rights case, the state government limited the tribes' treaty rights by _____.",
+                        "This case raises the question of whether a state should be allowed to limit a treaty right to protect a shared resource when _____.",
+                        "The fishing rights case is an example of a state limiting a right to protect the community because _____."
+                    ]
+                },
+                {
+                    label: "CLAIM",
+                    instruction: "State a clear position: should Washington have been allowed to give the treaty tribes only the same chance to fish as everyone else? Connect it to the bigger question of when rights can be limited.",
+                    starters: [
+                        "Washington should / should not have been allowed to treat the treaty tribes like every other fisher because _____.",
+                        "The Court should rule that the state government _____ because _____.",
+                        "Based on this case, the government should / should not be allowed to limit a treaty right when _____."
+                    ]
+                },
+                {
+                    label: "REASONING",
+                    instruction: "Explain the thinking behind this position. Which side has the stronger argument, and why? If the debate side was different from this position, acknowledge that.",
+                    starters: [
+                        "This side has the stronger argument because _____.",
+                        "Although the _____ side was argued in the debate, the stronger position is _____ because _____.",
+                        "The State's reason for limiting the tribes' fishing, _____, is / is not strong enough because _____."
+                    ]
+                },
+                {
+                    label: "EVIDENCE",
+                    instruction: "Provide at least two specific arguments that support this position. Use facts from the case, arguments from the debate, or constitutional reasoning. Click multiple starters to build your evidence.",
+                    starters: [
+                        "One argument that supports this position is _____.",
+                        "Additionally, _____ shows that _____.",
+                        "A strong point raised during the debate was _____.",
+                        "The facts of the case support this because _____."
+                    ]
+                },
+                {
+                    label: "CONCLUSION",
+                    instruction: "Wrap up by directly answering the driving question. Based on this case, when, if ever, should the government be allowed to limit a person's constitutional rights to protect the community?",
+                    starters: [
+                        "Based on the fishing rights case, the government should only be allowed to limit a treaty right when _____.",
+                        "This case demonstrates that limiting a promised right to protect a shared resource is / is not justified when _____.",
+                        "Ultimately, a state should / should not have the power to override a treaty promise because _____."
+                    ]
+                }
+            ],
+            checklist: [
+                "The response clearly states which side the Court should rule for",
+                "The response reflects on which side was argued in the debate vs. which side is actually stronger",
+                "The response includes at least two arguments that support the position",
+                "The response uses specific facts or reasoning from the case or debate",
+                "The response directly answers the driving question about when the government should be allowed to limit rights"
+            ]
         }
     };
 
@@ -2235,11 +2539,11 @@
     }
 
     const partColors = {
-        "CONTEXT": "#6366f1",
-        "CLAIM": "#dc2626",
-        "REASONING": "#f59e0b",
-        "EVIDENCE": "#10b981",
-        "CONCLUSION": "#8b5cf6"
+        "CONTEXT": "#3E5F87",
+        "CLAIM": "#3E5F87",
+        "REASONING": "#3E5F87",
+        "EVIDENCE": "#3E5F87",
+        "CONCLUSION": "#3E5F87"
     };
 
     function startSAForCase(caseName) {
@@ -2259,12 +2563,12 @@
         html += `<div class="question-card">`;
         html += `<span class="question-topic">${fw.amendment}</span>`;
         html += `<h3>${caseName}</h3>`;
-        html += `<p style="color: #666; margin-top: 10px;">${fw.context}</p>`;
+        html += `<p style="color: #5A554E; margin-top: 10px;">${fw.context}</p>`;
         html += `</div>`;
 
         html += `<div style="margin: 25px 0;">`;
         html += `<h3 style="margin-bottom: 5px; color: var(--primary-dark);">Build Your Response</h3>`;
-        html += `<p style="color: #666; font-size: 0.95em; margin-bottom: 20px;">Answer the driving question: <em>When, if ever, should the government be allowed to limit a person's constitutional rights in order to protect the community?</em> Use this case as evidence. Complete each section below — together, they will form the full response.</p>`;
+        html += `<p style="color: #5A554E; font-size: 1rem; margin-bottom: 20px;">Answer the driving question: <em>When, if ever, should the government be allowed to limit a person's constitutional rights in order to protect the community?</em> Use this case as evidence. Complete each section below — together, they will form the full response.</p>`;
 
         fw.parts.forEach((part, i) => {
             const savedVal = savedResponses[i] || '';
@@ -2272,11 +2576,11 @@
             html += `<div class="question-card sa-part-card" style="border-left: 4px solid ${color}; padding: 18px;">`;
             html += `<div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">`;
             html += `<span class="sa-part-label" style="background: ${color};">${part.label}</span>`;
-            html += `<span style="font-size: 0.85em; color: #888;">Part ${i + 1} of ${fw.parts.length}</span>`;
+            html += `<span style="font-size: 1rem; color: #5A554E;">Part ${i + 1} of ${fw.parts.length}</span>`;
             html += `</div>`;
             html += `<p style="font-weight: 600; color: var(--text-dark); margin-bottom: 12px;">${part.instruction}</p>`;
             html += `<div class="sa-starters-list">`;
-            html += `<p style="font-size: 0.85em; color: #888; margin-bottom: 6px;">Sentence starters (choose one or write your own):</p>`;
+            html += `<p style="font-size: 1rem; color: #5A554E; margin-bottom: 6px;">Sentence starters (choose one or write your own):</p>`;
             part.starters.forEach(starter => {
                 html += `<div class="sa-starter-option" onclick="useStarter(this, ${i})">${starter}</div>`;
             });
@@ -2287,7 +2591,7 @@
         html += `</div>`;
 
         // Self-assessment checklist
-        html += `<div class="question-card" style="border-left-color: #10b981;">`;
+        html += `<div class="question-card" style="border-left-color: #3E5F87;">`;
         html += `<h4 style="color: var(--primary-dark); margin-bottom: 12px;">Self-Check: Does your response include...</h4>`;
         fw.checklist.forEach((item, i) => {
             html += `<div class="rubric-item" style="display:flex; align-items:center; gap:10px; padding: 6px 0;">`;
@@ -2352,7 +2656,7 @@
         const textArea = document.getElementById('sa-assembled-text');
 
         if (responses.length === 0) {
-            textArea.innerHTML = '<p style="color: #999; font-style: italic;">Write your response in each section above first, then click this button to see it all together.</p>';
+            textArea.innerHTML = '<p style="color: #5A554E; font-style: italic;">Write your response in each section above first, then click this button to see it all together.</p>';
         } else {
             textArea.innerHTML = responses.map(r => `<p style="margin-bottom: 10px;">${r.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</p>`).join('');
         }
@@ -2381,7 +2685,7 @@
             const btn = event.target;
             const origText = btn.textContent;
             btn.textContent = 'Saved!';
-            btn.style.background = '#10b981';
+            btn.style.background = '#3E5F87';
             setTimeout(() => {
                 btn.textContent = origText;
                 btn.style.background = '';
@@ -2460,7 +2764,9 @@
 
     // Round 3 real cases — studied cases first, then landmark cases
     const round3Cases = [
-        // The 7 studied cases
+        // The studied project cases (Fishing Rights is left out: it turns on a treaty and the Supremacy Clause, not one amendment)
+        { name: 'Jacobson v. Massachusetts (1905)', desc: 'During a smallpox outbreak in 1902, the city of Cambridge, Massachusetts, ordered everyone who had not been vaccinated since 1897 to get the vaccine. Henning Jacobson refused and was fined $5 under state law.', correctAmendment: 'amend14', explanation: 'The Court ruled 7-2 that a state may require vaccination to protect public health during an outbreak. Jacobson had argued that the law took away his liberty in violation of the Fourteenth Amendment.', oyez: 'https://www.oyez.org/cases/1900-1940/197us11', studied: true },
+        { name: 'Morse v. Frederick (2007)', desc: 'During a school-approved event, a high school senior stood across the street from his school and unfurled a 14-foot banner reading "BONG HiTS 4 JESUS." The principal took the banner and suspended him.', correctAmendment: 'amend1', explanation: 'The Court ruled 5-4 that a school may restrict student speech at a school event that can reasonably be seen as encouraging illegal drug use. The case was about First Amendment free speech at school.', oyez: 'https://www.oyez.org/cases/2006/06-278', studied: true },
         { name: 'Tinker v. Des Moines (1969)', desc: 'Three students wore black armbands to school to protest the Vietnam War. The school created a policy banning armbands and suspended the students when they refused to remove them.', correctAmendment: 'amend1', explanation: 'The Court ruled 7-2 that students do not "shed their constitutional rights to freedom of speech or expression at the schoolhouse gate." The armbands were protected symbolic speech under the First Amendment.', oyez: 'https://www.oyez.org/cases/1968/21', studied: true },
         { name: 'New Jersey v. T.L.O. (1985)', desc: 'A high school student was caught smoking in the bathroom. An assistant principal searched her purse without a warrant and found drug paraphernalia and evidence of dealing.', correctAmendment: 'amend4', explanation: 'The Court ruled 6-3 that school officials can search students without a warrant, but the search must be reasonable. The Fourth Amendment applies in schools, though with a lower standard than police searches.', oyez: 'https://www.oyez.org/cases/1983/83-712', studied: true },
         { name: 'Brown v. Board of Education (1954)', desc: 'Black children in Topeka, Kansas were assigned to separate elementary schools from white children under a Kansas law that allowed segregation, even though a court found the Topeka schools substantially equal in buildings and teachers.', correctAmendment: 'amend14', explanation: 'The Court unanimously ruled that racial segregation in public schools violates the Equal Protection Clause of the Fourteenth Amendment. "Separate but equal" has no place in public education.', oyez: 'https://www.oyez.org/cases/1952/1', studied: true },
@@ -2687,7 +2993,7 @@
         container.innerHTML = '';
         const itemsHere = Object.entries(placements).filter(([, aid]) => aid === amendId);
         if (itemsHere.length === 0) {
-            container.innerHTML = '<div style="font-size:0.85em;color:#999;font-style:italic;">No rights placed here yet</div>';
+            container.innerHTML = '<div style="font-size: 1rem;color:#5A554E;font-style:italic;">No rights placed here yet</div>';
             return;
         }
         const items = getMatchItems();
@@ -2835,11 +3141,11 @@
                 return item && item.correctAmendment === a.id;
             });
             if (allCorrect) {
-                btn.style.borderColor = '#10b981';
-                btn.style.background = '#d1fae5';
+                btn.style.borderColor = '#3E5F87';
+                btn.style.background = '#F5F0E8';
             } else {
-                btn.style.borderColor = '#ef4444';
-                btn.style.background = '#fee2e2';
+                btn.style.borderColor = '#3E5F87';
+                btn.style.background = '#E8EDF4';
             }
         });
 
@@ -2863,10 +3169,10 @@
         }
         if (pct >= 70) {
             if (currentMatchRound === 1) {
-                fbHtml += `<div class="alert" style="margin-top:15px; background: #d1fae5; border-left: 4px solid #10b981;"><span>Round 2 unlocked! Click the <b>"Go Deeper"</b> tab — some amendments protect more than one right.</span></div>`;
+                fbHtml += `<div class="alert" style="margin-top:15px; background: #F5F0E8; border-left: 4px solid #3E5F87;"><span>Round 2 unlocked! Click the <b>"Go Deeper"</b> tab — some amendments protect more than one right.</span></div>`;
                 unlockRound(2);
             } else {
-                fbHtml += `<div class="alert" style="margin-top:15px; background: #d1fae5; border-left: 4px solid #10b981;"><span>Round 3 unlocked! Click the <b>"Apply It"</b> tab to test your knowledge with real Supreme Court cases.</span></div>`;
+                fbHtml += `<div class="alert" style="margin-top:15px; background: #F5F0E8; border-left: 4px solid #3E5F87;"><span>Round 3 unlocked! Click the <b>"Apply It"</b> tab to test your knowledge with real Supreme Court cases.</span></div>`;
                 unlockRound(3);
             }
         }
@@ -2937,7 +3243,7 @@
             wrongAmends = wrongAmends.sort(() => Math.random() - 0.5).slice(0, 3);
             const choices = [...wrongAmends, correctAmend].sort(() => Math.random() - 0.5);
 
-            const studiedBadge = c.studied ? '<span style="background:var(--primary-dark);color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75em;margin-left:8px;vertical-align:middle;">Project Case</span>' : '';
+            const studiedBadge = c.studied ? '<span style="background:var(--primary-dark);color:#fff;padding:2px 8px;border-radius:4px;font-size: 1rem;margin-left:8px;vertical-align:middle;">Project Case</span>' : '';
 
             let html = `<div class="case-challenge" id="case-challenge-${i}">
                 <div class="case-label">Case ${i + 1} of ${round3Cases.length}</div>
@@ -3273,7 +3579,7 @@
                 if (typeof saveToCloud === 'function') saveToCloud(key, null);
             });
             document.getElementById('mc-score').textContent = '0%';
-            document.getElementById('sa-score').textContent = '0/7';
+            document.getElementById('sa-score').textContent = '0/' + saCaseList.length;
             document.getElementById('sort-score').textContent = '0%';
             renderCard();
             updateVocabProgress();

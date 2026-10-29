@@ -52,19 +52,19 @@
 
 :root {
     /* Color Palette - High Contrast (WCAG AA compliant) */
-    --primary-dark: #1a1a2e;
-    --primary-light: #16213e;
-    --accent: #d63850;          /* Slightly deeper for better contrast: 4.9:1 on white */
-    --accent-hover: #e94560;
+    --primary-dark: #1B2D45;
+    --primary-light: #1B2D45;
+    --accent: #3E5F87;          /* Slightly deeper for better contrast: 4.9:1 on white */
+    --accent-hover: #3E5F87;
     --text-light: #ffffff;
-    --text-dark: #1a1a2e;
-    --bg-light: #faf9f7;        /* Warmer off-white */
+    --text-dark: #1B2D45;
+    --bg-light: #F5F0E8;        /* Warmer off-white */
     --bg-white: #ffffff;
-    --bg-warm: #f5f3ef;         /* Warm neutral for variety */
-    --border: #d8d4ce;          /* Warmer border */
-    --success: #1e7b34;         /* Deeper green for contrast */
-    --warning: #b38600;         /* Darker gold for contrast */
-    --info: #0d6986;            /* Deeper teal for contrast */
+    --bg-warm: #F5F0E8;         /* Warm neutral for variety */
+    --border: #D6CFC3;          /* Warmer border */
+    --success: #3E5F87;         /* Deeper green for contrast */
+    --warning: #3E5F87;         /* Darker gold for contrast */
+    --info: #3E5F87;            /* Deeper teal for contrast */
 
     /* Spacing */
     --spacing-sm: 0.5rem;
@@ -270,7 +270,7 @@ header .container h1,
     border-radius: 8px;
     min-height: 44px;
     min-width: 44px;
-    font-size: 0.85rem;
+    font-size: 1rem;
     font-weight: 600;
     padding: 0 0.75rem;
     cursor: pointer;
@@ -292,7 +292,7 @@ header .container h1,
     display: inline-flex;
     align-items: center;
     font-weight: 500;
-    font-size: 0.95rem;
+    font-size: 1rem;
     transition: color var(--transition-fast), background-color var(--transition-fast);
     border-radius: 4px;
 }
@@ -318,7 +318,7 @@ header .container h1,
     align-items: center;
     gap: 0.25rem;
     font-weight: 500;
-    font-size: 0.95rem;
+    font-size: 1rem;
     cursor: pointer;
     transition: color var(--transition-fast), background-color var(--transition-fast);
     border-radius: 4px;
@@ -331,7 +331,7 @@ header .container h1,
 }
 
 .dropdown-arrow {
-    font-size: 0.75rem;
+    font-size: 1rem;
     transition: transform 0.2s ease;
 }
 
@@ -362,7 +362,7 @@ header .container h1,
     color: var(--text-light);
     padding: 0.75rem 1.25rem;
     text-decoration: none;
-    font-size: 0.95rem;
+    font-size: 1.125rem;
     font-weight: 500;
     transition: background-color 0.15s ease, color 0.15s ease;
 }
@@ -373,7 +373,7 @@ header .container h1,
 }
 
 .nav-dropdown-content a.active {
-    background-color: rgba(214, 56, 80, 0.15);
+    background-color: rgba(62, 95, 135, 0.15);
     color: var(--accent);
 }
 
@@ -393,7 +393,7 @@ header:not(.site-header) h1 {
 }
 
 header:not(.site-header) p {
-    font-size: 0.95rem;
+    font-size: 1.125rem;
     opacity: 0.9;
     text-align: center;
     max-width: 100%;
@@ -426,7 +426,7 @@ header:not(.site-header) p {
     display: inline-flex;
     align-items: center;
     font-weight: 500;
-    font-size: 0.95rem;
+    font-size: 1rem;
     transition: color var(--transition-fast), background-color var(--transition-fast);
     border-radius: 4px;
 }
@@ -438,7 +438,7 @@ header:not(.site-header) p {
 
 /* HERO SECTION */
 .hero {
-    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-light) 100%);
+    background: var(--primary-dark);
     color: var(--text-light);
     text-align: center;
     padding: 1.5rem 0;
@@ -451,7 +451,7 @@ header:not(.site-header) p {
 }
 
 .hero p {
-    font-size: 1rem;
+    font-size: 1.125rem;
     max-width: 600px;
     margin: 0 auto 1rem;
     opacity: 0.9;
@@ -479,18 +479,18 @@ padding: 0.75rem 2rem;
     background-color: var(--accent-hover);
     border-color: var(--accent-hover);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(214, 56, 80, 0.35);
+    box-shadow: 0 4px 12px rgba(62, 95, 135, 0.35);
 }
 
 .cta-button:active {
     transform: translateY(0);
-    box-shadow: 0 2px 4px rgba(214, 56, 80, 0.25);
+    box-shadow: 0 2px 4px rgba(62, 95, 135, 0.25);
 }
 
 /* GUIDING QUESTION */
 .guiding-question {
     padding: 2rem 0;
-    background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary-dark) 100%);
+    background: var(--primary-light);
     color: var(--text-light);
 }
 
@@ -507,9 +507,7 @@ padding: 0.75rem 2rem;
 
 .guiding-question-label {
     display: inline-block;
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+    font-size: 1rem;
     opacity: 0.8;
     margin-bottom: 0.75rem;
     font-weight: 600;
@@ -533,7 +531,7 @@ padding: 0.75rem 2rem;
     color: var(--text-light);
     padding: 0.6rem 1.25rem;
     border-radius: 25px;
-    font-size: 0.95rem;
+    font-size: 1rem;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -569,7 +567,7 @@ padding: 0.75rem 2rem;
 }
 
 .guiding-question-simple {
-    font-size: 1.1rem;
+    font-size: 1.125rem;
     font-weight: 500;
     line-height: 1.5;
     margin-bottom: 1rem;
@@ -583,7 +581,7 @@ padding: 0.75rem 2rem;
 }
 
 .guiding-question-subtitle {
-    font-size: 0.95rem;
+    font-size: 1rem;
     opacity: 0.9;
     line-height: 1.6;
     max-width: 100%;
@@ -650,7 +648,7 @@ padding: 0.75rem 2rem;
 }
 
 .step p {
-    font-size: 0.9rem;
+    font-size: 1.125rem;
 }
 
 /* CASES SECTION */
@@ -697,7 +695,7 @@ padding: 0.75rem 2rem;
     color: var(--text-light);
     padding: 0.25rem 0.75rem;
     border-radius: 15px;
-    font-size: 0.85rem;
+    font-size: 1rem;
     margin-bottom: 0.5rem;
 }
 
@@ -714,24 +712,22 @@ padding: 0.75rem 2rem;
 }
 
 .case-card .case-amendment {
-    font-size: 0.78rem;
+    font-size: 1rem;
     font-weight: 700;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
     color: var(--accent);
     margin-bottom: 0.35rem;
 }
 
 .case-card .case-question {
-    font-size: 0.9rem;
+    font-size: 1.125rem;
     color: var(--text-dark);
     line-height: 1.45;
     margin-bottom: 0.65rem;
 }
 
 .case-card .case-sides {
-    font-size: 0.8rem;
-    color: #555;
+    font-size: 1rem;
+    color: #1F2124;
     margin-bottom: 0.75rem;
     line-height: 1.4;
 }
@@ -756,7 +752,7 @@ padding: 0.75rem 2rem;
 
 .pair-pick button.active {
     border-color: var(--accent);
-    background: #fff5f6;
+    background: #E8EDF4;
 }
 
 .start-here {
@@ -783,7 +779,7 @@ padding: 0.75rem 2rem;
     margin-bottom: 0.75rem;
     color: var(--text-dark);
     opacity: 0.8;
-    font-size: 0.9rem;
+    font-size: 1.125rem;
 }
 
 .case-link {
@@ -847,7 +843,7 @@ padding: 0.75rem 2rem;
 }
 
 .level-badge p {
-    font-size: 0.9rem;
+    font-size: 1.125rem;
 }
 
 /* FOOTER */
@@ -873,7 +869,7 @@ footer a {
 }
 
 .site-version {
-    font-size: 0.75rem;
+    font-size: 1rem;
     opacity: 0.45;
     margin-top: 0.25rem;
 }
@@ -930,7 +926,7 @@ footer a {
         width: 100%;
         justify-content: flex-start;
         padding: 0.65rem 0.85rem;
-        font-size: 0.95rem;
+        font-size: 1rem;
     }
 
     .nav-dropdown {
@@ -966,7 +962,7 @@ footer a {
     }
 
     .guiding-question-simple {
-        font-size: 1rem;
+        font-size: 1.125rem;
     }
 
     .auth-signed-in {
@@ -996,7 +992,7 @@ footer a {
 
 .auth-name {
     color: var(--text-light);
-    font-size: 0.85em;
+    font-size: 1rem;
     font-weight: 500;
     opacity: 0.9;
 }
@@ -1004,7 +1000,7 @@ footer a {
 .auth-btn {
     padding: 6px 14px;
     border-radius: 6px;
-    font-size: 0.85em;
+    font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
     border: none;
@@ -1138,7 +1134,7 @@ footer a {
     color: #fff;
     padding: 0.55rem 0.9rem;
     border-radius: 999px;
-    font-size: 0.82rem;
+    font-size: 1rem;
     font-weight: 600;
     z-index: 2000;
     opacity: 0;
@@ -1156,8 +1152,8 @@ footer a {
     max-width: 1100px;
     margin: 0 auto;
     padding: 0.45rem 1rem;
-    font-size: 0.82rem;
-    color: #3d3d3d;
+    font-size: 1.125rem;
+    color: #1F2124;
     text-align: center;
 }
 
@@ -1203,7 +1199,7 @@ footer a {
 
 .debrief-banner,
 .holding-banner {
-    background: #fff5f6;
+    background: #E8EDF4;
     border-left: 5px solid var(--accent);
     border-radius: 8px;
     padding: 0.85rem 1rem;
@@ -1212,7 +1208,7 @@ footer a {
 }
 
 .anytime-banner {
-    background: #ecfdf5;
+    background: #F5F0E8;
     border-left: 5px solid var(--success);
     border-radius: 8px;
     padding: 0.85rem 1rem;
@@ -1222,12 +1218,12 @@ footer a {
 
 .party-legend {
     margin-top: 0.85rem;
-    font-size: 0.9rem;
+    font-size: 1rem;
     line-height: 1.45;
 }
 
-.legend-petitioner { color: #1e40af; font-weight: 600; }
-.legend-respondent { color: #5b21b6; font-weight: 600; }
+.legend-petitioner { color: #1B2D45; font-weight: 600; }
+.legend-respondent { color: #1B2D45; font-weight: 600; }
 
 .journey-toolbar {
     display: flex;
@@ -1289,12 +1285,12 @@ footer a {
 }
 
 .legal-tip-word {
-    border-bottom: 1px dotted var(--primary-dark, #1e3a5f);
+    border-bottom: 1px dotted var(--primary-dark, #1B2D45);
     box-decoration-break: clone;
 }
 
 .legal-tip:focus {
-    outline: 2px solid var(--accent, #c9a227);
+    outline: 2px solid var(--accent, #3E5F87);
     outline-offset: 2px;
 }
 
@@ -1309,16 +1305,16 @@ footer a {
     padding: 0.7rem 0.85rem;
     background: #ffffff !important;
     background-color: #ffffff !important;
-    color: #1a1a2e !important;
-    -webkit-text-fill-color: #1a1a2e !important;
-    font-size: 0.86rem;
+    color: #1B2D45 !important;
+    -webkit-text-fill-color: #1B2D45 !important;
+    font-size: 1.125rem;
     line-height: 1.45;
     font-weight: 400;
     font-style: normal;
     text-align: left;
     letter-spacing: 0;
     text-transform: none;
-    border: 2px solid #1a1a2e;
+    border: 2px solid #1B2D45;
     border-radius: 8px;
     box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
     overflow-wrap: break-word;
@@ -1336,7 +1332,7 @@ footer a {
     top: -8px;
     transform: translateX(-50%);
     border: 8px solid transparent;
-    border-bottom-color: #1a1a2e;
+    border-bottom-color: #1B2D45;
     border-top-width: 0;
 }
 
@@ -1344,15 +1340,15 @@ footer a {
     top: auto;
     bottom: -8px;
     border-bottom-color: transparent;
-    border-top-color: #1a1a2e;
+    border-top-color: #1B2D45;
     border-top-width: 8px;
     border-bottom-width: 0;
 }
 
 .law-box {
-    background: #f8faf5;
-    border: 2px solid #3d5c3a;
-    border-left: 6px solid #3d5c3a;
+    background: #F5F0E8;
+    border: 2px solid #1B2D45;
+    border-left: 6px solid #1B2D45;
     border-radius: 12px;
     padding: 1rem 1.2rem 1.05rem;
     margin: 0 0 1.25rem;
@@ -1362,13 +1358,13 @@ footer a {
 
 .law-box h3 {
     margin: 0 0 0.4rem;
-    color: #2d4a2b;
+    color: #1B2D45;
     font-size: 1.08rem;
 }
 
 .law-box .law-issue {
     margin: 0 0 0.65rem;
-    font-size: 0.95rem;
+    font-size: 1rem;
     line-height: 1.5;
 }
 
@@ -1376,8 +1372,8 @@ footer a {
     margin: 0 0 0.75rem;
     padding: 0.55rem 0.85rem;
     background: #fff;
-    border-left: 3px solid #c9a227;
-    font-size: 0.92rem;
+    border-left: 3px solid #3E5F87;
+    font-size: 1rem;
     line-height: 1.5;
 }
 
@@ -1389,16 +1385,14 @@ footer a {
 .law-clause cite {
     display: block;
     font-style: normal;
-    font-size: 0.78rem;
+    font-size: 1rem;
     font-weight: 700;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: #5b4a1f;
+    color: #1B2D45;
 }
 
 .law-plain {
     margin: 0 0 0.75rem;
-    font-size: 0.94rem;
+    font-size: 1rem;
     line-height: 1.6;
 }
 
@@ -1412,10 +1406,10 @@ footer a {
     display: inline-flex;
     align-items: center;
     background: #fff;
-    border: 1px solid #9aaa86 !important;
+    border: 1px solid #D6CFC3 !important;
     border-radius: 999px !important;
     padding: 0.25rem 0.7rem !important;
-    font-size: 0.8rem;
+    font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
 }
@@ -1432,8 +1426,8 @@ footer a {
 
 .law-box-more {
     margin: 0.7rem 0 0;
-    font-size: 0.86rem;
-    color: #444;
+    font-size: 1rem;
+    color: #1F2124;
 }
 
 .law-box-compact {
@@ -1451,21 +1445,21 @@ footer a {
     margin: 0.5rem 0 1.5rem;
     padding: 1rem 1.1rem;
     background: #fff;
-    border: 1px solid var(--border, #ddd);
+    border: 1px solid var(--border, #D6CFC3);
     border-radius: 12px;
 }
 
 .law-glossary-list dt {
     font-weight: 700;
-    color: var(--primary-dark, #1e3a5f);
-    font-size: 0.92rem;
+    color: var(--primary-dark, #1B2D45);
+    font-size: 1rem;
 }
 
 .law-glossary-list dd {
     margin: 0;
-    font-size: 0.92rem;
+    font-size: 1.125rem;
     line-height: 1.5;
-    color: #333;
+    color: #1F2124;
 }
 
 .law-case-frames {
@@ -1475,7 +1469,7 @@ footer a {
 
 .law-case-frame h4 {
     margin: 0 0 0.45rem;
-    color: var(--primary-dark, #1e3a5f);
+    color: var(--primary-dark, #1B2D45);
 }
 
 .law-case-frame .law-box {
@@ -1500,7 +1494,7 @@ footer a {
 
 .case-question-box .driving-frame {
     margin: 0.75rem 0 0;
-    font-size: 0.92rem;
+    font-size: 1.125rem;
     line-height: 1.55;
 }
 
@@ -1511,12 +1505,12 @@ footer a {
 
 .law-steps li {
     margin: 0.45rem 0;
-    font-size: 0.94rem;
+    font-size: 1.125rem;
     line-height: 1.5;
 }
 
 .law-steps li strong {
-    color: #2d4a2b;
+    color: #1B2D45;
 }
 
 .legal-tip-copy {

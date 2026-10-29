@@ -3,6 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+    /* Reading settings before first paint (the panel is js/reading-panel.js). ?v=quick|clear|full sets the version. */
+    (function(){var d=document.documentElement,A={size:['normal','large','larger'],spacing:['normal','wide'],font:['atkinson','lexend','opendyslexic','verdana'],contrast:['standard','high'],motion:['system','reduce']},s={},L={quick:'quick',clear:'simplified',full:'standard'},V={quick:'quick',simplified:'clear',standard:'full'},q,v;
+    try{s=JSON.parse(localStorage.getItem('scotus:reading'))||{}}catch(e){}
+    for(var k in A)d.setAttribute('data-'+k,A[k].indexOf(s[k])>-1?s[k]:A[k][0]);
+    q=(location.search.match(/[?&]v=(quick|clear|full)(?:&|$)/)||[])[1];
+    try{if(q)localStorage.setItem('scotus-reading-level',L[q]);v=localStorage.getItem('scotus-reading-level')}catch(e){}
+    d.setAttribute('data-version',V[v]||q||'full')})();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;700&family=Libre+Baskerville:wght@400;700&display=swap">
     <title>Debate Prep | SCOTUS Debate Project</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/case.css">
@@ -39,8 +51,8 @@
 
         .case-select-card.selected {
             border-color: var(--accent);
-            background: #fff5f6;
-            box-shadow: 0 4px 12px rgba(214, 56, 80, 0.15);
+            background: #E8EDF4;
+            box-shadow: 0 4px 12px rgba(62, 95, 135, 0.15);
         }
 
         .case-select-card h3 {
@@ -50,8 +62,8 @@
         }
 
         .case-select-card .case-amendment {
-            font-size: 0.85em;
-            color: #888;
+            font-size: 1rem;
+            color: #5A554E;
         }
 
         .side-select-grid {
@@ -75,17 +87,17 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
-        .side-select-card.petitioner { border-left: 5px solid #3b82f6; }
-        .side-select-card.respondent { border-left: 5px solid #8b5cf6; }
+        .side-select-card.petitioner { border-left: 5px solid #3E5F87; }
+        .side-select-card.respondent { border-left: 5px solid #3E5F87; }
 
         .side-select-card.selected.petitioner {
-            border-color: #3b82f6;
-            background: #eff6ff;
+            border-color: #3E5F87;
+            background: #E8EDF4;
         }
 
         .side-select-card.selected.respondent {
-            border-color: #8b5cf6;
-            background: #f5f3ff;
+            border-color: #3E5F87;
+            background: #E8EDF4;
         }
 
         .side-select-card h4 {
@@ -94,24 +106,22 @@
         }
 
         .side-select-card p {
-            font-size: 0.9em;
-            color: #666;
+            font-size: 1.125rem;
+            color: #5A554E;
             line-height: 1.5;
         }
 
         .side-label {
             display: inline-block;
-            font-size: 0.75em;
+            font-size: 1rem;
             font-weight: 700;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
             padding: 2px 8px;
             border-radius: 4px;
             margin-bottom: 6px;
         }
 
-        .side-label.pet { background: #dbeafe; color: #1e40af; }
-        .side-label.res { background: #ede9fe; color: #5b21b6; }
+        .side-label.pet { background: #E8EDF4; color: #1B2D45; }
+        .side-label.res { background: #E8EDF4; color: #1B2D45; }
 
         /* SECTION TABS */
         .debate-tabs {
@@ -137,19 +147,19 @@
             text-align: center;
             transition: all 0.2s;
             font-weight: 600;
-            font-size: 0.9em;
+            font-size: 1rem;
         }
 
         .debate-tab:hover { border-color: var(--primary-dark); }
 
         .debate-tab.active {
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-light) 100%);
+            background: var(--primary-dark);
             color: var(--text-light);
             border-color: var(--primary-dark);
         }
 
         .debate-tab .tab-sub {
-            font-size: 0.8em;
+            font-size: 1rem;
             font-weight: 400;
             opacity: 0.7;
             margin-top: 2px;
@@ -176,8 +186,8 @@
         }
 
         .builder-card .instruction {
-            font-size: 0.92em;
-            color: #666;
+            font-size: 1.125rem;
+            color: #5A554E;
             margin-bottom: 14px;
             line-height: 1.5;
         }
@@ -186,11 +196,9 @@
             display: inline-block;
             color: #fff;
             font-weight: 700;
-            font-size: 0.75em;
-            letter-spacing: 0.08em;
+            font-size: 1rem;
             padding: 3px 10px;
             border-radius: 4px;
-            text-transform: uppercase;
             margin-bottom: 8px;
         }
 
@@ -199,16 +207,16 @@
         }
 
         .starters-list p {
-            font-size: 0.85em;
-            color: #888;
+            font-size: 1.125rem;
+            color: #5A554E;
             margin-bottom: 6px;
         }
 
         .starter-option {
             display: block;
-            font-size: 0.9em;
+            font-size: 1rem;
             color: var(--primary-dark);
-            background: #f0f4ff;
+            background: #E8EDF4;
             border: 1px solid var(--border);
             border-radius: 6px;
             padding: 8px 12px;
@@ -220,7 +228,7 @@
         }
 
         .starter-option:hover {
-            background: #e0e7ff;
+            background: #E8EDF4;
             border-color: var(--primary-dark);
         }
 
@@ -230,7 +238,7 @@
             padding: 15px;
             border: 2px solid var(--border);
             border-radius: 10px;
-            font-size: 1em;
+            font-size: 1.125rem;
             font-family: inherit;
             resize: vertical;
             margin: 12px 0 0 0;
@@ -268,7 +276,7 @@
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            font-size: 0.9em;
+            font-size: 1rem;
             flex-shrink: 0;
         }
 
@@ -279,8 +287,8 @@
             border: 2px dashed var(--border);
             border-radius: 12px;
             background: transparent;
-            color: #888;
-            font-size: 0.95em;
+            color: #5A554E;
+            font-size: 1rem;
             cursor: pointer;
             transition: all 0.2s;
             margin-bottom: 16px;
@@ -294,8 +302,8 @@
 
         /* ARGUMENT SORT INTEGRATION */
         .sort-redirect-banner {
-            background: #fef3c7;
-            border: 2px solid #f59e0b;
+            background: #F5F0E8;
+            border: 2px solid #3E5F87;
             border-radius: 12px;
             padding: 24px;
             text-align: center;
@@ -303,12 +311,12 @@
         }
         .sort-redirect-banner p {
             margin: 0 0 10px;
-            color: #92400e;
+            color: #1B2D45;
         }
         .sort-redirect-banner .btn {
             display: inline-block;
             padding: 10px 24px;
-            background: #f59e0b;
+            background: #3E5F87;
             color: #fff;
             border-radius: 8px;
             text-decoration: none;
@@ -316,42 +324,40 @@
             transition: background 0.2s;
         }
         .sort-redirect-banner .btn:hover {
-            background: #d97706;
+            background: #3E5F87;
         }
 
         .arg-sort-reference {
-            background: #f0f4ff;
+            background: #E8EDF4;
             border-left: 4px solid var(--primary-dark);
             border-radius: 0 8px 8px 0;
             padding: 12px 16px;
             margin-bottom: 12px;
         }
         .arg-sort-reference.rebuttal-ref {
-            background: #fffbeb;
-            border-left-color: #f59e0b;
+            background: #F5F0E8;
+            border-left-color: #3E5F87;
         }
         .arg-sort-label {
             display: inline-block;
-            font-size: 0.75em;
+            font-size: 1rem;
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
             color: var(--primary-dark);
             margin-bottom: 6px;
         }
         .arg-sort-reference.rebuttal-ref .arg-sort-label {
-            color: #92400e;
+            color: #1B2D45;
         }
         .arg-sort-text {
             margin: 0;
             font-style: italic;
-            color: #333;
+            color: #1F2124;
             line-height: 1.5;
         }
 
         /* SELECTABLE ARGUMENT CARDS */
         .arg-row.arg-selectable {
-            border-color: #e2e8f0;
+            border-color: #D6CFC3;
             cursor: pointer;
             transition: all 0.2s;
         }
@@ -360,16 +366,16 @@
             box-shadow: 0 2px 8px rgba(99, 102, 241, 0.1);
         }
         .arg-row.arg-selectable.rebuttal-selectable:hover {
-            border-color: #f59e0b;
+            border-color: #3E5F87;
             box-shadow: 0 2px 8px rgba(245, 158, 11, 0.1);
         }
         .arg-row.arg-selected-active {
             border-color: var(--primary-dark);
-            background: #fafbff;
+            background: #E8EDF4;
         }
         .arg-row.arg-selected-active.rebuttal-selectable {
-            border-color: #f59e0b;
-            background: #fffdf7;
+            border-color: #3E5F87;
+            background: #F5F0E8;
         }
         .arg-select-checkbox {
             display: flex;
@@ -383,7 +389,7 @@
             accent-color: var(--primary-dark);
         }
         .rebuttal-selectable .arg-select-input {
-            accent-color: #f59e0b;
+            accent-color: #3E5F87;
         }
         .arg-write-section {
             margin-top: 12px;
@@ -393,22 +399,22 @@
         .arg-selection-counter {
             display: inline-block;
             padding: 6px 14px;
-            background: #fee2e2;
-            color: #991b1b;
+            background: #E8EDF4;
+            color: #1B2D45;
             border-radius: 20px;
-            font-size: 0.85em;
+            font-size: 1rem;
             font-weight: 600;
             margin-bottom: 16px;
         }
         .arg-selection-counter.met {
-            background: #d1fae5;
-            color: #065f46;
+            background: #F5F0E8;
+            color: #1B2D45;
         }
 
         /* TAB GATING */
         .tab-gated-banner {
-            background: #f1f5f9;
-            border: 2px solid #cbd5e1;
+            background: #E8EDF4;
+            border: 2px solid #D6CFC3;
             border-radius: 12px;
             padding: 24px;
             text-align: center;
@@ -416,7 +422,7 @@
         }
         .tab-gated-banner p {
             margin: 0 0 10px;
-            color: #475569;
+            color: #1F2124;
         }
         .tab-gated-banner .btn {
             display: inline-block;
@@ -436,20 +442,20 @@
 
         /* Non-blocking helpful tips */
         .tab-helpful-tip {
-            background: linear-gradient(135deg, #eff6ff 0%, #f0fdf4 100%);
-            border: 1px solid #bfdbfe;
-            border-left: 4px solid #3b82f6;
+            background: #E8EDF4;
+            border: 1px solid #D6CFC3;
+            border-left: 4px solid #3E5F87;
             border-radius: 8px;
             padding: 12px 16px;
             margin-bottom: 16px;
         }
         .tab-helpful-tip p {
             margin: 0;
-            color: #1e40af;
-            font-size: 0.9rem;
+            color: #1B2D45;
+            font-size: 1.125rem;
         }
         .tab-helpful-tip a {
-            color: #2563eb;
+            color: #3E5F87;
             font-weight: 600;
         }
         .tab-helpful-tip a:hover {
@@ -483,13 +489,13 @@
             color: #fff;
             border-radius: 10px 10px 0 0;
             font-weight: 600;
-            font-size: 0.9em;
+            font-size: 1rem;
         }
         .case-info-float.collapsed .case-info-float-header {
             border-radius: 10px;
         }
         .case-info-float-toggle {
-            font-size: 0.8em;
+            font-size: 1rem;
             opacity: 0.8;
             transition: transform 0.2s;
         }
@@ -498,7 +504,7 @@
         }
         .case-info-float-body {
             padding: 14px 16px;
-            font-size: 0.9em;
+            font-size: 1.125rem;
             line-height: 1.5;
         }
         .case-info-float.collapsed .case-info-float-body {
@@ -506,31 +512,38 @@
         }
         .case-info-float-amendment {
             display: inline-block;
-            background: #e0e7ff;
+            background: #E8EDF4;
             color: var(--primary-dark);
             padding: 3px 10px;
             border-radius: 12px;
-            font-size: 0.8em;
+            font-size: 1rem;
             font-weight: 600;
             margin-bottom: 10px;
         }
         .case-info-float-claim {
-            color: #333;
+            color: #1F2124;
             margin: 0;
         }
         .case-info-float-hint {
-            font-size: 0.75em;
-            color: #888;
+            font-size: 1.125rem;
+            color: #5A554E;
             margin-top: 10px;
             font-style: italic;
         }
-        @media (max-width: 600px) {
-            .case-info-float {
-                bottom: 10px;
-                right: 10px;
-                left: 10px;
-                max-width: none;
-            }
+        /* The case panel used to float over the page; it now sits under the status bar */
+        .case-info-float {
+            position: static;
+            max-width: none;
+            margin: 0 0 20px;
+            cursor: default;
+        }
+        .case-info-float-header {
+            width: 100%;
+            border: 0;
+            text-align: left;
+            cursor: pointer;
+            font-family: inherit;
+            gap: 12px;
         }
 
         /* ASSEMBLED PREVIEW */
@@ -549,14 +562,14 @@
         }
 
         .assembled-placeholder {
-            color: #aaa;
+            color: #5A554E;
             font-style: italic;
         }
 
         /* MLA Formatted Output */
         .mla-formatted-output {
             background: #fff;
-            border: 1px solid #e5e7eb;
+            border: 1px solid #D6CFC3;
             border-radius: 4px;
             padding: 1in;
             font-family: "Times New Roman", Times, serif;
@@ -615,11 +628,11 @@
         }
 
         .btn-success {
-            background: #10b981;
+            background: #3E5F87;
             color: #fff;
         }
 
-        .btn-success:hover { background: #059669; }
+        .btn-success:hover { background: #3E5F87; }
 
         /* SELF-CHECK */
         .self-check {
@@ -650,7 +663,7 @@
 
         .check-item label {
             cursor: pointer;
-            font-size: 0.95em;
+            font-size: 1rem;
         }
 
         /* INFO ALERT */
@@ -665,8 +678,8 @@
 
         .saved-indicator {
             display: inline-block;
-            font-size: 0.85em;
-            color: #10b981;
+            font-size: 1rem;
+            color: #3E5F87;
             font-weight: 600;
             opacity: 0;
             transition: opacity 0.3s;
@@ -686,11 +699,11 @@
             justify-content: space-between;
             flex-wrap: wrap;
             gap: 10px;
-            font-size: 0.92em;
+            font-size: 1rem;
         }
 
         .status-bar .case-info { font-weight: 600; color: var(--primary-dark); }
-        .status-bar .side-info { color: #666; }
+        .status-bar .side-info { color: #5A554E; }
 
         /* YOUR EVIDENCE PANEL */
         .ev-panel-section {
@@ -706,9 +719,9 @@
         }
 
         .ev-panel-count {
-            font-size: 0.82rem;
+            font-size: 1rem;
             font-weight: 400;
-            color: #888;
+            color: #5A554E;
             margin-left: 0.5rem;
         }
 
@@ -725,8 +738,8 @@
         }
 
         .ev-item.starred {
-            border-color: #f59e0b;
-            background: #fffbeb;
+            border-color: #3E5F87;
+            background: #F5F0E8;
         }
 
         .ev-star-btn {
@@ -739,7 +752,7 @@
             font-size: 1.3rem;
             cursor: pointer;
             transition: all 0.15s ease;
-            color: #ccc;
+            color: #D6CFC3;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -747,19 +760,19 @@
         }
 
         .ev-star-btn:hover {
-            border-color: #f59e0b;
-            color: #f59e0b;
+            border-color: #3E5F87;
+            color: #3E5F87;
         }
 
         .ev-star-btn.active {
-            background: #f59e0b;
-            border-color: #f59e0b;
+            background: #3E5F87;
+            border-color: #3E5F87;
             color: #fff;
         }
 
         .ev-item-text {
             flex: 1;
-            font-size: 0.92rem;
+            font-size: 1.125rem;
             line-height: 1.55;
             color: var(--text-dark);
         }
@@ -769,20 +782,18 @@
         }
 
         .ev-item-feedback {
-            font-size: 0.85rem;
-            color: #555;
+            font-size: 1.125rem;
+            color: #1F2124;
         }
 
         .ev-both-badge {
             display: inline-block;
-            font-size: 0.75rem;
+            font-size: 1rem;
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.03em;
             padding: 2px 8px;
             border-radius: 4px;
-            background: #fbbf24;
-            color: #78350f;
+            background: #3E5F87;
+            color: #1B2D45;
             margin-top: 4px;
         }
 
@@ -790,50 +801,48 @@
         .ev-picks-summary {
             margin-top: 2rem;
             padding: 1.25rem;
-            border: 2px solid #f59e0b;
+            border: 2px solid #3E5F87;
             border-radius: 12px;
-            background: #fffbeb;
+            background: #F5F0E8;
         }
 
         .ev-picks-title {
-            color: #92400e;
+            color: #1B2D45;
             font-size: 1.1rem;
             margin: 0 0 1rem;
         }
 
         .ev-picks-group h4 {
-            font-size: 0.9rem;
-            color: #92400e;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
+            font-size: 1rem;
+            color: #1B2D45;
             margin: 0 0 0.5rem;
         }
 
         .ev-picks-group ol {
             margin: 0 0 1rem 1.25rem;
             padding: 0;
-            font-size: 0.9rem;
+            font-size: 1rem;
             line-height: 1.6;
             color: var(--text-dark);
         }
 
         .ev-picks-empty {
-            color: #92400e;
-            font-size: 0.9rem;
+            color: #1B2D45;
+            font-size: 1rem;
             font-style: italic;
             margin: 0;
         }
 
         /* WRITING REFERENCE NOTES */
         .ev-writing-ref {
-            background: #fffbeb;
-            border: 1px solid #fbbf24;
+            background: #F5F0E8;
+            border: 1px solid #3E5F87;
             border-radius: 8px;
             padding: 12px 16px;
             margin-bottom: 16px;
-            font-size: 0.88rem;
+            font-size: 1rem;
             line-height: 1.55;
-            color: #92400e;
+            color: #1B2D45;
         }
 
         .ev-writing-ref strong {
@@ -862,31 +871,29 @@
         .ev-saved-source-title {
             font-weight: 700;
             color: var(--primary-dark);
-            font-size: 0.9rem;
+            font-size: 1rem;
         }
 
         .ev-saved-source-side {
             display: inline-block;
-            font-size: 0.72rem;
+            font-size: 1rem;
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
             padding: 1px 6px;
             border-radius: 3px;
-            background: #e0e7ff;
-            color: #3730a3;
+            background: #E8EDF4;
+            color: #1B2D45;
             margin: 2px 0 4px;
         }
 
         .ev-saved-source-excerpt {
-            font-size: 0.85rem;
-            color: #555;
+            font-size: 1.125rem;
+            color: #1F2124;
             line-height: 1.5;
         }
 
         .ev-saved-source-cite {
-            font-size: 0.8rem;
-            color: #888;
+            font-size: 1rem;
+            color: #5A554E;
             margin-top: 2px;
         }
 
@@ -897,25 +904,24 @@
             top: 50%;
             transform: translateY(-50%);
             z-index: 999;
-            background: #fffbeb;
-            border: 2px solid #f59e0b;
+            background: #F5F0E8;
+            border: 2px solid #3E5F87;
             border-right: none;
             border-radius: 8px 0 0 8px;
             padding: 12px 8px;
             cursor: pointer;
             writing-mode: vertical-rl;
             text-orientation: mixed;
-            font-size: 0.82rem;
+            font-size: 1rem;
             font-weight: 700;
-            color: #92400e;
-            letter-spacing: 0.03em;
+            color: #1B2D45;
             box-shadow: -2px 0 8px rgba(0,0,0,0.08);
             transition: background 0.15s, transform 0.15s;
             display: none;
         }
 
         .ev-drawer-toggle:hover {
-            background: #fef3c7;
+            background: #F5F0E8;
         }
 
         .ev-drawer-toggle .ev-drawer-toggle-star {
@@ -928,8 +934,8 @@
         .ev-drawer-toggle .ev-drawer-badge {
             display: block;
             text-orientation: upright;
-            font-size: 0.75rem;
-            background: #f59e0b;
+            font-size: 1rem;
+            background: #3E5F87;
             color: #fff;
             border-radius: 50%;
             width: 20px;
@@ -962,7 +968,7 @@
             width: 360px;
             height: 100vh;
             background: #fff;
-            border-left: 3px solid #f59e0b;
+            border-left: 3px solid #3E5F87;
             box-shadow: -4px 0 20px rgba(0,0,0,0.12);
             z-index: 1001;
             display: flex;
@@ -977,8 +983,8 @@
 
         .ev-drawer-header {
             padding: 16px 16px 12px;
-            border-bottom: 2px solid #fde68a;
-            background: #fffbeb;
+            border-bottom: 2px solid #D6CFC3;
+            background: #F5F0E8;
             flex-shrink: 0;
         }
 
@@ -1003,21 +1009,21 @@
             height: 32px;
             font-size: 1.2rem;
             cursor: pointer;
-            color: #888;
+            color: #5A554E;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
         .ev-drawer-close:hover {
-            background: #fee2e2;
-            color: #dc2626;
-            border-color: #fca5a5;
+            background: #E8EDF4;
+            color: #3E5F87;
+            border-color: #D6CFC3;
         }
 
         .ev-drawer-hint {
-            font-size: 0.8rem;
-            color: #92400e;
+            font-size: 1.125rem;
+            color: #1B2D45;
             margin-top: 6px;
             line-height: 1.4;
         }
@@ -1031,33 +1037,31 @@
         .ev-drawer-empty {
             text-align: center;
             padding: 30px 16px;
-            color: #92400e;
+            color: #1B2D45;
         }
 
         .ev-drawer-empty p {
-            font-size: 0.9rem;
+            font-size: 1.125rem;
             line-height: 1.5;
             margin: 0 0 12px;
         }
 
         .ev-drawer-section-title {
-            font-size: 0.78rem;
+            font-size: 1rem;
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            color: #92400e;
+            color: #1B2D45;
             margin: 0 0 8px;
             padding-bottom: 4px;
-            border-bottom: 1px solid #fde68a;
+            border-bottom: 1px solid #D6CFC3;
         }
 
         .ev-drawer-item {
-            background: #fffbeb;
-            border: 1px solid #fde68a;
+            background: #F5F0E8;
+            border: 1px solid #D6CFC3;
             border-radius: 8px;
             padding: 10px 12px;
             margin-bottom: 10px;
-            font-size: 0.88rem;
+            font-size: 1rem;
             line-height: 1.5;
             color: var(--text-dark);
         }
@@ -1067,32 +1071,32 @@
         }
 
         .ev-drawer-item-feedback {
-            font-size: 0.82rem;
-            color: #666;
+            font-size: 1.125rem;
+            color: #5A554E;
             font-style: italic;
             margin-bottom: 8px;
             padding-left: 10px;
-            border-left: 2px solid #fbbf24;
+            border-left: 2px solid #3E5F87;
         }
 
         .ev-drawer-insert-btn {
-            background: #10b981;
+            background: #3E5F87;
             color: #fff;
             border: none;
             border-radius: 5px;
             padding: 4px 10px;
-            font-size: 0.78rem;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             transition: background 0.15s;
         }
 
         .ev-drawer-insert-btn:hover {
-            background: #059669;
+            background: #3E5F87;
         }
 
         .ev-drawer-insert-btn.inserted {
-            background: #6366f1;
+            background: #3E5F87;
             cursor: default;
         }
 
@@ -1102,21 +1106,24 @@
 
         .ev-drawer-target-hint {
             display: inline-block;
-            font-size: 0.75rem;
-            color: #888;
+            font-size: 1.125rem;
+            color: #5A554E;
             margin-left: 6px;
         }
 
         .debate-textarea.ev-focus-target {
-            border-color: #f59e0b;
+            border-color: #3E5F87;
             box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.15);
         }
 
         /* RESPONSIVE */
         @media (max-width: 768px) {
             .side-select-grid { grid-template-columns: 1fr; }
-            .debate-tabs { flex-direction: column; }
-            .debate-tab { min-width: 100%; }
+            /* Phones: one compact row of tabs that scrolls sideways, so the
+               sticky part stays short and the writing box stays in view */
+            .debate-content .debate-tabs { flex-direction: row; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding: 0; margin-bottom: 16px; }
+            .debate-content .debate-tab { flex: 0 0 auto; min-width: 0; white-space: nowrap; padding: 8px 12px; }
+            .debate-content .debate-tab .tab-sub { display: none; }
             .ev-item { padding: 12px; gap: 10px; }
             .ev-star-btn { width: 32px; height: 32px; font-size: 1.1rem; }
 
@@ -1128,7 +1135,7 @@
                 width: 100%;
                 height: 75vh;
                 border-left: none;
-                border-top: 3px solid #f59e0b;
+                border-top: 3px solid #3E5F87;
                 border-radius: 16px 16px 0 0;
                 transition: bottom 0.3s ease;
             }
@@ -1145,7 +1152,7 @@
                 top: auto;
                 bottom: 12px;
                 transform: none;
-                border: 2px solid #f59e0b;
+                border: 2px solid #3E5F87;
                 border-radius: 50px;
                 padding: 10px 14px;
                 box-shadow: 0 2px 10px rgba(0,0,0,0.15);
@@ -1164,6 +1171,7 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="css/theme.css">
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -1199,7 +1207,7 @@
             <!-- ===================== -->
             <div id="step-case-select">
                 <h1 style="margin-bottom: 8px; color: var(--primary-dark); font-family: var(--font-heading);">Debate Prep</h1>
-                <p style="color: #666; margin-bottom: 24px;">Build your opening statement, arguments, rebuttals, and closing statement for the Supreme Court debate.</p>
+                <p style="color: #5A554E; margin-bottom: 24px;">Build your opening statement, arguments, rebuttals, and closing statement for the Supreme Court debate.</p>
 
                 <div class="alert-info">
                     <strong>Step 1:</strong> Choose the case you are preparing to argue.
@@ -1225,7 +1233,14 @@
             <div id="debate-workspace" style="display: none;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
                     <h1 style="margin: 0; color: var(--primary-dark); font-family: var(--font-heading); font-size: 1.4em;">Debate Prep</h1>
-                    <button class="btn btn-secondary" onclick="backToCaseSelect()">Change Case / Side</button>
+                    <div class="ws-toolbar">
+                        <button class="ev-drawer-toggle" id="ev-drawer-toggle" type="button" aria-expanded="false" aria-controls="ev-drawer" onclick="toggleEvidenceDrawer()" style="display: none;">
+                            <span class="ev-drawer-toggle-star" aria-hidden="true">&#9733;</span>
+                            My Starred Evidence
+                            <span class="ev-drawer-badge" id="ev-drawer-badge" style="display: none;">0</span>
+                        </button>
+                        <button class="btn btn-secondary" onclick="backToCaseSelect()">Change Case / Side</button>
+                    </div>
                 </div>
 
                 <div class="status-bar">
@@ -1234,35 +1249,48 @@
                     <span class="saved-indicator" id="auto-save-indicator">Saved</span>
                 </div>
 
+                <!-- CASE INFO PANEL (sits in the page so it never covers a writing box) -->
+                <div class="case-info-float collapsed" id="case-info-float">
+                    <button type="button" class="case-info-float-header" aria-expanded="false" aria-controls="case-info-float-body" onclick="toggleCaseInfoFloat()">
+                        <span id="case-info-float-title">Your Case</span>
+                        <span class="case-info-float-toggle" aria-hidden="true">&#9650;</span>
+                    </button>
+                    <div class="case-info-float-body" id="case-info-float-body">
+                        <div class="case-info-float-amendment" id="case-info-float-amendment"></div>
+                        <p class="case-info-float-claim" id="case-info-float-claim"></p>
+                        <p class="case-info-float-hint">This is what you're trying to prove!</p>
+                    </div>
+                </div>
+
                 <div id="speak-recap" class="alert-info" style="margin-bottom:20px;">
-                    <p><strong>Your 60-second theory lives on the case page Speak tab</strong> — not here. Say it there. This page is the written speech (opening, arguments, sources, rebuttals, closing).</p>
+                    <p><strong>Your 60-second theory lives on the case page Speak tab</strong>, not here. Say it there. This page is the written speech (opening, arguments, sources, rebuttals, closing).</p>
                     <p><a id="speak-recap-link" href="index.html">Open Speak tab →</a></p>
                     <div id="debate-law-box"></div>
-                    <div id="debate-tests-box" class="competing-tests"></div>
+                    <div id="debate-tests-box" class="competing-tests on-navy"></div>
                     <ol id="speak-recap-lines" style="margin:12px 0 0 1.2em;"></ol>
                 </div>
                 <div class="debate-tabs">
-                    <button class="debate-tab active" onclick="showDebateTab('evidence')">
+                    <button class="debate-tab active" aria-pressed="true" onclick="showDebateTab('evidence')">
                         <div>Your Evidence</div>
                         <div class="tab-sub">Review &amp; rank</div>
                     </button>
-                    <button class="debate-tab" onclick="showDebateTab('arguments')">
+                    <button class="debate-tab" aria-pressed="false" onclick="showDebateTab('arguments')">
                         <div>Arguments</div>
                         <div class="tab-sub">Pick your top 3</div>
                     </button>
-                    <button class="debate-tab" onclick="showDebateTab('opening')">
+                    <button class="debate-tab" aria-pressed="false" onclick="showDebateTab('opening')">
                         <div>Opening Statement</div>
                         <div class="tab-sub">Introduce your case</div>
                     </button>
-                    <button class="debate-tab" onclick="showDebateTab('sources')">
+                    <button class="debate-tab" aria-pressed="false" onclick="showDebateTab('sources')">
                         <div>Sources</div>
                         <div class="tab-sub">Pick 2+ sources</div>
                     </button>
-                    <button class="debate-tab" onclick="showDebateTab('closing')">
+                    <button class="debate-tab" aria-pressed="false" onclick="showDebateTab('closing')">
                         <div>Closing Statement</div>
                         <div class="tab-sub">Final appeal</div>
                     </button>
-                    <button class="debate-tab" onclick="showDebateTab('rebuttals')">
+                    <button class="debate-tab" aria-pressed="false" onclick="showDebateTab('rebuttals')">
                         <div>Rebuttals</div>
                         <div class="tab-sub">Counter the other side</div>
                     </button>
@@ -1274,31 +1302,31 @@
                 <div class="debate-section" id="tab-theory">
                     <div class="alert-info">Theory and hot bench live on the Speak tab. This hidden section only keeps older saved drafts.</div>
                     <div class="builder-card">
-                        <span class="builder-part-label" style="background:#1d4ed8;">1. Who I represent</span>
+                        <span class="builder-part-label" style="background:#1B2D45;">1. Who I represent</span>
                         <textarea class="debate-textarea" id="theory-who" data-field="theory-who" placeholder="Name the client." style="min-height:70px;"></textarea>
                     </div>
                     <div class="builder-card">
-                        <span class="builder-part-label" style="background:#dc2626;">2. What happened (3 facts)</span>
+                        <span class="builder-part-label" style="background:#3E5F87;">2. What happened (3 facts)</span>
                         <textarea class="debate-textarea" id="theory-facts" data-field="theory-facts" placeholder="No adjectives. Just what happened."></textarea>
                     </div>
                     <div class="builder-card">
-                        <span class="builder-part-label" style="background:#f59e0b;">3. The constitutional question</span>
+                        <span class="builder-part-label" style="background:#3E5F87;">3. The constitutional question</span>
                         <textarea class="debate-textarea" id="theory-q" data-field="theory-q" placeholder="One sentence." style="min-height:70px;"></textarea>
                     </div>
                     <div class="builder-card">
-                        <span class="builder-part-label" style="background:#0d6986;">4. The clause and what it says</span>
+                        <span class="builder-part-label" style="background:#3E5F87;">4. The clause and what it says</span>
                         <textarea class="debate-textarea" id="theory-clause" data-field="theory-clause" style="min-height:70px;"></textarea>
                     </div>
                     <div class="builder-card">
-                        <span class="builder-part-label" style="background:#6d28d9;">5. The rule we need the Court to adopt</span>
+                        <span class="builder-part-label" style="background:#1B2D45;">5. The rule we need the Court to adopt</span>
                         <p class="instruction">Start with “Under our test…”</p>
                         <textarea class="debate-textarea" id="theory-rule" data-field="theory-rule" placeholder="Under our test, the Court should hold that…" style="min-height:70px;"></textarea>
                     </div>
                     <div class="builder-card">
-                        <span class="builder-part-label" style="background:#9a3412;">6. Why their rule is dangerous</span>
+                        <span class="builder-part-label" style="background:#1B2D45;">6. Why their rule is dangerous</span>
                         <textarea class="debate-textarea" id="theory-danger" data-field="theory-danger" style="min-height:70px;"></textarea>
                     </div>
-                    <details class="theory-sample" id="debate-theory-sample"><summary>If you get stuck — sample theory for your side</summary><ol id="debate-theory-sample-list"></ol></details>
+                    <details class="theory-sample" id="debate-theory-sample"><summary>If you get stuck: sample theory for your side</summary><ol id="debate-theory-sample-list"></ol></details>
                 </div>
 
                 <div class="debate-section" id="tab-oral">
@@ -1315,24 +1343,24 @@
                     </div>
 
                     <!-- Student Info for MLA Header -->
-                    <div class="builder-card" style="border-left: 4px solid #059669; background: #ecfdf5;">
-                        <span class="builder-part-label" style="background: #059669;">Document Info</span>
+                    <div class="builder-card" style="border-left: 4px solid #3E5F87; background: #F5F0E8;">
+                        <span class="builder-part-label" style="background: #3E5F87;">Document Info</span>
                         <p class="instruction">This information will appear in your final formatted document.</p>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
                             <div>
-                                <label style="font-size: 0.85rem; font-weight: 600; color: #374151;">Your Name(s)</label>
+                                <label style="font-size: 1rem; font-weight: 600; color: #1F2124;">Your Name(s)</label>
                                 <input type="text" id="student-names" class="debate-textarea" style="min-height: auto; padding: 8px 12px;" placeholder="e.g., John Smith, Jane Doe" data-field="student-names">
                             </div>
                             <div>
-                                <label style="font-size: 0.85rem; font-weight: 600; color: #374151;">Class Period</label>
+                                <label style="font-size: 1rem; font-weight: 600; color: #1F2124;">Class Period</label>
                                 <input type="text" id="class-period" class="debate-textarea" style="min-height: auto; padding: 8px 12px;" placeholder="e.g., 3" data-field="class-period">
                             </div>
                         </div>
                     </div>
 
                     <!-- Introduction -->
-                    <div class="builder-card" style="border-left: 4px solid #6366f1;">
-                        <span class="builder-part-label" style="background: #6366f1;">Introduction</span>
+                    <div class="builder-card" style="border-left: 4px solid #3E5F87;">
+                        <span class="builder-part-label" style="background: #3E5F87;">Introduction</span>
                         <p class="instruction">Introduce yourself, your partners, and your client to the Court.</p>
                         <div class="starters-list">
                             <p>Sentence starters:</p>
@@ -1342,20 +1370,20 @@
                     </div>
 
                     <!-- Background -->
-                    <div class="builder-card" style="border-left: 4px solid #dc2626;">
-                        <span class="builder-part-label" style="background: #dc2626;">Background</span>
-                        <p class="instruction">Explain what happened — the people involved, their positions, and the event that led this case to court. Use the facts from your case research.</p>
+                    <div class="builder-card" style="border-left: 4px solid #3E5F87;">
+                        <span class="builder-part-label" style="background: #3E5F87;">Background</span>
+                        <p class="instruction">Explain what happened: the people involved, their positions, and the event that led this case to court. Use the facts from your case research.</p>
                         <div class="starters-list">
                             <p>Sentence starters:</p>
                             <button class="starter-option" onclick="useDebateStarter(this, 'opening-background')">We are here today because _____.</button>
                             <button class="starter-option" onclick="useDebateStarter(this, 'opening-background')">This case began when _____.</button>
                         </div>
-                        <textarea class="debate-textarea" id="opening-background" data-field="opening-background" placeholder="Describe what happened — use facts from your case research..."></textarea>
+                        <textarea class="debate-textarea" id="opening-background" data-field="opening-background" placeholder="Describe what happened. Use facts from your case research..."></textarea>
                     </div>
 
                     <!-- Constitutional Claims -->
-                    <div class="builder-card" style="border-left: 4px solid #f59e0b;">
-                        <span class="builder-part-label" style="background: #f59e0b;">Constitutional Claims</span>
+                    <div class="builder-card" style="border-left: 4px solid #3E5F87;">
+                        <span class="builder-part-label" style="background: #3E5F87;">Constitutional Claims</span>
                         <p class="instruction">State what each side believes about the Constitution. What does the petitioner claim was violated? What does the respondent claim?</p>
                         <div class="starters-list">
                             <p>Sentence starters:</p>
@@ -1366,8 +1394,8 @@
                     </div>
 
                     <!-- Significance -->
-                    <div class="builder-card" style="border-left: 4px solid #10b981;">
-                        <span class="builder-part-label" style="background: #10b981;">Significance</span>
+                    <div class="builder-card" style="border-left: 4px solid #3E5F87;">
+                        <span class="builder-part-label" style="background: #3E5F87;">Significance</span>
                         <p class="instruction">Why is this case important? Why is the Supreme Court hearing it?</p>
                         <div class="starters-list">
                             <p>Sentence starters:</p>
@@ -1378,8 +1406,8 @@
                     </div>
 
                     <!-- Preview of Arguments -->
-                    <div class="builder-card" style="border-left: 4px solid #8b5cf6;">
-                        <span class="builder-part-label" style="background: #8b5cf6;">Preview of Arguments</span>
+                    <div class="builder-card" style="border-left: 4px solid #3E5F87;">
+                        <span class="builder-part-label" style="background: #3E5F87;">Preview of Arguments</span>
                         <p class="instruction">Give the justices a roadmap of your arguments. You'll develop these fully in the Arguments tab.</p>
                         <div class="starters-list">
                             <p>Sentence starters:</p>
@@ -1405,9 +1433,9 @@
                     <div id="opening-assembled" class="assembled-preview" style="display: none;">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
                             <h4 style="color: var(--primary-dark); margin: 0;">Your Formatted Opening Statement</h4>
-                            <button class="btn" onclick="copyOpeningToClipboard()" style="background: #059669;">📋 Copy to Clipboard</button>
+                            <button class="btn" onclick="copyOpeningToClipboard()" style="background: #3E5F87;">Copy to Clipboard</button>
                         </div>
-                        <p style="font-size: 0.85rem; color: #6b7280; margin-bottom: 12px;">This document is formatted for Google Docs. Click "Copy to Clipboard" and paste into a new Google Doc.</p>
+                        <p style="font-size: 1rem; color: #5A554E; margin-bottom: 12px;">This document is formatted for Google Docs. Click "Copy to Clipboard" and paste into a new Google Doc.</p>
                         <div id="opening-assembled-text" class="mla-formatted-output"></div>
                     </div>
                 </div>
@@ -1460,8 +1488,8 @@
                     </div>
 
                     <div id="sources-container">
-                        <div class="builder-card source-pick-card" style="border-left: 4px solid #10b981;">
-                            <span class="builder-part-label" style="background: #10b981;">Source 1</span>
+                        <div class="builder-card source-pick-card" style="border-left: 4px solid #3E5F87;">
+                            <span class="builder-part-label" style="background: #3E5F87;">Source 1</span>
                             <p class="instruction">Copy or describe the source from the Evidence Vault.</p>
                             <textarea class="debate-textarea" id="source-1-text" data-field="source-1-text" placeholder="Paste or summarize the source excerpt here..." style="min-height: 70px;"></textarea>
                             <p class="instruction" style="margin-top: 10px;">MLA Citation (copy from the Evidence Vault):</p>
@@ -1474,8 +1502,8 @@
                             <textarea class="debate-textarea" id="source-1-why" data-field="source-1-why" placeholder="Explain how this source helps your argument..." style="min-height: 70px;"></textarea>
                         </div>
 
-                        <div class="builder-card source-pick-card" style="border-left: 4px solid #10b981;">
-                            <span class="builder-part-label" style="background: #10b981;">Source 2</span>
+                        <div class="builder-card source-pick-card" style="border-left: 4px solid #3E5F87;">
+                            <span class="builder-part-label" style="background: #3E5F87;">Source 2</span>
                             <p class="instruction">Copy or describe the source from the Evidence Vault.</p>
                             <textarea class="debate-textarea" id="source-2-text" data-field="source-2-text" placeholder="Paste or summarize the source excerpt here..." style="min-height: 70px;"></textarea>
                             <p class="instruction" style="margin-top: 10px;">MLA Citation (copy from the Evidence Vault):</p>
@@ -1511,8 +1539,8 @@
                     </div>
 
                     <!-- Summary of Arguments -->
-                    <div class="builder-card" style="border-left: 4px solid #6366f1;">
-                        <span class="builder-part-label" style="background: #6366f1;">Summary</span>
+                    <div class="builder-card" style="border-left: 4px solid #3E5F87;">
+                        <span class="builder-part-label" style="background: #3E5F87;">Summary</span>
                         <p class="instruction">Briefly restate your strongest arguments. Remind the justices why your side should win.</p>
                         <div class="starters-list">
                             <p>Sentence starters:</p>
@@ -1523,8 +1551,8 @@
                     </div>
 
                     <!-- Constitutional Connection -->
-                    <div class="builder-card" style="border-left: 4px solid #dc2626;">
-                        <span class="builder-part-label" style="background: #dc2626;">Constitutional Connection</span>
+                    <div class="builder-card" style="border-left: 4px solid #3E5F87;">
+                        <span class="builder-part-label" style="background: #3E5F87;">Constitutional Connection</span>
                         <p class="instruction">Connect your argument back to the Constitution. Why does the Constitution support your side?</p>
                         <div class="starters-list">
                             <p>Sentence starters:</p>
@@ -1535,8 +1563,8 @@
                     </div>
 
                     <!-- Final Appeal -->
-                    <div class="builder-card" style="border-left: 4px solid #10b981;">
-                        <span class="builder-part-label" style="background: #10b981;">Final Appeal</span>
+                    <div class="builder-card" style="border-left: 4px solid #3E5F87;">
+                        <span class="builder-part-label" style="background: #3E5F87;">Final Appeal</span>
                         <p class="instruction">Make your final appeal to the justices. Ask them to rule in your favor.</p>
                         <div class="starters-list">
                             <p>Sentence starters:</p>
@@ -1579,29 +1607,11 @@
         </div>
     </main>
 
-    <!-- FLOATING CASE INFO PANEL -->
-    <div class="case-info-float collapsed" id="case-info-float" onclick="toggleCaseInfoFloat()">
-        <div class="case-info-float-header">
-            <span id="case-info-float-title">Your Case</span>
-            <span class="case-info-float-toggle">&#9650;</span>
-        </div>
-        <div class="case-info-float-body">
-            <div class="case-info-float-amendment" id="case-info-float-amendment"></div>
-            <p class="case-info-float-claim" id="case-info-float-claim"></p>
-            <p class="case-info-float-hint">This is what you're trying to prove!</p>
-        </div>
-    </div>
-
-    <!-- EVIDENCE DRAWER -->
-    <button class="ev-drawer-toggle" id="ev-drawer-toggle" onclick="toggleEvidenceDrawer()">
-        <span class="ev-drawer-toggle-star">&#9733;</span>
-        My Evidence
-        <span class="ev-drawer-badge" id="ev-drawer-badge" style="display: none;">0</span>
-    </button>
+    <!-- EVIDENCE DRAWER (its toggle sits in the workspace toolbar) -->
 
     <div class="ev-drawer-overlay" id="ev-drawer-overlay" onclick="toggleEvidenceDrawer(false)"></div>
 
-    <div class="ev-drawer" id="ev-drawer">
+    <div class="ev-drawer" id="ev-drawer" role="region" aria-label="My Starred Evidence">
         <div class="ev-drawer-header">
             <div class="ev-drawer-header-row">
                 <h3 class="ev-drawer-title">&#9733; My Starred Evidence</h3>
@@ -1618,12 +1628,13 @@
 
     <footer>
         <div class="container">
-            <p>SCOTUS Debate Project — A Student Resource for Understanding the Supreme Court</p>
-            <p class="site-version">v1.20.0</p>
+            <p>SCOTUS Debate Project: A Student Resource for Understanding the Supreme Court</p>
+            <p class="site-version">v1.25.0</p>
         </div>
     </footer>
 
     <script src="js/site-chrome.js"></script>
+    <script src="js/reading-panel.js"></script>
     <script src="js/case-prep-data.js"></script>
     <script src="js/case-prep.js"></script>
     <script src="js/legal-glossary.js"></script>
@@ -1728,16 +1739,16 @@
         let html = '';
         Object.keys(debateCases).forEach(name => {
             const c = debateCases[name];
-            html += `<div class="case-select-card" data-case="${name}" onclick="selectCase(this, '${name.replace(/'/g, "\\'")}')">
+            html += `<div class="case-select-card" role="button" tabindex="0" aria-pressed="false" data-case="${name}" onclick="selectCase(this, '${name.replace(/'/g, "\\'")}')">
                 <h3>${name}</h3>
                 <div class="case-amendment">${c.amendment}</div>
             </div>`;
         });
         grid.innerHTML = html;
+        enableCardKeys(grid);
+        enableCardKeys(document.getElementById('side-select-grid'));
 
-        var params = new URLSearchParams(window.location.search);
-        var fromUrl = params.get('case');
-        var urlName = fromUrl && Object.keys(debateCases).find(function(k) { return debateCases[k].prepId === fromUrl; });
+        var urlName = caseFromUrl();
 
         // Restore saved selection
         try {
@@ -1747,7 +1758,7 @@
             if (caseName && debateCases[caseName]) {
                 var card = document.querySelector('[data-case="' + caseName + '"]');
                 if (card) selectCase(card, caseName);
-                if (!urlName && sel.side) {
+                if (sel.side && (!urlName || urlName === sel.caseName)) {
                     setTimeout(() => {
                         const sideCard = document.querySelector(`[data-side="${sel.side}"]`);
                         if (sideCard) selectSide(sideCard, sel.side);
@@ -1757,23 +1768,48 @@
         } catch(e) {}
     }
 
+    // Cards are role="button": Enter and Space choose them, like a click
+    function enableCardKeys(container) {
+        if (!container || container._cardKeys) return;
+        container._cardKeys = true;
+        container.addEventListener('keydown', function(e) {
+            var card = e.target.closest && e.target.closest('[role="button"]');
+            if (!card || !container.contains(card)) return;
+            if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+                e.preventDefault();
+                card.click();
+            }
+        });
+    }
+
+    function caseFromUrl() {
+        var fromUrl = new URLSearchParams(window.location.search).get('case');
+        if (!fromUrl) return null;
+        return Object.keys(debateCases).find(function(k) { return debateCases[k].prepId === fromUrl; }) || null;
+    }
+
+    function workKeyFor(caseName, side) {
+        return 'scotus-debate-' + caseName.replace(/[^a-zA-Z0-9]/g, '') + '-' + side;
+    }
+
     function selectCase(el, caseName) {
         if (!el || !debateCases[caseName]) return;
         selectedCase = caseName;
-        document.querySelectorAll('.case-select-card').forEach(c => c.classList.remove('selected'));
+        document.querySelectorAll('.case-select-card').forEach(c => { c.classList.remove('selected'); c.setAttribute('aria-pressed', 'false'); });
         el.classList.add('selected');
+        el.setAttribute('aria-pressed', 'true');
 
         // Show side selection
         const c = debateCases[caseName];
         const sideArea = document.getElementById('side-select-area');
         sideArea.style.display = 'block';
         document.getElementById('side-select-grid').innerHTML = `
-            <div class="side-select-card petitioner" data-side="petitioner" onclick="selectSide(this, 'petitioner')">
+            <div class="side-select-card petitioner" role="button" tabindex="0" aria-pressed="false" data-side="petitioner" onclick="selectSide(this, 'petitioner')">
                 <h4>${c.petitioner.name}</h4>
                 <span class="side-label pet">Petitioner</span>
                 <p>${c.petitioner.desc}</p>
             </div>
-            <div class="side-select-card respondent" data-side="respondent" onclick="selectSide(this, 'respondent')">
+            <div class="side-select-card respondent" role="button" tabindex="0" aria-pressed="false" data-side="respondent" onclick="selectSide(this, 'respondent')">
                 <h4>${c.respondent.name}</h4>
                 <span class="side-label res">Respondent</span>
                 <p>${c.respondent.desc}</p>
@@ -1787,8 +1823,9 @@
 
     function selectSide(el, side) {
         selectedSide = side;
-        document.querySelectorAll('.side-select-card').forEach(c => c.classList.remove('selected'));
+        document.querySelectorAll('.side-select-card').forEach(c => { c.classList.remove('selected'); c.setAttribute('aria-pressed', 'false'); });
         el.classList.add('selected');
+        el.setAttribute('aria-pressed', 'true');
         document.getElementById('begin-btn').style.display = 'inline-block';
     }
 
@@ -1898,9 +1935,7 @@
         saveAllWork(true);
         document.getElementById('debate-workspace').style.display = 'none';
         document.getElementById('step-case-select').style.display = 'block';
-        // Hide drawer and toggle
-        var toggle = document.getElementById('ev-drawer-toggle');
-        if (toggle) toggle.style.display = 'none';
+        // Close the drawer (the toggle stays in step with the current tab)
         toggleEvidenceDrawer(false);
         // Hide floating case info panel
         var caseInfoFloat = document.getElementById('case-info-float');
@@ -1926,7 +1961,7 @@
         var ol = document.getElementById('speak-recap-lines');
         if (!ol) return;
         if (!filled.length) {
-            ol.innerHTML = '<li>No theory saved yet. Open Speak, say the six lines, then come back — they will show here.</li>';
+            ol.innerHTML = '<li>No theory saved yet. Open Speak, say the six lines, then come back. They will show here.</li>';
             return;
         }
         ol.innerHTML = filled.map(function(pair) {
@@ -1961,12 +1996,16 @@
                 '<div class="content-block simplified"><p>' + simple.replace(/</g,'&lt;') + '</p></div>' +
                 (test.textQuick ? '<div class="content-block quick"><p>' + test.textQuick.replace(/</g,'&lt;') + '</p></div>' : '');
         }
+        function sideTab(side) {
+            return typeof window.scotusSideTab === 'function' ? window.scotusSideTab(side) : '';
+        }
         if (box) {
-            box.innerHTML = '<h3>Competing tests</h3>' +
+            box.innerHTML = '<h3>Competing Tests</h3>' +
                 '<p class="tests-lead">' + prep.question + '</p>' +
                 '<div class="tests-grid">' +
-                '<div class="test-card ' + selectedSide + '"><div class="test-side">Your rule</div><h4>' + myTest.title + '</h4>' + testParas(myTest) + '</div>' +
-                '<div class="test-card ' + theirSide + '"><div class="test-side">Their rule</div><h4>' + theirTest.title + '</h4>' + testParas(theirTest) + '</div>' +
+                '<div class="test-card ' + selectedSide + ' on-light">' + sideTab(selectedSide) + '<div class="test-side">Your rule</div><h4>' + myTest.title + '</h4>' + testParas(myTest) + '</div>' +
+                '<span class="tests-vs" aria-hidden="true">vs.</span>' +
+                '<div class="test-card ' + theirSide + ' on-light">' + sideTab(theirSide) + '<div class="test-side">Their rule</div><h4>' + theirTest.title + '</h4>' + testParas(theirTest) + '</div>' +
                 '</div>';
         }
         if (sampleList) {
@@ -2000,7 +2039,9 @@
     function toggleCaseInfoFloat() {
         var panel = document.getElementById('case-info-float');
         if (panel) {
-            panel.classList.toggle('collapsed');
+            var collapsed = panel.classList.toggle('collapsed');
+            var head = panel.querySelector('.case-info-float-header');
+            if (head) head.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
         }
     }
 
@@ -2059,7 +2100,14 @@
 
         document.querySelectorAll('.debate-tab').forEach((t, i) => {
             t.classList.toggle('active', tabs[i] === tabName);
+            t.setAttribute('aria-pressed', tabs[i] === tabName ? 'true' : 'false');
         });
+        // On phones the tabs are one row that scrolls sideways: keep the chosen one in view
+        var strip = document.querySelector('.debate-tabs');
+        var activeTab = strip && strip.querySelector('.debate-tab.active');
+        if (strip && activeTab && strip.scrollWidth > strip.clientWidth) {
+            strip.scrollLeft = Math.max(0, activeTab.offsetLeft - 16);
+        }
         document.querySelectorAll('.debate-section').forEach(s => s.classList.remove('active'));
         document.getElementById('tab-' + tabName).classList.add('active');
 
@@ -2312,10 +2360,10 @@
     function buildRebuttalRow(num, argText) {
         if (argText) {
             var safeVal = escHtml(argText).replace(/"/g, '&quot;');
-            return '<div class="arg-row arg-selectable rebuttal-selectable" id="rebuttal-row-' + num + '" style="border-left: 4px solid #f59e0b;">' +
+            return '<div class="arg-row arg-selectable rebuttal-selectable" id="rebuttal-row-' + num + '" style="border-left: 4px solid #3E5F87;">' +
                 '<div class="arg-row-header">' +
                     '<label class="arg-select-checkbox"><input type="checkbox" class="arg-select-input" data-arg-num="' + num + '" onchange="toggleRebuttalSelect(this)"></label>' +
-                    '<div class="arg-number" style="background: #f59e0b;">' + num + '</div>' +
+                    '<div class="arg-number" style="background: #3E5F87;">' + num + '</div>' +
                     '<h4>Rebuttal ' + num + '</h4>' +
                 '</div>' +
                 '<div class="arg-sort-reference rebuttal-ref">' +
@@ -2324,20 +2372,20 @@
                 '</div>' +
                 '<input type="hidden" id="rebuttal-their-' + num + '" data-field="rebuttal-their-' + num + '" value="' + safeVal + '">' +
                 '<div class="arg-write-section" style="display:none;">' +
-                    '<p class="instruction" style="margin-bottom: 8px;">Your response — why is this argument weak or incorrect?</p>' +
+                    '<p class="instruction" style="margin-bottom: 8px;">Your response: why is this argument weak or incorrect?</p>' +
                     '<div class="starters-list">' +
                         '<button class="starter-option" onclick="useDebateStarter(this, \'rebuttal-mine-' + num + '\')">However, this argument fails because _____.</button>' +
                         '<button class="starter-option" onclick="useDebateStarter(this, \'rebuttal-mine-' + num + '\')">While the other side claims _____, the evidence actually shows that _____.</button>' +
                     '</div>' +
-                    '<textarea class="debate-textarea" id="rebuttal-mine-' + num + '" data-field="rebuttal-mine-' + num + '" placeholder="Your counter-argument — explain why this argument is wrong or weak..." style="min-height: 70px;"></textarea>' +
+                    '<textarea class="debate-textarea" id="rebuttal-mine-' + num + '" data-field="rebuttal-mine-' + num + '" placeholder="Your counter-argument: explain why this argument is wrong or weak..." style="min-height: 70px;"></textarea>' +
                 '</div>' +
             '</div>';
         }
 
         // Generic custom rebuttal (always expanded)
-        return `<div class="arg-row" id="rebuttal-row-${num}" style="border-left: 4px solid #f59e0b;">
+        return `<div class="arg-row" id="rebuttal-row-${num}" style="border-left: 4px solid #3E5F87;">
             <div class="arg-row-header">
-                <div class="arg-number" style="background: #f59e0b;">${num}</div>
+                <div class="arg-number" style="background: #3E5F87;">${num}</div>
                 <h4>Rebuttal ${num}</h4>
             </div>
             <p class="instruction" style="margin-bottom: 8px;">What will the other side argue?</p>
@@ -2345,7 +2393,7 @@
                 <button class="starter-option" onclick="useDebateStarter(this, 'rebuttal-their-${num}')">The other side will argue that _____.</button>
             </div>
             <textarea class="debate-textarea" id="rebuttal-their-${num}" data-field="rebuttal-their-${num}" placeholder="What the other side will say..." style="min-height: 70px;"></textarea>
-            <p class="instruction" style="margin-top: 14px; margin-bottom: 8px;">Your response — why is this argument weak or incorrect?</p>
+            <p class="instruction" style="margin-top: 14px; margin-bottom: 8px;">Your response: why is this argument weak or incorrect?</p>
             <div class="starters-list">
                 <button class="starter-option" onclick="useDebateStarter(this, 'rebuttal-mine-${num}')">However, this argument fails because _____.</button>
                 <button class="starter-option" onclick="useDebateStarter(this, 'rebuttal-mine-${num}')">While the other side claims _____, the evidence actually shows that _____.</button>
@@ -2400,8 +2448,8 @@
         sourceCount++;
         const container = document.getElementById('sources-container');
         container.insertAdjacentHTML('beforeend', `
-            <div class="builder-card source-pick-card" style="border-left: 4px solid #10b981;">
-                <span class="builder-part-label" style="background: #10b981;">Source ${sourceCount}</span>
+            <div class="builder-card source-pick-card" style="border-left: 4px solid #3E5F87;">
+                <span class="builder-part-label" style="background: #3E5F87;">Source ${sourceCount}</span>
                 <p class="instruction">Copy or describe the source from the Evidence Vault.</p>
                 <textarea class="debate-textarea" id="source-${sourceCount}-text" data-field="source-${sourceCount}-text" placeholder="Paste or summarize the source excerpt here..." style="min-height: 70px;"></textarea>
                 <p class="instruction" style="margin-top: 10px;">MLA Citation (copy from the Evidence Vault):</p>
@@ -2516,10 +2564,10 @@
             const btn = event.target;
             const originalText = btn.textContent;
             btn.textContent = '✓ Copied!';
-            btn.style.background = '#10b981';
+            btn.style.background = '#3E5F87';
             setTimeout(() => {
                 btn.textContent = originalText;
-                btn.style.background = '#059669';
+                btn.style.background = '#3E5F87';
             }, 2000);
         } catch (err) {
             alert('Copy failed. Please select the text manually and copy.');
@@ -2556,7 +2604,7 @@
         const openingFields = ['opening-intro', 'opening-background', 'opening-claims', 'opening-significance', 'opening-preview'];
         const openingParts = openingFields.map(id => { const el = document.getElementById(id); return el ? el.value.trim() : ''; }).filter(v => v);
         if (openingParts.length > 0) {
-            html += '<h4 style="color: #6366f1; margin-bottom: 8px;">Opening Statement</h4>';
+            html += '<h4 style="color: #3E5F87; margin-bottom: 8px;">Opening Statement</h4>';
             html += openingParts.map(p => `<p>${escHtml(p)}</p>`).join('');
             html += '<hr style="margin: 16px 0; border: none; border-top: 1px solid var(--border);">';
         }
@@ -2604,7 +2652,7 @@
             }
         }
         if (rebuttals.length > 0) {
-            html += '<h4 style="color: #f59e0b; margin-bottom: 8px;">Rebuttals</h4>';
+            html += '<h4 style="color: #3E5F87; margin-bottom: 8px;">Rebuttals</h4>';
             rebuttals.forEach((r, i) => {
                 if (r.their) html += `<p><strong>They will say:</strong> ${escHtml(r.their)}</p>`;
                 if (r.mine) html += `<p><strong>Our response:</strong> ${escHtml(r.mine)}</p>`;
@@ -2624,10 +2672,10 @@
             }
         }
         if (sources.length > 0) {
-            html += '<h4 style="color: #10b981; margin-bottom: 8px;">Sources</h4>';
+            html += '<h4 style="color: #3E5F87; margin-bottom: 8px;">Sources</h4>';
             sources.forEach((s, i) => {
                 html += `<p><strong>Source ${i + 1}:</strong> ${escHtml(s.text)}</p>`;
-                if (s.cite) html += `<p style="font-style: italic; color: #777; font-size: 0.9em;">${escHtml(s.cite)}</p>`;
+                if (s.cite) html += `<p style="font-style: italic; color: #5A554E; font-size: 1rem;">${escHtml(s.cite)}</p>`;
                 if (s.why) html += `<p><em>Why it matters:</em> ${escHtml(s.why)}</p>`;
                 if (i < sources.length - 1) html += '<br>';
             });
@@ -2638,7 +2686,7 @@
         const closingFields = ['closing-summary', 'closing-constitution', 'closing-appeal'];
         const closingParts = closingFields.map(id => { const el = document.getElementById(id); return el ? el.value.trim() : ''; }).filter(v => v);
         if (closingParts.length > 0) {
-            html += '<h4 style="color: #10b981; margin-bottom: 8px;">Closing Statement</h4>';
+            html += '<h4 style="color: #3E5F87; margin-bottom: 8px;">Closing Statement</h4>';
             html += closingParts.map(p => `<p>${escHtml(p)}</p>`).join('');
         }
 
@@ -2733,6 +2781,12 @@
             if (el) data[id] = el.value;
         });
 
+        // Self-check boxes
+        data.checks = {};
+        document.querySelectorAll('#debate-workspace .check-item input[type="checkbox"]').forEach(function(cb) {
+            if (cb.id) data.checks[cb.id] = cb.checked;
+        });
+
         localStorage.setItem(getSaveKey(), JSON.stringify(data));
         if (typeof saveToCloud === 'function') saveToCloud(getSaveKey(), data);
 
@@ -2747,18 +2801,46 @@
             const btn = event.target;
             const orig = btn.textContent;
             btn.textContent = 'Saved!';
-            btn.style.background = '#10b981';
+            btn.style.background = '#3E5F87';
             setTimeout(() => { btn.textContent = orig; btn.style.background = ''; }, 1500);
         }
     }
 
+    // Empty the fixed writing boxes and check boxes so one case's work never
+    // shows up (and gets saved) under another case or side
+    function clearStaticFields() {
+        ['theory-who', 'theory-facts', 'theory-q', 'theory-clause', 'theory-rule', 'theory-danger',
+         'student-names', 'class-period',
+         'opening-intro', 'opening-background', 'opening-claims', 'opening-significance', 'opening-preview',
+         'closing-summary', 'closing-constitution', 'closing-appeal'].forEach(function(id) {
+            var el = document.getElementById(id);
+            if (el) el.value = '';
+        });
+        document.querySelectorAll('#debate-hot-bench textarea').forEach(function(ta) { ta.value = ''; });
+        for (var i = 1; i <= sourceCount; i++) {
+            ['source-' + i + '-text', 'source-' + i + '-cite', 'source-' + i + '-why'].forEach(function(id) {
+                var el = document.getElementById(id);
+                if (el) el.value = '';
+            });
+        }
+        document.querySelectorAll('#debate-workspace .check-item input[type="checkbox"]').forEach(function(cb) { cb.checked = false; });
+    }
+
     function loadSavedWork() {
+        clearStaticFields();
         let data;
         try {
             const saved = localStorage.getItem(getSaveKey());
             if (!saved) return;
             data = JSON.parse(saved);
         } catch(e) { return; }
+
+        if (data.checks) {
+            Object.keys(data.checks).forEach(function(id) {
+                var cb = document.getElementById(id);
+                if (cb && cb.type === 'checkbox') cb.checked = !!data.checks[id];
+            });
+        }
 
         // Student info fields
         ['theory-who', 'theory-facts', 'theory-q', 'theory-clause', 'theory-rule', 'theory-danger'].forEach(id => {
@@ -2856,6 +2938,11 @@
         document.querySelectorAll('.debate-textarea').forEach(ta => {
             ta.addEventListener('input', autoSave);
         });
+        document.querySelectorAll('#debate-workspace .check-item input[type="checkbox"]').forEach(function(cb) {
+            if (cb._autoSave) return;
+            cb._autoSave = true;
+            cb.addEventListener('change', autoSave);
+        });
     }
 
     // ==========================================
@@ -2863,6 +2950,15 @@
     // ==========================================
     async function onAuthReady(user) {
         if (!user) return;
+
+        // A case named in the link (?case=) may have work saved in the cloud too
+        var urlCase = caseFromUrl();
+        if (urlCase) {
+            for (const sd of ['petitioner', 'respondent']) {
+                const urlWork = await loadFromCloud(workKeyFor(urlCase, sd));
+                if (urlWork) localStorage.setItem(workKeyFor(urlCase, sd), JSON.stringify(urlWork));
+            }
+        }
 
         // Load selection from Firestore
         const sel = await loadFromCloud('scotus-debate-selection');
@@ -2883,18 +2979,33 @@
         }
     }
 
+    // Reopen saved work. A ?case= link always wins: it opens that case's saved
+    // workspace if there is one, otherwise the picker stays open with that case
+    // chosen. It never opens a different case.
+    var _autoRestorePending = false;
     function tryAutoRestore() {
+        if (_autoRestorePending) return;
+        if (document.getElementById('debate-workspace').style.display !== 'none') return;
         try {
-            const saved = localStorage.getItem('scotus-debate-selection');
-            if (saved) {
-                const sel = JSON.parse(saved);
-                const saveKey = 'scotus-debate-' + sel.caseName.replace(/[^a-zA-Z0-9]/g, '') + '-' + sel.side;
-                const hasWork = localStorage.getItem(saveKey);
-                if (hasWork && sel.caseName && sel.side) {
-                    selectedCase = sel.caseName;
-                    selectedSide = sel.side;
-                    setTimeout(() => beginDebatePrep(), 100);
+            var urlName = caseFromUrl();
+            var saved = localStorage.getItem('scotus-debate-selection');
+            var sel = saved ? JSON.parse(saved) : null;
+            var target = null;
+            if (urlName) {
+                if (sel && sel.caseName === urlName && sel.side && localStorage.getItem(workKeyFor(urlName, sel.side))) {
+                    target = { caseName: urlName, side: sel.side };
+                } else {
+                    var sides = ['petitioner', 'respondent'].filter(function(sd) { return localStorage.getItem(workKeyFor(urlName, sd)); });
+                    if (sides.length === 1) target = { caseName: urlName, side: sides[0] };
                 }
+            } else if (sel && sel.caseName && sel.side && debateCases[sel.caseName] && localStorage.getItem(workKeyFor(sel.caseName, sel.side))) {
+                target = { caseName: sel.caseName, side: sel.side };
+            }
+            if (target) {
+                _autoRestorePending = true;
+                selectedCase = target.caseName;
+                selectedSide = target.side;
+                setTimeout(function() { _autoRestorePending = false; beginDebatePrep(); }, 100);
             }
         } catch(e) {}
     }

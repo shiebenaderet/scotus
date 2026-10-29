@@ -16,7 +16,7 @@
     align-items: center;
     gap: 0.25rem;
     font-weight: 500;
-    font-size: 0.95rem;
+    font-size: 1rem;
     cursor: pointer;
     transition: color var(--transition-fast), background-color var(--transition-fast);
     border-radius: 4px;
@@ -29,7 +29,7 @@
 }
 
 .dropdown-arrow {
-    font-size: 0.75rem;
+    font-size: 1rem;
     transition: transform 0.2s ease;
 }
 
@@ -60,7 +60,7 @@
     color: var(--text-light);
     padding: 0.75rem 1.25rem;
     text-decoration: none;
-    font-size: 0.95rem;
+    font-size: 1.125rem;
     font-weight: 500;
     transition: background-color 0.15s ease, color 0.15s ease;
 }
@@ -71,7 +71,7 @@
 }
 
 .nav-dropdown-content a.active {
-    background-color: rgba(214, 56, 80, 0.15);
+    background-color: rgba(62, 95, 135, 0.15);
     color: var(--accent);
 }
 
@@ -81,7 +81,7 @@
 }
 
 .case-header {
-    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-light) 100%);
+    background: var(--primary-dark);
     color: var(--text-light);
     padding: 2.5rem 0;
     text-align: center;
@@ -118,7 +118,7 @@
     border: 2px solid var(--border);
     background: var(--bg-white);
     border-radius: 25px;
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -143,7 +143,7 @@
 }
 
 .selector-instruction {
-    color: #666;
+    color: #5A554E;
     margin-bottom: 1rem;
 }
 
@@ -160,7 +160,7 @@
     background: var(--bg-white);
     border: 2px solid var(--border);
     border-radius: 8px;
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -187,7 +187,7 @@
     background: var(--bg-white);
     border: 2px solid var(--border);
     border-radius: 8px;
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
     font-family: inherit;
@@ -201,7 +201,7 @@
 }
 
 .scotus-hidden {
-    background: repeating-linear-gradient(45deg, #f5f3ef, #f5f3ef 10px, #efeae3 10px, #efeae3 20px);
+    background: #F5F0E8;
     border: 2px dashed var(--border);
     border-radius: 12px;
     padding: 1rem 1.25rem;
@@ -209,7 +209,7 @@
 }
 
 /* Case-specific colors when selected */
-.case-btn[data-case="tinker"].selected { background: #1e3a5f; border-color: #1e3a5f; }
+.case-btn[data-case="tinker"].selected { background: #1B2D45; border-color: #1B2D45; }
 .case-btn[data-case="tlo"].selected { background: #2d4a3e; border-color: #2d4a3e; }
 .case-btn[data-case="brown"].selected { background: #5c3d2e; border-color: #5c3d2e; }
 .case-btn[data-case="payton"].selected { background: #4a3b5c; border-color: #4a3b5c; }
@@ -223,7 +223,7 @@
     background: transparent;
     border: 2px solid var(--accent);
     border-radius: 6px;
-    font-size: 0.85rem;
+    font-size: 1rem;
     font-weight: 600;
     color: var(--accent);
     cursor: pointer;
@@ -257,8 +257,8 @@
 }
 
 .timeline-empty p {
-    color: #666;
-    font-size: 1.1rem;
+    color: #5A554E;
+    font-size: 1.125rem;
     max-width: 400px;
     margin: 0 auto;
 }
@@ -277,7 +277,7 @@
     top: 0;
     bottom: 0;
     width: 4px;
-    background: linear-gradient(180deg, var(--primary-dark) 0%, var(--accent) 100%);
+    background: var(--primary-dark);
     border-radius: 2px;
 }
 
@@ -307,10 +307,10 @@
 }
 
 /* Event type colors */
-.timeline-event.incident::before { border-color: #f59e0b; background: #fef3c7; }
-.timeline-event.district::before { border-color: #3b82f6; background: #dbeafe; }
-.timeline-event.appeals::before { border-color: #8b5cf6; background: #ede9fe; }
-.timeline-event.scotus::before { border-color: #10b981; background: #d1fae5; }
+.timeline-event.incident::before { border-color: #3E5F87; background: #F5F0E8; }
+.timeline-event.district::before { border-color: #3E5F87; background: #E8EDF4; }
+.timeline-event.appeals::before { border-color: #3E5F87; background: #E8EDF4; }
+.timeline-event.scotus::before { border-color: #3E5F87; background: #F5F0E8; }
 
 /* Timeline Card */
 .timeline-card {
@@ -366,7 +366,7 @@
 }
 
 .card-date {
-    font-size: 0.8rem;
+    font-size: 1rem;
     font-weight: 700;
     color: var(--text-light);
     background: var(--primary-dark);
@@ -375,17 +375,15 @@
 }
 
 .card-case-tag {
-    font-size: 0.7rem;
+    font-size: 1rem;
     font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
     padding: 0.2rem 0.5rem;
     border-radius: 4px;
     color: var(--text-light);
 }
 
 /* Case-specific tag colors */
-.card-case-tag.tinker { background: #1e3a5f; }
+.card-case-tag.tinker { background: #1B2D45; }
 .card-case-tag.tlo { background: #2d4a3e; }
 .card-case-tag.brown { background: #5c3d2e; }
 .card-case-tag.payton { background: #4a3b5c; }
@@ -395,11 +393,9 @@
 .card-case-tag.fishing-rights { background: #2e5355; }
 
 .card-type {
-    font-size: 0.75rem;
+    font-size: 1rem;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: #666;
+    color: #5A554E;
 }
 
 .card-title {
@@ -411,7 +407,7 @@
 
 .card-ruling {
     display: inline-block;
-    font-size: 0.8rem;
+    font-size: 1rem;
     font-weight: 700;
     padding: 0.2rem 0.6rem;
     border-radius: 4px;
@@ -419,22 +415,22 @@
 }
 
 .card-ruling.favor-petitioner {
-    background: #dbeafe;
-    color: #1e40af;
+    background: #E8EDF4;
+    color: #1B2D45;
 }
 
 .card-ruling.favor-respondent {
-    background: #fce7f3;
-    color: #9d174d;
+    background: #E8EDF4;
+    color: #1B2D45;
 }
 
 .card-ruling.mixed {
-    background: #fef3c7;
-    color: #92400e;
+    background: #F5F0E8;
+    color: #1B2D45;
 }
 
 .card-content {
-    font-size: 0.9rem;
+    font-size: 1.125rem;
     line-height: 1.6;
     color: var(--text-dark);
 }
@@ -449,8 +445,8 @@ body.reading-simplified .card-content.simplified { display: block; }
     margin-top: 0.75rem;
     padding-top: 0.75rem;
     border-top: 1px solid var(--border);
-    font-size: 0.85rem;
-    color: #666;
+    font-size: 1.125rem;
+    color: #5A554E;
 }
 
 .card-reasoning strong {
@@ -482,7 +478,7 @@ body.reading-simplified .card-content.simplified { display: block; }
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 0.9rem;
+    font-size: 1rem;
 }
 
 .legend-dot {
@@ -492,10 +488,10 @@ body.reading-simplified .card-content.simplified { display: block; }
     border: 3px solid;
 }
 
-.legend-dot.incident { border-color: #f59e0b; background: #fef3c7; }
-.legend-dot.district { border-color: #3b82f6; background: #dbeafe; }
-.legend-dot.appeals { border-color: #8b5cf6; background: #ede9fe; }
-.legend-dot.scotus { border-color: #10b981; background: #d1fae5; }
+.legend-dot.incident { border-color: #3E5F87; background: #F5F0E8; }
+.legend-dot.district { border-color: #3E5F87; background: #E8EDF4; }
+.legend-dot.appeals { border-color: #3E5F87; background: #E8EDF4; }
+.legend-dot.scotus { border-color: #3E5F87; background: #F5F0E8; }
 
 /* Responsive */
 @media (max-width: 768px) {
@@ -529,7 +525,7 @@ body.reading-simplified .card-content.simplified { display: block; }
 
     .case-btn {
         padding: 0.6rem 1rem;
-        font-size: 0.85rem;
+        font-size: 1rem;
     }
 
     .nav-dropdown-content {

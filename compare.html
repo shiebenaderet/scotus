@@ -3,9 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+    /* Reading settings before first paint (the panel is js/reading-panel.js). ?v=quick|clear|full sets the version. */
+    (function(){var d=document.documentElement,A={size:['normal','large','larger'],spacing:['normal','wide'],font:['atkinson','lexend','opendyslexic','verdana'],contrast:['standard','high'],motion:['system','reduce']},s={},L={quick:'quick',clear:'simplified',full:'standard'},V={quick:'quick',simplified:'clear',standard:'full'},q,v;
+    try{s=JSON.parse(localStorage.getItem('scotus:reading'))||{}}catch(e){}
+    for(var k in A)d.setAttribute('data-'+k,A[k].indexOf(s[k])>-1?s[k]:A[k][0]);
+    q=(location.search.match(/[?&]v=(quick|clear|full)(?:&|$)/)||[])[1];
+    try{if(q)localStorage.setItem('scotus-reading-level',L[q]);v=localStorage.getItem('scotus-reading-level')}catch(e){}
+    d.setAttribute('data-version',V[v]||q||'full')})();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;700&family=Libre+Baskerville:wght@400;700&display=swap">
     <title>Compare Cases | SCOTUS Debate Project</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/case.css">
+    <link rel="stylesheet" href="css/theme.css">
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -37,7 +50,7 @@
         <section class="case-header">
             <div class="container">
                 <h1>Compare cases</h1>
-                <p class="case-subtitle">Same amendment, different facts — that is where nuance lives</p>
+                <p class="case-subtitle">Same amendment, different facts: that is where nuance lives</p>
             </div>
         </section>
 
@@ -54,11 +67,12 @@
     <footer>
         <div class="container">
             <p>&copy; 2026 SCOTUS Debate Project</p>
-            <p class="site-version">v1.20.0</p>
+            <p class="site-version">v1.25.0</p>
         </div>
     </footer>
 
     <script src="js/site-chrome.js"></script>
+    <script src="js/reading-panel.js"></script>
     <script src="js/case-prep-data.js"></script>
     <script src="js/case-prep.js"></script>
     <script src="js/legal-glossary.js"></script>
@@ -69,7 +83,7 @@
     <script>
     var PAIRS = [
         { a: 'jacobson', b: 'payton', title: 'Jacobson + Payton', prompt: 'Your body and your home. When may the government reach into either to protect the community? What makes an emergency enough, and who decides?' },
-        { a: 'tinker', b: 'mahanoy', title: 'Tinker + Mahanoy', prompt: 'Silent on-campus armbands vs. a vulgar off-campus Snap. What should “substantial disruption” mean in each place? What does B.L.’s Snap have that the armbands did not — and the reverse?' },
+        { a: 'tinker', b: 'mahanoy', title: 'Tinker + Mahanoy', prompt: 'Silent on-campus armbands vs. a vulgar off-campus Snap. What should “substantial disruption” mean in each place? What does B.L.’s Snap have that the armbands did not, and the reverse?' },
         { a: 'morse', b: 'tinker', title: 'Morse + Tinker', prompt: 'A silent political armband inside school vs. a nonsense banner across the street at a school event. Does it matter more where the speech happened or what it said?' },
         { a: 'morse', b: 'mahanoy', title: 'Morse + Mahanoy', prompt: 'A banner at a school-approved event vs. a weekend Snap from a store. Where does school end? List the facts that pull each case toward \u201cschool\u201d and away from it.' },
         { a: 'tlo', b: 'payton', title: 'T.L.O. + Payton', prompt: 'A school purse vs. a locked apartment. Why might the Fourth Amendment treat those places differently? When is a warrant necessary, and when is “reasonableness” enough?' },
@@ -85,8 +99,8 @@
         function col(id, d) {
             return '<div class="test-card"><h4>' + d.shortTitle + '</h4>' +
                 '<p><strong>Question:</strong> ' + d.question + '</p>' +
-                '<p><strong>' + d.petitioner.name + ' want:</strong> ' + d.tests.petitioner.title + ' — ' + d.tests.petitioner.text + '</p>' +
-                '<p><strong>' + d.respondent.name + ' want:</strong> ' + d.tests.respondent.title + ' — ' + d.tests.respondent.text + '</p>' +
+                '<p><strong>' + d.petitioner.name + ' want:</strong> ' + d.tests.petitioner.title + ': ' + d.tests.petitioner.text + '</p>' +
+                '<p><strong>' + d.respondent.name + ' want:</strong> ' + d.tests.respondent.title + ': ' + d.tests.respondent.text + '</p>' +
                 '<p><a href="cases/' + id + '.html">Open case →</a></p></div>';
         }
         panel.innerHTML = '<div class="case-pair-box"><h3>' + pair.title + '</h3><p>' + pair.prompt + '</p></div>' +
@@ -96,12 +110,55 @@
             '<textarea id="pair-notes" placeholder="In Tinker / T.L.O. / … the test would … On these other facts …"></textarea></div>';
         var key = 'scotus-compare-' + pair.a + '-' + pair.b;
         var ta = document.getElementById('pair-notes');
-        try { var saved = localStorage.getItem(key); if (saved) ta.value = saved; } catch (e) {}
+        ta.value = readNotes(key);
         ta.addEventListener('input', function() {
-            localStorage.setItem(key, ta.value);
-            if (typeof saveToCloud === 'function') saveToCloud(key, ta.value);
+            writeNotes(key, ta.value);
             if (typeof window.showSaveStatus === 'function') window.showSaveStatus();
         });
+    }
+
+    // Notes are stored as JSON strings (the same format saveToCloud uses).
+    // Older versions read the stored JSON as plain text and wrote it back,
+    // adding one layer of quotes and backslashes after each reload. The
+    // first read of an old value strips those extra layers once.
+    var MIGRATED_KEY = 'scotus-compare-format';
+    function unwrapLeadingQuotes(text) {
+        for (var guard = 0; guard < 20 && text.charAt(0) === '"'; guard++) {
+            var m = /^"(?:[^"\\]|\\.)*"/.exec(text);
+            if (!m) break;
+            var inner;
+            try { inner = JSON.parse(m[0]); } catch (e) { break; }
+            if (typeof inner !== 'string') break;
+            text = inner + text.slice(m[0].length);
+        }
+        return text;
+    }
+    function readNotes(key) {
+        var raw = null;
+        try { raw = localStorage.getItem(key); } catch (e) {}
+        if (!raw) return '';
+        var text = raw;
+        try {
+            var parsed = JSON.parse(raw);
+            if (typeof parsed === 'string') text = parsed;
+        } catch (e) {}
+        var done = {};
+        try { done = JSON.parse(localStorage.getItem(MIGRATED_KEY) || '{}') || {}; } catch (e) {}
+        if (!done[key]) {
+            var fixed = unwrapLeadingQuotes(text);
+            done[key] = 2;
+            try { localStorage.setItem(MIGRATED_KEY, JSON.stringify(done)); } catch (e) {}
+            if (fixed !== text || text !== raw) writeNotes(key, fixed);
+            text = fixed;
+        }
+        return text;
+    }
+    function writeNotes(key, value) {
+        if (typeof saveToCloud === 'function') {
+            saveToCloud(key, value);
+        } else {
+            try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) {}
+        }
     }
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -111,14 +168,24 @@
             b.type = 'button';
             b.className = '';
             b.textContent = pair.title;
+            b.setAttribute('aria-pressed', 'false');
             b.addEventListener('click', function() {
-                wrap.querySelectorAll('button').forEach(function(x) { x.classList.remove('active'); });
+                wrap.querySelectorAll('button').forEach(function(x) { x.classList.remove('active'); x.setAttribute('aria-pressed', 'false'); });
                 b.classList.add('active');
+                b.setAttribute('aria-pressed', 'true');
+                try { localStorage.setItem('scotus-compare-last', pair.a + '-' + pair.b); } catch (e) {}
                 renderPair(pair);
             });
             wrap.appendChild(b);
-            if (i === 0) { b.classList.add('active'); renderPair(pair); }
         });
+        var last = null;
+        try { last = localStorage.getItem('scotus-compare-last'); } catch (e) {}
+        var start = 0;
+        PAIRS.forEach(function(pair, i) { if (pair.a + '-' + pair.b === last) start = i; });
+        var startBtn = wrap.querySelectorAll('button')[start];
+        startBtn.classList.add('active');
+        startBtn.setAttribute('aria-pressed', 'true');
+        renderPair(PAIRS[start]);
     });
     </script>
 </body>

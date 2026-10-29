@@ -3,8 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+    /* Reading settings before first paint (the panel is js/reading-panel.js). ?v=quick|clear|full sets the version. */
+    (function(){var d=document.documentElement,A={size:['normal','large','larger'],spacing:['normal','wide'],font:['atkinson','lexend','opendyslexic','verdana'],contrast:['standard','high'],motion:['system','reduce']},s={},L={quick:'quick',clear:'simplified',full:'standard'},V={quick:'quick',simplified:'clear',standard:'full'},q,v;
+    try{s=JSON.parse(localStorage.getItem('scotus:reading'))||{}}catch(e){}
+    for(var k in A)d.setAttribute('data-'+k,A[k].indexOf(s[k])>-1?s[k]:A[k][0]);
+    q=(location.search.match(/[?&]v=(quick|clear|full)(?:&|$)/)||[])[1];
+    try{if(q)localStorage.setItem('scotus-reading-level',L[q]);v=localStorage.getItem('scotus-reading-level')}catch(e){}
+    d.setAttribute('data-version',V[v]||q||'full')})();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;700&family=Libre+Baskerville:wght@400;700&display=swap">
     <title>SCOTUS Debate Project | Student Resources</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/theme.css">
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -33,269 +46,312 @@
     </header>
 
     <main id="main-content">
-        <!-- Guiding Question -->
-        <section class="guiding-question">
-            <div class="container">
-                <div class="guiding-question-box">
-                    <span class="guiding-question-label">The Driving Question</span>
-                    <p class="guiding-question-text">When, if ever, should the government be allowed to limit a person's constitutional rights in order to protect the community?</p>
-                    <button class="learn-more-btn" aria-expanded="false" aria-controls="question-details" onclick="toggleQuestionDetails(this)">
-                        What does this mean? <span class="arrow">▼</span>
-                    </button>
-                    <div id="question-details" class="guiding-question-details">
-                        <p class="guiding-question-simple"><strong>In other words:</strong> When should the government be able to take away someone's rights to keep other people safe?</p>
-                        <p class="guiding-question-subtitle">This is the unit’s big question — and it fits some cases better than others. <em>Tinker</em>, <em>T.L.O.</em>, <em>Payton</em>, and <em>Mahanoy</em> are genuine rights-versus-order fights. <em>Kennedy</em> is two religion clauses colliding. <em>Brown</em> is equal protection. <em>Arizona</em> is federal versus state power. Use this question when it fits, and use each case’s own constitutional question when it does not.</p>
+        <!-- Driving question: navy band -->
+        <section class="hero on-navy" aria-labelledby="dq">
+            <svg class="hero-deco" viewBox="0 0 360 260" aria-hidden="true" focusable="false">
+                <line class="ln" x1="0" y1="130" x2="360" y2="130"/>
+                <rect class="sq" x="20" y="60" width="140" height="140"/>
+                <path class="di" d="M270 30 352 130 270 230 188 130z"/>
+            </svg>
+            <div class="wrap">
+                <div class="hero-inner">
+                    <p class="hero-label">The driving question</p>
+                    <h1 id="dq">When, if ever, should the government be allowed to limit a person's constitutional rights in order to protect the community?</h1>
+                    <button class="btn btn-solid" type="button" aria-expanded="false" aria-controls="question-details" id="dq-more">What does this mean?</button>
+                    <div id="question-details" class="hero-more" hidden>
+                        <p><strong>In other words:</strong> When should the government be able to take away someone's rights to keep other people safe?</p>
+                        <p>This is the unit’s big question, and it fits some cases better than others. <em>Jacobson</em> fits it most directly: one man’s liberty against a city fighting smallpox. <em>Tinker</em>, <em>T.L.O.</em>, <em>Payton</em>, <em>Mahanoy</em>, and <em>Morse</em> are also genuine rights-versus-order fights. <em>Kennedy</em> is two religion clauses colliding. <em>Brown</em> is equal protection. <em>Arizona</em> is federal versus state power. <em>Fishing Rights</em> asks what the treaties promised the tribes and whether a treaty outranks state law. Use this question when it fits, and use each case’s own constitutional question when it does not.</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <script>
-        function toggleQuestionDetails(btn) {
+        (function () {
+            var btn = document.getElementById('dq-more');
             var details = document.getElementById('question-details');
-            var opening = btn.getAttribute('aria-expanded') !== 'true';
-            btn.setAttribute('aria-expanded', opening ? 'true' : 'false');
-            btn.classList.toggle('expanded', opening);
-            details.classList.toggle('expanded', opening);
-        }
+            btn.addEventListener('click', function () {
+                var opening = btn.getAttribute('aria-expanded') !== 'true';
+                btn.setAttribute('aria-expanded', opening ? 'true' : 'false');
+                details.hidden = !opening;
+            });
+        })();
         </script>
 
-        <!-- Learning Path -->
-        <section class="learning-path">
-            <div class="container">
-                <h2>Start here</h2>
-                <p class="start-here"><strong>Assigned a case?</strong> Open it below, then follow this path. Argue as if the Supreme Court has not decided yet — hide the holding until after your debate.</p>
-                <div class="path-steps">
-                    <div class="step">
-                        <a class="step-link" href="#cases">
-                            <div class="step-number">1</div>
-                            <h3>Background</h3>
-                            <p>Open your case. Read facts, Know the law, the question, and the two competing tests.</p>
-                        </a>
-                    </div>
-                    <div class="step">
-                        <a class="step-link" href="#cases">
-                            <div class="step-number">2</div>
-                            <h3>Sort &amp; weigh</h3>
-                            <p>On your case page, open <strong>Argument Sort</strong>, then rank and steelman.</p>
-                        </a>
-                    </div>
-                    <div class="step">
-                        <a class="step-link" href="#cases">
-                            <div class="step-number">3</div>
-                            <h3>Evidence Vault</h3>
-                            <p>Flip primary excerpts and write how each side could use them.</p>
-                        </a>
-                    </div>
-                    <div class="step">
-                        <a class="step-link" href="#cases">
-                            <div class="step-number">4</div>
-                            <h3>Speak</h3>
-                            <p>On your case page, use the <strong>Speak</strong> tab for a 60-second theory.</p>
-                        </a>
-                    </div>
-                    <div class="step">
-                        <a class="step-link" href="debate.html">
-                            <div class="step-number">5</div>
-                            <h3>Debate Prep</h3>
-                            <p>Write the speech: opening, arguments, sources, rebuttals. Your theory stays on Speak.</p>
-                        </a>
-                    </div>
-                    <div class="step">
-                        <a class="step-link" href="journeys.html">
-                            <div class="step-number">6</div>
-                            <h3>Debate, then debrief</h3>
-                            <p>Argue in class. Then Journeys Debrief mode, Compare, and Review.</p>
-                        </a>
-                    </div>
+        <!-- Start here: six rounds -->
+        <section class="sec start" aria-labelledby="start-h">
+            <div class="wrap">
+                <div class="sec-head">
+                    <h2 id="start-h">Start Here</h2>
+                    <p class="lede"><strong>Assigned a case?</strong> Open it below, then follow this path. Argue as if the Supreme Court has not decided yet. Hide the holding until after your debate.</p>
+                </div>
+                <ol class="rounds" aria-label="Six rounds">
+                    <li class="round">
+                        <div class="round-top"><span class="round-num" aria-hidden="true">1</span><span class="round-kicker">Round 1</span></div>
+                        <h3 class="h-small"><a href="#cases">Background</a></h3>
+                        <p>Open your case. Read facts, Know the law, the question, and the two competing tests.</p>
+                    </li>
+                    <li class="round">
+                        <div class="round-top"><span class="round-num" aria-hidden="true">2</span><span class="round-kicker">Round 2</span></div>
+                        <h3 class="h-small"><a href="#cases">Sort &amp; Weigh</a></h3>
+                        <p>On your case page, open <strong>Argument Sort</strong>, then rank and steelman.</p>
+                    </li>
+                    <li class="round">
+                        <div class="round-top"><span class="round-num" aria-hidden="true">3</span><span class="round-kicker">Round 3</span></div>
+                        <h3 class="h-small"><a href="#cases">Evidence Vault</a></h3>
+                        <p>Flip primary excerpts and write how each side could use them.</p>
+                    </li>
+                    <li class="round">
+                        <div class="round-top"><span class="round-num" aria-hidden="true">4</span><span class="round-kicker">Round 4</span></div>
+                        <h3 class="h-small"><a href="#cases">Speak</a></h3>
+                        <p>On your case page, use the <strong>Speak</strong> tab for a 60-second theory.</p>
+                    </li>
+                    <li class="round">
+                        <div class="round-top"><span class="round-num" aria-hidden="true">5</span><span class="round-kicker">Round 5</span></div>
+                        <h3 class="h-small"><a href="debate.html">Debate Prep</a></h3>
+                        <p>Write the speech: opening, arguments, sources, rebuttals. Your theory stays on Speak.</p>
+                    </li>
+                    <li class="round">
+                        <div class="round-top"><span class="round-num" aria-hidden="true">6</span><span class="round-kicker">Round 6</span></div>
+                        <h3 class="h-small"><a href="journeys.html">Debate, Then Debrief</a></h3>
+                        <p>Argue in class. Then Journeys Debrief mode, Compare, and Review.</p>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Cases: folders in groups -->
+        <section class="sec" id="cases" aria-labelledby="cases-h">
+            <div class="wrap">
+                <div class="sec-head">
+                    <h2 id="cases-h">Cases</h2>
+                    <p class="lede">Each card shows the amendment, the question you will argue, and the two sides. Pick a case, then pick a side.</p>
+                </div>
+                <div class="docket">
+                    <section class="group" aria-labelledby="g-speech">
+                        <div class="group-head"><h3 class="h-small" id="g-speech">Student Speech</h3><p>3 cases</p></div>
+                        <ul class="cards">
+                            <li>
+                                <article class="folder" aria-labelledby="c-tinker">
+                                    <span class="folder-tab"><span class="sr-only">Year: </span>1969</span>
+                                    <div class="folder-top" aria-hidden="true"></div>
+                                    <p class="card-meta">First Amendment</p>
+                                    <h4 id="c-tinker"><a href="cases/tinker.html">Tinker v. Des Moines</a></h4>
+                                    <p class="q">May a public school ban silent political armbands because officials fear disruption?</p>
+                                    <dl class="parties">
+                                        <dt><svg class="mk mk-pet" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="1" y="1" width="14" height="14"/></svg>Petitioner</dt><dd>Students</dd>
+                                        <dt><svg class="mk mk-res" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0 16 8 8 16 0 8z"/></svg>Respondent</dt><dd>Des Moines schools</dd>
+                                    </dl>
+                                    <div class="card-actions">
+                                        <a class="btn btn-solid" href="cases/tinker.html">Explore case</a>
+                                        <a class="btn btn-outline" href="debate.html?case=tinker">Pick a side</a>
+                                    </div>
+                                </article>
+                            </li>
+                            <li>
+                                <article class="folder" aria-labelledby="c-mahanoy">
+                                    <span class="folder-tab"><span class="sr-only">Year: </span>2021</span>
+                                    <div class="folder-top" aria-hidden="true"></div>
+                                    <p class="card-meta">First Amendment</p>
+                                    <h4 id="c-mahanoy"><a href="cases/mahanoy.html">Mahanoy v. B.L.</a></h4>
+                                    <p class="q">May a school punish a student for a vulgar weekend Snapchat about cheer and school?</p>
+                                    <dl class="parties">
+                                        <dt><svg class="mk mk-pet" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="1" y="1" width="14" height="14"/></svg>Petitioner</dt><dd>Mahanoy schools</dd>
+                                        <dt><svg class="mk mk-res" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0 16 8 8 16 0 8z"/></svg>Respondent</dt><dd>B.L. (the student)</dd>
+                                    </dl>
+                                    <div class="card-actions">
+                                        <a class="btn btn-solid" href="cases/mahanoy.html">Explore case</a>
+                                        <a class="btn btn-outline" href="debate.html?case=mahanoy">Pick a side</a>
+                                    </div>
+                                </article>
+                            </li>
+                            <li>
+                                <article class="folder" aria-labelledby="c-morse">
+                                    <span class="folder-tab"><span class="sr-only">Year: </span>2007</span>
+                                    <div class="folder-top" aria-hidden="true"></div>
+                                    <p class="card-meta">First Amendment</p>
+                                    <h4 id="c-morse"><a href="cases/morse.html">Morse v. Frederick</a></h4>
+                                    <p class="q">May a school punish a student for a banner at a school event that officials say promotes illegal drugs?</p>
+                                    <dl class="parties">
+                                        <dt><svg class="mk mk-pet" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="1" y="1" width="14" height="14"/></svg>Petitioner</dt><dd>Principal Morse and the school board</dd>
+                                        <dt><svg class="mk mk-res" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0 16 8 8 16 0 8z"/></svg>Respondent</dt><dd>Frederick (the student)</dd>
+                                    </dl>
+                                    <div class="card-actions">
+                                        <a class="btn btn-solid" href="cases/morse.html">Explore case</a>
+                                        <a class="btn btn-outline" href="debate.html?case=morse">Pick a side</a>
+                                    </div>
+                                </article>
+                            </li>
+                        </ul>
+                    </section>
+                    <section class="group" aria-labelledby="g-search">
+                        <div class="group-head"><h3 class="h-small" id="g-search">Search, Privacy, and the Home</h3><p>2 cases</p></div>
+                        <ul class="cards cards-2">
+                            <li>
+                                <article class="folder" aria-labelledby="c-tlo">
+                                    <span class="folder-tab"><span class="sr-only">Year: </span>1985</span>
+                                    <div class="folder-top" aria-hidden="true"></div>
+                                    <p class="card-meta">Fourth Amendment</p>
+                                    <h4 id="c-tlo"><a href="cases/tlo.html">New Jersey v. T.L.O.</a></h4>
+                                    <p class="q">May a school official search a student&rsquo;s purse without a warrant?</p>
+                                    <dl class="parties">
+                                        <dt><svg class="mk mk-pet" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="1" y="1" width="14" height="14"/></svg>Petitioner</dt><dd>New Jersey (the State)</dd>
+                                        <dt><svg class="mk mk-res" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0 16 8 8 16 0 8z"/></svg>Respondent</dt><dd>T.L.O. (the student)</dd>
+                                    </dl>
+                                    <div class="card-actions">
+                                        <a class="btn btn-solid" href="cases/tlo.html">Explore case</a>
+                                        <a class="btn btn-outline" href="debate.html?case=tlo">Pick a side</a>
+                                    </div>
+                                </article>
+                            </li>
+                            <li>
+                                <article class="folder" aria-labelledby="c-payton">
+                                    <span class="folder-tab"><span class="sr-only">Year: </span>1980</span>
+                                    <div class="folder-top" aria-hidden="true"></div>
+                                    <p class="card-meta">Fourth Amendment</p>
+                                    <h4 id="c-payton"><a href="cases/payton.html">Payton v. New York</a></h4>
+                                    <p class="q">May police enter a home to make a routine felony arrest without a warrant?</p>
+                                    <dl class="parties">
+                                        <dt><svg class="mk mk-pet" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="1" y="1" width="14" height="14"/></svg>Petitioner</dt><dd>Payton (the accused)</dd>
+                                        <dt><svg class="mk mk-res" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0 16 8 8 16 0 8z"/></svg>Respondent</dt><dd>New York (the State)</dd>
+                                    </dl>
+                                    <div class="card-actions">
+                                        <a class="btn btn-solid" href="cases/payton.html">Explore case</a>
+                                        <a class="btn btn-outline" href="debate.html?case=payton">Pick a side</a>
+                                    </div>
+                                </article>
+                            </li>
+                        </ul>
+                    </section>
+                    <section class="group" aria-labelledby="g-more">
+                        <div class="group-head"><h3 class="h-small" id="g-more">More Topics</h3><p>5 cases, one per topic</p></div>
+                        <div class="pairs">
+                            <div class="pair">
+                                <h3 class="h-small">Religion in Public Schools</h3>
+                                <article class="folder" aria-labelledby="c-kennedy">
+                                    <span class="folder-tab"><span class="sr-only">Year: </span>2022</span>
+                                    <div class="folder-top" aria-hidden="true"></div>
+                                    <p class="card-meta">First Amendment</p>
+                                    <h4 id="c-kennedy"><a href="cases/kennedy.html">Kennedy v. Bremerton</a></h4>
+                                    <p class="q">May a public school stop a coach from praying at midfield after games?</p>
+                                    <dl class="parties">
+                                        <dt><svg class="mk mk-pet" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="1" y="1" width="14" height="14"/></svg>Petitioner</dt><dd>Coach Kennedy</dd>
+                                        <dt><svg class="mk mk-res" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0 16 8 8 16 0 8z"/></svg>Respondent</dt><dd>Bremerton schools</dd>
+                                    </dl>
+                                    <div class="card-actions">
+                                        <a class="btn btn-solid" href="cases/kennedy.html">Explore case</a>
+                                        <a class="btn btn-outline" href="debate.html?case=kennedy">Pick a side</a>
+                                    </div>
+                                </article>
+                            </div>
+                            <div class="pair">
+                                <h3 class="h-small">Equal Protection</h3>
+                                <article class="folder" aria-labelledby="c-brown">
+                                    <span class="folder-tab"><span class="sr-only">Year: </span>1954</span>
+                                    <div class="folder-top" aria-hidden="true"></div>
+                                    <p class="card-meta">Fourteenth Amendment</p>
+                                    <h4 id="c-brown"><a href="cases/brown.html">Brown v. Board of Education</a></h4>
+                                    <p class="q">May a state require racially separate public schools if it claims the buildings are equal?</p>
+                                    <dl class="parties">
+                                        <dt><svg class="mk mk-pet" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="1" y="1" width="14" height="14"/></svg>Petitioner</dt><dd>Brown family</dd>
+                                        <dt><svg class="mk mk-res" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0 16 8 8 16 0 8z"/></svg>Respondent</dt><dd>Topeka school board</dd>
+                                    </dl>
+                                    <div class="card-actions">
+                                        <a class="btn btn-solid" href="cases/brown.html">Explore case</a>
+                                        <a class="btn btn-outline" href="debate.html?case=brown">Pick a side</a>
+                                    </div>
+                                </article>
+                            </div>
+                            <div class="pair">
+                                <h3 class="h-small">Public Health</h3>
+                                <article class="folder" aria-labelledby="c-jacobson">
+                                    <span class="folder-tab"><span class="sr-only">Year: </span>1905</span>
+                                    <div class="folder-top" aria-hidden="true"></div>
+                                    <p class="card-meta">Fourteenth Amendment</p>
+                                    <h4 id="c-jacobson"><a href="cases/jacobson.html">Jacobson v. Massachusetts</a></h4>
+                                    <p class="q">May a state fine an adult who refuses a smallpox vaccination during an outbreak?</p>
+                                    <dl class="parties">
+                                        <dt><svg class="mk mk-pet" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="1" y="1" width="14" height="14"/></svg>Petitioner</dt><dd>Henning Jacobson</dd>
+                                        <dt><svg class="mk mk-res" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0 16 8 8 16 0 8z"/></svg>Respondent</dt><dd>Massachusetts (the State)</dd>
+                                    </dl>
+                                    <div class="card-actions">
+                                        <a class="btn btn-solid" href="cases/jacobson.html">Explore case</a>
+                                        <a class="btn btn-outline" href="debate.html?case=jacobson">Pick a side</a>
+                                    </div>
+                                </article>
+                            </div>
+                            <div class="pair">
+                                <h3 class="h-small">Federalism</h3>
+                                <article class="folder" aria-labelledby="c-arizona">
+                                    <span class="folder-tab"><span class="sr-only">Year: </span>2012</span>
+                                    <div class="folder-top" aria-hidden="true"></div>
+                                    <p class="card-meta">Supremacy Clause</p>
+                                    <h4 id="c-arizona"><a href="cases/arizona.html">Arizona v. United States</a></h4>
+                                    <p class="q">May a state add its own immigration crimes and police duties when Congress already occupies that field?</p>
+                                    <dl class="parties">
+                                        <dt><svg class="mk mk-pet" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="1" y="1" width="14" height="14"/></svg>Petitioner</dt><dd>Arizona (the State)</dd>
+                                        <dt><svg class="mk mk-res" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0 16 8 8 16 0 8z"/></svg>Respondent</dt><dd>United States</dd>
+                                    </dl>
+                                    <div class="card-actions">
+                                        <a class="btn btn-solid" href="cases/arizona.html">Explore case</a>
+                                        <a class="btn btn-outline" href="debate.html?case=arizona">Pick a side</a>
+                                    </div>
+                                </article>
+                            </div>
+                            <div class="pair pair-wide">
+                                <h3 class="h-small">Treaty Rights and Tribal Sovereignty</h3>
+                                <article class="folder" aria-labelledby="c-fishing-rights">
+                                    <span class="folder-tab"><span class="sr-only">Year: </span>1979</span>
+                                    <div class="folder-top" aria-hidden="true"></div>
+                                    <p class="card-meta">Treaties and Article VI</p>
+                                    <h4 id="c-fishing-rights"><a href="cases/fishing-rights.html">Washington v. Fishing Vessel Ass&rsquo;n</a></h4>
+                                    <p class="q">Do the 1854&ndash;1855 treaties give tribes only the same chance to fish as everyone else, or a share of the fish?</p>
+                                    <dl class="parties">
+                                        <dt><svg class="mk mk-pet" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="1" y="1" width="14" height="14"/></svg>Petitioner</dt><dd>State of Washington</dd>
+                                        <dt><svg class="mk mk-res" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0 16 8 8 16 0 8z"/></svg>Respondent</dt><dd>Treaty tribes and the United States</dd>
+                                    </dl>
+                                    <div class="card-actions">
+                                        <a class="btn btn-solid" href="cases/fishing-rights.html">Explore case</a>
+                                        <a class="btn btn-outline" href="debate.html?case=fishing-rights">Pick a side</a>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+                    </section>
                 </div>
             </div>
         </section>
 
-        <!-- Case Cards -->
-        <section id="cases" class="cases-section">
-            <div class="container">
-                <h2>The cases</h2>
-                <p style="text-align:center;color:#555;max-width:720px;margin:0 auto 1.5rem;">Each card shows the amendment, the question you will argue, and the two sides. Pick a case — then pick a side.</p>
-
-                <div class="case-group">
-                    <h3 class="case-group-title">Student speech</h3>
-                    <div class="case-grid">
-                        <div class="case-card">
-                            <div class="case-year">1969</div>
-                            <div class="case-amendment">First Amendment</div>
-                            <h3>Tinker v. Des Moines</h3>
-                            <p class="case-question">May a public school ban silent political armbands because officials fear disruption?</p>
-                            <p class="case-sides"><strong>Students</strong> vs. <strong>Des Moines schools</strong></p>
-                            <div class="case-card-actions">
-                                <a href="cases/tinker.html" class="case-link">Explore case</a>
-                                <a href="debate.html?case=tinker" class="case-link secondary">Pick a side</a>
-                            </div>
-                        </div>
-                        <div class="case-card">
-                            <div class="case-year">2021</div>
-                            <div class="case-amendment">First Amendment</div>
-                            <h3>Mahanoy v. B.L.</h3>
-                            <p class="case-question">May a school punish a student for a vulgar weekend Snapchat about cheer and school?</p>
-                            <p class="case-sides"><strong>Mahanoy schools</strong> vs. <strong>B.L. (the student)</strong></p>
-                            <div class="case-card-actions">
-                                <a href="cases/mahanoy.html" class="case-link">Explore case</a>
-                                <a href="debate.html?case=mahanoy" class="case-link secondary">Pick a side</a>
-                            </div>
-                        </div>
-                        <div class="case-card">
-                            <div class="case-year">2007</div>
-                            <div class="case-amendment">First Amendment</div>
-                            <h3>Morse v. Frederick</h3>
-                            <p class="case-question">May a school punish a student for a banner at a school event that officials say promotes illegal drugs?</p>
-                            <p class="case-sides"><strong>Principal Morse and the school board</strong> vs. <strong>Frederick (the student)</strong></p>
-                            <div class="case-card-actions">
-                                <a href="cases/morse.html" class="case-link">Explore case</a>
-                                <a href="debate.html?case=morse" class="case-link secondary">Pick a side</a>
-                            </div>
-                        </div>
+        <!-- Reading versions: the same setting as the Reading panel and the case bar -->
+        <section class="sec start" aria-label="Reading versions" id="reading-versions">
+            <div class="wrap">
+                <fieldset class="versions">
+                    <legend>Choose a Reading Version</legend>
+                    <p class="versions-help">This is the same choice as Version in the Reading button at the top of every page. It follows you to case pages, Journeys, and Resources. Every version tells the same facts and the same argument. You can switch at any time.</p>
+                    <div class="version-grid">
+                        <label class="version">
+                            <input type="radio" name="home-version" value="quick" data-pref="version">
+                            <span class="version-name">Quick</span>
+                            <span class="version-blurb">Short sentences. Key words explained.</span>
+                            <svg class="version-lines" viewBox="0 0 120 34" aria-hidden="true" focusable="false" fill="currentColor"><rect y="4" width="84" height="5"/><rect y="18" width="56" height="5"/></svg>
+                            <span class="version-chosen">Selected</span>
+                        </label>
+                        <label class="version">
+                            <input type="radio" name="home-version" value="clear" data-pref="version">
+                            <span class="version-name">Clear</span>
+                            <span class="version-blurb">Plain words, a little more detail.</span>
+                            <svg class="version-lines" viewBox="0 0 120 34" aria-hidden="true" focusable="false" fill="currentColor"><rect y="1" width="110" height="5"/><rect y="13" width="104" height="5"/><rect y="25" width="70" height="5"/></svg>
+                            <span class="version-chosen">Selected</span>
+                        </label>
+                        <label class="version">
+                            <input type="radio" name="home-version" value="full" data-pref="version">
+                            <span class="version-name">Full</span>
+                            <span class="version-blurb">The grade-level reading.</span>
+                            <svg class="version-lines" viewBox="0 0 120 34" aria-hidden="true" focusable="false" fill="currentColor"><rect y="0" width="120" height="4"/><rect y="7.5" width="116" height="4"/><rect y="15" width="120" height="4"/><rect y="22.5" width="112" height="4"/><rect y="30" width="78" height="4"/></svg>
+                            <span class="version-chosen">Selected</span>
+                        </label>
                     </div>
-                </div>
-
-                <div class="case-group">
-                    <h3 class="case-group-title">Search, privacy, and the home</h3>
-                    <div class="case-grid">
-                        <div class="case-card">
-                            <div class="case-year">1985</div>
-                            <div class="case-amendment">Fourth Amendment</div>
-                            <h3>New Jersey v. T.L.O.</h3>
-                            <p class="case-question">May a school official search a student’s purse without a warrant?</p>
-                            <p class="case-sides"><strong>New Jersey (the State)</strong> vs. <strong>T.L.O. (the student)</strong></p>
-                            <div class="case-card-actions">
-                                <a href="cases/tlo.html" class="case-link">Explore case</a>
-                                <a href="debate.html?case=tlo" class="case-link secondary">Pick a side</a>
-                            </div>
-                        </div>
-                        <div class="case-card">
-                            <div class="case-year">1980</div>
-                            <div class="case-amendment">Fourth Amendment</div>
-                            <h3>Payton v. New York</h3>
-                            <p class="case-question">May police enter a home to make a routine felony arrest without a warrant?</p>
-                            <p class="case-sides"><strong>Payton (the accused)</strong> vs. <strong>New York (the State)</strong></p>
-                            <div class="case-card-actions">
-                                <a href="cases/payton.html" class="case-link">Explore case</a>
-                                <a href="debate.html?case=payton" class="case-link secondary">Pick a side</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="case-group">
-                    <h3 class="case-group-title">Religion in public schools</h3>
-                    <div class="case-grid">
-                        <div class="case-card">
-                            <div class="case-year">2022</div>
-                            <div class="case-amendment">First Amendment</div>
-                            <h3>Kennedy v. Bremerton</h3>
-                            <p class="case-question">May a public school stop a coach from praying at midfield after games?</p>
-                            <p class="case-sides"><strong>Coach Kennedy</strong> vs. <strong>Bremerton schools</strong></p>
-                            <div class="case-card-actions">
-                                <a href="cases/kennedy.html" class="case-link">Explore case</a>
-                                <a href="debate.html?case=kennedy" class="case-link secondary">Pick a side</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="case-group">
-                    <h3 class="case-group-title">Equal protection</h3>
-                    <div class="case-grid">
-                        <div class="case-card">
-                            <div class="case-year">1954</div>
-                            <div class="case-amendment">Fourteenth Amendment</div>
-                            <h3>Brown v. Board of Education</h3>
-                            <p class="case-question">May a state require racially separate public schools if it claims the buildings are equal?</p>
-                            <p class="case-sides"><strong>Brown family</strong> vs. <strong>Topeka school board</strong></p>
-                            <div class="case-card-actions">
-                                <a href="cases/brown.html" class="case-link">Explore case</a>
-                                <a href="debate.html?case=brown" class="case-link secondary">Pick a side</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="case-group">
-                    <h3 class="case-group-title">Public health</h3>
-                    <div class="case-grid">
-                        <div class="case-card">
-                            <div class="case-year">1905</div>
-                            <div class="case-amendment">Fourteenth Amendment</div>
-                            <h3>Jacobson v. Massachusetts</h3>
-                            <p class="case-question">May a state fine an adult who refuses a smallpox vaccination during an outbreak?</p>
-                            <p class="case-sides"><strong>Henning Jacobson</strong> vs. <strong>Massachusetts (the State)</strong></p>
-                            <div class="case-card-actions">
-                                <a href="cases/jacobson.html" class="case-link">Explore case</a>
-                                <a href="debate.html?case=jacobson" class="case-link secondary">Pick a side</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="case-group">
-                    <h3 class="case-group-title">Federalism — who writes the rules?</h3>
-                    <div class="case-grid">
-                        <div class="case-card">
-                            <div class="case-year">2012</div>
-                            <div class="case-amendment">Supremacy Clause</div>
-                            <h3>Arizona v. United States</h3>
-                            <p class="case-question">May a state add its own immigration crimes and police duties when Congress already occupies that field?</p>
-                            <p class="case-sides"><strong>Arizona (the State)</strong> vs. <strong>United States</strong></p>
-                            <div class="case-card-actions">
-                                <a href="cases/arizona.html" class="case-link">Explore case</a>
-                                <a href="debate.html?case=arizona" class="case-link secondary">Pick a side</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="case-group">
-                    <h3 class="case-group-title">Treaty rights and tribal sovereignty</h3>
-                    <div class="case-grid">
-                        <div class="case-card">
-                            <div class="case-year">1979</div>
-                            <div class="case-amendment">Treaties and Article VI</div>
-                            <h3>Washington v. Fishing Vessel Ass&rsquo;n</h3>
-                            <p class="case-question">Do the 1854&ndash;1855 treaties give tribes only the same chance to fish as everyone else, or a share of the fish?</p>
-                            <p class="case-sides"><strong>State of Washington</strong> vs. <strong>Treaty tribes and the United States</strong></p>
-                            <div class="case-card-actions">
-                                <a href="cases/fishing-rights.html" class="case-link">Explore case</a>
-                                <a href="debate.html?case=fishing-rights" class="case-link secondary">Pick a side</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Reading Level Indicator -->
-        <section class="reading-levels">
-            <div class="container">
-                <h2>Reading level</h2>
-                <p style="text-align:center;color:rgba(255,255,255,0.85);max-width:36rem;margin:0 auto 1rem;">This choice follows you to case pages, Journeys, and Resources. Every version tells the same facts and the same argument. You can switch at any time.</p>
-                <div class="reading-level-toggle" role="group" aria-label="Reading level selection" style="justify-content:center;margin-bottom:1.25rem;">
-                    <button class="level-btn" data-level="quick" aria-pressed="false">Quick</button>
-                    <button class="level-btn" data-level="simplified" aria-pressed="false">Clear</button>
-                    <button class="level-btn active" data-level="standard" aria-pressed="true">Full</button>
-                </div>
-                <div class="level-indicators">
-                    <div class="level-badge beginner">
-                        <h3>Quick</h3>
-                        <p>Short sentences. Key words explained.</p>
-                    </div>
-                    <div class="level-badge beginner">
-                        <h3>Clear</h3>
-                        <p>Plain words, a little more detail.</p>
-                    </div>
-                    <div class="level-badge advanced">
-                        <h3>Full</h3>
-                        <p>The grade-level reading.</p>
-                    </div>
-                </div>
+                </fieldset>
             </div>
         </section>
     </main>
@@ -304,10 +360,11 @@
         <div class="container">
             <p>&copy; 2026 SCOTUS Debate Project | Educational Resource</p>
             <p><a href="resources.html">Additional Resources →</a></p>
-            <p class="site-version">v1.21.0</p>
+            <p class="site-version">v1.25.0</p>
         </div>
     </footer>
     <script src="js/site-chrome.js"></script>
+    <script src="js/reading-panel.js"></script>
     <script src="js/case-prep-data.js"></script>
     <script src="js/case-prep.js"></script>
     <script src="js/legal-glossary.js"></script>

@@ -56,11 +56,13 @@ document.addEventListener('DOMContentLoaded', function() {
             const progress = loadCaseProgress();
 
             // Update tab active states
+            // aria-current tells screen readers which section is showing
+            // (the bar also holds a Debate Prep link, so it is not a strict tablist)
             caseTabs.forEach(tab => {
-                tab.classList.remove('active');
-                if (tab.getAttribute('data-tab') === tabId) {
-                    tab.classList.add('active');
-                }
+                const isCurrent = tab.getAttribute('data-tab') === tabId;
+                tab.classList.toggle('active', isCurrent);
+                if (isCurrent) tab.setAttribute('aria-current', 'true');
+                else tab.removeAttribute('aria-current');
             });
 
             // Update section visibility
@@ -277,6 +279,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             const select = row.querySelector('select');
                             if (select && answers[i]) select.value = answers[i];
                         });
+                        if (typeof window.scotusRefreshSort === 'function') window.scotusRefreshSort();
                     }
                 });
             }
@@ -288,7 +291,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const row = select.closest('tr');
             const argumentText = row ? row.querySelector('td:first-child').textContent : '';
             const shortText = argumentText.length > 50 ? argumentText.substring(0, 47) + '...' : argumentText;
-            select.setAttribute('aria-label', 'Which side would you use this argument for: ' + shortText);
+            select.setAttribute('aria-label', 'Use it for: ' + shortText);
             if (![...select.options].some(o => o.value === 'BOTH')) {
                 const both = document.createElement('option');
                 both.value = 'BOTH';
@@ -303,23 +306,93 @@ document.addEventListener('DOMContentLoaded', function() {
                 answerCell.setAttribute('aria-atomic', 'true');
             }
         });
+        // Each row is an index card: a numbered head with a Filed stamp, the
+        // argument, and "Use it for" with the side shown as shape + word.
+        const SQ = '<svg class="mk mk-pet" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="1" y="1" width="14" height="14"/></svg>';
+        const DI = '<svg class="mk mk-res" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0 16 8 8 16 0 8z"/></svg>';
+        const sortStatus = document.createElement('p');
+        sortStatus.className = 'sr-only';
+        sortStatus.setAttribute('aria-live', 'polite');
+        sortStatus.id = 'sort-status';
+        sortingTable.appendChild(sortStatus);
+
+        sortingTable.querySelectorAll('tbody tr').forEach(function (row, i) {
+            const select = row.querySelector('select');
+            if (!select || row.querySelector('.icard-head')) return;
+            const head = document.createElement('td');
+            head.className = 'icard-head';
+            head.colSpan = 2;
+            head.innerHTML = '<span class="icard-num">Argument ' + (i + 1) + '</span>' +
+                '<span class="filed" hidden><svg viewBox="0 0 14 14" aria-hidden="true" focusable="false"><path d="M2 7.5l3 3 7-7"/></svg>Filed</span>';
+            const cells = row.querySelectorAll('td');
+            if (cells[0]) cells[0].classList.add('icard-text');
+            if (select.closest('td')) select.closest('td').classList.add('icard-pick');
+            row.insertBefore(head, row.firstChild);
+            if (!select.id) select.id = 'sort-pick-' + (i + 1);
+            const label = document.createElement('label');
+            label.className = 'icard-label';
+            label.setAttribute('for', select.id);
+            label.textContent = 'Use it for';
+            select.parentNode.insertBefore(label, select);
+            const side = document.createElement('p');
+            side.className = 'pick-side';
+            select.insertAdjacentElement('afterend', side);
+        });
+
+        function sideHtml(select) {
+            const i = select.selectedIndex;
+            if (select.value === 'BOTH') return SQ + DI + 'Both';
+            if (i === 1) return SQ + 'Petitioner';
+            if (i === 2) return DI + 'Respondent';
+            return '';
+        }
+
+        function refreshFiled(row, announce) {
+            const select = row.querySelector('select');
+            const stamp = row.querySelector('.filed');
+            const side = row.querySelector('.pick-side');
+            if (!select || !stamp || !side) return;
+            const filed = select.value !== '';
+            row.classList.toggle('is-filed', filed);
+            stamp.hidden = !filed;
+            side.innerHTML = filed ? sideHtml(select) : '';
+            stamp.classList.remove('is-new');
+            side.classList.remove('is-new');
+            if (!announce) return;
+            void stamp.offsetWidth;
+            const n = row.querySelector('.icard-num') ? row.querySelector('.icard-num').textContent : 'Argument';
+            if (filed) {
+                stamp.classList.add('is-new');
+                side.classList.add('is-new');
+                sortStatus.textContent = n + ' filed for ' + select.options[select.selectedIndex].text + '.';
+            } else {
+                sortStatus.textContent = n + ' cleared.';
+            }
+        }
+        function refreshAllFiled() {
+            sortingTable.querySelectorAll('tbody tr').forEach(function (row) { refreshFiled(row, false); });
+        }
+        window.scotusRefreshSort = refreshAllFiled;
+
         // Auto-save on each dropdown change
         selectDropdowns.forEach(select => {
             select.addEventListener('change', saveSortSelections);
+            select.addEventListener('change', function () { refreshFiled(select.closest('tr'), true); });
         });
 
         // Load any saved selections
         loadSortSelections();
+        refreshAllFiled();
 
         const doneBtn = document.createElement('button');
-        doneBtn.textContent = 'Done sorting — open the Evidence Vault';
-        doneBtn.className = 'check-answers-btn';
+        doneBtn.textContent = 'Done sorting: open the Evidence Vault';
+        doneBtn.className = 'btn btn-solid check-answers-btn';
         doneBtn.type = 'button';
         doneBtn.setAttribute('aria-label', 'Finish sorting and open the Evidence Vault. There is no score.');
 
         const resetBtn = document.createElement('button');
         resetBtn.textContent = 'Reset';
-        resetBtn.className = 'reset-answers-btn';
+        resetBtn.className = 'btn btn-outline reset-answers-btn';
         resetBtn.type = 'button';
         resetBtn.setAttribute('aria-label', 'Clear your sort choices');
 
@@ -339,23 +412,21 @@ document.addEventListener('DOMContentLoaded', function() {
             if (buttonContainer.querySelector('.debate-prep-cta')) return;
             var note = document.createElement('p');
             note.className = 'score-display';
-            note.textContent = 'No score — you decided how to use each argument. Rank and steelman in Weigh below, then Speak.';
+            note.textContent = 'No score. You decided how to use each argument. Rank and steelman in Weigh below, then Speak.';
             buttonContainer.appendChild(note);
             var ctaWrap = document.createElement('div');
             ctaWrap.style.marginTop = '12px';
             var nextBtn = document.createElement('button');
             nextBtn.type = 'button';
-            nextBtn.className = 'debate-prep-cta';
+            nextBtn.className = 'btn btn-solid debate-prep-cta';
             nextBtn.textContent = 'Next: Speak (60-second theory) \u2192';
-            nextBtn.style.cssText = 'display: inline-block; margin: 8px 8px 0 0; padding: 12px 28px; background: #6366f1; color: #fff; border: none; border-radius: 8px; font-weight: 600; font-size: 1em; cursor: pointer;';
             nextBtn.addEventListener('click', function() {
                 if (typeof window.switchToTab === 'function') window.switchToTab('speak');
             });
             var ctaLink = document.createElement('a');
             ctaLink.href = '../debate.html?case=' + encodeURIComponent(pageFile);
-            ctaLink.className = 'debate-prep-cta';
+            ctaLink.className = 'btn btn-outline debate-prep-cta';
             ctaLink.textContent = 'Then write the speech in Debate Prep \u2192';
-            ctaLink.style.cssText = 'display: inline-block; margin-top: 8px; padding: 12px 20px; color: #6366f1; font-weight: 600;';
             ctaWrap.appendChild(nextBtn);
             ctaWrap.appendChild(ctaLink);
             buttonContainer.appendChild(ctaWrap);
@@ -378,6 +449,8 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             localStorage.removeItem(sortSaveKey);
             if (typeof saveToCloud === 'function') saveToCloud(sortSaveKey, null);
+            refreshAllFiled();
+            sortStatus.textContent = 'All arguments cleared.';
             const note = buttonContainer.querySelector('.score-display');
             if (note) note.remove();
             const cta = buttonContainer.querySelector('.debate-prep-cta');
@@ -461,6 +534,8 @@ document.addEventListener('DOMContentLoaded', function() {
             // Create star button on the back of the card
             var starBtn = document.createElement('button');
             starBtn.className = 'source-star-btn' + (starred[idx] ? ' active' : '');
+            starBtn.type = 'button';
+            starBtn.setAttribute('aria-pressed', starred[idx] ? 'true' : 'false');
             starBtn.innerHTML = starred[idx] ? '&#9733; Saved' : '&#9734; Save for Debate';
             starBtn.setAttribute('aria-label', 'Save source for debate prep');
 
@@ -473,6 +548,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Unstar
                     delete current[idx];
                     starBtn.classList.remove('active');
+                    starBtn.setAttribute('aria-pressed', 'false');
                     starBtn.innerHTML = '&#9734; Save for Debate';
                 } else {
                     // Star — extract source data from card
@@ -492,6 +568,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         citation: citation
                     };
                     starBtn.classList.add('active');
+                    starBtn.setAttribute('aria-pressed', 'true');
                     starBtn.innerHTML = '&#9733; Saved';
                 }
 

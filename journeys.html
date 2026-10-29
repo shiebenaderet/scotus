@@ -3,9 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+    /* Reading settings before first paint (the panel is js/reading-panel.js). ?v=quick|clear|full sets the version. */
+    (function(){var d=document.documentElement,A={size:['normal','large','larger'],spacing:['normal','wide'],font:['atkinson','lexend','opendyslexic','verdana'],contrast:['standard','high'],motion:['system','reduce']},s={},L={quick:'quick',clear:'simplified',full:'standard'},V={quick:'quick',simplified:'clear',standard:'full'},q,v;
+    try{s=JSON.parse(localStorage.getItem('scotus:reading'))||{}}catch(e){}
+    for(var k in A)d.setAttribute('data-'+k,A[k].indexOf(s[k])>-1?s[k]:A[k][0]);
+    q=(location.search.match(/[?&]v=(quick|clear|full)(?:&|$)/)||[])[1];
+    try{if(q)localStorage.setItem('scotus-reading-level',L[q]);v=localStorage.getItem('scotus-reading-level')}catch(e){}
+    d.setAttribute('data-version',V[v]||q||'full')})();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;700&family=Libre+Baskerville:wght@400;700&display=swap">
     <title>Case Journeys | SCOTUS Debate Project</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/journeys.css">
+    <link rel="stylesheet" href="css/theme.css">
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -43,19 +56,14 @@
 
         <div class="journeys-content">
             <div class="container">
-                <!-- Reading Level Toggle -->
+                <!-- The reading version is set in the Reading panel (masthead) -->
                 <div class="journey-toolbar">
-                <div class="reading-level-toggle" role="group" aria-label="Reading level selection">
-                    <span class="toggle-label">Reading Level:</span>
-                    <button class="level-btn active" data-level="standard" aria-pressed="true">Standard</button>
-                    <button class="level-btn" data-level="simplified" aria-pressed="false">Simplified</button>
-                </div>
 
                 <div class="journey-mode" role="group" aria-label="Prep or debrief">
                     <p class="selector-instruction">Use <strong>Prep mode</strong> while you are still arguing the case. It hides how the Supreme Court voted so you can treat the question as undecided.</p>
                     <div class="case-buttons" style="margin-bottom: 1rem;">
-                        <button type="button" class="mode-btn active" id="mode-prep">Prep mode — hide the holding</button>
-                        <button type="button" class="mode-btn" id="mode-debrief">Debrief mode — show what the Court did</button>
+                        <button type="button" class="mode-btn active" id="mode-prep" aria-pressed="true">Prep mode: hide the holding</button>
+                        <button type="button" class="mode-btn" id="mode-debrief" aria-pressed="false">Debrief mode: show what the Court did</button>
                     </div>
                 </div>
                 </div>
@@ -64,22 +72,22 @@
                 <div class="case-selector">
                     <p class="selector-instruction">Select cases to see their journey to the Supreme Court:</p>
                     <div class="case-buttons">
-                        <button class="case-btn" data-case="tinker">Tinker v. Des Moines</button>
-                        <button class="case-btn" data-case="tlo">New Jersey v. T.L.O.</button>
-                        <button class="case-btn" data-case="brown">Brown v. Board of Education</button>
-                        <button class="case-btn" data-case="payton">Payton v. New York</button>
-                        <button class="case-btn" data-case="mahanoy">Mahanoy v. B.L.</button>
-                        <button class="case-btn" data-case="morse">Morse v. Frederick</button>
-                        <button class="case-btn" data-case="kennedy">Kennedy v. Bremerton</button>
-                        <button class="case-btn" data-case="jacobson">Jacobson v. Massachusetts</button>
-                        <button class="case-btn" data-case="arizona">Arizona v. United States</button>
-                        <button class="case-btn" data-case="fishing-rights">Washington v. Fishing Vessel Ass&rsquo;n</button>
+                        <button class="case-btn" aria-pressed="false" data-case="tinker">Tinker v. Des Moines</button>
+                        <button class="case-btn" aria-pressed="false" data-case="tlo">New Jersey v. T.L.O.</button>
+                        <button class="case-btn" aria-pressed="false" data-case="brown">Brown v. Board of Education</button>
+                        <button class="case-btn" aria-pressed="false" data-case="payton">Payton v. New York</button>
+                        <button class="case-btn" aria-pressed="false" data-case="mahanoy">Mahanoy v. B.L.</button>
+                        <button class="case-btn" aria-pressed="false" data-case="morse">Morse v. Frederick</button>
+                        <button class="case-btn" aria-pressed="false" data-case="kennedy">Kennedy v. Bremerton</button>
+                        <button class="case-btn" aria-pressed="false" data-case="jacobson">Jacobson v. Massachusetts</button>
+                        <button class="case-btn" aria-pressed="false" data-case="arizona">Arizona v. United States</button>
+                        <button class="case-btn" aria-pressed="false" data-case="fishing-rights">Washington v. Fishing Vessel Ass&rsquo;n</button>
                     </div>
                     <button class="clear-all-btn" id="clear-all" style="display: none;">Clear All</button>
                 </div>
 
                 <!-- Timeline -->
-                <div class="timeline-container">
+                <div class="timeline-container" data-levels="simplified standard">
                     <div class="timeline-empty" id="timeline-empty">
                         <div class="empty-icon">&#128218;</div>
                         <p>Select one or more cases above to see their journey through the court system.</p>
@@ -117,11 +125,12 @@
     <footer class="site-footer">
         <div class="container">
             <p>&copy; 2026 SCOTUS Debate Project. Educational use only.</p>
-            <p class="site-version">v1.20.0</p>
+            <p class="site-version">v1.25.0</p>
         </div>
     </footer>
 
     <script src="js/site-chrome.js"></script>
+    <script src="js/reading-panel.js"></script>
     <script src="js/case-prep-data.js"></script>
     <script src="js/journeys.js"></script>
     <script src="js/case-prep.js"></script>

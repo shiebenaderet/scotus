@@ -684,7 +684,9 @@ var evidenceSortData = {
                 respondentFeedback: 'The danger to the community was deadly and close by.',
                 petitionerFeedback: 'A serious danger still does not give the state unlimited power over a person’s body.',
                 canBeBoth: false,
-                source: 'https://www.history.com/articles/smallpox-vaccine-supreme-court'
+                // Albert, Ostheimer and Breman, NEJM 344 (2001): 375-379. No link: the
+                // article goes on to describe the Court's ruling.
+                source: null
             },
             {
                 text: 'In 1904, New York’s highest court upheld a rule keeping unvaccinated children out of public school.',

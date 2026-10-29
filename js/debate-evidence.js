@@ -267,7 +267,7 @@ function initEvidencePanel(caseName, side) {
     }
 
     html += '<div class="alert-info" style="margin-top: 0;">';
-    html += 'These are the arguments and facts you sorted to <strong>your side</strong> on the case page. Star your strongest picks — they\'ll appear as reminders when you write your arguments and sources.';
+    html += 'These are the arguments and facts you sorted to <strong>your side</strong> on the case page. Star your strongest picks. They\'ll appear as reminders when you write your arguments and sources.';
     html += '</div>';
 
     // ARGUMENTS SECTION
@@ -443,7 +443,7 @@ function updateWritingReferences(ranks, myArgs, myFacts, otherArgs) {
     var openRef = document.getElementById('ev-opening-reference');
     if (openRef) {
         if (hasEvidence) {
-            openRef.innerHTML = '<strong>Your research — use these to preview your arguments:</strong>' +
+            openRef.innerHTML = '<strong>Your research (use these to preview your arguments):</strong>' +
                 (starredArgsHtml ? starredArgsHtml : '') +
                 (starredFactsHtml ? starredFactsHtml : '');
             openRef.style.display = 'block';
@@ -467,7 +467,7 @@ function updateWritingReferences(ranks, myArgs, myFacts, otherArgs) {
     var rebRef = document.getElementById('ev-rebuttals-reference');
     if (rebRef) {
         if (otherArgs && otherArgs.length > 0) {
-            var rebHtml = '<strong>The other side\'s arguments — prepare rebuttals for these:</strong><ol>';
+            var rebHtml = '<strong>The other side\'s arguments (prepare rebuttals for these):</strong><ol>';
             for (var r = 0; r < otherArgs.length; r++) {
                 rebHtml += '<li>' + escHtmlSafe(otherArgs[r].text) + '</li>';
             }
@@ -483,7 +483,7 @@ function updateWritingReferences(ranks, myArgs, myFacts, otherArgs) {
     var closeRef = document.getElementById('ev-closing-reference');
     if (closeRef) {
         if (hasEvidence) {
-            closeRef.innerHTML = '<strong>Your strongest evidence — summarize these in your closing:</strong>' +
+            closeRef.innerHTML = '<strong>Your strongest evidence (summarize these in your closing):</strong>' +
                 (starredArgsHtml ? starredArgsHtml : '') +
                 (starredFactsHtml ? starredFactsHtml : '');
             closeRef.style.display = 'block';
@@ -576,6 +576,8 @@ function toggleEvidenceDrawer(forceState) {
     if (!drawer || !overlay) return;
 
     var shouldOpen = typeof forceState === 'boolean' ? forceState : !drawer.classList.contains('open');
+    var wasOpen = drawer.classList.contains('open');
+    var focusWasInside = drawer.contains(document.activeElement);
 
     if (shouldOpen) {
         drawer.classList.add('open');
@@ -583,6 +585,19 @@ function toggleEvidenceDrawer(forceState) {
     } else {
         drawer.classList.remove('open');
         overlay.classList.remove('open');
+    }
+    // Wide screens dock the drawer beside the page (body.ev-drawer-open reserves
+    // the space) so it never covers the cards or the writing boxes.
+    document.body.classList.toggle('ev-drawer-open', shouldOpen);
+    var toggleBtn = document.getElementById('ev-drawer-toggle');
+    if (toggleBtn) toggleBtn.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
+    // Keyboard users: move focus into the drawer when it opens and back to the
+    // toggle when it closes from inside (Close button or Escape)
+    if (shouldOpen && !wasOpen) {
+        var closeBtn = drawer.querySelector('.ev-drawer-close');
+        if (closeBtn) closeBtn.focus();
+    } else if (!shouldOpen && wasOpen && focusWasInside && toggleBtn && toggleBtn.offsetParent) {
+        toggleBtn.focus();
     }
 }
 
@@ -728,7 +743,7 @@ function insertDrawerEvidence(btn, text) {
         // Flash the hint to tell them to click a textarea
         var hint = document.getElementById('ev-drawer-hint');
         if (hint) {
-            hint.innerHTML = '<strong style="color: #dc2626;">Click in a writing box first!</strong>';
+            hint.innerHTML = '<strong style="color: #3E5F87;">Click in a writing box first!</strong>';
             setTimeout(function() {
                 hint.innerHTML = 'Click in any writing box, then use <strong>Insert</strong> to add evidence to your writing.';
             }, 2000);

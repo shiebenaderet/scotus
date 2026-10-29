@@ -112,7 +112,8 @@ const caseData = {
                 date: "1952-1953",
                 type: "appeals",
                 title: "Cases Combined for Supreme Court",
-                ruling: "mixed",
+                ruling: "procedural",
+                typeLabel: "Supreme Court (Before Ruling)",
                 standard: "The Supreme Court combined Brown with four similar cases from other states (Briggs v. Elliott, Davis v. County School Board, Gebhart v. Belton, and Bolling v. Sharpe). The cases were argued twice before the Court, with the second argument focusing on the intent of the 14th Amendment.",
                 simplified: "The Supreme Court decided to hear Brown's case along with four other cases about school segregation from different states. The lawyers argued the case two times because the judges wanted to think carefully about what the Constitution really meant.",
                 reasoning: "The Court consolidated cases to address school segregation as a national issue, not just a local one."
@@ -445,6 +446,8 @@ function initJourneyMode() {
         journeyMode = mode;
         prepBtn.classList.toggle('active', mode === 'prep');
         debriefBtn.classList.toggle('active', mode === 'debrief');
+        prepBtn.setAttribute('aria-pressed', mode === 'prep' ? 'true' : 'false');
+        debriefBtn.setAttribute('aria-pressed', mode === 'debrief' ? 'true' : 'false');
         try { localStorage.setItem('scotus-journey-mode', mode); } catch (e) {}
         renderTimeline();
     }
@@ -500,10 +503,12 @@ function initCaseButtons() {
             if (this.classList.contains('selected')) {
                 // Deselect
                 this.classList.remove('selected');
+                this.setAttribute('aria-pressed', 'false');
                 selectedCases = selectedCases.filter(c => c !== caseId);
             } else {
                 // Select
                 this.classList.add('selected');
+                this.setAttribute('aria-pressed', 'true');
                 selectedCases.push(caseId);
             }
 
@@ -516,7 +521,7 @@ function initCaseButtons() {
 
     clearAllBtn.addEventListener('click', function() {
         selectedCases = [];
-        caseButtons.forEach(btn => btn.classList.remove('selected'));
+        caseButtons.forEach(btn => { btn.classList.remove('selected'); btn.setAttribute('aria-pressed', 'false'); });
         this.style.display = 'none';
         persistJourneyCases();
         renderTimeline();
@@ -565,7 +570,7 @@ function renderTimeline() {
     if (journeyMode === 'prep' && selectedCases.length > 0) {
         timeline.insertAdjacentHTML('beforeend',
             '<div class="timeline-event scotus-hidden">' +
-            '<div class="card-content"><strong>Supreme Court — hidden in Prep mode</strong>' +
+            '<div class="card-content"><strong>Supreme Court: Hidden in Prep Mode</strong>' +
             '<p>The Court agreed to hear the case. How it voted is hidden so you can argue as if the justices have not spoken yet. Switch to Debrief after your debate.</p></div></div>'
         );
     }
@@ -585,10 +590,10 @@ function updatePartyLegend() {
         var info = caseData[id];
         if (prep) {
             return '<p><strong>' + info.shortName + ':</strong> ' +
-                '<span class="legend-petitioner">Petitioner — ' + prep.petitioner.name + '</span> · ' +
-                '<span class="legend-respondent">Respondent — ' + prep.respondent.name + '</span></p>';
+                '<span class="legend-petitioner">Petitioner: ' + prep.petitioner.name + '</span> · ' +
+                '<span class="legend-respondent">Respondent: ' + prep.respondent.name + '</span></p>';
         }
-        return '<p><strong>' + info.shortName + '</strong> — colors follow petitioner / respondent as the case was named at the Supreme Court.</p>';
+        return '<p><strong>' + info.shortName + '</strong>: colors follow petitioner / respondent as the case was named at the Supreme Court.</p>';
     }).join('');
 }
 
@@ -633,7 +638,8 @@ function createEventHTML(event) {
         const rulingLabels = {
             'favor-petitioner': 'Ruled for Petitioner',
             'favor-respondent': 'Ruled for Respondent',
-            'mixed': 'Split/Mixed Decision'
+            'mixed': 'Split/Mixed Decision',
+            'procedural': 'Procedural Step, Not a Decision'
         };
         rulingHTML = `<span class="card-ruling ${event.ruling}">${rulingLabels[event.ruling]}</span>`;
     }
@@ -656,7 +662,7 @@ function createEventHTML(event) {
                 <div class="card-header">
                     <span class="card-date">${event.date}</span>
                     <span class="card-case-tag ${event.caseId}">${event.caseName}</span>
-                    <span class="card-type">${typeLabels[event.type]}</span>
+                    <span class="card-type">${event.typeLabel || typeLabels[event.type]}</span>
                 </div>
                 <h3 class="card-title">${event.title}</h3>
                 ${rulingHTML}

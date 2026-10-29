@@ -1,46 +1,10 @@
 // Shared header, footer, save status, and keyboard behavior for every page.
 (function () {
-    var VERSION = 'v1.24.0';
+    var VERSION = 'v1.25.0';
     var READING_KEY = 'scotus-reading-level';
 
     function relPrefix() {
         return window.location.pathname.indexOf('/cases/') !== -1 ? '../' : '';
-    }
-
-    function initHamburger() {
-        var inner = document.querySelector('.site-header .header-inner');
-        var nav = document.querySelector('.site-header .header-nav');
-        if (!inner || !nav || document.querySelector('.nav-toggle')) return;
-        var btn = document.createElement('button');
-        btn.className = 'nav-toggle';
-        btn.type = 'button';
-        btn.setAttribute('aria-label', 'Open menu');
-        btn.setAttribute('aria-expanded', 'false');
-        btn.textContent = 'Menu';
-        inner.insertBefore(btn, nav);
-
-        function setOpen(open) {
-            nav.classList.toggle('open', open);
-            btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-            btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-        }
-
-        btn.addEventListener('click', function (e) {
-            e.stopPropagation();
-            setOpen(!nav.classList.contains('open'));
-        });
-        document.addEventListener('click', function (e) {
-            if (!nav.contains(e.target) && e.target !== btn) setOpen(false);
-        });
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape' && nav.classList.contains('open')) {
-                setOpen(false);
-                btn.focus();
-            }
-        });
-        nav.querySelectorAll('a').forEach(function (a) {
-            a.addEventListener('click', function () { setOpen(false); });
-        });
     }
 
     function initDropdowns() {
@@ -67,6 +31,67 @@
                     btn.focus();
                 }
             });
+            function setOpen(open) {
+                dropdown.classList.toggle('open', open);
+                btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+            }
+            function items() {
+                return Array.prototype.slice.call(dropdown.querySelectorAll('.nav-dropdown-content a'));
+            }
+            // Close when keyboard focus moves somewhere outside the menu
+            dropdown.addEventListener('focusout', function (e) {
+                var next = e.relatedTarget;
+                if (next && dropdown.contains(next)) return;
+                if (!next) return; // focus went to the page itself (e.g. a click); the click handler decides
+                setOpen(false);
+            });
+            // Arrow keys: from the button into the links, and between the links
+            dropdown.addEventListener('keydown', function (e) {
+                if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp' && e.key !== 'Home' && e.key !== 'End') return;
+                var list = items();
+                if (!list.length) return;
+                var i = list.indexOf(document.activeElement);
+                if (e.target === btn) {
+                    if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+                    e.preventDefault();
+                    setOpen(true);
+                    list[e.key === 'ArrowUp' ? list.length - 1 : 0].focus();
+                    return;
+                }
+                if (i === -1) return;
+                e.preventDefault();
+                if (e.key === 'Home') i = 0;
+                else if (e.key === 'End') i = list.length - 1;
+                else if (e.key === 'ArrowDown') i = (i + 1) % list.length;
+                else i = (i - 1 + list.length) % list.length;
+                list[i].focus();
+            });
+        });
+    }
+
+    /* The current page gets aria-current="page" (shown as a 4px cream bar). Case
+       pages count as Cases; pages in the Prepare menu light up Prepare. */
+    function markCurrentNav() {
+        var path = window.location.pathname;
+        var file = path.substring(path.lastIndexOf('/') + 1) || 'index.html';
+        var onCase = path.indexOf('/cases/') !== -1;
+        document.querySelectorAll('.site-header .header-nav > a').forEach(function (a) {
+            var href = a.getAttribute('href') || '';
+            var target = href.split('#')[0].split('/').pop() || (href.charAt(0) === '#' ? 'index.html' : '');
+            var isCases = /#cases$/.test(href);
+            var current = isCases ? (file === 'index.html' || onCase) : (target === file && !onCase);
+            if (current) a.setAttribute('aria-current', 'page');
+            else a.removeAttribute('aria-current');
+        });
+        document.querySelectorAll('.site-header .nav-dropdown').forEach(function (dd) {
+            var hit = false;
+            dd.querySelectorAll('.nav-dropdown-content a').forEach(function (a) {
+                var target = (a.getAttribute('href') || '').split('#')[0].split('/').pop();
+                if (target === file && !onCase) { a.setAttribute('aria-current', 'page'); hit = true; }
+                else a.removeAttribute('aria-current');
+            });
+            var btn = dd.querySelector('.nav-dropdown-btn');
+            if (btn) btn.setAttribute('data-current', hit ? 'true' : 'false');
         });
     }
 
@@ -114,9 +139,14 @@
                 p.textContent = '© 2026 SCOTUS Debate Project · Educational use only';
             }
         });
+        /* Square = petitioner, diamond = respondent: the site mark */
         document.querySelectorAll('.logo-icon').forEach(function (el) {
-            el.textContent = '⚖';
-            el.setAttribute('aria-hidden', 'true');
+            var mark = document.createElement('span');
+            mark.className = 'logo-mark';
+            mark.setAttribute('aria-hidden', 'true');
+            mark.innerHTML = '<svg class="mk mk-pet" viewBox="0 0 16 16" focusable="false"><rect x="1" y="1" width="14" height="14"/></svg>' +
+                '<svg class="mk mk-res" viewBox="0 0 16 16" focusable="false"><path d="M8 0 16 8 8 16 0 8z"/></svg>';
+            el.parentNode.replaceChild(mark, el);
         });
     }
 
@@ -177,7 +207,9 @@
             var v = localStorage.getItem(READING_KEY);
             if (LEVELS.indexOf(v) !== -1) return v;
         } catch (e) {}
-        return 'standard';
+        /* No storage (private window): use what the <head> script set, e.g. from ?v= */
+        var fromPage = { quick: 'quick', clear: 'simplified', full: 'standard' }[document.documentElement.getAttribute('data-version')];
+        return fromPage || 'standard';
     }
 
     function levelOf(el) {
@@ -189,6 +221,12 @@
        named buttons. A page part with no Quick text falls back to Clear (see
        FALLBACK), so the label never promises text that is not there. */
     function upgradeButtons() {
+        document.querySelectorAll('.reading-toggle-inline').forEach(function (wrap) {
+            var lab = wrap.querySelector('.toggle-label');
+            if (lab) { lab.textContent = 'Version'; lab.id = lab.id || 'version-label'; }
+            wrap.setAttribute('role', 'group');
+            if (lab) wrap.setAttribute('aria-labelledby', lab.id);
+        });
         document.querySelectorAll('.level-btn[data-level="standard"]').forEach(function (std) {
             var wrap = std.parentNode;
             if (wrap.getAttribute('data-three') === '1') return;
@@ -240,6 +278,10 @@
         });
         document.body.classList.toggle('reading-simplified', level !== 'standard');
         document.body.classList.toggle('reading-quick', level === 'quick');
+        /* The <head> script hides the other versions before first paint; from here on
+           the classes above decide, so that early CSS steps aside. */
+        document.documentElement.setAttribute('data-version', { quick: 'quick', simplified: 'clear', standard: 'full' }[level]);
+        document.documentElement.classList.add('levels-ready');
         document.dispatchEvent(new CustomEvent('scotus:reading-level', { detail: level }));
     }
 
@@ -259,7 +301,7 @@
     window.applyReadingLevel = applyReadingLevel;
 
     function init() {
-        initHamburger();
+        markCurrentNav();
         initDropdowns();
         ensureCompareLink();
         ensureLawWordsLink();
