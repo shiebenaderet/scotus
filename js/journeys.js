@@ -482,9 +482,9 @@ function initReadingLevel() {
     if (typeof window.getReadingLevel === 'function') {
         currentReadingLevel = window.getReadingLevel();
     }
-    document.body.classList.toggle('reading-simplified', currentReadingLevel === 'simplified');
+    document.body.classList.toggle('reading-simplified', currentReadingLevel !== 'standard');
     document.addEventListener('scotus:reading-level', function (e) {
-        currentReadingLevel = e.detail === 'simplified' ? 'simplified' : 'standard';
+        currentReadingLevel = e.detail || 'standard';
         renderTimeline();
     });
 }
@@ -622,7 +622,10 @@ function parseDateForSort(dateStr) {
 }
 
 function createEventHTML(event) {
-    const content = currentReadingLevel === 'simplified' ? event.simplified : event.standard;
+    // Quick shows an event's quick text when it has one, otherwise the Clear
+    // (simplified) text; only Full shows the standard text.
+    const content = currentReadingLevel === 'standard' ? event.standard
+        : (currentReadingLevel === 'quick' && event.quick) || event.simplified || event.standard;
 
     let rulingHTML = '';
     // Colors follow the Supreme Court caption: petitioner/respondent as the case was named at SCOTUS.

@@ -185,16 +185,16 @@
         return null;
     }
 
-    /* Pages rebuilt with a Quick version get the three named buttons; pages that
-       still have only two versions keep "Standard" and "Simplified" until they
-       are measured and rebuilt, so no label promises a version that is not there. */
+    /* Every case now has Quick, Clear and Full, so every page shows the three
+       named buttons. A page part with no Quick text falls back to Clear (see
+       FALLBACK), so the label never promises text that is not there. */
     function upgradeButtons() {
-        if (!document.querySelector('.content-block.quick, .two-sides-summary.quick')) return;
-        document.querySelectorAll('.reading-toggle-inline, .reading-levels').forEach(function (wrap) {
+        document.querySelectorAll('.level-btn[data-level="standard"]').forEach(function (std) {
+            var wrap = std.parentNode;
             if (wrap.getAttribute('data-three') === '1') return;
-            var std = wrap.querySelector('.level-btn[data-level="standard"]');
+            if (wrap.querySelector('.level-btn[data-level="quick"]')) return;
             var simp = wrap.querySelector('.level-btn[data-level="simplified"]');
-            if (!std || !simp) return;
+            if (!simp) return;
             wrap.setAttribute('data-three', '1');
             var quick = std.cloneNode(false);
             quick.setAttribute('data-level', 'quick');
