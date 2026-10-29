@@ -39,14 +39,14 @@ The unit driving question (rights vs. community safety) fits Jacobson most direc
 - Case Journeys: Prep mode hides the Supreme Court vote; Debrief mode shows it.
 - Compare (debrief): paired cases so students apply tests across facts.
 - Review: vocab anytime; multiple choice, short answer, and Blooket after the debate.
-- Progress autosave on this device; school Google sign-in syncs to an account when available.
+- Progress autosaves in this browser. Students move it between computers with My Work > Download Save File and Open Save File (the district blocks Google sign-in for student accounts). Teachers can sign in to sync to an account.
 - Teacher guide (staff @edmonds.wednet.edu): [teacher.html](teacher.html)
 
 The website case pages and Evidence Vault are the fact-checked source of truth. Google Docs may lag.
 
 ## Version
 
-Current version: v1.25.0
+Current version: v1.26.0
 
 ## License
 

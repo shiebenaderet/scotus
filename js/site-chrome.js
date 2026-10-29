@@ -1,11 +1,7 @@
 // Shared header, footer, save status, and keyboard behavior for every page.
 (function () {
-    var VERSION = 'v1.25.0';
+    var VERSION = 'v1.26.0';
     var READING_KEY = 'scotus-reading-level';
-
-    function relPrefix() {
-        return window.location.pathname.indexOf('/cases/') !== -1 ? '../' : '';
-    }
 
     function initDropdowns() {
         document.querySelectorAll('.nav-dropdown').forEach(function (dropdown) {
@@ -15,6 +11,13 @@
             if (!btn) return;
             btn.addEventListener('click', function (e) {
                 e.stopPropagation();
+                // Only one menu open at a time
+                document.querySelectorAll('.nav-dropdown.open').forEach(function (other) {
+                    if (other === dropdown) return;
+                    other.classList.remove('open');
+                    var b = other.querySelector('.nav-dropdown-btn');
+                    if (b) b.setAttribute('aria-expanded', 'false');
+                });
                 var open = dropdown.classList.toggle('open');
                 btn.setAttribute('aria-expanded', open ? 'true' : 'false');
             });
@@ -36,7 +39,7 @@
                 btn.setAttribute('aria-expanded', open ? 'true' : 'false');
             }
             function items() {
-                return Array.prototype.slice.call(dropdown.querySelectorAll('.nav-dropdown-content a'));
+                return Array.prototype.slice.call(dropdown.querySelectorAll('.nav-dropdown-content a, .nav-dropdown-content button')).filter(function (el) { return el.offsetParent !== null; });
             }
             // Close when keyboard focus moves somewhere outside the menu
             dropdown.addEventListener('focusout', function (e) {
@@ -48,16 +51,16 @@
             // Arrow keys: from the button into the links, and between the links
             dropdown.addEventListener('keydown', function (e) {
                 if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp' && e.key !== 'Home' && e.key !== 'End') return;
-                var list = items();
-                if (!list.length) return;
-                var i = list.indexOf(document.activeElement);
                 if (e.target === btn) {
                     if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
                     e.preventDefault();
-                    setOpen(true);
-                    list[e.key === 'ArrowUp' ? list.length - 1 : 0].focus();
+                    setOpen(true); // open first: items() skips hidden ones
+                    var all = items();
+                    if (all.length) all[e.key === 'ArrowUp' ? all.length - 1 : 0].focus();
                     return;
                 }
+                var list = items();
+                var i = list.indexOf(document.activeElement);
                 if (i === -1) return;
                 e.preventDefault();
                 if (e.key === 'Home') i = 0;
@@ -69,64 +72,22 @@
         });
     }
 
-    /* The current page gets aria-current="page" (shown as a 4px cream bar). Case
-       pages count as Cases; pages in the Prepare menu light up Prepare. */
+    /* The current page gets aria-current="page" (a tinted row in the menu) and
+       its menu button gets the 4px cream bar. The home page and every case page
+       count as Cases; pages in the Prepare menu light up Prepare. */
     function markCurrentNav() {
-        var path = window.location.pathname;
-        var file = path.substring(path.lastIndexOf('/') + 1) || 'index.html';
-        var onCase = path.indexOf('/cases/') !== -1;
-        document.querySelectorAll('.site-header .header-nav > a').forEach(function (a) {
-            var href = a.getAttribute('href') || '';
-            var target = href.split('#')[0].split('/').pop() || (href.charAt(0) === '#' ? 'index.html' : '');
-            var isCases = /#cases$/.test(href);
-            var current = isCases ? (file === 'index.html' || onCase) : (target === file && !onCase);
-            if (current) a.setAttribute('aria-current', 'page');
-            else a.removeAttribute('aria-current');
-        });
+        var here = window.location.pathname.replace(/index\.html$/, '');
+        var onHome = /\/$/.test(here);
         document.querySelectorAll('.site-header .nav-dropdown').forEach(function (dd) {
             var hit = false;
             dd.querySelectorAll('.nav-dropdown-content a').forEach(function (a) {
-                var target = (a.getAttribute('href') || '').split('#')[0].split('/').pop();
-                if (target === file && !onCase) { a.setAttribute('aria-current', 'page'); hit = true; }
+                var cur = !a.hash && a.pathname.replace(/index\.html$/, '') === here;
+                if (cur) { a.setAttribute('aria-current', 'page'); hit = true; }
                 else a.removeAttribute('aria-current');
             });
+            if (dd.getAttribute('data-menu') === 'cases' && onHome) hit = true;
             var btn = dd.querySelector('.nav-dropdown-btn');
             if (btn) btn.setAttribute('data-current', hit ? 'true' : 'false');
-        });
-    }
-
-    function labelCompareLinks() {
-        document.querySelectorAll('.nav-dropdown-content a[href*="compare.html"]').forEach(function (a) {
-            if (a.getAttribute('data-nav') === 'compare' || /compare/i.test(a.textContent)) {
-                a.textContent = 'Compare (debrief)';
-            }
-        });
-    }
-
-    function ensureCompareLink() {
-        var menus = document.querySelectorAll('.nav-dropdown-content');
-        menus.forEach(function (menu) {
-            if (menu.querySelector('a[href*="compare.html"]')) return;
-            var a = document.createElement('a');
-            a.href = relPrefix() + 'compare.html';
-            a.setAttribute('data-nav', 'compare');
-            a.textContent = 'Compare (debrief)';
-            menu.appendChild(a);
-        });
-    }
-
-    function ensureLawWordsLink() {
-        var menus = document.querySelectorAll('.nav-dropdown-content');
-        menus.forEach(function (menu) {
-            if (menu.querySelector('a[href*="resources.html#law-words"]')) return;
-            var a = document.createElement('a');
-            a.href = relPrefix() + 'resources.html#law-words';
-            a.setAttribute('data-nav', 'law-words');
-            a.textContent = 'Law words';
-            var debate = menu.querySelector('a[href*="debate.html"]');
-            if (debate && debate.nextSibling) menu.insertBefore(a, debate.nextSibling);
-            else if (debate) menu.appendChild(a);
-            else menu.appendChild(a);
         });
     }
 
@@ -176,16 +137,141 @@
         }, 1800);
     };
 
+    /* Shown only to signed-out readers (theme.css hides it under html.signed-in),
+       and only until they close it once. */
+    var SAVE_HINT_KEY = 'scotus-save-hint-closed';
     function addSaveHint() {
         if (document.querySelector('.save-hint')) return;
+        try { if (localStorage.getItem(SAVE_HINT_KEY)) return; } catch (e) {}
         var main = document.querySelector('main');
         if (!main) return;
         var path = window.location.pathname;
         if (!/(debate|compare|cases\/|journeys|review)/.test(path)) return;
         var p = document.createElement('p');
         p.className = 'save-hint';
-        p.innerHTML = 'Work saves automatically. Sign in with your school account to keep it across computers; otherwise it stays in this browser.';
+        p.innerHTML = '<span>Your work saves in this browser only. To move it to another computer, open My Work and choose Download Save File.</span>' +
+            '<button type="button" class="save-hint-close" aria-label="Close this note">\u00d7</button>';
+        p.querySelector('button').addEventListener('click', function () {
+            p.remove();
+            try { localStorage.setItem(SAVE_HINT_KEY, '1'); } catch (e) {}
+        });
         main.insertBefore(p, main.firstChild);
+    }
+
+    /* My Work menu (the header's last button): the save file, and sign-in for
+       teachers (firebase-init.js fills #auth-slot).
+          Students cannot sign in (the district blocks Google sign-in for student
+          accounts), so their work lives only in this browser. A save file copies
+          every 'scotus-' key as its raw saved text, and opening one writes those keys
+          back, so each page reads its work exactly as it saved it. Settings that
+          belong to this computer are left out. */
+    var SAVE_APP = 'scotus-debate-project';
+    var NOT_WORK = ['scotus-reading-level', 'scotus-save-hint-closed'];
+
+    function isWorkKey(k) {
+        return typeof k === 'string' && k.indexOf('scotus-') === 0 && NOT_WORK.indexOf(k) < 0;
+    }
+
+    function workNote(text) {
+        var n = document.getElementById('work-note');
+        if (!n) return;
+        n.textContent = text;
+        n.hidden = !text;
+    }
+
+    function two(n) { return (n < 10 ? '0' : '') + n; }
+
+    function downloadWork() {
+        var work = {};
+        try {
+            for (var i = 0; i < localStorage.length; i++) {
+                var k = localStorage.key(i);
+                if (isWorkKey(k)) work[k] = localStorage.getItem(k);
+            }
+        } catch (e) {
+            workNote('This browser is not saving work, so there is nothing to download.');
+            return;
+        }
+        var count = Object.keys(work).length;
+        if (!count) { workNote('There is no saved work in this browser yet.'); return; }
+
+        var d = new Date();
+        var stamp = d.getFullYear() + '-' + two(d.getMonth() + 1) + '-' + two(d.getDate()) + '-' + two(d.getHours()) + two(d.getMinutes());
+        var file = { app: SAVE_APP, format: 1, saved: d.toISOString(), work: work };
+        var url = URL.createObjectURL(new Blob([JSON.stringify(file, null, 1)], { type: 'application/json' }));
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'scotus-work-' + stamp + '.json';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+        workNote('Downloaded ' + a.download + '.');
+    }
+
+    function openWork(fileObj) {
+        if (!fileObj) return;
+        workNote('');
+        var reader = new FileReader();
+        reader.onerror = function () { workNote('That file could not be read.'); };
+        reader.onload = function () {
+            var data;
+            try { data = JSON.parse(reader.result); } catch (e) { data = null; }
+            if (!data || data.app !== SAVE_APP || !data.work || typeof data.work !== 'object') {
+                workNote('That is not a save file from this site. Nothing was changed.');
+                return;
+            }
+            var keys = Object.keys(data.work).filter(function (k) { return isWorkKey(k) && typeof data.work[k] === 'string'; });
+            if (!keys.length) { workNote('That save file has no work in it. Nothing was changed.'); return; }
+            if (!window.confirm('This adds the work in the file to this computer. Work with the same name will be replaced. Continue?')) return;
+
+            var pushes = [];
+            try {
+                keys.forEach(function (k) {
+                    localStorage.setItem(k, data.work[k]);
+                    /* Signed in: the account copy wins when a page loads, so update it too */
+                    if (typeof currentUser !== 'undefined' && currentUser && typeof saveToCloud === 'function') {
+                        var v;
+                        try { v = JSON.parse(data.work[k]); } catch (e) { v = data.work[k]; }
+                        pushes.push(saveToCloud(k, v));
+                    }
+                });
+            } catch (e) {
+                workNote('This browser is not saving work, so the file could not be opened here.');
+                return;
+            }
+            workNote('Opened your save file. The page will reload.');
+            Promise.all(pushes).then(function () {
+                setTimeout(function () { location.reload(); }, 1200);
+            });
+        };
+        reader.readAsText(fileObj);
+    }
+
+    function buildMyWork() {
+        var slot = document.getElementById('auth-container');
+        if (!slot || document.getElementById('mywork')) return;
+        var wrap = document.createElement('div');
+        wrap.className = 'nav-dropdown mywork';
+        wrap.id = 'mywork';
+        wrap.innerHTML =
+            '<button class="nav-dropdown-btn" type="button" aria-expanded="false" aria-haspopup="true">My Work <span class="dropdown-arrow">&#9662;</span></button>' +
+            '<div class="nav-dropdown-content">' +
+                '<p class="menu-note" id="mywork-who">Your work saves in this browser.</p>' +
+                '<button type="button" class="menu-item" id="work-download">Download Save File</button>' +
+                '<button type="button" class="menu-item" id="work-open">Open Save File</button>' +
+                '<input type="file" id="work-file" accept=".json,application/json" hidden>' +
+                '<p class="menu-note" id="work-note" role="status" aria-live="polite" hidden></p>' +
+                '<div class="menu-account" id="auth-slot">' +
+                    '<button type="button" class="menu-item" onclick="signInWithGoogle()">Teacher Sign In</button>' +
+                '</div>' +
+            '</div>';
+        slot.innerHTML = '';
+        slot.appendChild(wrap);
+        var workFile = document.getElementById('work-file');
+        document.getElementById('work-download').addEventListener('click', downloadWork);
+        document.getElementById('work-open').addEventListener('click', function () { workFile.value = ''; workFile.click(); });
+        workFile.addEventListener('change', function () { openWork(workFile.files[0]); });
     }
 
     /* Reading versions (READING-LEVELS.md). The CSS classes and the saved value
@@ -301,11 +387,9 @@
     window.applyReadingLevel = applyReadingLevel;
 
     function init() {
+        buildMyWork();
         markCurrentNav();
         initDropdowns();
-        ensureCompareLink();
-        ensureLawWordsLink();
-        labelCompareLinks();
         unifyFooter();
         ensureSaveChip();
         addSaveHint();

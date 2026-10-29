@@ -30,23 +30,26 @@ let currentUser = null;
 // AUTH UI
 // ==========================================
 function renderAuthUI() {
-    // Find or create the auth container in the header
-    let container = document.getElementById('auth-container');
-    if (!container) return;
+    // Signed-in pages hide the "your work saves in this browser" hint (theme.css)
+    document.documentElement.classList.toggle('signed-in', !!currentUser);
+    // The account part of the My Work menu (site-chrome.js builds the menu)
+    const slot = document.getElementById('auth-slot');
+    const who = document.getElementById('mywork-who');
+    if (!slot) return;
 
     if (currentUser) {
-        const name = currentUser.displayName || currentUser.email;
-        const photo = currentUser.photoURL;
-        container.innerHTML = `
-            <div class="auth-signed-in">
-                ${photo ? `<img src="${photo}" alt="" class="auth-avatar">` : ''}
-                <span class="auth-name">${name.split(' ')[0]}</span>
-                <button class="auth-btn auth-btn-out" onclick="signOutUser()">Sign Out</button>
-            </div>
+        const name = (currentUser.displayName || currentUser.email).split(' ')[0];
+        const teacher = (currentUser.email || '').endsWith('@edmonds.wednet.edu');
+        const prefix = window.location.pathname.indexOf('/cases/') !== -1 ? '../' : '';
+        if (who) who.textContent = 'Signed in as ' + name + '. Your work saves to your account.';
+        slot.innerHTML = `
+            ${teacher ? `<a href="${prefix}teacher.html" class="menu-item">Teacher Page</a>` : ''}
+            <button type="button" class="menu-item" onclick="signOutUser()">Sign Out</button>
         `;
     } else {
-        container.innerHTML = `
-            <button class="auth-btn auth-btn-in" onclick="signInWithGoogle()">Sign In</button>
+        if (who) who.textContent = 'Your work saves in this browser.';
+        slot.innerHTML = `
+            <button type="button" class="menu-item" onclick="signInWithGoogle()">Teacher Sign In</button>
         `;
     }
 }
@@ -87,24 +90,12 @@ auth.onAuthStateChanged(function(user) {
     }
     currentUser = user;
     renderAuthUI();
-    updateTeacherNavLink(user);
 
     // Notify page-specific code that auth state changed
     if (typeof onAuthReady === 'function') {
         onAuthReady(user);
     }
 });
-
-// Show/hide teacher nav link based on domain
-function updateTeacherNavLink(user) {
-    const link = document.getElementById('teacher-nav-link');
-    if (!link) return;
-    if (user && user.email && user.email.endsWith('@edmonds.wednet.edu')) {
-        link.style.display = '';
-    } else {
-        link.style.display = 'none';
-    }
-}
 
 // ==========================================
 // FIRESTORE HELPERS

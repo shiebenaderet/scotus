@@ -29,18 +29,33 @@
                 <span class="logo-text">SCOTUS Debate Project</span>
             </a>
             <nav class="header-nav" role="navigation" aria-label="Main navigation">
-                <a href="../index.html#cases">Cases</a>
-                <a href="../resources.html">Resources</a>
-                <div class="nav-dropdown">
+                <div class="nav-dropdown" data-menu="cases">
+                    <button class="nav-dropdown-btn" aria-expanded="false" aria-haspopup="true">Cases <span class="dropdown-arrow">&#9662;</span></button>
+                    <div class="nav-dropdown-content">
+                        <a href="../index.html#cases" class="menu-all">All Cases</a>
+                        <a href="../cases/tinker.html">Tinker v. Des Moines <span class="menu-year">(1969)</span></a>
+                        <a href="../cases/mahanoy.html">Mahanoy v. B.L. <span class="menu-year">(2021)</span></a>
+                        <a href="../cases/morse.html">Morse v. Frederick <span class="menu-year">(2007)</span></a>
+                        <a href="../cases/tlo.html">New Jersey v. T.L.O. <span class="menu-year">(1985)</span></a>
+                        <a href="../cases/payton.html">Payton v. New York <span class="menu-year">(1980)</span></a>
+                        <a href="../cases/kennedy.html">Kennedy v. Bremerton <span class="menu-year">(2022)</span></a>
+                        <a href="../cases/brown.html">Brown v. Board of Education <span class="menu-year">(1954)</span></a>
+                        <a href="../cases/jacobson.html">Jacobson v. Massachusetts <span class="menu-year">(1905)</span></a>
+                        <a href="../cases/arizona.html">Arizona v. United States <span class="menu-year">(2012)</span></a>
+                        <a href="../cases/fishing-rights.html">Washington v. Fishing Vessel Ass&rsquo;n <span class="menu-year">(1979)</span></a>
+                    </div>
+                </div>
+                <div class="nav-dropdown" data-menu="prepare">
                     <button class="nav-dropdown-btn" aria-expanded="false" aria-haspopup="true">Prepare <span class="dropdown-arrow">&#9662;</span></button>
                     <div class="nav-dropdown-content">
                         <a href="../review.html">Review</a>
                         <a href="../journeys.html">Case Journeys</a>
                         <a href="../debate.html">Debate Prep</a>
                         <a href="../compare.html">Compare (debrief)</a>
+                        <a href="../resources.html">Resources</a>
+                        <a href="../resources.html#law-words">Law words</a>
                     </div>
                 </div>
-                <a href="../teacher.html" id="teacher-nav-link" style="display:none;">Teacher</a>
             </nav>
             <div id="auth-container"></div>
         </div>
@@ -991,7 +1006,7 @@
         <div class="container">
             <p><a href="../index.html">← Back to All Cases</a></p>
             <p>&copy; 2026 SCOTUS Debate Project</p>
-            <p class="site-version">v1.25.0</p>
+            <p class="site-version">v1.26.0</p>
         </div>
     </footer>
 
