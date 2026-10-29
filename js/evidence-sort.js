@@ -363,6 +363,82 @@ var evidenceSortData = {
             }
         ]
     },
+    morse: {
+        petitioner: 'Principal Morse and the School Board',
+        respondent: 'Joseph Frederick',
+        facts: [
+            {
+                text: 'The principal let students leave class to watch the Olympic Torch Relay as an approved social event or class trip.',
+                petitionerFeedback: 'An approved school event means school rules still applied, even across the street.',
+                respondentFeedback: 'Students were just let out to watch a public parade, not taught a class.',
+                canBeBoth: true,
+                source: 'https://openjurist.org/439/f3d/1114'
+            },
+            {
+                text: 'Frederick got stuck in the snow and never entered the school that day before the relay.',
+                petitionerFeedback: 'He chose to join classmates at a school-approved event during school hours.',
+                respondentFeedback: 'He was never at school that day. He went straight to a public sidewalk.',
+                canBeBoth: true,
+                source: 'https://openjurist.org/439/f3d/1114'
+            },
+            {
+                text: 'Frederick stood on a public sidewalk across the street, off school property.',
+                petitionerFeedback: 'Students across the street were still under teacher supervision.',
+                respondentFeedback: 'A public sidewalk is not school. The school’s rules should stop at its property line.',
+                canBeBoth: false,
+                source: 'https://openjurist.org/439/f3d/1114'
+            },
+            {
+                text: 'The principal pointed out that the pep band played, the cheerleaders came out in uniform, and teachers supervised.',
+                petitionerFeedback: 'School groups performing and teachers supervising are signs of a school activity.',
+                respondentFeedback: 'School groups at a public event do not turn a public sidewalk into a classroom.',
+                canBeBoth: false,
+                source: 'https://openjurist.org/439/f3d/1114'
+            },
+            {
+                text: 'Students said they did not need parental permission slips, as they did for field trips.',
+                petitionerFeedback: 'Not every school activity needs a permission slip.',
+                respondentFeedback: 'Without permission slips, the relay looks less like a school trip and more like a public event.',
+                canBeBoth: false,
+                source: 'https://openjurist.org/439/f3d/1114'
+            },
+            {
+                text: 'The principal said the banner violated school policy against material that “advertises or promotes use of illegal drugs.”',
+                petitionerFeedback: 'The school enforced a rule students already knew about.',
+                respondentFeedback: 'The policy only applies if the banner actually promoted drugs, and Frederick says it did not.',
+                canBeBoth: false,
+                source: 'https://openjurist.org/439/f3d/1114'
+            },
+            {
+                text: 'Frederick said the words on the banner were meaningless and funny, meant to get on television.',
+                petitionerFeedback: 'A joke can still be read as promoting drugs by the students who see it.',
+                respondentFeedback: 'If the words meant nothing, the banner did not promote drug use.',
+                canBeBoth: true,
+                source: 'https://openjurist.org/439/f3d/1114'
+            },
+            {
+                text: 'Some students threw bottles and snowballs and fought before the banner went up. Frederick’s group was not involved.',
+                petitionerFeedback: 'The crowd was already hard to control, so a pro-drug message could make things worse.',
+                respondentFeedback: 'The disorder happened before the banner and had nothing to do with Frederick.',
+                canBeBoth: true,
+                source: 'https://openjurist.org/439/f3d/1114'
+            },
+            {
+                text: 'When the principal told the group to lower the banner, everyone but Frederick did.',
+                petitionerFeedback: 'Frederick defied a school official at a school event.',
+                respondentFeedback: 'Refusing to give up a sign is part of standing up for free speech.',
+                canBeBoth: true,
+                source: 'https://openjurist.org/439/f3d/1114'
+            },
+            {
+                text: 'The school district never claimed the banner disrupted classwork.',
+                petitionerFeedback: 'The school’s concern was its drug-prevention mission, not a class being interrupted.',
+                respondentFeedback: 'With no disruption, the school had no good reason to punish the speech.',
+                canBeBoth: false,
+                source: 'https://openjurist.org/439/f3d/1114'
+            }
+        ]
+    },
     kennedy: {
         petitioner: 'Coach Kennedy',
         respondent: 'Bremerton School District',
@@ -543,6 +619,82 @@ var evidenceSortData = {
             }
         ]
     },
+    jacobson: {
+        petitioner: 'Henning Jacobson',
+        respondent: 'Massachusetts',
+        facts: [
+            {
+                text: 'Smallpox had been spreading in Cambridge and was still increasing when the board of health made its order.',
+                respondentFeedback: 'The order answered a real, growing outbreak. Waiting would have let the disease spread further.',
+                petitionerFeedback: 'An emergency does not erase the Constitution. Liberty still limits what the state may require.',
+                canBeBoth: true,
+                source: 'https://www.law.cornell.edu/supremecourt/text/197/11'
+            },
+            {
+                text: 'The law required the city to provide vaccination for free.',
+                respondentFeedback: 'Cost kept no one from obeying. The law asked little of each person.',
+                petitionerFeedback: 'Free or not, the procedure is done to his body. Price was never his objection.',
+                canBeBoth: true,
+                source: 'https://www.law.cornell.edu/supremecourt/text/197/11'
+            },
+            {
+                text: 'An adult over 21 who refused had to pay a $5 fine.',
+                respondentFeedback: 'The penalty was small and nobody was forced. The law respected choice while protecting others.',
+                petitionerFeedback: 'It was still a criminal conviction. The state punished him for refusing a medical procedure.',
+                canBeBoth: true,
+                source: 'https://www.law.cornell.edu/supremecourt/text/197/11'
+            },
+            {
+                text: 'Children with a doctor’s certificate that they were unfit for vaccination were excused. Adults had no such exception.',
+                respondentFeedback: 'Lawmakers can draw different lines for children and adults.',
+                petitionerFeedback: 'The same medical risk should get the same exception. Treating adults worse is unfair.',
+                canBeBoth: false,
+                source: 'https://www.law.cornell.edu/supremecourt/text/197/11'
+            },
+            {
+                text: 'The chairman of the board of health offered to vaccinate Jacobson for free, and Jacobson declined.',
+                respondentFeedback: 'Officials gave him every chance to comply before charging him.',
+                petitionerFeedback: 'An offer he had a right to refuse is not a reason to punish him.',
+                canBeBoth: true,
+                source: 'https://www.law.cornell.edu/supremecourt/text/197/11'
+            },
+            {
+                text: 'Jacobson said a vaccination he received as a child caused him “great and extreme suffering for a long period.”',
+                petitionerFeedback: 'His own medical history gave him a real reason to refuse.',
+                respondentFeedback: 'One person’s past reaction cannot decide a rule for a whole city during an epidemic.',
+                canBeBoth: false,
+                source: 'https://www.law.cornell.edu/supremecourt/text/197/11'
+            },
+            {
+                text: 'The trial judge excluded every fact Jacobson offered to prove about harm from vaccination.',
+                petitionerFeedback: 'He never got to make his defense to the jury.',
+                respondentFeedback: 'Medical policy for everyone belongs to lawmakers and health boards, not to a single jury.',
+                canBeBoth: false,
+                source: 'https://www.law.cornell.edu/supremecourt/text/197/11'
+            },
+            {
+                text: 'In 1901, nine children in Camden, New Jersey, died of tetanus after receiving contaminated smallpox vaccine.',
+                petitionerFeedback: 'Vaccines in his time could be impure and dangerous. His fear was not imaginary.',
+                respondentFeedback: 'Congress answered with a 1902 law regulating vaccine makers. The fix is safer vaccines, not no vaccination.',
+                canBeBoth: true,
+                source: 'https://www.fda.gov/files/about%20fda/published/The-Road-to-the-Biotech-Revolution--Highlights-of-100-Years-of-Biologics-Regulation.pdf'
+            },
+            {
+                text: 'In Boston, 270 people died of smallpox during the 1901 to 1903 outbreak.',
+                respondentFeedback: 'The danger to the community was deadly and close by.',
+                petitionerFeedback: 'A serious danger still does not give the state unlimited power over a person’s body.',
+                canBeBoth: false,
+                source: 'https://www.history.com/articles/smallpox-vaccine-supreme-court'
+            },
+            {
+                text: 'In 1904, New York’s highest court upheld a rule keeping unvaccinated children out of public school.',
+                respondentFeedback: 'Other courts already treated vaccination rules as ordinary health laws.',
+                petitionerFeedback: 'A school entry rule is not a criminal fine on an adult.',
+                canBeBoth: false,
+                source: 'https://biotech.law.lsu.edu/cases/vaccines/Viemeister.pdf'
+            }
+        ]
+    },
     payton: {
         petitioner: 'Payton',
         respondent: 'New York',
@@ -633,6 +785,69 @@ var evidenceSortData = {
             }
         ]
     }
+};
+
+evidenceSortData['fishing-rights'] = {
+        petitioner: 'State of Washington',
+        respondent: 'Treaty Tribes',
+        facts: [
+            {
+                text: 'In 1854 and 1855, the tribes gave up most of their land to the United States and kept the right to fish at their usual places.',
+                petitionerFeedback: 'The tribes kept only part of what they had. A right to fish that the State can shrink is not the right they kept.',
+                respondentFeedback: 'The tribes kept access to their places. The treaty did not set aside a number of fish.',
+                canBeBoth: true,
+                source: 'https://www.historylink.org/file/5253'
+            },
+            {
+                text: 'The treaty says the tribes fish “in common with all citizens of the Territory.”',
+                petitionerFeedback: 'The State reads “in common” as one shared right that every citizen holds equally.',
+                respondentFeedback: 'Judge Boldt read “common” as “belonging equally,” which supports an equal share.',
+                canBeBoth: true,
+                source: 'https://wdfw.wa.gov/sites/default/files/2021-12/boldt_decision.pdf'
+            },
+            {
+                text: 'When the treaties were signed, about three-fourths of the roughly 10,000 people in the region were Indians.',
+                petitionerFeedback: 'Things changed after 1855. The State has to manage the fish for the population it has now.',
+                respondentFeedback: 'No tribe would have agreed to a deal that let a few settlers take nearly all the fish.',
+                canBeBoth: true,
+                source: 'https://wdfw.wa.gov/sites/default/files/2021-12/boldt_decision.pdf'
+            },
+            {
+                text: 'The treaties were explained in Chinook Jargon, a trade language of about 300 words.',
+                petitionerFeedback: 'The written English words are what both governments signed.',
+                respondentFeedback: 'If the tribes could not understand the English terms, the treaty should be read the way they understood it.',
+                canBeBoth: false,
+                source: 'https://wdfw.wa.gov/sites/default/files/2021-12/boldt_decision.pdf'
+            },
+            {
+                text: 'By the early 1970s, over 6,600 non-Indian commercial fishers and about 800 Indian commercial fishers made a living from fishing.',
+                petitionerFeedback: 'A large tribal share would fall on thousands of non-Indian families who also depend on the runs.',
+                respondentFeedback: 'Under an equal-chance rule, a few hundred tribal fishers could never keep up with thousands of others.',
+                canBeBoth: true,
+                source: 'https://wdfw.wa.gov/sites/default/files/2021-12/boldt_decision.pdf'
+            },
+            {
+                text: 'In 1974, before the Boldt order took effect, treaty tribes caught about 2 percent of the salmon and trout in the treaty area.',
+                petitionerFeedback: 'Catch numbers reflect boats and skill. The treaty promised a chance, not a result.',
+                respondentFeedback: 'An equal chance that produces 2 percent shows the treaty promise was not being kept.',
+                canBeBoth: false,
+                source: null
+            },
+            {
+                text: 'In 1977 the Washington Supreme Court said special fishing rights for tribes would violate the Equal Protection Clause.',
+                petitionerFeedback: 'The State’s highest court agreed that every citizen must be treated the same.',
+                respondentFeedback: 'Tribes are nations with treaty rights, so treating treaty rights differently is not unequal treatment of citizens.',
+                canBeBoth: false,
+                source: null
+            },
+            {
+                text: 'After state courts blocked the State’s fish agency, the federal district court began supervising parts of the State’s fishery itself.',
+                petitionerFeedback: 'A federal judge running a state’s fisheries goes beyond what courts should do.',
+                respondentFeedback: 'Article VI binds state judges to treaties. The federal court stepped in only because the State would not follow the treaty.',
+                canBeBoth: true,
+                source: null
+            }
+        ]
 };
 
 // Initialize evidence sort when DOM is ready

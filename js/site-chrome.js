@@ -1,6 +1,6 @@
 // Shared header, footer, save status, and keyboard behavior for every page.
 (function () {
-    var VERSION = 'v1.23.0';
+    var VERSION = 'v1.24.0';
     var READING_KEY = 'scotus-reading-level';
 
     function relPrefix() {

@@ -8,6 +8,20 @@
 
   var TERMS = [
     {
+      term: "police power",
+      meaning:
+        "A state’s power to make laws for the health, safety and welfare of the people who live there, such as quarantine and health laws. It is limited by the rights the Constitution protects.",
+      simple:
+        "A state’s power to make laws that protect people’s health and safety. The Constitution still limits it."
+    },
+    {
+      term: "due process",
+      meaning:
+        "The Fourteenth Amendment’s promise that no state may take away a person’s life, liberty or property without fair procedures and lawful reasons.",
+      simple:
+        "Fair rules the government must follow before it takes away someone’s life, liberty or property."
+    },
+    {
       term: "in loco parentis",
       meaning:
         "Latin for “in the place of a parent.” The idea that, during the school day, staff may act a bit like a parent — with more leeway than police on the street, but still bound by the Constitution.",
@@ -20,6 +34,20 @@
         "A test for student speech: schools may limit it only if they can show it would actually interfere with class or school operations — not just because they dislike the message or fear a little controversy. A 1966 appeals case, Burnside v. Byars, used this test, and the Tinker students ask the Court to adopt it.",
       simple:
         "Real interference with class or school — not “we don’t like this message” or “we fear a little controversy.”"
+    },
+    {
+      term: "school-sanctioned event",
+      meaning:
+        "An activity the school approves and supervises, even if it happens away from the school building, like a field trip or a school-approved trip outside to watch a parade. Whether an event counts can decide whether school rules apply.",
+      simple:
+        "An activity the school approves and watches over, even away from the building."
+    },
+    {
+      term: "viewpoint",
+      meaning:
+        "A side or opinion on a topic. A rule that bans one side of an issue but allows the other side is called viewpoint discrimination, and courts look at such rules very closely.",
+      simple:
+        "A side or opinion on a topic. Banning only one side is called viewpoint discrimination."
     },
     {
       term: "reasonable suspicion",
@@ -195,6 +223,34 @@
         "A change added to the Constitution. The Bill of Rights is the first ten amendments. Later ones, like the Fourteenth, also matter in these cases.",
       simple:
         "A change added to the Constitution. The first ten are the Bill of Rights. Later ones, like the Fourteenth, also matter here."
+    },
+    {
+      term: "treaty",
+      meaning:
+        "A binding agreement between nations. Under Article VI, treaties made by the United States are the supreme law of the land and outrank state law.",
+      simple:
+        "A deal between nations. Treaties made by the United States outrank state law."
+    },
+    {
+      term: "sovereignty",
+      meaning:
+        "The power of a nation to govern itself. Tribes are sovereign nations that governed themselves before the United States existed, and their treaties are agreements between governments.",
+      simple:
+        "A nation’s power to govern itself. Tribes are sovereign nations."
+    },
+    {
+      term: "usual and accustomed",
+      meaning:
+        "Treaty words for the places where a tribe traditionally fished, both on and off its reservation.",
+      simple:
+        "The places where a tribe has always fished."
+    },
+    {
+      term: "trust responsibility",
+      meaning:
+        "The legal duty of the United States to protect tribal lands, resources and treaty rights.",
+      simple:
+        "The duty of the United States to protect tribal rights and lands."
     }
   ];
 
@@ -478,16 +534,20 @@
     }
     var frames = document.getElementById("law-case-frames");
     if (frames && window.CASE_PREP_DATA && typeof window.scotusLawBoxHtml === "function") {
-      var order = ["tinker", "mahanoy", "tlo", "payton", "kennedy", "brown", "arizona"];
+      var order = ["tinker", "mahanoy", "morse", "jacobson", "tlo", "payton", "kennedy", "brown", "arizona"];
       var hrefs = {
         tinker: "cases/tinker.html",
+        jacobson: "cases/jacobson.html",
         mahanoy: "cases/mahanoy.html",
+        morse: "cases/morse.html",
         tlo: "cases/tlo.html",
         payton: "cases/payton.html",
         kennedy: "cases/kennedy.html",
         brown: "cases/brown.html",
         arizona: "cases/arizona.html"
       };
+      order.push("fishing-rights");
+      hrefs["fishing-rights"] = "cases/fishing-rights.html";
       frames.innerHTML = order
         .map(function (id) {
           var data = CASE_PREP_DATA[id];

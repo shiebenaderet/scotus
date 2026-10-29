@@ -216,6 +216,7 @@
 .case-btn[data-case="mahanoy"].selected { background: #3d4a5c; border-color: #3d4a5c; }
 .case-btn[data-case="kennedy"].selected { background: #5c4a3d; border-color: #5c4a3d; }
 .case-btn[data-case="arizona"].selected { background: #5c3d4a; border-color: #5c3d4a; }
+.case-btn[data-case="fishing-rights"].selected { background: #2e5355; border-color: #2e5355; }
 
 .clear-all-btn {
     padding: 0.5rem 1rem;
@@ -391,6 +392,7 @@
 .card-case-tag.mahanoy { background: #3d4a5c; }
 .card-case-tag.kennedy { background: #5c4a3d; }
 .card-case-tag.arizona { background: #5c3d4a; }
+.card-case-tag.fishing-rights { background: #2e5355; }
 
 .card-type {
     font-size: 0.75rem;

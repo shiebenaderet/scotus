@@ -52,16 +52,16 @@ var argumentData = {
     ],
     payton: [
         "The Fourth Amendment protects people's homes from unreasonable government searches.",
-        "Police had strong evidence that Payton committed murder based on witness statements.",
-        "The Supreme Court has consistently required warrants for searches of homes.",
+        "Police had probable cause to believe that Payton committed murder.",
+        "The Supreme Court had long required warrants for most searches of homes.",
         "Allowing warrantless arrests in homes would effectively eliminate the warrant requirement.",
         "Police have traditionally had the power to arrest suspects without warrants in public places.",
         "The suspect could destroy evidence or flee if police had to wait for a warrant.",
         "There is an important difference between searching a home and entering to arrest someone.",
-        "Most states believe that arrest warrants should be required for home entries.",
+        "Fewer and fewer states allowed police to enter homes without warrants to make arrests.",
         "Police can enter homes without warrants in true emergencies.",
         "Throughout American history, police have made home arrests without warrants.",
-        "Getting a warrant is not difficult for police to obtain.",
+        "Getting a warrant is not difficult for police.",
         "A person's home deserves the strongest Fourth Amendment protection."
     ],
     mahanoy: [
@@ -79,6 +79,21 @@ var argumentData = {
         "Cheerleaders represent the school and should maintain appropriate conduct at all times.",
         "B.L.'s posts contained no threats, harassment, or even mention of her specific school."
     ],
+    morse: [
+        "The relay was an approved school event during school hours, and teachers supervised the students.",
+        "Frederick stood on a public sidewalk across the street and had not been inside the school that day.",
+        "The school board had a written rule against student messages that advocate using substances illegal for minors.",
+        "Frederick said the words were meaningless and funny, not a message about drugs.",
+        "Schools teach students that illegal drugs are dangerous, and a message that promotes drugs works against that lesson.",
+        "The school never claimed the banner disrupted classwork.",
+        "Frederick refused to take the banner down when the principal told him to.",
+        "A school should not be able to punish a message just because officials dislike it.",
+        "Students do not have the same free speech rights at school as adults have in public.",
+        "The superintendent said the banner was not political speech.",
+        "Students did not need permission slips and did not have to stay with their teachers during the relay.",
+        "The banner was held up where the students on the school side of the street could easily read it.",
+        "Punishing a student for a joke could make students afraid to say anything a principal might misread."
+    ],
     kennedy: [
         "Praying at midfield was an important part of his personal religious practice.",
         "Accommodating his prayer practice does not violate the Establishment Clause.",
@@ -94,6 +109,20 @@ var argumentData = {
         "When a government employee prays publicly, it appears that the government endorses that religion.",
         "Public employees retain their First Amendment rights even while working.",
         "He never required, asked, or pressured students to join his prayers."
+    ],
+    jacobson: [
+        "A free country lets each adult decide what is done to his own body.",
+        "Smallpox was spreading in Cambridge when the vaccination order was made.",
+        "The law excused children with a doctor’s note but gave adults no medical exception.",
+        "The state offered vaccination for free, so cost kept no one from obeying.",
+        "Vaccines in that era were not always safe or pure.",
+        "Health laws have long been part of what states control.",
+        "Jacobson should have been allowed to show the jury his evidence about harm.",
+        "If anyone could refuse, the order could not stop the outbreak.",
+        "A vaccination he received as a child caused him serious harm.",
+        "Courts in other states had already upheld vaccination rules.",
+        "Elected lawmakers and health boards, not juries, should weigh medical evidence for a whole city.",
+        "Punishing a person for refusing a medical procedure goes too far, even if the penalty is small."
     ],
     arizona: [
         "The Constitution gives the federal government broad power over immigration and naturalization.",
@@ -112,6 +141,22 @@ var argumentData = {
     ]
 };
 
+argumentData['fishing-rights'] = [
+    "The treaties say tribes fish “in common with all citizens,” which means everyone shares the same chance to fish, not a set share.",
+    "When the treaties were signed, about three-fourths of the roughly 10,000 people in the region were Indians, and they depended on salmon.",
+    "Giving one group special fishing rights breaks the Fourteenth Amendment’s promise of equal protection.",
+    "Treaties are “the supreme Law of the Land,” so a state cannot cut back a treaty promise.",
+    "Thousands of non-Indian families make their living from fishing, and a large tribal share could cost them their jobs.",
+    "Under the “equal chance” rule, treaty tribes caught only about 2 percent of the salmon and trout.",
+    "The State must be able to limit fishing so salmon runs survive for future years.",
+    "The treaties were explained in Chinook Jargon, a trade language of about 300 words, so they should be read the way the tribes understood them.",
+    "The tribes knew settlers would fish at the same places, so the treaties did not reserve the fish for tribes alone.",
+    "In 1905 the Supreme Court said a treaty was “not a grant of rights to the Indians, but a grant of right from them.”",
+    "A federal judge should not take over how a state runs its own fisheries.",
+    "Governor Stevens promised the tribes they could keep fishing as they always had.",
+    "During the trial, one State agency offered the tribes one-third of the salmon, so a fair share does not have to mean half."
+];
+
 // ============================================================
 // ARGUMENT SORT CODE MAPPING
 // Case pages use short codes (T/D/N/B etc.) in select dropdowns.
@@ -123,9 +168,13 @@ var argSortCodeMap = {
     brown:   { B: 'petitioner', S: 'respondent' },
     payton:  { P: 'petitioner', N: 'respondent' },
     mahanoy: { M: 'petitioner', B: 'respondent' },
+    morse:   { M: 'petitioner', F: 'respondent' },
     kennedy: { K: 'petitioner', B: 'respondent' },
+    jacobson: { J: 'petitioner', M: 'respondent' },
     arizona: { A: 'petitioner', U: 'respondent' }
 };
+
+argSortCodeMap['fishing-rights'] = { W: 'petitioner', T: 'respondent' };
 
 // ============================================================
 // HELPERS

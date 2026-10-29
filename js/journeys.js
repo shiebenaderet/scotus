@@ -1,6 +1,6 @@
 // Case Journeys Timeline Data and Functionality
 
-// Timeline data for all 7 cases
+// Timeline data for every case
 const caseData = {
     tinker: {
         name: "Tinker v. Des Moines",
@@ -212,6 +212,48 @@ const caseData = {
             }
         ]
     },
+    morse: {
+        name: "Morse v. Frederick",
+        shortName: "Morse",
+        events: [
+            {
+                date: "January 24, 2002",
+                type: "incident",
+                title: "Banner at the Olympic Torch Relay",
+                ruling: null,
+                standard: "Principal Deborah Morse let Juneau-Douglas High School students leave class to watch the Olympic Torch Relay pass the school. Senior Joseph Frederick, who had not yet entered the school that day, stood with friends on the sidewalk across the street and unrolled a 14-foot banner reading \"BONG HiTS 4 JESUS.\" He refused to take it down, and Morse suspended him for 10 days.",
+                simplified: "Students were let out of class to watch the Olympic torch go by. Joseph Frederick stood across the street and held up a banner that said \"BONG HiTS 4 JESUS.\" The principal told him to take it down. He would not, so she suspended him.",
+                reasoning: null
+            },
+            {
+                date: "2002\u20132003",
+                type: "district",
+                title: "District Court Rules for the School",
+                ruling: "favor-petitioner",
+                standard: "Frederick sued Morse and the Juneau School Board. The U.S. District Court for the District of Alaska ruled for the school. It found that Morse reasonably read the banner as promoting illegal drug use, which went against the school board's drug-prevention policies.",
+                simplified: "Frederick sued. The first court sided with the school. The judge said the principal could reasonably think the banner was about drugs.",
+                reasoning: "The court held that Morse had the authority to stop such messages at a school-approved activity."
+            },
+            {
+                date: "March 2006",
+                type: "appeals",
+                title: "Ninth Circuit Rules for Frederick",
+                ruling: "favor-respondent",
+                standard: "The U.S. Court of Appeals for the Ninth Circuit reversed. It accepted that the relay was a school-authorized activity, but held that the school punished Frederick without showing that his banner created a risk of substantial disruption.",
+                simplified: "The appeals court sided with Frederick. It said the school had to show the banner could cause a real disruption, and it had not.",
+                reasoning: "The court applied the substantial-disruption test and found the school's drug-prevention reason was not enough."
+            },
+            {
+                date: "June 25, 2007",
+                type: "scotus",
+                title: "Supreme Court Rules for the School (5-4)",
+                ruling: "favor-petitioner",
+                standard: "The Supreme Court ruled 5-4 that the principal did not violate the First Amendment. Chief Justice Roberts wrote that schools may take steps to protect students from speech at school events that can reasonably be regarded as encouraging illegal drug use. Justice Stevens wrote the main dissent.",
+                simplified: "The Supreme Court sided with the school, 5 to 4. It said a school may stop student messages at school events that look like they encourage illegal drug use.",
+                reasoning: "The majority treated the relay as a school event and held that a pro-drug message there could be restricted without proof of disruption."
+            }
+        ]
+    },
     kennedy: {
         name: "Kennedy v. Bremerton School District",
         shortName: "Kennedy",
@@ -251,6 +293,48 @@ const caseData = {
                 standard: "The Supreme Court ruled 6-3 that the school district violated Kennedy's First Amendment rights to free speech and free exercise of religion. The Court held that Kennedy's prayers were private speech, not government speech, and that the Establishment Clause does not require the government to suppress private religious expression.",
                 simplified: "The Supreme Court said the coach should be allowed to pray. Six justices said his quiet prayers were his own personal choice, not the school telling people to pray. Schools don't have to stop people from praying on their own.",
                 reasoning: "Justice Gorsuch wrote that the Constitution neither mandates nor permits the government to suppress private religious expression."
+            }
+        ]
+    },
+    jacobson: {
+        name: "Jacobson v. Massachusetts",
+        shortName: "Jacobson",
+        events: [
+            {
+                date: "February to July 1902",
+                type: "incident",
+                title: "Cambridge Orders Vaccination",
+                ruling: null,
+                standard: "With smallpox spreading in Cambridge, the board of health ordered on February 27, 1902, that everyone not successfully vaccinated since March 1, 1897, be vaccinated. Pastor Henning Jacobson refused a free vaccination and was charged under a state law that fined adults $5 for refusing.",
+                simplified: "Smallpox was spreading in Cambridge, Massachusetts. The city told people to get vaccinated. Henning Jacobson said no, so he was charged. Grown-ups who said no had to pay $5.",
+                reasoning: null
+            },
+            {
+                date: "1902",
+                type: "district",
+                title: "Trial Court Convicts Jacobson",
+                ruling: "favor-respondent",
+                standard: "The trial judge excluded all of Jacobson's offers to prove that vaccination was dangerous and that it had harmed him as a child. The jury found him guilty.",
+                simplified: "The judge would not let the jury hear Jacobson's proof that vaccines could hurt people. The jury said he was guilty.",
+                reasoning: "The court treated Jacobson's medical evidence as immaterial to whether he broke the law."
+            },
+            {
+                date: "1903",
+                type: "appeals",
+                title: "Massachusetts High Court Upholds Law",
+                ruling: "favor-respondent",
+                standard: "The Supreme Judicial Court of Massachusetts upheld the law and the trial court's rulings, and Jacobson was sentenced to pay the $5 fine. He took the case to the U.S. Supreme Court.",
+                simplified: "The top court in Massachusetts agreed with the trial. Jacobson had to pay $5. Then he went to the U.S. Supreme Court.",
+                reasoning: "The state court treated the statute as a valid health law under the police power."
+            },
+            {
+                date: "February 20, 1905",
+                type: "scotus",
+                title: "Supreme Court Upholds Vaccination Law (7-2)",
+                ruling: "favor-respondent",
+                standard: "The Supreme Court ruled 7-2 that the Massachusetts law did not violate the Fourteenth Amendment. Justice Harlan wrote that a community may protect itself against an epidemic through reasonable regulations, while warning that courts could step in if a health rule were applied in an arbitrary or unreasonable way. Justices Brewer and Peckham dissented.",
+                simplified: "The Supreme Court said Massachusetts could require the vaccine, with 7 justices agreeing. But it said courts could step in if a health rule was unreasonable.",
+                reasoning: "Justice Harlan relied on the police power and on the danger smallpox posed to the whole community."
             }
         ]
     },
@@ -296,6 +380,49 @@ const caseData = {
             }
         ]
     }
+};
+
+caseData['fishing-rights'] = {
+    name: "Washington v. Washington State Commercial Passenger Fishing Vessel Ass'n",
+    shortName: "Fishing Rights",
+    events: [
+            {
+                date: "September 1970",
+                type: "incident",
+                title: "United States Sues Washington",
+                ruling: null,
+                standard: "In 1854 and 1855, the tribes of western Washington signed treaties that kept their right to fish at their usual places “in common with all citizens.” Over the next century, state rules pushed most tribal fishers out, and in the 1960s tribal members held fish-ins. In September 1970, police arrested about 60 people at a fish-in on the Puyallup River. Nine days later, the United States sued the State of Washington as trustee for seven tribes.",
+                simplified: "The tribes signed treaties in 1854 and 1855 that kept their right to fish. Over time, state rules pushed most tribal fishers out. In the 1960s they held fish-ins. In 1970 the United States sued Washington State to protect the tribes’ fishing rights.",
+                reasoning: null
+            },
+            {
+                date: "February 12, 1974",
+                type: "district",
+                title: "The Boldt Decision",
+                ruling: "favor-respondent",
+                standard: "Judge George Boldt ruled that “in common with” means “sharing equally the opportunity to take fish,” so treaty fishers could take up to 50 percent of the harvestable fish passing their usual and accustomed places.",
+                simplified: "Judge George Boldt ruled for the tribes. He said they could take up to half of the fish that could be caught at their usual places.",
+                reasoning: "Boldt read the treaty words using dictionaries from 1828 and 1862 and the court’s findings about what the tribes understood."
+            },
+            {
+                date: "1975–1977",
+                type: "appeals",
+                title: "Appeals Court Agrees; State Courts Resist",
+                ruling: "mixed",
+                standard: "The Ninth Circuit Court of Appeals affirmed the Boldt decision in 1975, and the Supreme Court declined to review it in 1976. In 1977 the Washington Supreme Court ruled that the State’s fisheries agency could not carry out the federal order and that special fishing rights would violate equal protection. The federal court then began supervising parts of the State’s fishery.",
+                simplified: "A federal appeals court agreed with Judge Boldt. But in 1977 Washington’s top court said the State could not follow his order. So the federal court started running parts of the State’s fishery.",
+                reasoning: "Federal and state courts read the same treaty words in opposite ways, which set up the conflict for the Supreme Court."
+            },
+            {
+                date: "July 2, 1979",
+                type: "scotus",
+                title: "Supreme Court Rules for the Tribes (6–3)",
+                ruling: "favor-respondent",
+                standard: "The Supreme Court ruled 6–3 that the treaties secure the tribes a share of each run of fish that passes through their usual places, not just an equal chance to try. Justice Stevens wrote that the share may be up to 50 percent and can be lowered if a tribe needs less to earn a moderate living. Justice Powell dissented, joined by Justices Stewart and Rehnquist.",
+                simplified: "The Supreme Court ruled 6–3 for the tribes. The treaties promise them a share of the fish, up to half, not just the same chance as everyone. Three justices disagreed.",
+                reasoning: "The Court read the treaties as the tribes would have understood them in 1854–1855 and pointed to Article VI: state law cannot block a treaty right."
+            }
+    ]
 };
 
 // DOM Elements

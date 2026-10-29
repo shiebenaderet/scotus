@@ -188,7 +188,8 @@
                 '<h3>Competing tests — what each side wants the Court to adopt</h3>' +
                 levelPair(
                     '<p class="tests-lead">Do not just say your side is “right.” Name the <strong>rule</strong> you want. Every argument should end with: “Under our test, this fact matters because…”</p>',
-                    '<p class="tests-lead">Do not just say you are right. Name the <strong>rule</strong> you want the Court to write. Then say: “Under our test, this fact matters because…”</p>'
+                    '<p class="tests-lead">Do not just say you are right. Name the <strong>rule</strong> you want the Court to write. Then say: “Under our test, this fact matters because…”</p>',
+                    '<p class="tests-lead">Do not just say your side is right. Each side wants a <strong>rule</strong>, a test the Court will use. Pick one. Then say: “Under our test, this fact matters because…”</p>'
                 ) +
                 '<div class="tests-grid">' +
                     '<div class="test-card petitioner">' +

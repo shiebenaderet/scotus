@@ -68,10 +68,14 @@
     <script src="js/firebase-init.js"></script>
     <script>
     var PAIRS = [
+        { a: 'jacobson', b: 'payton', title: 'Jacobson + Payton', prompt: 'Your body and your home. When may the government reach into either to protect the community? What makes an emergency enough, and who decides?' },
         { a: 'tinker', b: 'mahanoy', title: 'Tinker + Mahanoy', prompt: 'Silent on-campus armbands vs. a vulgar off-campus Snap. What should “substantial disruption” mean in each place? What does B.L.’s Snap have that the armbands did not — and the reverse?' },
+        { a: 'morse', b: 'tinker', title: 'Morse + Tinker', prompt: 'A silent political armband inside school vs. a nonsense banner across the street at a school event. Does it matter more where the speech happened or what it said?' },
+        { a: 'morse', b: 'mahanoy', title: 'Morse + Mahanoy', prompt: 'A banner at a school-approved event vs. a weekend Snap from a store. Where does school end? List the facts that pull each case toward \u201cschool\u201d and away from it.' },
         { a: 'tlo', b: 'payton', title: 'T.L.O. + Payton', prompt: 'A school purse vs. a locked apartment. Why might the Fourth Amendment treat those places differently? When is a warrant necessary, and when is “reasonableness” enough?' },
         { a: 'kennedy', b: 'tinker', title: 'Kennedy + Tinker', prompt: 'Student political speech vs. employee religious speech. Who counts as “the government” in each case? Would Tinker’s disruption idea help either side in Kennedy?' },
-        { a: 'brown', b: 'arizona', title: 'Brown + Arizona', prompt: 'Equal protection vs. federalism. How is “local control” or “tradition” different from a real public-safety limit on a right? Don’t mash both into the unit slogan.' }
+        { a: 'brown', b: 'arizona', title: 'Brown + Arizona', prompt: 'Equal protection vs. federalism. How is “local control” or “tradition” different from a real public-safety limit on a right? Don’t mash both into the unit slogan.' },
+        { a: 'arizona', b: 'fishing-rights', title: 'Arizona + Fishing Rights', prompt: 'Two states push back against federal law. Arizona adds its own immigration rules; Washington refuses a federal court’s reading of a treaty. What makes federal law or a treaty outrank the state in each case, and what is different about a treaty with sovereign nations?' }
     ];
 
     function renderPair(pair) {

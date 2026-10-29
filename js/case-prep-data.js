@@ -1,7 +1,157 @@
-// Shared prep data for all seven cases.
+// Shared prep data for every case.
 // Prep materials stay pre-decision: no holdings, votes, or quotes from THIS case.
 
 var CASE_PREP_DATA = {
+    jacobson: {
+        shortTitle: 'Jacobson v. Massachusetts',
+        petitioner: { name: 'Henning Jacobson', legal: 'Petitioner' },
+        respondent: { name: 'Commonwealth of Massachusetts', legal: 'Respondent' },
+        amendment: 'Fourteenth Amendment: liberty and due process',
+        question: 'May a state fine an adult who refuses a smallpox vaccination during an outbreak?',
+        drivingFrame: 'This case is about whether a state may limit one person’s liberty over his own body to protect a whole city from a deadly disease.',
+        drivingFrameSimple: 'A city ordered smallpox vaccinations. Jacobson said no and was fined. The fight: does liberty include saying no, or may the state protect everyone?',
+        drivingFrameQuick: 'A city told people to get a smallpox vaccine. Jacobson said no. So can a state fine him to keep everyone safe?',
+        law: {
+            issue: 'May a state make adults choose between vaccination and a fine during an outbreak, with no medical exception for adults?',
+            issueSimple: 'May a state fine an adult who will not be vaccinated during an outbreak?',
+            issueQuick: 'Can a state fine a grown-up who says no to a vaccine?',
+            clause: 'nor shall any State deprive any person of life, liberty, or property, without due process of law',
+            clauseCite: 'Fourteenth Amendment, Section 1',
+            plain: 'The Fourteenth Amendment limits what a state may do to a person’s liberty. States also have the police power, the power to make laws for public health and safety. Jacobson says liberty includes refusing a medical procedure he believes could harm him, and that adults deserve the same medical exception children get. Massachusetts says stopping an epidemic is a core use of the police power, and that health boards, not juries, should weigh medical evidence for a whole city.',
+            steps: [
+                { label: 'The rule:', text: 'A state may not take away a person’s liberty without due process of law.' },
+                { label: 'What it means here:', text: 'Massachusetts fined adults $5 for refusing a free smallpox vaccination during an outbreak.' },
+                { label: 'Jacobson says:', text: 'Liberty includes deciding what is done to your own body. The law was also unfair, because only children could get a medical exception.' },
+                { label: 'Massachusetts says:', text: 'Protecting people from a deadly epidemic is one of a state’s oldest powers. One person’s refusal puts neighbors at risk.' },
+                { label: 'Your job:', text: 'Argue where the line belongs between personal liberty and public health. Do not just say vaccines are good or bad.' }
+            ],
+            stepsQuick: [
+                { label: 'The rule:', text: 'A state may not take away a person’s freedom unless it is fair.' },
+                { label: 'Here:', text: 'The state fined grown-ups $5 for saying no to a free vaccine.' },
+                { label: 'Jacobson says:', text: 'He gets to decide what is done to his own body. Kids could skip it with a doctor’s note. Grown-ups could not.' },
+                { label: 'The state says:', text: 'Smallpox can kill. One person who says no can make others sick.' },
+                { label: 'Your job:', text: 'Pick a side and argue for it. Do not just say vaccines are good or bad.' }
+            ],
+            terms: [
+                { term: 'police power', meaning: 'A state’s power to make laws for the health, safety and welfare of its people. Massachusetts says a vaccination order during an epidemic is a clear use of it.', simple: 'A state’s power to make laws that protect people’s health and safety.', quick: 'A state’s power to keep people safe and healthy.' },
+                { term: 'due process', meaning: 'The Fourteenth Amendment’s promise that a state must follow fair rules before taking away life, liberty or property. Jacobson says the vaccination law took his liberty.', simple: 'Fair rules a state must follow before it takes away someone’s liberty.', quick: 'Fair rules. The government must follow them before it takes away your freedom.' },
+                { term: 'epidemic', meaning: 'An outbreak of disease that spreads to many people in one area at the same time. Smallpox was spreading in Cambridge in 1902.', simple: 'A disease that spreads to many people in one place at once.', quick: 'A disease that spreads to many people in one place.' }
+            ]
+        },
+        tests: {
+            petitioner: {
+                title: 'Personal liberty, with a medical exception',
+                text: 'A state may not punish an adult for refusing a medical procedure he reasonably believes could harm him. At the very least, adults must get the same chance children get to show a medical reason, and a court must hear that evidence.',
+                textSimple: 'Jacobson’s rule: a state may not punish an adult for refusing a medical procedure he believes could hurt him. Adults should get the same medical exception children get.',
+                textQuick: 'Jacobson wants this rule. A state may not punish a grown-up for saying no to something done to his body.'
+            },
+            respondent: {
+                title: 'Reasonable public health measures',
+                text: 'During an epidemic, a state may require reasonable health measures of everyone, as long as the rule has a real connection to stopping the disease. Elected lawmakers and health boards, not individual juries, decide which medical evidence to trust.',
+                textSimple: 'The state’s rule: during an epidemic, a state may require reasonable health steps of everyone if they really help stop the disease.',
+                textQuick: 'The state wants this rule. In an outbreak, the state may make health rules for everyone if they help stop the disease.'
+            }
+        },
+        theorySamples: {
+            petitioner: [
+                'Henning Jacobson, a pastor in Cambridge, Massachusetts.',
+                'During a 1902 smallpox outbreak, the city ordered everyone not recently vaccinated to be vaccinated. Jacobson refused, citing harm he said a childhood vaccination caused him, and was fined $5.',
+                'May a state punish an adult for refusing a medical procedure on his own body?',
+                'The Fourteenth Amendment says no state may deprive any person of liberty without due process of law.',
+                'The Court should hold that adults may refuse vaccination, or at least must get a medical exception and a chance to prove it.',
+                'If a state can fine you for what you refuse to let doctors do to your body, liberty has little meaning.'
+            ],
+            respondent: [
+                'The Commonwealth of Massachusetts and the Cambridge Board of Health.',
+                'Smallpox was spreading and increasing in Cambridge. The board offered free vaccination and set a $5 fine for adults who refused.',
+                'May a state require reasonable health measures of everyone during an epidemic?',
+                'States keep the police power to protect public health and safety, and health laws have long belonged to the states.',
+                'The Court should hold that a reasonable vaccination order during an epidemic does not violate the Fourteenth Amendment.',
+                'If every person may refuse, no city can stop an epidemic, and the neighbors pay the price.'
+            ]
+        },
+        weighing: {
+            petitioner: [
+                'Liberty under the Fourteenth Amendment covers more than freedom from jail (Allgeyer, 1897).',
+                'The law gave children a medical exception but gave adults none.',
+                'The trial judge would not let Jacobson show the jury any evidence of harm.',
+                'Vaccines of that era were not always pure: in 1901, nine children in Camden died after contaminated smallpox vaccine.'
+            ],
+            respondent: [
+                'Smallpox was spreading and increasing in Cambridge when the order was made.',
+                'The vaccine was free, and the penalty was a $5 fine, not forced vaccination.',
+                'Health laws have long belonged to the states (Gibbons v. Ogden, 1824).',
+                'Other courts had already upheld vaccination rules (Viemeister v. White, New York, 1904).'
+            ]
+        },
+        hardSide: {
+            title: 'How to argue either side without spreading health misinformation',
+            html: '<p>Both sides argue about the law, not about whether vaccines work today. Jacobson’s real legal theory was <strong>liberty under the Fourteenth Amendment, a missing medical exception for adults, and his right to present evidence</strong>. Massachusetts’s real theory was <strong>the police power during an epidemic</strong>. Use the 1902 facts in the reading. Do not invent medical claims or statistics for either side.</p>'
+        },
+        hotBench: [
+            { q: 'If a fine is allowed, what about jail? What about holding someone down?', tip: 'Both sides: say where your rule stops. The 1902 law used a fine, not force.' },
+            { q: 'Why should a jury not hear Jacobson’s medical evidence?', tip: 'Massachusetts: lawmakers and health boards weigh medical evidence for everyone. Jacobson: a person on trial gets to defend himself.' },
+            { q: 'Children could get a doctor’s note. Why not adults?', tip: 'Massachusetts: rules may differ by age. Jacobson: the same risk deserves the same exception.' },
+            { q: 'Does it matter that smallpox was spreading at the time?', tip: 'Massachusetts leans on the emergency. Jacobson asks whether liberty depends on the news.' },
+            { q: 'If your body is yours, may a person with smallpox refuse quarantine too?', tip: 'Jacobson needs a limiting principle. Massachusetts needs one too: what may the state never require?' },
+            { q: 'One-sentence rule, counsel.', tip: 'Personal liberty with a medical exception vs. reasonable public health measures in an epidemic.' }
+        ],
+        pair: {
+            other: 'Payton v. New York',
+            href: 'payton.html',
+            prompt: 'Payton is about when the government may enter your home. Jacobson is about what the government may require of your body. Which deserves more protection, and when may the community’s safety override either?'
+        },
+        sources: [
+            {
+                type: 'statute', typeLabel: 'The law',
+                title: 'Massachusetts vaccination statute',
+                excerpt: 'A board of health, “if, in its opinion, it is necessary for the public health or safety, shall require and enforce the vaccination and revaccination of all the inhabitants thereof, and shall provide them with the means of free vaccination.” An adult over 21 who refused “shall forfeit $5.” Children were excused with “a certificate, signed by a registered physician, that they are unfit subjects for vaccination.”',
+                citation: 'Revised Laws of Massachusetts, ch. 75, §§ 137, 139, as quoted in the case record.'
+            },
+            {
+                type: 'historical', typeLabel: 'Case record',
+                title: 'The Cambridge order (February 27, 1902)',
+                excerpt: '“Whereas, smallpox has been prevalent to some extent in the city of Cambridge, and still continues to increase; and whereas, it is necessary for the speedy extermination of the disease that all persons not protected by vaccination should be vaccinated…”',
+                citation: 'Cambridge Board of Health regulation, February 27, 1902, case record.'
+            },
+            {
+                type: 'historical', typeLabel: 'Case record',
+                title: 'What Jacobson offered to prove',
+                excerpt: 'Jacobson offered to prove that vaccination “quite often” caused serious injury, and that he had refused because, “when a child,” vaccination had caused him “great and extreme suffering for a long period.” The trial judge excluded all of it.',
+                citation: 'Offers of proof, Jacobson trial record (1902).'
+            },
+            {
+                type: 'government', typeLabel: 'Government history',
+                title: 'Contaminated vaccine in Camden (1901)',
+                excerpt: '“Nine children died from tetanus after receiving contaminated smallpox vaccine.” Congress passed the Biologics Control Act in 1902, its first regulation of how vaccines were made.',
+                citation: 'U.S. Food and Drug Administration, “The Road to the Biotech Revolution: Highlights of 100 Years of Biologics Regulation.”'
+            },
+            {
+                type: 'precedent', typeLabel: 'Earlier case',
+                title: 'Allgeyer v. Louisiana (1897)',
+                excerpt: 'The Court said Fourteenth Amendment liberty means more than “the right of the citizen to be free from the mere physical restraint of his person, as by incarceration.” Jacobson reads that liberty to include his own body.',
+                citation: 'Allgeyer v. Louisiana, 165 U.S. 578, 589 (1897).'
+            },
+            {
+                type: 'precedent', typeLabel: 'Earlier case',
+                title: 'Gibbons v. Ogden (1824)',
+                excerpt: 'Chief Justice Marshall listed “Inspection laws, quarantine laws, health laws of every description” among the laws that belong to the states. Massachusetts says a vaccination order is exactly that kind of law.',
+                citation: 'Gibbons v. Ogden, 22 U.S. 1 (1824).'
+            },
+            {
+                type: 'court', typeLabel: 'State court',
+                title: 'Viemeister v. White (New York, 1904)',
+                excerpt: 'New York’s highest court upheld a rule that kept unvaccinated children out of public school. Massachusetts points to it; Jacobson replies that a school entry rule is not a criminal fine on an adult.',
+                citation: 'Viemeister v. White, 179 N.Y. 235 (1904).'
+            },
+            {
+                type: 'historical', typeLabel: 'Context',
+                title: 'The Boston outbreak',
+                excerpt: '“In Boston alone, 270 people died from smallpox during the extended 1901 to 1903 outbreak.”',
+                citation: 'Dave Roos, “When the Supreme Court Ruled a Vaccine Could Be Mandatory,” History.com, January 6, 2021.'
+            }
+        ]
+    },
     tinker: {
         shortTitle: 'Tinker v. Des Moines',
         petitioner: { name: 'Tinker family (the students)', legal: 'Petitioner' },
@@ -759,6 +909,155 @@ var CASE_PREP_DATA = {
         ]
     },
 
+    morse: {
+        shortTitle: 'Morse v. Frederick',
+        petitioner: { name: 'Principal Morse and the Juneau School Board', legal: 'Petitioner' },
+        respondent: { name: 'Joseph Frederick (the student)', legal: 'Respondent' },
+        amendment: 'First Amendment: student speech at a school event',
+        question: 'May a public school punish a student for a banner at a school event that officials believe promotes illegal drug use?',
+        drivingFrame: 'This case is about whether a school may limit a student message it sees as promoting illegal drugs, when the student stood on a public sidewalk during an event the school had approved.',
+        drivingFrameSimple: 'A student held up a banner across the street from school during a school event. The principal said it promoted drugs. The fight: was he at school, and may a school ban that message?',
+        drivingFrameQuick: 'A student held up a banner during a school event. The principal said it was about drugs. So was he at school? And can a school stop that message?',
+        law: {
+            issue: 'May a public school punish a student for a banner at a school-approved event because officials read it as promoting illegal drug use?',
+            issueSimple: 'May a public school punish a banner at a school event because officials say it promotes illegal drugs?',
+            issueQuick: 'Can a school punish a banner it says is about drugs?',
+            clause: 'Congress shall make no law … abridging the freedom of speech.',
+            clauseCite: 'First Amendment',
+            plain: 'Public schools are part of government, so the First Amendment applies. The parties fight about two things. First, was Frederick at school when he stood on a public sidewalk during a relay the principal had approved? Second, which rule decides the case? Frederick says a school must show that speech would substantially disrupt school. The school says it may stop student messages that promote illegal drug use at school events, because teaching students to avoid drugs is part of its job.',
+            steps: [
+                { label: 'The rule:', text: 'The First Amendment says the government may not cut back free speech. A public school is part of the government.' },
+                { label: 'What it means here:', text: 'Frederick held up a banner across the street from school during a relay the principal had approved.' },
+                { label: 'The school says:', text: 'He was at a school event, and a school may stop messages that promote illegal drugs.' },
+                { label: 'Frederick says:', text: 'He was on a public sidewalk, the banner was a joke, and nothing was disrupted.' },
+                { label: 'Your job:', text: 'Argue which rule should decide the case, and whether he was at school.' }
+            ],
+            stepsQuick: [
+                { label: 'The rule:', text: 'The government may not cut back free speech.' },
+                { label: 'Here:', text: 'A student held up a sign during a school event. He stood across the street.' },
+                { label: 'The school says:', text: 'He was at school. Schools may stop messages about drugs.' },
+                { label: 'Frederick says:', text: 'He was on a public sidewalk. The sign was a joke.' },
+                { label: 'Your job:', text: 'Pick a side and argue for its rule.' }
+            ],
+            terms: [
+                { term: 'school-sanctioned event', meaning: 'An activity the school approves and supervises, even away from the building. The school says the torch relay was one; Frederick says students were just let out to watch a public parade.', simple: 'An activity the school approves and watches over. The two sides disagree about whether the relay was one.', quick: 'An event the school says yes to and watches over.' },
+                { term: 'substantial disruption', meaning: 'Frederick’s proposed line: a school may punish student speech only if it would seriously interfere with school. The school never claimed the banner disrupted classwork.', simple: 'Frederick’s test: the speech must seriously get in the way of school. He says nothing was disrupted.', quick: 'A big problem that stops school.' },
+                { term: 'educational mission', meaning: 'The school’s argument that teaching students to avoid illegal drugs is part of its job, so a message promoting drugs at a school event works against that job.', simple: 'What a school is trying to teach. The school says it teaches students to avoid drugs.', quick: 'What a school is trying to teach.' }
+            ]
+        },
+        tests: {
+            petitioner: {
+                title: 'School events and drug messages',
+                text: 'At an event the school approves and supervises, school rules apply. A school may stop student messages that can reasonably be read as promoting illegal drug use, because protecting students from drugs is part of its job.',
+                textSimple: 'The school’s rule: at a school event, school rules apply, and a school may stop a message that a reasonable person would read as promoting illegal drugs.',
+                textQuick: 'The school wants this rule. At a school event, the school may stop messages about using drugs.'
+            },
+            respondent: {
+                title: 'A public sidewalk and proven disruption',
+                text: 'A student on a public sidewalk who has not entered school is speaking as a citizen. Even at school, a school may punish speech only if it would substantially disrupt school, not because officials read a joke as a drug message.',
+                textSimple: 'Frederick’s rule: a public sidewalk is not school, and a school must show real disruption before it punishes speech.',
+                textQuick: 'Frederick wants this rule. The sidewalk is not school. The school must show a big problem first.'
+            }
+        },
+        theorySamples: {
+            petitioner: [
+                'Principal Deborah Morse and the Juneau School Board.',
+                'During an approved school event, a senior unrolled a 14-foot banner reading “BONG HiTS 4 JESUS” in front of the school and refused to take it down. The principal suspended him under a board policy against messages that advocate illegal drug use.',
+                'May a public school stop a student message at a school event that reasonably appears to promote illegal drug use?',
+                'Schools may limit some student speech that adults could say elsewhere, as in Bethel v. Fraser (1986). Board Policy 5520 banned messages advocating drugs that are illegal for minors.',
+                'The Court should hold that schools may restrict student speech at school events that promotes illegal drug use.',
+                'If schools must wait for disruption, they cannot back up the drug-prevention lessons they teach every day.'
+            ],
+            respondent: [
+                'Joseph Frederick, an 18-year-old senior speaking from a public sidewalk.',
+                'He had not entered school that day. He held up a banner he called meaningless and funny, hoping to get on television, across the street from campus at a relay the public also attended. He was suspended.',
+                'May a school punish a student for a silly message on a public sidewalk that disrupted nothing?',
+                'The First Amendment protects student speech unless it would substantially disrupt school. The school never claimed the banner disrupted classwork.',
+                'The Court should hold that a school may not punish non-disruptive student speech just because officials read it as a drug message.',
+                'If principals can punish any message they think hints at drugs, students will not know what they are allowed to say.'
+            ]
+        },
+        weighing: {
+            petitioner: [
+                'The principal approved the relay as a social event or class trip; she pointed to the pep band, the cheerleaders and supervising teachers.',
+                'Board Policy 5520 banned messages advocating drugs illegal for minors, and another policy applied school rules at approved events.',
+                'Frederick refused to lower the banner when the principal asked.',
+                'The superintendent wrote that the banner was not political speech.'
+            ],
+            respondent: [
+                'Frederick had not entered school and stood on a public sidewalk off school property.',
+                'Students did not need permission slips and were not required to stay with their teachers.',
+                'The school never claimed the banner disrupted classwork; the disorder came before the banner and did not involve his group.',
+                'Frederick said the words were meaningless and meant to get on television.'
+            ]
+        },
+        hardSide: null,
+        hotBench: [
+            { q: 'If the same banner said “Legalize marijuana,” could the school punish it?', tip: 'Separate a political message from one that only promotes drug use.' },
+            { q: 'Frederick never entered school that day. Why is he “at school”?', tip: 'Point to the facts: approved event, school hours, teachers supervising, school rules for events.' },
+            { q: 'The school never claimed the banner disrupted class. Why isn’t that the end of the case?', tip: 'Either explain why disruption is the wrong test here, or hold the school to it.' },
+            { q: 'Who decides what a confusing message means: the student, the principal, or a reasonable observer?', tip: 'Pick a standard and apply it to these exact words.' },
+            { q: 'Students did not need permission slips. Doesn’t that show it was not a school trip?', tip: 'Weigh the permission-slip fact against the band, the cheerleaders and the supervising teachers.' },
+            { q: 'If the school wins, could it punish a joke on a T-shirt at a school game?', tip: 'Give a limiting principle: which messages, at which events.' },
+            { q: 'If Frederick wins, can a student hold up any sign at a school event as long as no class stops?', tip: 'Concede what you must; defend the line you need.' },
+            { q: 'One-sentence rule, counsel.', tip: 'School events and drug messages vs. a public sidewalk and proven disruption.' }
+        ],
+        pair: {
+            other: 'Tinker v. Des Moines',
+            href: 'tinker.html',
+            prompt: 'A silent political armband in school vs. a nonsense banner across the street at a school event. Which facts matter more: where the speech happened, or what it said?'
+        },
+        sources: [
+            {
+                type: 'historical', typeLabel: 'The speech',
+                title: 'The banner',
+                excerpt: 'On January 24, 2002, as the Olympic Torch Relay passed Juneau-Douglas High School, Joseph Frederick and his friends unrolled a 14-foot banner reading “BONG HiTS 4 JESUS” on the sidewalk across the street. Principal Morse told them to take it down. Everyone but Frederick did.',
+                citation: 'Frederick v. Morse, 439 F.3d 1114 (9th Cir. 2006), statement of facts.'
+            },
+            {
+                type: 'statute', typeLabel: 'School rule',
+                title: 'Juneau School Board Policy 5520',
+                excerpt: '“The Board specifically prohibits any assembly or public expression that … advocates the use of substances that are illegal to minors … .” Another board policy applied the same conduct rules to students at approved social events and class trips.',
+                citation: 'Juneau School Board Policies 5520 and 5850, as quoted in the case record.'
+            },
+            {
+                type: 'historical', typeLabel: 'School record',
+                title: 'The superintendent’s memo',
+                excerpt: 'The superintendent limited the suspension to the 8 days already served but agreed with the principal. He wrote that Frederick displayed the banner “in the midst of his fellow students, during school hours, at a school-sanctioned activity,” and that his speech “was not political.”',
+                citation: 'Superintendent’s memorandum, as quoted in the case record.'
+            },
+            {
+                type: 'historical', typeLabel: 'Case fact',
+                title: 'Frederick’s side of the street',
+                excerpt: 'Frederick got stuck in the snow and had not gone to school that day before the relay. No one disputed that he stood off school property, across Glacier Avenue. He said the words were “meaningless and funny,” meant to get on television.',
+                citation: 'Frederick v. Morse, 439 F.3d 1114 (9th Cir. 2006), statement of facts.'
+            },
+            {
+                type: 'precedent', typeLabel: 'Earlier case',
+                title: 'Tinker v. Des Moines (1969)',
+                excerpt: 'Both sides discuss this case about students who wore black armbands to protest the Vietnam War. Frederick argues it requires a school to show substantial disruption before punishing student speech. The school argues it does not decide a case about a message promoting illegal drugs.',
+                citation: 'Tinker v. Des Moines Indep. Cmty. Sch. Dist., 393 U.S. 503 (1969).'
+            },
+            {
+                type: 'precedent', typeLabel: 'Earlier case',
+                title: 'Bethel v. Fraser (1986)',
+                excerpt: 'The Court allowed a school to punish a student for a lewd speech at a school assembly. The school says this shows students’ rights at school are not the same as adults’ rights elsewhere. Frederick says his banner was not lewd and was not at an assembly.',
+                citation: 'Bethel Sch. Dist. No. 403 v. Fraser, 478 U.S. 675 (1986).'
+            },
+            {
+                type: 'precedent', typeLabel: 'Earlier case',
+                title: 'Hazelwood v. Kuhlmeier (1988)',
+                excerpt: 'The Court allowed a principal to remove articles from a school-sponsored student newspaper. The school uses it to show educators may control some student speech. Frederick answers that no one thought his banner spoke for the school.',
+                citation: 'Hazelwood Sch. Dist. v. Kuhlmeier, 484 U.S. 260 (1988).'
+            },
+            {
+                type: 'court', typeLabel: 'Appeals court',
+                title: 'Ninth Circuit path',
+                excerpt: 'In March 2006 the U.S. Court of Appeals for the Ninth Circuit ruled for Frederick. It held that the school punished him without showing a risk of substantial disruption. Morse and the school board asked the Supreme Court to review the case.',
+                citation: 'Frederick v. Morse, 439 F.3d 1114 (9th Cir. 2006).'
+            }
+        ]
+    },
     kennedy: {
         shortTitle: 'Kennedy v. Bremerton',
         petitioner: { name: 'Coach Joseph Kennedy', legal: 'Petitioner' },
@@ -1066,3 +1365,163 @@ var CASE_PREP_DATA = {
         ]
     }
 };
+
+// Washington v. Washington State Commercial Passenger Fishing Vessel Ass'n (1979).
+// Pre-decision only: the 1974 Boldt ruling and earlier cases are fair game; this
+// case's holding, vote and opinion language are not.
+CASE_PREP_DATA['fishing-rights'] = {
+    shortTitle: 'Washington v. Fishing Vessel Ass’n',
+    petitioner: { name: 'State of Washington', legal: 'Petitioner' },
+    respondent: { name: 'Treaty tribes and the United States', legal: 'Respondent' },
+    amendment: 'Treaty rights and the Supremacy Clause (Article VI)',
+    question: 'Do the 1854–1855 treaties give tribes only the same chance to fish as everyone else, or a share of the fish?',
+    drivingFrame: 'This case is about what a treaty promise means and who manages a scarce resource. The State says it must give every citizen the same chance at the salmon. The tribes say they kept a right to the fish themselves when they gave up their land.',
+    drivingFrameSimple: 'The tribes gave up their land but kept the right to fish. The State says that means the same chance as everyone. The tribes say it means a real share of the fish.',
+    drivingFrameQuick: 'The tribes kept the right to fish. The State says that is the same chance as everyone. The tribes say it is a share of the fish.',
+    law: {
+        issue: 'Does a treaty right to take fish “in common with all citizens” mean an equal chance to fish, or a share of each run?',
+        issueSimple: 'Does “in common with all citizens” mean the same chance for everyone, or a real share for the tribes?',
+        issueQuick: 'Did the treaty promise a chance to fish, or a share of the fish?',
+        clause: 'The right of taking fish, at all usual and accustomed grounds and stations, is further secured to said Indians in common with all citizens of the Territory …',
+        clauseCite: 'Treaty of Medicine Creek (1854), Article 3; treaties are “the supreme Law of the Land” under Article VI',
+        plain: 'Tribes are sovereign nations, and these treaties were agreements between governments. Under Article VI, treaties made by the United States outrank state law. Both sides agree the tribes kept a right to fish at their usual places. The fight is over what “in common with all citizens” means: the same chance every newcomer has, or a share of the fish that the State must protect when it writes its rules.',
+        steps: [
+            { label: 'The rule:', text: 'Under Article VI, a treaty made by the United States is the supreme law of the land. States must follow it.' },
+            { label: 'The treaty words:', text: 'The tribes kept the right to fish at their usual places “in common with all citizens.”' },
+            { label: 'The State says:', text: 'Those words mean the same chance to fish as everyone else. The State must manage salmon for all.' },
+            { label: 'The tribes say:', text: 'Those words promised a real share of the fish. An equal chance left them about 2 percent.' },
+            { label: 'Your job:', text: 'Argue for one meaning of the treaty words. Do not argue about whether tribes deserve rights.' }
+        ],
+        stepsQuick: [
+            { label: 'The rule:', text: 'A treaty is the highest law. States must follow it.' },
+            { label: 'The words:', text: 'The tribes may fish “in common with” everyone.' },
+            { label: 'The State says:', text: 'That means the same chance for all.' },
+            { label: 'The tribes say:', text: 'That means a real share of the fish.' },
+            { label: 'Your job:', text: 'Pick one meaning and argue for it.' }
+        ],
+        terms: [
+            { term: 'treaty', meaning: 'A binding agreement between nations. Article VI makes treaties of the United States the supreme law of the land, above state law.', simple: 'A deal between nations. It outranks state law.', quick: 'A deal between nations.' },
+            { term: 'usual and accustomed places', meaning: 'The places where a tribe traditionally fished, on and off its reservation. The treaties protect fishing at these places.', simple: 'The places where a tribe has always fished.', quick: 'Where a tribe has always fished.' },
+            { term: 'trust responsibility', meaning: 'The legal duty of the United States to protect tribal lands, resources and treaty rights. It is why the United States sued on the tribes’ behalf.', simple: 'The duty of the United States to protect tribal rights. That is why it sued for the tribes.', quick: 'The job of the United States to protect tribal rights.' }
+        ]
+    },
+    tests: {
+        petitioner: {
+            title: 'Equal opportunity',
+            text: '“In common with all citizens” gives treaty fishers the same chance to fish at their usual places as anyone else, plus protection from being shut out. It does not promise a set share, and the State may manage the runs for every citizen.',
+            textSimple: 'The State’s rule: the treaty gives tribes the same chance to fish as everyone, not a set share. The State manages the fish for all.',
+            textQuick: 'The State wants this rule. Tribes get the same chance as everyone. No set share.'
+        },
+        respondent: {
+            title: 'A share of the fish',
+            text: 'The tribes kept a right to take fish, not just to try. Read as the tribes understood it in 1854–1855, the treaty secures a fair share of each run that passes their usual places, and the State must write its rules to protect that share.',
+            textSimple: 'The tribes’ rule: the treaty promised a real share of the fish, as the tribes understood it. The State must protect that share.',
+            textQuick: 'The tribes want this rule. The treaty promised them a real share of the fish.'
+        }
+    },
+    theorySamples: {
+        petitioner: [
+            'The State of Washington, its Departments of Fisheries and Game, and the non-Indian commercial fishers who depend on the runs.',
+            'After a federal judge in 1974 read the treaties to allow tribes up to half of the harvestable fish, the State’s own supreme court said its agency could not carry out that order.',
+            'Does “in common with all citizens” promise tribes a share of the fish, or the same chance every citizen has?',
+            'The treaty words describe a right held in common. The Fourteenth Amendment promises every citizen equal protection of the laws.',
+            'The Court should hold that the treaties guarantee tribes access and an equal opportunity to fish, not a fixed percentage.',
+            'Thousands of families earn a living from these runs, and the State must be able to manage them for everyone.'
+        ],
+        respondent: [
+            'Twenty treaty tribes, including the Nisqually, Puyallup, Makah and the Yakama Nation, with the United States as their trustee.',
+            'The tribes gave up most of their land in 1854–1855 and kept the right to fish. Under “equal opportunity,” they caught about 2 percent of the salmon and trout by 1974.',
+            'Did the tribes keep a right to take fish, or only a right to try?',
+            'Treaties are the supreme law of the land, and a treaty is read the way the tribes would have understood it.',
+            'The Court should hold that the treaties secure the tribes a fair share of each run that passes their usual places.',
+            'A promise of fish that leaves the tribes almost no fish is not a promise kept.'
+        ]
+    },
+    weighing: {
+        petitioner: [
+            'The treaty words say “in common with all citizens,” not “a share for the tribes.”',
+            'Over 6,600 non-Indian commercial fishers earned a living from the runs.',
+            'The State’s supreme court said special rights for one group violate equal protection.',
+            'Managing a scarce resource for conservation is a core state job.'
+        ],
+        respondent: [
+            'About three-fourths of the people in the region were Indians when the treaties were signed.',
+            'The treaties were explained in Chinook Jargon, about 300 words, so the tribes’ understanding should control.',
+            'Under the equal-chance rule, the tribes caught about 2 percent of the salmon and trout.',
+            'Article VI makes treaties the supreme law of the land, binding on state judges.'
+        ]
+    },
+    hardSide: null,
+    hotBench: [
+        { q: 'If “in common with” means equal shares, why didn’t the treaty just say “half”?', tip: 'Think about what the negotiators expected when fish were plentiful and settlers were few.' },
+        { q: 'The tribes are about 800 commercial fishers and the others are over 6,600. Why should the smaller group get up to half?', tip: 'The treaty right belongs to the tribes as nations, not to individual fishers counted one by one.' },
+        { q: 'Why shouldn’t a treaty word mean what a dictionary said it meant in 1854?', tip: 'Ask whose understanding matters when the treaty was explained in a 300-word trade language.' },
+        { q: 'If the State cannot manage its own fish, who protects the salmon runs?', tip: 'Both sides can agree on conservation. The question is who shares the fish that remain.' },
+        { q: 'Doesn’t a special right for one group violate equal protection?', tip: 'Tribes are nations with treaties, not just a group of citizens. Explain why that matters, or why it does not.' },
+        { q: 'The State’s own Fisheries Department offered one-third. Why isn’t that a fair compromise?', tip: 'Decide whether the treaty sets a number or a principle.' },
+        { q: 'May a state court refuse to follow a federal court’s reading of a treaty?', tip: 'Read Article VI closely: it speaks directly to state judges.' },
+        { q: 'Counsel, state the exact rule you want us to write. One sentence.', tip: 'Practice until you can say your test without notes.' }
+    ],
+    pair: {
+        other: 'Arizona v. United States',
+        href: 'arizona.html',
+        prompt: 'Both cases ask how far a state may go when federal law (or a federal treaty) covers the same ground. Who writes the rules in each case?'
+    },
+    sources: [
+        {
+            type: 'statute', typeLabel: 'Treaty',
+            title: 'Treaty of Medicine Creek, Article 3',
+            excerpt: '“The right of taking fish, at all usual and accustomed grounds and stations, is further secured to said Indians in common with all citizens of the Territory …”',
+            citation: 'Treaty of Medicine Creek, Dec. 26, 1854, art. 3 (transcript: HistoryLink.org Essay 5253).'
+        },
+        {
+            type: 'constitution', typeLabel: 'Constitution',
+            title: 'The Supremacy Clause',
+            excerpt: '“… all Treaties made, or which shall be made, under the Authority of the United States, shall be the supreme Law of the Land; and the Judges in every State shall be bound thereby …”',
+            citation: 'U.S. Const. art. VI, cl. 2.'
+        },
+        {
+            type: 'court', typeLabel: 'Lower court',
+            title: 'The Boldt decision (1974)',
+            excerpt: 'Judge Boldt wrote that “in common with” means “sharing equally the opportunity to take fish” at usual and accustomed places, so treaty fishers could take up to 50 percent of the harvestable fish.',
+            citation: 'United States v. Washington, 384 F. Supp. 312 (W.D. Wash. 1974).'
+        },
+        {
+            type: 'court', typeLabel: 'State court',
+            title: 'Washington Supreme Court (1977)',
+            excerpt: 'The state court held that the State’s fisheries agency could not carry out the federal order, and said recognizing special fishing rights for Indians would violate the Equal Protection Clause.',
+            citation: 'Puget Sound Gillnetters Ass’n v. Moos, 88 Wash. 2d 677 (1977).'
+        },
+        {
+            type: 'precedent', typeLabel: 'Earlier case',
+            title: 'United States v. Winans (1905)',
+            excerpt: 'The Supreme Court said a treaty with the Yakama was “not a grant of rights to the Indians, but a grant of right from them.”',
+            citation: 'United States v. Winans, 198 U.S. 371 (1905).'
+        },
+        {
+            type: 'historical', typeLabel: 'Treaty council',
+            title: 'What Governor Stevens said',
+            excerpt: 'At the Treaty of Point Elliott council on January 22, 1855, Stevens told the tribes: “We want to place you in homes where you can cultivate the soil, using potatoes and other articles of food, and where you will be able to pass in canoes over the waters of the Sound and catch fish and back to the mountains to get roots and berries.”',
+            citation: 'Treaty council record, Jan. 22, 1855, as found in United States v. Washington, 384 F. Supp. 312 (W.D. Wash. 1974).'
+        },
+        {
+            type: 'government', typeLabel: 'Court finding',
+            title: 'Who fishes for a living',
+            excerpt: 'By the early 1970s, over 6,600 non-Indian fishers and about 800 Indian fishers made their living from commercial fishing, and about 280,000 people held sport fishing licenses in Washington.',
+            citation: 'Findings in United States v. Washington, 384 F. Supp. 312 (W.D. Wash. 1974).'
+        },
+        {
+            type: 'court', typeLabel: 'Court finding',
+            title: 'The 2 percent',
+            excerpt: 'In 1974, before the Boldt order took effect and while the “equal opportunity” rule still applied, treaty tribes caught about 2 percent of the salmon and trout harvested in the treaty area.',
+            citation: 'United States v. Washington, 459 F. Supp. 1020, 1032 (W.D. Wash. 1978).'
+        },
+        {
+            type: 'court', typeLabel: 'Lower court',
+            title: 'Resistance to the federal order',
+            excerpt: 'A federal appeals court wrote in 1978: “The state’s extraordinary machinations in resisting the [1974] decree have forced the district court to take over a large share of the management of the state’s fishery in order to enforce its decrees.”',
+            citation: 'Puget Sound Gillnetters Ass’n v. United States District Court, 573 F.2d 1123 (9th Cir. 1978).'
+        }
+    ]
+};
+
